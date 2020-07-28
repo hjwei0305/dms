@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
  * 元素库(ElementLibrary)控制类
  *
  * @author sei
- * @since 2020-07-28 17:31:47
+ * @since 2020-07-28 23:24:31
  */
 @RestController
-@Api(value = "ElementLibraryApi", tags = "$tool.trim($!{tableInfo.comment})服务")
+@Api(value = "ElementLibraryApi", tags = "元素库服务")
 @RequestMapping(path = "elementLibrary", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ElementLibraryController extends BaseEntityController<ElementLibrary, ElementLibraryDto> implements ElementLibraryApi {
     /**

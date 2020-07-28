@@ -8,65 +8,65 @@ import io.swagger.annotations.ApiModelProperty;
  * 数据类型(DataType)DTO类
  *
  * @author sei
- * @since 2020-07-28 17:34:20
+ * @since 2020-07-28 23:24:02
  */
-@ApiModel(description = "$tool.trim($!{tableInfo.comment})DTO")
+@ApiModel(description = "数据类型DTO")
 public class DataTypeDto extends BaseEntityDto {
-    private static final long serialVersionUID = -39848755904743677L;
+    private static final long serialVersionUID = -85454311939923419L;
     /**
      * 标识符
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "标识符")
     private String code;
     /**
      * 名称
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "名称")
     private String name;
     /**
      * 长度
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "长度")
     private Integer dataLength;
     /**
      * 精度
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "精度")
     private Integer precision;
     /**
      * java类型
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "java类型")
     private String javaType;
     /**
      * mysql类型
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "mysql类型")
     private String mysqlType;
     /**
      * postgre类型
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "postgre类型")
     private String postgreType;
     /**
      * oracle类型
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "oracle类型")
     private String oracleType;
     /**
      * mssql类型
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "mssql类型")
     private String mssqlType;
     /**
      * 描述说明
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "描述说明")
     private String remark;
     /**
      * 冻结
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "冻结")
     private Boolean frozen;
 
 

@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
  * 数据源(DataSource)控制类
  *
  * @author sei
- * @since 2020-07-28 17:31:45
+ * @since 2020-07-28 23:24:27
  */
 @RestController
-@Api(value = "DataSourceApi", tags = "$tool.trim($!{tableInfo.comment})服务")
+@Api(value = "DataSourceApi", tags = "数据源服务")
 @RequestMapping(path = "dataSource", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class DataSourceController extends BaseEntityController<DataSource, DataSourceDto> implements DataSourceApi {
     /**

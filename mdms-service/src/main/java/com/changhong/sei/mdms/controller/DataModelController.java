@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
  * 数据模型(DataModel)控制类
  *
  * @author sei
- * @since 2020-07-28 17:31:41
+ * @since 2020-07-28 23:24:21
  */
 @RestController
-@Api(value = "DataModelApi", tags = "$tool.trim($!{tableInfo.comment})服务")
+@Api(value = "DataModelApi", tags = "数据模型服务")
 @RequestMapping(path = "dataModel", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class DataModelController extends BaseEntityController<DataModel, DataModelDto> implements DataModelApi {
     /**

@@ -40,7 +40,7 @@ public class DataModelType extends BaseAuditableEntity implements Serializable {
      * 层级
      */
     @Column(name = "node_level")
-    private Object nodeLevel;
+    private Integer nodeLevel;
     /**
      * 代码路径
      */
@@ -92,11 +92,11 @@ public class DataModelType extends BaseAuditableEntity implements Serializable {
         this.parentId = parentId;
     }
 
-    public Object getNodeLevel() {
+    public Integer getNodeLevel() {
         return nodeLevel;
     }
 
-    public void setNodeLevel(Object nodeLevel) {
+    public void setNodeLevel(Integer nodeLevel) {
         this.nodeLevel = nodeLevel;
     }
 

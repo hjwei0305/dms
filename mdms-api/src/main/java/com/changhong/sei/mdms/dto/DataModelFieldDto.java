@@ -8,70 +8,70 @@ import io.swagger.annotations.ApiModelProperty;
  * 模型字段(DataModelField)DTO类
  *
  * @author sei
- * @since 2020-07-28 17:34:07
+ * @since 2020-07-28 23:23:50
  */
-@ApiModel(description = "$tool.trim($!{tableInfo.comment})DTO")
+@ApiModel(description = "模型字段DTO")
 public class DataModelFieldDto extends BaseEntityDto {
-    private static final long serialVersionUID = -31098081062994540L;
+    private static final long serialVersionUID = 236468487525316233L;
     /**
      * 数据模型id
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "数据模型id")
     private String dataModelId;
     /**
      * 表名
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "表名")
     private String fieldName;
     /**
      * 描述说明
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "描述说明")
     private String remark;
     /**
      * 类型
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "类型")
     private String dataType;
     /**
      * 长度
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "长度")
     private Integer dataLength;
     /**
      * 精度
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "精度")
     private Integer precision;
     /**
      * 是否主键
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "是否主键")
     private Boolean primaryKey;
     /**
      * 是否为空
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "是否为空")
     private Boolean notNull;
     /**
      * 默认值
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "默认值")
     private String defaultValue;
     /**
      * 外键关联id
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "外键关联id")
     private String foreignKey;
     /**
      * 排序
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "排序")
     private Integer rank;
     /**
      * 是否发布
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "是否发布")
     private Boolean published;
 
 

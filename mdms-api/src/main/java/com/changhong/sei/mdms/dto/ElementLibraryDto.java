@@ -8,45 +8,45 @@ import io.swagger.annotations.ApiModelProperty;
  * 元素库(ElementLibrary)DTO类
  *
  * @author sei
- * @since 2020-07-28 17:34:24
+ * @since 2020-07-28 23:24:03
  */
-@ApiModel(description = "$tool.trim($!{tableInfo.comment})DTO")
+@ApiModel(description = "元素库DTO")
 public class ElementLibraryDto extends BaseEntityDto {
-    private static final long serialVersionUID = 570842453845939121L;
+    private static final long serialVersionUID = -48546848180891588L;
     /**
      * 代码
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "代码")
     private String code;
     /**
      * 名称
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "名称")
     private String name;
     /**
      * 类型
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "类型")
     private String dataType;
     /**
      * 长度
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "长度")
     private Integer dataLength;
     /**
      * 精度
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "精度")
     private Integer precision;
     /**
      * 备注
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "备注")
     private String remark;
     /**
      * 冻结
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "冻结")
     private Boolean frozen;
 
 

@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
  * 数据类型(DataType)控制类
  *
  * @author sei
- * @since 2020-07-28 17:31:46
+ * @since 2020-07-28 23:24:29
  */
 @RestController
-@Api(value = "DataTypeApi", tags = "$tool.trim($!{tableInfo.comment})服务")
+@Api(value = "DataTypeApi", tags = "数据类型服务")
 @RequestMapping(path = "dataType", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class DataTypeController extends BaseEntityController<DataType, DataTypeDto> implements DataTypeApi {
     /**

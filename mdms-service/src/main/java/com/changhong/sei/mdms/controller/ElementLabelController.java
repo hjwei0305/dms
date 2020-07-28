@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
  * 元素标签关系(ElementLabel)控制类
  *
  * @author sei
- * @since 2020-07-28 17:31:46
+ * @since 2020-07-28 23:24:30
  */
 @RestController
-@Api(value = "ElementLabelApi", tags = "$tool.trim($!{tableInfo.comment})服务")
+@Api(value = "ElementLabelApi", tags = "元素标签关系服务")
 @RequestMapping(path = "elementLabel", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ElementLabelController extends BaseEntityController<ElementLabel, ElementLabelDto> implements ElementLabelApi {
     /**

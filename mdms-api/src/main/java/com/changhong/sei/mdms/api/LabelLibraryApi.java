@@ -10,7 +10,7 @@ import javax.validation.Valid;
  * 标签库(LabelLibrary)API
  *
  * @author sei
- * @since 2020-07-28 17:34:28
+ * @since 2020-07-28 23:24:04
  * TODO @FeignClient(name = "请修改为项目服务名")
  */
 @Valid

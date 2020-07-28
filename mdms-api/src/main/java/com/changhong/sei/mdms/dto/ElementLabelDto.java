@@ -8,20 +8,20 @@ import io.swagger.annotations.ApiModelProperty;
  * 元素标签关系(ElementLabel)DTO类
  *
  * @author sei
- * @since 2020-07-28 17:34:22
+ * @since 2020-07-28 23:24:03
  */
-@ApiModel(description = "$tool.trim($!{tableInfo.comment})DTO")
+@ApiModel(description = "元素标签关系DTO")
 public class ElementLabelDto extends BaseEntityDto {
-    private static final long serialVersionUID = -42412647874545677L;
+    private static final long serialVersionUID = -18914596817958146L;
     /**
      * 元素id
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "元素id")
     private String elementId;
     /**
      * 标签id
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "标签id")
     private String labelId;
 
 

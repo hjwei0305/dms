@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
  * 标签库(LabelLibrary)控制类
  *
  * @author sei
- * @since 2020-07-28 17:31:48
+ * @since 2020-07-28 23:24:32
  */
 @RestController
-@Api(value = "LabelLibraryApi", tags = "$tool.trim($!{tableInfo.comment})服务")
+@Api(value = "LabelLibraryApi", tags = "标签库服务")
 @RequestMapping(path = "labelLibrary", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class LabelLibraryController extends BaseEntityController<LabelLibrary, LabelLibraryDto> implements LabelLibraryApi {
     /**

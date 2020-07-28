@@ -8,45 +8,45 @@ import io.swagger.annotations.ApiModelProperty;
  * 数据源(DataSource)DTO类
  *
  * @author sei
- * @since 2020-07-28 17:34:18
+ * @since 2020-07-28 23:24:02
  */
-@ApiModel(description = "$tool.trim($!{tableInfo.comment})DTO")
+@ApiModel(description = "数据源DTO")
 public class DataSourceDto extends BaseEntityDto {
-    private static final long serialVersionUID = 174411457182492042L;
+    private static final long serialVersionUID = -41971954355939764L;
     /**
      * 数据库名
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "数据库名")
     private String code;
     /**
      * 描述说明
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "描述说明")
     private String remark;
     /**
      * 数据库类型
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "数据库类型")
     private String dbType;
     /**
      * url
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "url")
     private String url;
     /**
      * 用户名
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "用户名")
     private String username;
     /**
      * 密码
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "密码")
     private Object password;
     /**
      * 冻结
      */
-    @ApiModelProperty(value = "$tool.trim(${column.comment})")
+    @ApiModelProperty(value = "冻结")
     private Boolean frozen;
 
 
