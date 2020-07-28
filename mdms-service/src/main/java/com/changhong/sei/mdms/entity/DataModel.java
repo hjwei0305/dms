@@ -50,8 +50,7 @@ public class DataModel extends BaseAuditableEntity implements Serializable {
      * 版本号
      */
     @Column(name = "version_")
-    private String version_;
-
+    private String version;
 
     public String getDsCode() {
         return dsCode;
@@ -93,12 +92,12 @@ public class DataModel extends BaseAuditableEntity implements Serializable {
         this.remark = remark;
     }
 
-    public String getVersion_() {
-        return version_;
+    public String getVersion() {
+        return version;
     }
 
-    public void setVersion_(String version_) {
-        this.version_ = version_;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
 }

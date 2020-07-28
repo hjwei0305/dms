@@ -55,7 +55,7 @@ public class ElementLibrary extends BaseAuditableEntity implements Serializable 
      * 冻结
      */
     @Column(name = "frozen")
-    private Boolean frozen;
+    private Boolean frozen = Boolean.FALSE;
 
 
     public String getCode() {

@@ -55,12 +55,12 @@ public class DataModelField extends BaseAuditableEntity implements Serializable 
      * 是否主键
      */
     @Column(name = "primary_key")
-    private Boolean primaryKey;
+    private Boolean primaryKey = Boolean.FALSE;
     /**
      * 是否为空
      */
     @Column(name = "not_null")
-    private Boolean notNull;
+    private Boolean notNull = Boolean.FALSE;
     /**
      * 默认值
      */
@@ -75,12 +75,12 @@ public class DataModelField extends BaseAuditableEntity implements Serializable 
      * 排序
      */
     @Column(name = "rank")
-    private Integer rank;
+    private Integer rank = 0;
     /**
      * 是否发布
      */
     @Column(name = "published")
-    private Boolean published;
+    private Boolean published = Boolean.FALSE;
 
 
     public String getDataModelId() {

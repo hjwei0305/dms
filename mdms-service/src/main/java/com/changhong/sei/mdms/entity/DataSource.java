@@ -4,9 +4,7 @@ import com.changhong.sei.core.entity.BaseAuditableEntity;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -49,8 +47,10 @@ public class DataSource extends BaseAuditableEntity implements Serializable {
     /**
      * 密码
      */
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "password")
-    private Object password;
+    private Byte[] password;
     /**
      * 冻结
      */
@@ -98,11 +98,11 @@ public class DataSource extends BaseAuditableEntity implements Serializable {
         this.username = username;
     }
 
-    public Object getPassword() {
+    public Byte[] getPassword() {
         return password;
     }
 
-    public void setPassword(Object password) {
+    public void setPassword(Byte[] password) {
         this.password = password;
     }
 
