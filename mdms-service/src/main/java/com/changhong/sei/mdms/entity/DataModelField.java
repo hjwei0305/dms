@@ -49,7 +49,7 @@ public class DataModelField extends BaseAuditableEntity implements Serializable 
     /**
      * 精度
      */
-    @Column(name = "precision")
+    @Column(name = "decimal_places")
     private Integer precision;
     /**
      * 是否主键

@@ -40,7 +40,7 @@ public class DataType extends BaseAuditableEntity implements Serializable, ICode
     /**
      * 精度
      */
-    @Column(name = "precision")
+    @Column(name = "decimal_places")
     private Integer precision;
     /**
      * java类型

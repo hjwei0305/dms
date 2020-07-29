@@ -45,7 +45,7 @@ public class ElementLibrary extends BaseAuditableEntity implements Serializable,
     /**
      * 精度
      */
-    @Column(name = "precision")
+    @Column(name = "precision_")
     private Integer precision;
     /**
      * 备注
