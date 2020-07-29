@@ -1,6 +1,7 @@
 package com.changhong.sei.mdms.entity;
 
 import com.changhong.sei.core.entity.BaseAuditableEntity;
+import com.changhong.sei.core.entity.ICodeUnique;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -19,7 +20,7 @@ import java.io.Serializable;
 @Table(name = "label_library")
 @DynamicInsert
 @DynamicUpdate
-public class LabelLibrary extends BaseAuditableEntity implements Serializable {
+public class LabelLibrary extends BaseAuditableEntity implements Serializable, ICodeUnique {
     private static final long serialVersionUID = 726975922637160989L;
     /**
      * 标识符
@@ -53,10 +54,12 @@ public class LabelLibrary extends BaseAuditableEntity implements Serializable {
     private Boolean frozen = Boolean.FALSE;
 
 
+    @Override
     public String getCode() {
         return code;
     }
 
+    @Override
     public void setCode(String code) {
         this.code = code;
     }

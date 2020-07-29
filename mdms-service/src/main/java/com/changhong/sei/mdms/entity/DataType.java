@@ -1,6 +1,7 @@
 package com.changhong.sei.mdms.entity;
 
 import com.changhong.sei.core.entity.BaseAuditableEntity;
+import com.changhong.sei.core.entity.ICodeUnique;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -19,7 +20,7 @@ import java.io.Serializable;
 @Table(name = "data_type")
 @DynamicInsert
 @DynamicUpdate
-public class DataType extends BaseAuditableEntity implements Serializable {
+public class DataType extends BaseAuditableEntity implements Serializable, ICodeUnique {
     private static final long serialVersionUID = 524019926391293272L;
     /**
      * 标识符
@@ -78,10 +79,12 @@ public class DataType extends BaseAuditableEntity implements Serializable {
     private Boolean frozen = Boolean.FALSE;
 
 
+    @Override
     public String getCode() {
         return code;
     }
 
+    @Override
     public void setCode(String code) {
         this.code = code;
     }

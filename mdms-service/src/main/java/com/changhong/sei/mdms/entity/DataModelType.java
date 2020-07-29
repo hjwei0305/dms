@@ -1,6 +1,7 @@
 package com.changhong.sei.mdms.entity;
 
 import com.changhong.sei.core.entity.BaseAuditableEntity;
+import com.changhong.sei.core.entity.ICodeUnique;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -19,7 +20,7 @@ import java.io.Serializable;
 @Table(name = "data_model_type")
 @DynamicInsert
 @DynamicUpdate
-public class DataModelType extends BaseAuditableEntity implements Serializable {
+public class DataModelType extends BaseAuditableEntity implements Serializable, ICodeUnique {
     private static final long serialVersionUID = -66819700772165553L;
     /**
      * 标识符
@@ -40,7 +41,7 @@ public class DataModelType extends BaseAuditableEntity implements Serializable {
      * 层级
      */
     @Column(name = "node_level")
-    private Integer nodeLevel;
+    private Integer nodeLevel = 0;
     /**
      * 代码路径
      */
@@ -55,7 +56,7 @@ public class DataModelType extends BaseAuditableEntity implements Serializable {
      * 排序
      */
     @Column(name = "rank")
-    private Integer rank;
+    private Integer rank = 0;
     /**
      * 描述说明
      */
@@ -65,13 +66,15 @@ public class DataModelType extends BaseAuditableEntity implements Serializable {
      * 冻结
      */
     @Column(name = "frozen")
-    private Boolean frozen;
+    private Boolean frozen = Boolean.FALSE;
 
 
+    @Override
     public String getCode() {
         return code;
     }
 
+    @Override
     public void setCode(String code) {
         this.code = code;
     }
