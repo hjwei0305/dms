@@ -1,6 +1,7 @@
 package com.changhong.sei.mdms.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
+import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.mdms.dto.LabelLibraryDto;
 import org.springframework.cloud.openfeign.FeignClient;
 
@@ -15,6 +16,6 @@ import javax.validation.Valid;
  */
 @Valid
 @FeignClient(name = "mdms", path = "labelLibrary")
-public interface LabelLibraryApi extends BaseEntityApi<LabelLibraryDto> {
+public interface LabelLibraryApi extends BaseEntityApi<LabelLibraryDto>, FindByPageApi<LabelLibraryDto> {
 
 }

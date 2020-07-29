@@ -1,6 +1,9 @@
 package com.changhong.sei.mdms.controller;
 
 import com.changhong.sei.core.controller.BaseEntityController;
+import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.mdms.api.LabelLibraryApi;
 import com.changhong.sei.mdms.dto.LabelLibraryDto;
@@ -33,4 +36,14 @@ public class LabelLibraryController extends BaseEntityController<LabelLibrary, L
         return service;
     }
 
+    /**
+     * 分页查询业务实体
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<LabelLibraryDto>> findByPage(Search search) {
+        return convertToDtoPageResult(service.findByPage(search));
+    }
 }

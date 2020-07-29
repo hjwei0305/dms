@@ -1,6 +1,7 @@
 package com.changhong.sei.mdms.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
+import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.mdms.dto.DataModelFieldDto;
 import org.springframework.cloud.openfeign.FeignClient;
 
@@ -15,6 +16,6 @@ import javax.validation.Valid;
  */
 @Valid
 @FeignClient(name = "mdms", path = "dataModelField")
-public interface DataModelFieldApi extends BaseEntityApi<DataModelFieldDto> {
+public interface DataModelFieldApi extends BaseEntityApi<DataModelFieldDto>, FindByPageApi<DataModelFieldDto> {
 
 }

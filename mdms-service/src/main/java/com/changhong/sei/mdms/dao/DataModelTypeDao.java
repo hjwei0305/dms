@@ -1,6 +1,7 @@
 package com.changhong.sei.mdms.dao;
 
 import com.changhong.sei.core.dao.BaseEntityDao;
+import com.changhong.sei.core.dao.BaseTreeDao;
 import com.changhong.sei.mdms.entity.DataModelType;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,6 @@ import org.springframework.stereotype.Repository;
  * @since 2020-07-28 17:31:43
  */
 @Repository
-public interface DataModelTypeDao extends BaseEntityDao<DataModelType> {
+public interface DataModelTypeDao extends BaseTreeDao<DataModelType> {
 
 }

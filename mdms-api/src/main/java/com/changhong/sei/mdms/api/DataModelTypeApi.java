@@ -1,6 +1,8 @@
 package com.changhong.sei.mdms.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
+import com.changhong.sei.core.api.BaseTreeApi;
+import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.mdms.dto.DataModelTypeDto;
 import org.springframework.cloud.openfeign.FeignClient;
 
@@ -15,6 +17,6 @@ import javax.validation.Valid;
  */
 @Valid
 @FeignClient(name = "mdms", path = "dataModelType")
-public interface DataModelTypeApi extends BaseEntityApi<DataModelTypeDto> {
+public interface DataModelTypeApi extends BaseEntityApi<DataModelTypeDto>, BaseTreeApi<DataModelTypeDto> {
 
 }

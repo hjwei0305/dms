@@ -1,7 +1,7 @@
 package com.changhong.sei.mdms.controller;
 
-import com.changhong.sei.core.controller.BaseEntityController;
-import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.core.controller.BaseTreeController;
+import com.changhong.sei.core.service.BaseTreeService;
 import com.changhong.sei.mdms.api.DataModelTypeApi;
 import com.changhong.sei.mdms.dto.DataModelTypeDto;
 import com.changhong.sei.mdms.entity.DataModelType;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(value = "DataModelTypeApi", tags = "数据模型分类服务")
 @RequestMapping(path = "dataModelType", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class DataModelTypeController extends BaseEntityController<DataModelType, DataModelTypeDto> implements DataModelTypeApi {
+public class DataModelTypeController extends BaseTreeController<DataModelType, DataModelTypeDto> implements DataModelTypeApi {
     /**
      * 数据模型分类服务对象
      */
@@ -29,7 +29,7 @@ public class DataModelTypeController extends BaseEntityController<DataModelType,
     private DataModelTypeService service;
 
     @Override
-    public BaseEntityService<DataModelType> getService() {
+    public BaseTreeService<DataModelType> getService() {
         return service;
     }
 

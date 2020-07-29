@@ -1,6 +1,9 @@
 package com.changhong.sei.mdms.controller;
 
 import com.changhong.sei.core.controller.BaseEntityController;
+import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.mdms.api.DataTypeApi;
 import com.changhong.sei.mdms.dto.DataTypeDto;
@@ -33,4 +36,14 @@ public class DataTypeController extends BaseEntityController<DataType, DataTypeD
         return service;
     }
 
+    /**
+     * 分页查询业务实体
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<DataTypeDto>> findByPage(Search search) {
+        return convertToDtoPageResult(service.findByPage(search));
+    }
 }
