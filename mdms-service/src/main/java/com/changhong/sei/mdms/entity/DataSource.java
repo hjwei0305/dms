@@ -46,7 +46,7 @@ public class DataSource extends BaseAuditableEntity implements Serializable, ICo
      * 端口
      */
     @Column(name = "port")
-    private String port;
+    private Integer port;
     /**
      * url
      * 根据类型拼接
@@ -100,11 +100,11 @@ public class DataSource extends BaseAuditableEntity implements Serializable, ICo
         this.host = host;
     }
 
-    public String getPort() {
+    public Integer getPort() {
         return port;
     }
 
-    public void setPort(String port) {
+    public void setPort(Integer port) {
         this.port = port;
     }
 

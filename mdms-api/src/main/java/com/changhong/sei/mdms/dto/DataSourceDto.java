@@ -27,7 +27,17 @@ public class DataSourceDto extends BaseEntityDto {
      * 数据库类型
      */
     @ApiModelProperty(value = "数据库类型")
-    private String dbType;
+    private DBType dbType;
+    /**
+     * 主机地址
+     */
+    @ApiModelProperty(value = "主机地址")
+    private String host = "127.0.0.1";
+    /**
+     * 端口
+     */
+    @ApiModelProperty(value = "端口")
+    private Integer port;
     /**
      * url
      */
@@ -66,12 +76,28 @@ public class DataSourceDto extends BaseEntityDto {
         this.remark = remark;
     }
 
-    public String getDbType() {
+    public DBType getDbType() {
         return dbType;
     }
 
-    public void setDbType(String dbType) {
+    public void setDbType(DBType dbType) {
         this.dbType = dbType;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
     }
 
     public String getUrl() {

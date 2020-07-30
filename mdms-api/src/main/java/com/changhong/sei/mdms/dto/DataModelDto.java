@@ -4,6 +4,8 @@ import com.changhong.sei.core.dto.BaseEntityDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.List;
+
 /**
  * 数据模型(DataModel)DTO类
  *
@@ -42,8 +44,17 @@ public class DataModelDto extends BaseEntityDto {
      * 版本号
      */
     @ApiModelProperty(value = "版本号")
-    private String version_;
-
+    private Integer version = 0;
+    /**
+     * 是否有修改未发布的模型字段
+     */
+    @ApiModelProperty(value = "没有修改未发布的模型字段")
+    private Boolean published = Boolean.FALSE;
+    /**
+     * 模型字段清单
+     */
+    @ApiModelProperty(value = "模型字段清单")
+    private List<DataModelFieldDto> fields;
 
     public String getDsCode() {
         return dsCode;
@@ -85,12 +96,27 @@ public class DataModelDto extends BaseEntityDto {
         this.remark = remark;
     }
 
-    public String getVersion_() {
-        return version_;
+    public Integer getVersion() {
+        return version;
     }
 
-    public void setVersion_(String version_) {
-        this.version_ = version_;
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
+    public Boolean getPublished() {
+        return published;
+    }
+
+    public void setPublished(Boolean published) {
+        this.published = published;
+    }
+
+    public List<DataModelFieldDto> getFields() {
+        return fields;
+    }
+
+    public void setFields(List<DataModelFieldDto> fields) {
+        this.fields = fields;
+    }
 }

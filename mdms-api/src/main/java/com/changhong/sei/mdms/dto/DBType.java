@@ -20,7 +20,7 @@ public enum DBType implements Serializable {
     @Remark("Oracle")
     ORACLE(1521,"jdbc:oracle:thin:@{host}:{port}:{database}"),
     @Remark("SQL SERVER")
-    SQLSERVER(1433, "jdbc:sqlserver://{host}:port;database={database}")
+    SQLSERVER(1433, "jdbc:sqlserver://{host}:{port};database={database}")
     ;
 
     private int port = -1;
