@@ -4,6 +4,8 @@ import com.changhong.sei.core.dto.BaseEntityDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.List;
+
 /**
  * 数据模型分类(DataModelType)DTO类
  *
@@ -58,7 +60,7 @@ public class DataModelTypeDto extends BaseEntityDto {
      */
     @ApiModelProperty(value = "冻结")
     private Boolean frozen;
-
+    private List<DataModelTypeDto> children;
 
     public String getCode() {
         return code;
@@ -132,4 +134,11 @@ public class DataModelTypeDto extends BaseEntityDto {
         this.frozen = frozen;
     }
 
+    public List<DataModelTypeDto> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<DataModelTypeDto> children) {
+        this.children = children;
+    }
 }

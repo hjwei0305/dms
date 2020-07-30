@@ -52,7 +52,7 @@ public class DataSourceDto extends BaseEntityDto {
      * 密码
      */
     @ApiModelProperty(value = "密码")
-    private Object password;
+    private String password;
     /**
      * 冻结
      */
@@ -116,11 +116,11 @@ public class DataSourceDto extends BaseEntityDto {
         this.username = username;
     }
 
-    public Object getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(Object password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

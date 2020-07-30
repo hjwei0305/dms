@@ -64,6 +64,11 @@ public class DataTypeDto extends BaseEntityDto {
     @ApiModelProperty(value = "描述说明")
     private String remark;
     /**
+     * 是否为系统级数据
+     */
+    @ApiModelProperty(value = "是否为系统级数据")
+    private Boolean system;
+    /**
      * 冻结
      */
     @ApiModelProperty(value = "冻结")
@@ -148,6 +153,14 @@ public class DataTypeDto extends BaseEntityDto {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Boolean getSystem() {
+        return system;
+    }
+
+    public void setSystem(Boolean system) {
+        this.system = system;
     }
 
     public Boolean getFrozen() {

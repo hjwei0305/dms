@@ -1,16 +1,12 @@
 package com.changhong.sei.mdms.controller;
 
 import com.changhong.sei.core.dto.ResultData;
-import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.core.test.BaseUnitTest;
 import com.changhong.sei.mdms.dto.DataModelTypeDto;
-import com.changhong.sei.mdms.entity.DataModelType;
-import com.changhong.sei.mdms.entity.LabelLibrary;
-import com.changhong.sei.mdms.service.LabelLibraryService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 /**
  * 实现功能：
@@ -21,6 +17,12 @@ import static org.junit.Assert.*;
 public class DataModelTypeControllerTest extends BaseUnitTest {
     @Autowired
     private DataModelTypeController controller;
+
+    @Test
+    public void getModelTypeTree() {
+        ResultData<List<DataModelTypeDto>> resultData = controller.getModelTypeTree();
+        System.out.println(resultData);
+    }
 
     @Test
     public void save() {
