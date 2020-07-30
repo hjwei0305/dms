@@ -1,11 +1,12 @@
 package com.changhong.sei.mdms.entity;
 
 import com.changhong.sei.core.entity.BaseAuditableEntity;
-import com.changhong.sei.mdms.dto.DBType;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -25,12 +26,6 @@ public class DataModel extends BaseAuditableEntity implements Serializable {
      */
     @Column(name = "ds_id")
     private String dsId;
-    /**
-     * 数据库类型
-     */
-    @Enumerated(EnumType.STRING)
-    @Column(name = "db_type")
-    private DBType dbType;
     /**
      * 表名
      */
@@ -63,14 +58,6 @@ public class DataModel extends BaseAuditableEntity implements Serializable {
 
     public void setDsId(String dsId) {
         this.dsId = dsId;
-    }
-
-    public DBType getDbType() {
-        return dbType;
-    }
-
-    public void setDbType(DBType dbType) {
-        this.dbType = dbType;
     }
 
     public String getTableName() {

@@ -38,7 +38,7 @@ public class DataModelService extends BaseEntityService<DataModel> {
     /**
      * 数据保存操作
      *
-     * @param entity
+     * @param entity 模型
      */
     @Override
     public OperateResultWithData<DataModel> save(DataModel entity) {
@@ -50,11 +50,7 @@ public class DataModelService extends BaseEntityService<DataModel> {
             idField.setDataModelId(dataModel.getId());
             idField.setFieldName("id");
             idField.setRemark("主键id");
-            if (Objects.equals(DBType.ORACLE, dataModel.getDbType())) {
-                idField.setDataType("VARCHAR2");
-            } else {
-                idField.setDataType("VARCHAR");
-            }
+            idField.setDataType("IdOrKey");
             idField.setDataLength(36);
             idField.setPrimaryKey(Boolean.TRUE);
             idField.setNotNull(Boolean.TRUE);
@@ -84,7 +80,7 @@ public class DataModelService extends BaseEntityService<DataModel> {
      * @param modelId 数据模型id
      * @return 返回操作结果
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultData<Void> addAuditFields(String modelId) {
         return null;
     }
@@ -95,7 +91,7 @@ public class DataModelService extends BaseEntityService<DataModel> {
      * @param fieldDtos 数据模型字段dto
      * @return 返回操作结果
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultData<Void> saveModelFields(List<DataModelField> fieldDtos) {
         return null;
     }
@@ -106,7 +102,7 @@ public class DataModelService extends BaseEntityService<DataModel> {
      * @param fieldIds 删除的数据模型字段id清单
      * @return 返回操作结果
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public ResultData<Void> deleteModelFields(List<String> fieldIds) {
         return null;
     }
