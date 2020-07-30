@@ -75,7 +75,7 @@ public class DataType extends BaseAuditableEntity implements Serializable, ICode
     /**
      * 是否为系统级数据
      */
-    @Column(name = "system")
+    @Column(name = "system_")
     private Boolean system = Boolean.FALSE;
     /**
      * 冻结
