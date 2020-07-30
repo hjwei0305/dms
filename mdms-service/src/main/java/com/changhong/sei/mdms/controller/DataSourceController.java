@@ -26,6 +26,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -87,9 +88,10 @@ public class DataSourceController implements DefaultBaseController<DataSource, D
         DataSource entity = convertToEntity(dto);
         OperateResultWithData<DataSource> result;
         try {
-            byte[] password;
             if (StringUtils.isNotEmpty(dto.getPassword())) {
-                password = Base64.decodeBase64(dto.getPassword());
+                byte[] password;
+//                password = Base64.decodeBase64(dto.getPassword());
+                password = dto.getPassword().getBytes(StandardCharsets.UTF_8);
                 // 更新密码
                 entity.setPassword(password);
             } else {
@@ -103,7 +105,7 @@ public class DataSourceController implements DefaultBaseController<DataSource, D
                 }
             }
 
-            result = getService().save(entity);
+            result = service.save(entity);
         } catch (Exception e) {
             // 捕获异常，并返回
             LogUtil.error("保存业务实体异常！", e);

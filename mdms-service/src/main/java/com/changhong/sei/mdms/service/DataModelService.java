@@ -14,8 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -176,12 +175,73 @@ public class DataModelService extends BaseEntityService<DataModel> {
     /**
      * 添加数据模型字段
      *
-     * @param fieldDtos 数据模型字段dto
+     * @param fields 数据模型字段集合
      * @return 返回操作结果
      */
     @Transactional(rollbackFor = Exception.class)
-    public ResultData<String> saveModelFields(List<DataModelField> fieldDtos) {
-        return null;
+    public ResultData<String> saveModelFields(List<DataModelField> fields) {
+        if (CollectionUtils.isEmpty(fields)) {
+            return ResultData.fail("数据模型字段添加失败,参数不能为空.");
+        }
+
+        String modelId;
+        List<DataModelField> fieldList;
+        Map<String, List<DataModelField>> dataMap = new HashMap<>();
+        for (DataModelField field : fields) {
+            if (Objects.isNull(field)) {
+                continue;
+            }
+            modelId = field.getDataModelId();
+            fieldList = dataMap.get(modelId);
+            if (Objects.isNull(fieldList)) {
+                fieldList = new ArrayList<>();
+            }
+            fieldList.add(field);
+            dataMap.put(modelId, fieldList);
+        }
+
+        ResultData<String> resultData;
+        for (Map.Entry<String, List<DataModelField>> entry : dataMap.entrySet()) {
+            resultData = saveFields(entry.getKey(), entry.getValue());
+            if (resultData.failed()) {
+                throw new ServiceException(resultData.getMessage());
+            }
+        }
+        return ResultData.success("ok");
+    }
+
+    /**
+     * 按数据模型批量保存模型字段
+     *
+     * @param dataModelId 数据模型id
+     * @param fields      模型字段
+     * @return 返回操作结果
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public ResultData<String> saveFields(String dataModelId, List<DataModelField> fields) {
+        if (StringUtils.isBlank(dataModelId)) {
+            return ResultData.fail("数据模型id不能为空.");
+        }
+        if (CollectionUtils.isEmpty(fields)) {
+            return ResultData.fail("模型字段不能为空.");
+        }
+
+        DataModel dataModel = dao.findOne(dataModelId);
+        if (Objects.isNull(dataModel)) {
+            return ResultData.fail("未找到对应的数据模型 id = [" + dataModelId + "]");
+        }
+        List<DataModelField> originFields = fieldService.findByDataModelId(dataModelId);
+        if (CollectionUtils.isEmpty(originFields)) {
+            fieldService.save(fields);
+        } else {
+            // step1.处理删除的
+
+            // step2.处理修改的
+
+            // step3.处理新增的
+
+        }
+        return ResultData.success("ok");
     }
 
     /**
