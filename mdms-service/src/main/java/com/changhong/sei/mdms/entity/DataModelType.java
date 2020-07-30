@@ -1,5 +1,6 @@
 package com.changhong.sei.mdms.entity;
 
+import com.changhong.sei.core.dto.IRank;
 import com.changhong.sei.core.dto.TreeEntity;
 import com.changhong.sei.core.entity.BaseAuditableEntity;
 import com.changhong.sei.core.entity.ICodeUnique;
@@ -23,7 +24,7 @@ import java.util.List;
 @Table(name = "data_model_type")
 @DynamicInsert
 @DynamicUpdate
-public class DataModelType extends BaseAuditableEntity implements Serializable, TreeEntity<DataModelType>, ICodeUnique {
+public class DataModelType extends BaseAuditableEntity implements Serializable, TreeEntity<DataModelType>, ICodeUnique, IRank {
     private static final long serialVersionUID = -66819700772165553L;
     /**
      * 标识符

@@ -1,16 +1,21 @@
 package com.changhong.sei.mdms.controller;
 
 import com.changhong.sei.core.controller.BaseTreeController;
+import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseTreeService;
 import com.changhong.sei.mdms.api.DataModelTypeApi;
 import com.changhong.sei.mdms.dto.DataModelTypeDto;
 import com.changhong.sei.mdms.entity.DataModelType;
 import com.changhong.sei.mdms.service.DataModelTypeService;
 import io.swagger.annotations.Api;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 数据模型分类(DataModelType)控制类
@@ -33,4 +38,22 @@ public class DataModelTypeController extends BaseTreeController<DataModelType, D
         return service;
     }
 
+    /**
+     * 获取数据模型类型的树
+     *
+     * @return 获取数据模型类型的树
+     */
+    @Override
+    public ResultData<List<DataModelTypeDto>> getModelTypeTree() {
+        List<DataModelTypeDto> tree = new LinkedList<>();
+        List<DataModelType> roots = service.getAllRootNode();
+        if (CollectionUtils.isNotEmpty(roots)) {
+            for (DataModelType root : roots) {
+                DataModelType node = service.getTree(root.getId());
+                tree.add(convertToDto(node));
+            }
+        }
+
+        return ResultData.success(tree);
+    }
 }
