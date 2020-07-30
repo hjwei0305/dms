@@ -4,6 +4,8 @@ import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.mdms.entity.DataModelField;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 模型字段(DataModelField)数据库访问类
  *
@@ -13,4 +15,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DataModelFieldDao extends BaseEntityDao<DataModelField> {
 
+    /**
+     * 按数据模型id查询模型字段
+     *
+     * @param dataModelId 数据模型id
+     * @return 返回指定模型id的字段清单
+     */
+    List<DataModelField> findByDataModelId(String dataModelId);
 }

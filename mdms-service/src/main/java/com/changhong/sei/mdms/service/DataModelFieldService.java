@@ -7,6 +7,8 @@ import com.changhong.sei.mdms.entity.DataModelField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * 模型字段(DataModelField)业务逻辑实现类
@@ -24,4 +26,13 @@ public class DataModelFieldService extends BaseEntityService<DataModelField> {
         return dao;
     }
 
+    /**
+     * 按数据模型id查询模型字段
+     *
+     * @param dataModelId 数据模型id
+     * @return 返回指定模型id的字段清单
+     */
+    public List<DataModelField> findByDataModelId(String dataModelId) {
+        return dao.findByDataModelId(dataModelId);
+    }
 }

@@ -6,15 +6,16 @@ import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.exception.ServiceException;
 import com.changhong.sei.mdms.dao.DataModelDao;
-import com.changhong.sei.mdms.dto.DBType;
 import com.changhong.sei.mdms.entity.DataModel;
 import com.changhong.sei.mdms.entity.DataModelField;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 
 /**
@@ -36,6 +37,16 @@ public class DataModelService extends BaseEntityService<DataModel> {
     }
 
     /**
+     * 根据数据模型id获取模型字段清单
+     *
+     * @param modelId 数据模型id
+     * @return 返回自定的模型字段清单
+     */
+    public List<DataModelField> getDataModelFields(String modelId) {
+        return fieldService.findByDataModelId(modelId);
+    }
+
+    /**
      * 数据保存操作
      *
      * @param entity 模型
@@ -50,7 +61,9 @@ public class DataModelService extends BaseEntityService<DataModel> {
             idField.setDataModelId(dataModel.getId());
             idField.setFieldName("id");
             idField.setRemark("主键id");
+            // {@link init_data.sql}
             idField.setDataType("IdOrKey");
+            idField.setDataTypeDesc("ID标识号");
             idField.setDataLength(36);
             idField.setPrimaryKey(Boolean.TRUE);
             idField.setNotNull(Boolean.TRUE);
@@ -65,24 +78,99 @@ public class DataModelService extends BaseEntityService<DataModel> {
     }
 
     /**
-     * 根据数据模型id获取模型字段清单
-     *
-     * @param modelId 数据模型id
-     * @return 返回自定的模型字段清单
-     */
-    public List<DataModelField> getDataModelFields(String modelId) {
-        return null;
-    }
-
-    /**
      * 添加默认审计字段
      *
      * @param modelId 数据模型id
      * @return 返回操作结果
      */
     @Transactional(rollbackFor = Exception.class)
-    public ResultData<Void> addAuditFields(String modelId) {
-        return null;
+    public ResultData<String> addAuditFields(String modelId) {
+        if (StringUtils.isNotEmpty(modelId)) {
+            DataModelField modelField;
+            List<DataModelField> fields = new LinkedList<>();
+            modelField = new DataModelField();
+            modelField.setDataModelId(modelId);
+            modelField.setFieldName("creator_id");
+            modelField.setRemark("创建者");
+            // {@link init_data.sql}
+            modelField.setDataType("ShortString");
+            modelField.setDataTypeDesc("字串-短");
+            modelField.setDataLength(56);
+            fields.add(modelField);
+
+            modelField = new DataModelField();
+            modelField.setDataModelId(modelId);
+            modelField.setFieldName("creator_account");
+            modelField.setRemark("创建者账号");
+            // {@link init_data.sql}
+            modelField.setDataType("ShortString");
+            modelField.setDataTypeDesc("字串-短");
+            modelField.setDataLength(56);
+            fields.add(modelField);
+
+            modelField = new DataModelField();
+            modelField.setDataModelId(modelId);
+            modelField.setFieldName("creator_name");
+            modelField.setRemark("创建者名称");
+            // {@link init_data.sql}
+            modelField.setDataType("ShortString");
+            modelField.setDataTypeDesc("字串-短");
+            modelField.setDataLength(56);
+            fields.add(modelField);
+
+            modelField = new DataModelField();
+            modelField.setDataModelId(modelId);
+            modelField.setFieldName("created_date");
+            modelField.setRemark("创建时间");
+            // {@link init_data.sql}
+            modelField.setDataType("DateTime");
+            modelField.setDataTypeDesc("日期时间");
+            fields.add(modelField);
+
+
+            modelField = new DataModelField();
+            modelField.setDataModelId(modelId);
+            modelField.setFieldName("last_editor_id");
+            modelField.setRemark("创建者");
+            // {@link init_data.sql}
+            modelField.setDataType("ShortString");
+            modelField.setDataTypeDesc("字串-短");
+            modelField.setDataLength(56);
+            fields.add(modelField);
+
+            modelField = new DataModelField();
+            modelField.setDataModelId(modelId);
+            modelField.setFieldName("last_editor_account");
+            modelField.setRemark("创建者账号");
+            // {@link init_data.sql}
+            modelField.setDataType("ShortString");
+            modelField.setDataTypeDesc("字串-短");
+            modelField.setDataLength(56);
+            fields.add(modelField);
+
+            modelField = new DataModelField();
+            modelField.setDataModelId(modelId);
+            modelField.setFieldName("last_editor_name");
+            modelField.setRemark("创建者名称");
+            // {@link init_data.sql}
+            modelField.setDataType("ShortString");
+            modelField.setDataTypeDesc("字串-短");
+            modelField.setDataLength(56);
+            fields.add(modelField);
+
+            modelField = new DataModelField();
+            modelField.setDataModelId(modelId);
+            modelField.setFieldName("last_edited_date");
+            modelField.setRemark("创建时间");
+            // {@link init_data.sql}
+            modelField.setDataType("DateTime");
+            modelField.setDataTypeDesc("日期时间");
+            fields.add(modelField);
+
+            fieldService.save(fields);
+            return ResultData.success("ok");
+        }
+        return ResultData.fail("数据模型id不能为空.");
     }
 
     /**
@@ -92,7 +180,7 @@ public class DataModelService extends BaseEntityService<DataModel> {
      * @return 返回操作结果
      */
     @Transactional(rollbackFor = Exception.class)
-    public ResultData<Void> saveModelFields(List<DataModelField> fieldDtos) {
+    public ResultData<String> saveModelFields(List<DataModelField> fieldDtos) {
         return null;
     }
 
@@ -103,7 +191,12 @@ public class DataModelService extends BaseEntityService<DataModel> {
      * @return 返回操作结果
      */
     @Transactional(rollbackFor = Exception.class)
-    public ResultData<Void> deleteModelFields(List<String> fieldIds) {
-        return null;
+    public ResultData<String> deleteModelFields(List<String> fieldIds) {
+        if (CollectionUtils.isNotEmpty(fieldIds)) {
+            fieldService.delete(fieldIds);
+            return ResultData.success("ok");
+        } else {
+            return ResultData.fail("参数不能为空.");
+        }
     }
 }

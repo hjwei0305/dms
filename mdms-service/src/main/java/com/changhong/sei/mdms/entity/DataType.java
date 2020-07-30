@@ -73,11 +73,15 @@ public class DataType extends BaseAuditableEntity implements Serializable, ICode
     @Column(name = "remark")
     private String remark;
     /**
+     * 是否为系统级数据
+     */
+    @Column(name = "system")
+    private Boolean system = Boolean.FALSE;
+    /**
      * 冻结
      */
     @Column(name = "frozen")
     private Boolean frozen = Boolean.FALSE;
-
 
     @Override
     public String getCode() {
@@ -159,6 +163,14 @@ public class DataType extends BaseAuditableEntity implements Serializable, ICode
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Boolean getSystem() {
+        return system;
+    }
+
+    public void setSystem(Boolean system) {
+        this.system = system;
     }
 
     public Boolean getFrozen() {

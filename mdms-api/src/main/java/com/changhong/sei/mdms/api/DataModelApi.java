@@ -42,7 +42,7 @@ public interface DataModelApi extends BaseEntityApi<DataModelDto>, FindByPageApi
      */
     @PostMapping(path = "addAuditFields")
     @ApiOperation(value = "根据数据模型id获取模型字段清单", notes = "根据数据模型id获取模型字段清单")
-    ResultData<Void> addAuditFields(@RequestParam("modelId") String modelId);
+    ResultData<String> addAuditFields(@RequestParam("modelId") String modelId);
 
     /**
      * 添加数据模型字段
@@ -52,7 +52,7 @@ public interface DataModelApi extends BaseEntityApi<DataModelDto>, FindByPageApi
      */
     @PostMapping(path = "saveModelFields")
     @ApiOperation(value = "添加数据模型字段", notes = "添加数据模型字段")
-    ResultData<Void> saveModelFields(List<DataModelFieldDto> fieldDtos);
+    ResultData<String> saveModelFields(List<DataModelFieldDto> fieldDtos);
 
     /**
      * 删除数据模型字段
@@ -62,5 +62,5 @@ public interface DataModelApi extends BaseEntityApi<DataModelDto>, FindByPageApi
      */
     @PostMapping(path = "deleteModelFields")
     @ApiOperation(value = "删除数据模型字段", notes = "删除数据模型字段")
-    ResultData<Void> deleteModelFields(List<String> fieldIds);
+    ResultData<String> deleteModelFields(List<String> fieldIds);
 }

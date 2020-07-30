@@ -84,7 +84,7 @@ public class DataModelController extends BaseEntityController<DataModel, DataMod
      * @return 返回操作结果
      */
     @Override
-    public ResultData<Void> addAuditFields(String modelId) {
+    public ResultData<String> addAuditFields(String modelId) {
         return service.addAuditFields(modelId);
     }
 
@@ -95,7 +95,7 @@ public class DataModelController extends BaseEntityController<DataModel, DataMod
      * @return 返回操作结果
      */
     @Override
-    public ResultData<Void> saveModelFields(List<DataModelFieldDto> fieldDtos) {
+    public ResultData<String> saveModelFields(List<DataModelFieldDto> fieldDtos) {
         if (CollectionUtils.isNotEmpty(fieldDtos)) {
             ModelMapper mapper = getModelMapper();
             // 设置为严格匹配
@@ -114,7 +114,7 @@ public class DataModelController extends BaseEntityController<DataModel, DataMod
      * @return 返回操作结果
      */
     @Override
-    public ResultData<Void> deleteModelFields(List<String> fieldIds) {
+    public ResultData<String> deleteModelFields(List<String> fieldIds) {
         return service.deleteModelFields(fieldIds);
     }
 }
