@@ -21,10 +21,10 @@ import java.io.Serializable;
 public class DataModel extends BaseAuditableEntity implements Serializable {
     private static final long serialVersionUID = -42966144790593251L;
     /**
-     * 数据源code
+     * 数据源Id
      */
-    @Column(name = "ds_code")
-    private String dsCode;
+    @Column(name = "ds_id")
+    private String dsId;
     /**
      * 数据库类型
      */
@@ -57,12 +57,12 @@ public class DataModel extends BaseAuditableEntity implements Serializable {
     @Column(name = "version_")
     private String version;
 
-    public String getDsCode() {
-        return dsCode;
+    public String getDsId() {
+        return dsId;
     }
 
-    public void setDsCode(String dsCode) {
-        this.dsCode = dsCode;
+    public void setDsId(String dsId) {
+        this.dsId = dsId;
     }
 
     public DBType getDbType() {

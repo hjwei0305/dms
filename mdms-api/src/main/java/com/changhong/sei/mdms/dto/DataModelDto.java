@@ -16,10 +16,10 @@ import java.util.List;
 public class DataModelDto extends BaseEntityDto {
     private static final long serialVersionUID = -69867743981533719L;
     /**
-     * 数据源code
+     * 数据源Id
      */
-    @ApiModelProperty(value = "数据源code")
-    private String dsCode;
+    @ApiModelProperty(value = "数据源Id")
+    private String dsId;
     /**
      * 表名
      */
@@ -56,12 +56,12 @@ public class DataModelDto extends BaseEntityDto {
     @ApiModelProperty(value = "模型字段清单")
     private List<DataModelFieldDto> fields;
 
-    public String getDsCode() {
-        return dsCode;
+    public String getDsId() {
+        return dsId;
     }
 
-    public void setDsCode(String dsCode) {
-        this.dsCode = dsCode;
+    public void setDsId(String dsId) {
+        this.dsId = dsId;
     }
 
     public String getTableName() {

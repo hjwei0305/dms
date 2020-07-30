@@ -27,7 +27,7 @@ public class DataModelField extends BaseAuditableEntity implements Serializable 
     @Column(name = "data_model_id")
     private String dataModelId;
     /**
-     * 表名
+     * 字段名
      */
     @Column(name = "field_name")
     private String fieldName;
@@ -41,6 +41,11 @@ public class DataModelField extends BaseAuditableEntity implements Serializable 
      */
     @Column(name = "data_type")
     private String dataType;
+    /**
+     * 类型描述
+     */
+    @Column(name = "data_type_desc")
+    private String dataTypeDesc;
     /**
      * 长度
      */
@@ -113,6 +118,14 @@ public class DataModelField extends BaseAuditableEntity implements Serializable 
 
     public void setDataType(String dataType) {
         this.dataType = dataType;
+    }
+
+    public String getDataTypeDesc() {
+        return dataTypeDesc;
+    }
+
+    public void setDataTypeDesc(String dataTypeDesc) {
+        this.dataTypeDesc = dataTypeDesc;
     }
 
     public Integer getDataLength() {

@@ -29,6 +29,11 @@ public class ElementLibraryDto extends BaseEntityDto {
     @ApiModelProperty(value = "类型")
     private String dataType;
     /**
+     * 类型描述
+     */
+    @ApiModelProperty(value = "类型描述")
+    private String dataTypeDesc;
+    /**
      * 长度
      */
     @ApiModelProperty(value = "长度")
@@ -72,6 +77,14 @@ public class ElementLibraryDto extends BaseEntityDto {
 
     public void setDataType(String dataType) {
         this.dataType = dataType;
+    }
+
+    public String getDataTypeDesc() {
+        return dataTypeDesc;
+    }
+
+    public void setDataTypeDesc(String dataTypeDesc) {
+        this.dataTypeDesc = dataTypeDesc;
     }
 
     public Integer getDataLength() {

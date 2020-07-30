@@ -38,6 +38,11 @@ public class ElementLibrary extends BaseAuditableEntity implements Serializable,
     @Column(name = "data_type")
     private String dataType;
     /**
+     * 类型描述
+     */
+    @Column(name = "data_type_desc")
+    private String dataTypeDesc;
+    /**
      * 长度
      */
     @Column(name = "data_length")
@@ -57,7 +62,6 @@ public class ElementLibrary extends BaseAuditableEntity implements Serializable,
      */
     @Column(name = "frozen")
     private Boolean frozen = Boolean.FALSE;
-
 
     @Override
     public String getCode() {
@@ -83,6 +87,14 @@ public class ElementLibrary extends BaseAuditableEntity implements Serializable,
 
     public void setDataType(String dataType) {
         this.dataType = dataType;
+    }
+
+    public String getDataTypeDesc() {
+        return dataTypeDesc;
+    }
+
+    public void setDataTypeDesc(String dataTypeDesc) {
+        this.dataTypeDesc = dataTypeDesc;
     }
 
     public Integer getDataLength() {
