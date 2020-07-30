@@ -6,6 +6,8 @@ import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.mdms.api.DataSourceApi;
+import com.changhong.sei.mdms.dto.DBType;
+import com.changhong.sei.mdms.dto.DBTypeDto;
 import com.changhong.sei.mdms.dto.DataSourceDto;
 import com.changhong.sei.mdms.entity.DataSource;
 import com.changhong.sei.mdms.service.DataSourceService;
@@ -14,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 数据源(DataSource)控制类
@@ -45,5 +50,17 @@ public class DataSourceController extends BaseEntityController<DataSource, DataS
     @Override
     public ResultData<PageResult<DataSourceDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
+    }
+
+    /**
+     * 获取所有支持的数据库类型
+     */
+    @Override
+    public ResultData<List<DBTypeDto>> getDBTypes() {
+        List<DBTypeDto> dtos = new ArrayList<>();
+        for (DBType type : DBType.values()) {
+            dtos.add(new DBTypeDto(type));
+        }
+        return ResultData.success(dtos);
     }
 }

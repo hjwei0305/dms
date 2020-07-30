@@ -2,6 +2,7 @@ package com.changhong.sei.mdms.entity;
 
 import com.changhong.sei.core.entity.BaseAuditableEntity;
 import com.changhong.sei.core.entity.ICodeUnique;
+import com.changhong.sei.mdms.dto.DBType;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -33,10 +34,22 @@ public class DataSource extends BaseAuditableEntity implements Serializable, ICo
     /**
      * 数据库类型
      */
+    @Enumerated(EnumType.STRING)
     @Column(name = "db_type")
-    private String dbType;
+    private DBType dbType;
+    /**
+     * 主机地址
+     */
+    @Column(name = "host")
+    private String host = "127.0.0.1";
+    /**
+     * 端口
+     */
+    @Column(name = "port")
+    private String port;
     /**
      * url
+     * 根据类型拼接
      */
     @Column(name = "url")
     private String url;
@@ -52,12 +65,6 @@ public class DataSource extends BaseAuditableEntity implements Serializable, ICo
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "password")
     private Byte[] password;
-    /**
-     * 冻结
-     */
-    @Column(name = "frozen")
-    private Boolean frozen;
-
 
     @Override
     public String getCode() {
@@ -77,12 +84,28 @@ public class DataSource extends BaseAuditableEntity implements Serializable, ICo
         this.remark = remark;
     }
 
-    public String getDbType() {
+    public DBType getDbType() {
         return dbType;
     }
 
-    public void setDbType(String dbType) {
+    public void setDbType(DBType dbType) {
         this.dbType = dbType;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
     }
 
     public String getUrl() {
@@ -107,14 +130,6 @@ public class DataSource extends BaseAuditableEntity implements Serializable, ICo
 
     public void setPassword(Byte[] password) {
         this.password = password;
-    }
-
-    public Boolean getFrozen() {
-        return frozen;
-    }
-
-    public void setFrozen(Boolean frozen) {
-        this.frozen = frozen;
     }
 
 }
