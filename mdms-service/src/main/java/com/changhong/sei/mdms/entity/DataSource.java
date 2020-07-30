@@ -64,7 +64,7 @@ public class DataSource extends BaseAuditableEntity implements Serializable, ICo
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "password")
-    private Byte[] password;
+    private byte[] password;
 
     @Override
     public String getCode() {
@@ -124,11 +124,11 @@ public class DataSource extends BaseAuditableEntity implements Serializable, ICo
         this.username = username;
     }
 
-    public Byte[] getPassword() {
+    public byte[] getPassword() {
         return password;
     }
 
-    public void setPassword(Byte[] password) {
+    public void setPassword(byte[] password) {
         this.password = password;
     }
 

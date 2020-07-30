@@ -5,9 +5,11 @@ import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.mdms.dto.DBTypeDto;
 import com.changhong.sei.mdms.dto.DataSourceDto;
+import com.changhong.sei.mdms.dto.DataSourceRequest;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -20,7 +22,37 @@ import java.util.List;
  */
 @Valid
 @FeignClient(name = "mdms", path = "dataSource")
-public interface DataSourceApi extends BaseEntityApi<DataSourceDto>, FindByPageApi<DataSourceDto> {
+public interface DataSourceApi extends FindByPageApi<DataSourceDto> {
+
+    /**
+     * 保存数据源实体
+     *
+     * @param dto 数据源实体DTO
+     * @return 操作结果
+     */
+    @PostMapping(path = "save", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "保存数据源实体", notes = "保存一个数据源实体")
+    ResultData<DataSourceDto> save(@Valid DataSourceRequest dto);
+
+    /**
+     * 删除数据源实体
+     *
+     * @param id 数据源实体Id
+     * @return 操作结果
+     */
+    @DeleteMapping(path = "delete/{id}")
+    @ApiOperation(value = "删除数据源实体", notes = "删除一个数据源实体")
+    ResultData<String> delete(@PathVariable("id") String id);
+
+    /**
+     * 通过Id获取一个数据源实体
+     *
+     * @param id 数据源实体Id
+     * @return 业务实体
+     */
+    @GetMapping(path = "findOne")
+    @ApiOperation(value = "获取一个数据源实体", notes = "通过Id获取一个数据源实体")
+    ResultData<DataSourceDto> findOne(@RequestParam("id") String id);
 
     /**
      * 获取所有支持的数据库类型
