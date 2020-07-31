@@ -31,7 +31,7 @@ public interface DataModelApi extends BaseEntityApi<DataModelDto>, FindByPageApi
      * @return 返回指定类型的数据模型集合
      */
     @GetMapping(path = "getDataModelByTypeCode")
-    @ApiOperation(value = "根据数据模型id获取模型字段清单", notes = "根据数据模型id获取模型字段清单")
+    @ApiOperation(value = "根据模型类型代码查询数据模型", notes = "根据模型类型代码查询数据模型")
     ResultData<List<DataModelDto>> getDataModelByTypeCode(@RequestParam("typeCode") String typeCode);
 
     /**
