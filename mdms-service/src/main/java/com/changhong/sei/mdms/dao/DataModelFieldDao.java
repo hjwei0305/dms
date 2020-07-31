@@ -24,7 +24,7 @@ public interface DataModelFieldDao extends BaseEntityDao<DataModelField> {
      * @param dataModelId 数据模型id
      * @return 返回指定模型id的字段清单
      */
-    List<DataModelField> findByDataModelId(String dataModelId);
+    List<DataModelField> findByDataModelIdOrderByRank(String dataModelId);
 
     /**
      * 按数据模型id删除模型字段

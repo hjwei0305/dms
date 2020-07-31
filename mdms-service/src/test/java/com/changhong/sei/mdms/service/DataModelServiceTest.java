@@ -6,11 +6,10 @@ import com.changhong.sei.mdms.entity.DataModelField;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import static org.junit.Assert.*;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 实现功能：
@@ -34,7 +33,10 @@ public class DataModelServiceTest extends BaseUnitTest {
 
     @Test
     public void groupCount() {
-
+        List<DataModelField> fields = addFields("111111");
+        Map<String, Long> dataMap = fields.parallelStream()
+                .collect(Collectors.groupingBy(DataModelField::getFieldName, Collectors.counting()));
+        System.out.println(dataMap);
     }
 
     private List<DataModelField> addFields(String modelId) {

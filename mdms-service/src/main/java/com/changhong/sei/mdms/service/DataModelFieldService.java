@@ -34,7 +34,7 @@ public class DataModelFieldService extends BaseEntityService<DataModelField> {
      * @return 返回指定模型id的字段清单
      */
     public List<DataModelField> findByDataModelId(String dataModelId) {
-        return dao.findByDataModelId(dataModelId);
+        return dao.findByDataModelIdOrderByRank(dataModelId);
     }
 
     /**

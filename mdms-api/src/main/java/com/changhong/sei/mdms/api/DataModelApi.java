@@ -52,7 +52,7 @@ public interface DataModelApi extends BaseEntityApi<DataModelDto>, FindByPageApi
      * @return 返回操作结果
      */
     @PostMapping(path = "addAuditFields")
-    @ApiOperation(value = "根据数据模型id获取模型字段清单", notes = "根据数据模型id获取模型字段清单")
+    @ApiOperation(value = "添加默认审计字段", notes = "添加默认审计字段")
     ResultData<String> addAuditFields(@RequestParam("modelId") String modelId);
 
     /**
