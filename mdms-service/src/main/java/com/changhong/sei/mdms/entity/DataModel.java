@@ -27,6 +27,11 @@ public class DataModel extends BaseAuditableEntity implements Serializable {
     @Column(name = "ds_id")
     private String dsId;
     /**
+     * 数据源名称
+     */
+    @Column(name = "ds_name")
+    private String dsName;
+    /**
      * 表名
      */
     @Column(name = "table_name")
@@ -58,6 +63,14 @@ public class DataModel extends BaseAuditableEntity implements Serializable {
 
     public void setDsId(String dsId) {
         this.dsId = dsId;
+    }
+
+    public String getDsName() {
+        return dsName;
+    }
+
+    public void setDsName(String dsName) {
+        this.dsName = dsName;
     }
 
     public String getTableName() {

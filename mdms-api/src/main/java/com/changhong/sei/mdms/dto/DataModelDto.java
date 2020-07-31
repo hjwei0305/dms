@@ -21,6 +21,11 @@ public class DataModelDto extends BaseEntityDto {
     @ApiModelProperty(value = "数据源Id")
     private String dsId;
     /**
+     * 数据源名称
+     */
+    @ApiModelProperty(value = "数据源名称")
+    private String dsName;
+    /**
      * 表名
      */
     @ApiModelProperty(value = "表名")
@@ -62,6 +67,14 @@ public class DataModelDto extends BaseEntityDto {
 
     public void setDsId(String dsId) {
         this.dsId = dsId;
+    }
+
+    public String getDsName() {
+        return dsName;
+    }
+
+    public void setDsName(String dsName) {
+        this.dsName = dsName;
     }
 
     public String getTableName() {
