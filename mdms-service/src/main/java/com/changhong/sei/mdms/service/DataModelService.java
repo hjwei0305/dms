@@ -36,6 +36,20 @@ public class DataModelService extends BaseEntityService<DataModel> {
     }
 
     /**
+     * 根据模型类型代码查询数据模型
+     *
+     * @param modelTypeCode 模型类型代码
+     * @return 返回指定类型的数据模型集合
+     */
+    public List<DataModel> getDataModelByTypeCode(String modelTypeCode) {
+        if (StringUtils.isNotBlank(modelTypeCode)) {
+            return dao.findByModelTypeCode(modelTypeCode);
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    /**
      * 根据数据模型id获取模型字段清单
      *
      * @param modelId 数据模型id

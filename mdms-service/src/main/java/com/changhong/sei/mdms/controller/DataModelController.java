@@ -57,6 +57,17 @@ public class DataModelController extends BaseEntityController<DataModel, DataMod
     }
 
     /**
+     * 根据模型类型代码查询数据模型
+     *
+     * @param modelTypeCode 模型类型代码
+     * @return 返回指定类型的数据模型集合
+     */
+    @Override
+    public ResultData<List<DataModelDto>> getDataModelByTypeCode(String modelTypeCode) {
+        return ResultData.success(convertToDtos(service.getDataModelByTypeCode(modelTypeCode)));
+    }
+
+    /**
      * 根据数据模型id获取模型字段清单
      *
      * @param modelId 数据模型id

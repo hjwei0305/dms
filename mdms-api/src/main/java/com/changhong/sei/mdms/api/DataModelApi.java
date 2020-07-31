@@ -25,6 +25,16 @@ import java.util.List;
 public interface DataModelApi extends BaseEntityApi<DataModelDto>, FindByPageApi<DataModelDto> {
 
     /**
+     * 根据模型类型代码查询数据模型
+     *
+     * @param typeCode 模型类型代码
+     * @return 返回指定类型的数据模型集合
+     */
+    @GetMapping(path = "getDataModelByTypeCode")
+    @ApiOperation(value = "根据数据模型id获取模型字段清单", notes = "根据数据模型id获取模型字段清单")
+    ResultData<List<DataModelDto>> getDataModelByTypeCode(@RequestParam("typeCode") String typeCode);
+
+    /**
      * 根据数据模型id获取模型字段清单
      *
      * @param modelId 数据模型id
