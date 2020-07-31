@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
@@ -55,14 +56,24 @@ public interface DataModelApi extends BaseEntityApi<DataModelDto>, FindByPageApi
     ResultData<String> addAuditFields(@RequestParam("modelId") String modelId);
 
     /**
-     * 添加数据模型字段
+     * 批量添加数据模型字段
      *
      * @param fieldDtos 数据模型字段dto
      * @return 返回操作结果
      */
     @PostMapping(path = "saveModelFields")
-    @ApiOperation(value = "添加数据模型字段", notes = "添加数据模型字段")
-    ResultData<String> saveModelFields(List<DataModelFieldDto> fieldDtos);
+    @ApiOperation(value = "批量添加数据模型字段", notes = "批量添加数据模型字段")
+    ResultData<String> saveModelFields(@RequestBody @Valid List<DataModelFieldDto> fieldDtos);
+
+    /**
+     * 保存单个模型字段
+     *
+     * @param dto 模型字段
+     * @return 返回操作结果
+     */
+    @PostMapping(path = "saveModelField")
+    @ApiOperation(value = "保存单个模型字段", notes = "保存单个模型字段")
+    ResultData<String> saveModelField(@RequestBody @Valid DataModelFieldDto dto);
 
     /**
      * 删除数据模型字段
@@ -72,5 +83,5 @@ public interface DataModelApi extends BaseEntityApi<DataModelDto>, FindByPageApi
      */
     @PostMapping(path = "deleteModelFields")
     @ApiOperation(value = "删除数据模型字段", notes = "删除数据模型字段")
-    ResultData<String> deleteModelFields(List<String> fieldIds);
+    ResultData<String> deleteModelFields(@RequestBody List<String> fieldIds);
 }

@@ -21,6 +21,10 @@ import java.io.Serializable;
 @DynamicUpdate
 public class DataModelField extends BaseAuditableEntity implements Serializable {
     private static final long serialVersionUID = 635902029091908186L;
+
+    public static final String FIELD_DATA_MODEL_ID = "dataModelId";
+    public static final String FIELD_FIELD_NAME = "fieldName";
+
     /**
      * 数据模型id
      */

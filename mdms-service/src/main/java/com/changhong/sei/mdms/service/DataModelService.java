@@ -2,6 +2,8 @@ package com.changhong.sei.mdms.service;
 
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.Search;
+import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.exception.ServiceException;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -187,7 +190,7 @@ public class DataModelService extends BaseEntityService<DataModel> {
     }
 
     /**
-     * 添加数据模型字段
+     * 批量添加数据模型字段
      *
      * @param fields 数据模型字段集合
      * @return 返回操作结果
@@ -198,21 +201,9 @@ public class DataModelService extends BaseEntityService<DataModel> {
             return ResultData.fail("数据模型字段添加失败,参数不能为空.");
         }
 
-        String modelId;
-        List<DataModelField> fieldList;
-        Map<String, List<DataModelField>> dataMap = new HashMap<>();
-        for (DataModelField field : fields) {
-            if (Objects.isNull(field)) {
-                continue;
-            }
-            modelId = field.getDataModelId();
-            fieldList = dataMap.get(modelId);
-            if (Objects.isNull(fieldList)) {
-                fieldList = new ArrayList<>();
-            }
-            fieldList.add(field);
-            dataMap.put(modelId, fieldList);
-        }
+        // 按数据模型id分组
+        Map<String, List<DataModelField>> dataMap = fields.parallelStream()
+                .collect(Collectors.groupingBy(DataModelField::getDataModelId));
 
         ResultData<String> resultData;
         for (Map.Entry<String, List<DataModelField>> entry : dataMap.entrySet()) {
@@ -240,21 +231,55 @@ public class DataModelService extends BaseEntityService<DataModel> {
             return ResultData.fail("模型字段不能为空.");
         }
 
+        // 检查是否有重复的字段
+        Map<String, Long> dataMap = fields.parallelStream()
+                .collect(Collectors.groupingBy(DataModelField::getFieldName, Collectors.counting()));
+        if (fields.size() != dataMap.size()) {
+            for (Map.Entry<String, Long> entry : dataMap.entrySet()) {
+                if (entry.getValue() > 1) {
+                    return ResultData.fail("存在重复字段: [" + entry.getKey() + "]");
+                }
+            }
+        }
+
         DataModel dataModel = dao.findOne(dataModelId);
         if (Objects.isNull(dataModel)) {
             return ResultData.fail("未找到对应的数据模型 id = [" + dataModelId + "]");
         }
-        List<DataModelField> originFields = fieldService.findByDataModelId(dataModelId);
-        if (CollectionUtils.isEmpty(originFields)) {
-            fieldService.save(fields);
-        } else {
-            // step1.处理删除的
 
-            // step2.处理修改的
+        // 删除原有字段
+        fieldService.deleteByDataModelId(dataModelId);
+        // 添加新字段
+        fieldService.save(fields);
 
-            // step3.处理新增的
+        return ResultData.success("ok");
+    }
 
+
+    /**
+     * 保存单个模型字段
+     *
+     * @param field 模型字段
+     * @return 返回操作结果
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public ResultData<String> saveField(DataModelField field) {
+        if (Objects.isNull(field)) {
+            return ResultData.fail("保存数据模型字段错误,参数不能为空");
         }
+
+        Search search = Search.createSearch();
+        search.addFilter(new SearchFilter(DataModelField.FIELD_DATA_MODEL_ID, field.getDataModelId()));
+        search.addFilter(new SearchFilter(DataModelField.FIELD_FIELD_NAME, field.getFieldName()));
+        if (StringUtils.isNotBlank(field.getId())) {
+            search.addFilter(new SearchFilter(DataModelField.ID, field.getId(), SearchFilter.Operator.NE));
+        }
+        long count = fieldService.count(search);
+        if (count > 0) {
+            return ResultData.fail("存在重复字段: [" + field.getFieldName() + "]");
+        }
+
+        fieldService.save(field);
         return ResultData.success("ok");
     }
 

@@ -100,7 +100,7 @@ public class DataModelController extends BaseEntityController<DataModel, DataMod
     }
 
     /**
-     * 添加数据模型字段
+     * 批量添加数据模型字段
      *
      * @param fieldDtos 数据模型字段dto
      * @return 返回操作结果
@@ -116,6 +116,18 @@ public class DataModelController extends BaseEntityController<DataModel, DataMod
             return service.saveModelFields(modelFields);
         }
         return ResultData.fail("请求参数不能为空.");
+    }
+
+    /**
+     * 保存单个模型字段
+     *
+     * @param dto 模型字段
+     * @return 返回操作结果
+     */
+    @Override
+    public ResultData<String> saveModelField(DataModelFieldDto dto) {
+        DataModelField field = getModelMapper().map(dto, DataModelField.class);
+        return service.saveField(field);
     }
 
     /**

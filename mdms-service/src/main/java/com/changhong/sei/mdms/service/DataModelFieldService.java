@@ -6,6 +6,7 @@ import com.changhong.sei.mdms.dao.DataModelFieldDao;
 import com.changhong.sei.mdms.entity.DataModelField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,5 +35,16 @@ public class DataModelFieldService extends BaseEntityService<DataModelField> {
      */
     public List<DataModelField> findByDataModelId(String dataModelId) {
         return dao.findByDataModelId(dataModelId);
+    }
+
+    /**
+     * 按数据模型id删除模型字段
+     *
+     * @param dataModelId 数据模型id
+     * @return 返回删除的记录数
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteByDataModelId(String dataModelId) {
+        return dao.deleteByDataModelId(dataModelId);
     }
 }
