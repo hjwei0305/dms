@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 /**
  * 数据模型(DataModel)业务逻辑实现类
  *
@@ -102,6 +101,12 @@ public class DataModelService extends BaseEntityService<DataModel> {
     @Transactional(rollbackFor = Exception.class)
     public ResultData<String> addAuditFields(String modelId) {
         if (StringUtils.isNotEmpty(modelId)) {
+            // 检查是否已有审计字段
+            ResultData<String> checkResult = checkExistFieldName(modelId, "creator_id", null);
+            if (checkResult.failed()) {
+                return checkResult;
+            }
+
             DataModelField modelField;
             List<DataModelField> fields = new LinkedList<>();
             modelField = new DataModelField();
@@ -268,15 +273,9 @@ public class DataModelService extends BaseEntityService<DataModel> {
             return ResultData.fail("保存数据模型字段错误,参数不能为空");
         }
 
-        Search search = Search.createSearch();
-        search.addFilter(new SearchFilter(DataModelField.FIELD_DATA_MODEL_ID, field.getDataModelId()));
-        search.addFilter(new SearchFilter(DataModelField.FIELD_FIELD_NAME, field.getFieldName()));
-        if (StringUtils.isNotBlank(field.getId())) {
-            search.addFilter(new SearchFilter(DataModelField.ID, field.getId(), SearchFilter.Operator.NE));
-        }
-        long count = fieldService.count(search);
-        if (count > 0) {
-            return ResultData.fail("存在重复字段: [" + field.getFieldName() + "]");
+        ResultData<String> checkResult = checkExistFieldName(field.getDataModelId(), field.getFieldName(), field.getId());
+        if (checkResult.failed()) {
+            return checkResult;
         }
 
         fieldService.save(field);
@@ -296,6 +295,29 @@ public class DataModelService extends BaseEntityService<DataModel> {
             return ResultData.success("ok");
         } else {
             return ResultData.fail("参数不能为空.");
+        }
+    }
+
+    /**
+     * 检查字段是否存在
+     *
+     * @param dataModelId 数据模型id
+     * @param fieldName   字段名
+     * @param ownerId     所有者id
+     * @return 返回检查结果
+     */
+    private ResultData<String> checkExistFieldName(String dataModelId, String fieldName, String ownerId) {
+        Search search = Search.createSearch();
+        search.addFilter(new SearchFilter(DataModelField.FIELD_DATA_MODEL_ID, dataModelId));
+        search.addFilter(new SearchFilter(DataModelField.FIELD_FIELD_NAME, fieldName));
+        if (StringUtils.isNotBlank(ownerId)) {
+            search.addFilter(new SearchFilter(DataModelField.ID, ownerId, SearchFilter.Operator.NE));
+        }
+        long count = fieldService.count(search);
+        if (count > 0) {
+            return ResultData.fail("存在重复字段: [" + fieldName + "]");
+        } else {
+            return ResultData.success("ok");
         }
     }
 }

@@ -24,7 +24,7 @@ public class ElementLibraryControllerTest extends BaseUnitTest {
 
     @Test
     public void save() {
-        String json = "{\"code\":\"23d2d\",\"name\":\"rrr\",\"dataType\":\"金额\",\"dataLength\":32,\"precision\":8,\"remark\":\"rr\",\"frozen\":false}";
+        String json = "{\"id\":\"8C66593D-D527-11EA-A7E6-0242C0A84617\",\"code\":\"companyCode\",\"name\":\"预算公司代码\",\"dataType\":\"MiddleString\",\"dataTypeDesc\":\"字串-中\",\"dataLength\":256,\"precision\":null,\"remark\":\"test\",\"frozen\":false}";
         ElementLibraryDto dto = JsonUtils.fromJson(json, ElementLibraryDto.class);
         ResultData<ElementLibraryDto> resultData = controller.save(dto);
         System.out.println(resultData);
