@@ -7,6 +7,7 @@ import com.changhong.sei.mdms.dto.DataModelTypeDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,4 +30,14 @@ public interface DataModelTypeApi extends BaseEntityApi<DataModelTypeDto>, BaseT
     @GetMapping(path = "getModelTypeTree")
     @ApiOperation(value = "获取数据模型类型的树", notes = "获取数据模型类型的树")
     ResultData<List<DataModelTypeDto>> getModelTypeTree();
+
+    /**
+     * 根据模型代码获取一个节点的树
+     *
+     * @param code 节点code
+     * @return 节点树
+     */
+    @GetMapping(path = "getTreeByCode")
+    @ApiOperation(value = "获取一个节点的树", notes = "获取一个节点的树")
+    ResultData<DataModelTypeDto> getTreeByCode(@RequestParam("code") String code);
 }

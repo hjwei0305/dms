@@ -56,4 +56,19 @@ public class DataModelTypeController extends BaseTreeController<DataModelType, D
 
         return ResultData.success(tree);
     }
+
+    /**
+     * 根据模型代码获取一个节点的树
+     *
+     * @param code 节点code
+     * @return 节点树
+     */
+    @Override
+    public ResultData<DataModelTypeDto> getTreeByCode(String code) {
+        ResultData<DataModelType> resultData = service.getTreeByCode(code);
+        if (resultData.successful()) {
+            return ResultData.success(convertToDto(resultData.getData()));
+        }
+        return ResultData.fail(resultData.getMessage());
+    }
 }
