@@ -2,9 +2,10 @@ package com.changhong.sei.mdms.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.dto.ResultData;
-import com.changhong.sei.mdms.dto.ColumnDto;
+import com.changhong.sei.mdms.dto.CodeNameDto;
 import com.changhong.sei.mdms.dto.MasterDataRegisterRequest;
 import com.changhong.sei.mdms.dto.MasterDataUiConfigDto;
+import com.changhong.sei.mdms.dto.EntityDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -23,7 +24,7 @@ import java.util.List;
  * @since 2020-08-13 22:47:19
  */
 @Valid
-@FeignClient(name = "mdms", path = "masterDataUiConfig")
+@FeignClient(name = "mdms", path = "config")
 public interface MasterDataUiConfigApi extends BaseEntityApi<MasterDataUiConfigDto> {
 
     /**
@@ -45,4 +46,21 @@ public interface MasterDataUiConfigApi extends BaseEntityApi<MasterDataUiConfigD
     @GetMapping(path = "getConfigByCode")
     @ApiOperation(value = "获取指定主数据的UI配置", notes = "获取指定主数据的UI配置")
     ResultData<List<MasterDataUiConfigDto>> getConfigByCode(@RequestParam("code") String code);
+
+    /**
+     * 获取当前所有主数据
+     */
+    @GetMapping(path = "getAllMasterData")
+    @ApiOperation(value = "获取当前所有主数据", notes = "获取当前所有主数据")
+    ResultData<List<EntityDto>> getAllMasterData();
+
+    /**
+     * 获取指定主数据的属性清单
+     *
+     * @param code 主数据代码
+     * @return 返回指定表字段清单
+     */
+    @GetMapping(path = "getPropertiesByCode")
+    @ApiOperation(value = "获取指定主数据的属性清单", notes = "获取指定主数据的属性清单")
+    ResultData<List<CodeNameDto>> getPropertiesByCode(@RequestParam("code") String code);
 }

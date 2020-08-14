@@ -1,5 +1,8 @@
 package com.changhong.sei.mdms.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -8,30 +11,25 @@ import java.io.Serializable;
  * @author 马超(Vision.Mac)
  * @version 1.0.00  2020-08-14 00:22
  */
-public class ColumnDto implements Serializable {
+@ApiModel(description = "实体对象DTO")
+public class EntityDto implements Serializable {
 
     private static final long serialVersionUID = -8584286659550768870L;
 
-    private Boolean primary;
+    @ApiModelProperty(value = "首字母小写类名")
     private String name;
+    @ApiModelProperty(value = "备注描述")
     private String remark;
-    private String type;
+    @ApiModelProperty(value = "全路径类名")
+    private String fullName;
 
-    public ColumnDto() {
+    public EntityDto() {
     }
 
-    public ColumnDto(String name, String remark, String type) {
+    public EntityDto(String name, String remark, String fullName) {
         this.name = name;
         this.remark = remark;
-        this.type = type;
-    }
-
-    public Boolean getPrimary() {
-        return primary;
-    }
-
-    public void setPrimary(Boolean primary) {
-        this.primary = primary;
+        this.fullName = fullName;
     }
 
     public String getName() {
@@ -50,11 +48,11 @@ public class ColumnDto implements Serializable {
         this.remark = remark;
     }
 
-    public String getType() {
-        return type;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

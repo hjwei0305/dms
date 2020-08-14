@@ -2,14 +2,12 @@ package com.changhong.sei.mdms.service.manager;
 
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.test.BaseUnitTest;
-import com.changhong.sei.mdms.dto.ColumnDto;
-import com.changhong.sei.mdms.dto.TableDto;
+import com.changhong.sei.mdms.dto.CodeNameDto;
+import com.changhong.sei.mdms.dto.EntityDto;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * 实现功能：
@@ -30,14 +28,14 @@ public class DatabaseManagerTest extends BaseUnitTest {
 
     @Test
     public void getAllTableName() {
-        ResultData<List<TableDto>> tables = manager.getAllTableName();
+        ResultData<List<EntityDto>> tables = manager.getAllTableName();
         System.out.println(tables);
     }
 
     @Test
     public void getAllColumn() {
         String table = "master_data_ui_config";
-        ResultData<List<ColumnDto>> columns = manager.getAllColumn(table);
+        ResultData<List<CodeNameDto>> columns = manager.getAllColumn(table);
         System.out.println(columns);
     }
 

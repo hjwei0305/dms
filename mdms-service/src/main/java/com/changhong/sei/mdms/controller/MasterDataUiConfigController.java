@@ -7,8 +7,10 @@ import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.mdms.api.MasterDataUiConfigApi;
+import com.changhong.sei.mdms.dto.EntityDto;
 import com.changhong.sei.mdms.dto.MasterDataRegisterRequest;
 import com.changhong.sei.mdms.dto.MasterDataUiConfigDto;
+import com.changhong.sei.mdms.dto.CodeNameDto;
 import com.changhong.sei.mdms.entity.MasterDataUiConfig;
 import com.changhong.sei.mdms.service.MasterDataUiConfigService;
 import io.swagger.annotations.Api;
@@ -75,4 +77,24 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
         }
         return ResultData.success(convertToDtos(list));
     }
+
+    /**
+     * 获取当前数据库所有的表
+     */
+    @Override
+    public ResultData<List<EntityDto>> getAllMasterData() {
+        return service.getAllMasterDataEntities();
+    }
+
+    /**
+     * 获取指定表字段信息
+     *
+     * @param code 主数据代码
+     * @return 返回指定表字段清单
+     */
+    @Override
+    public ResultData<List<CodeNameDto>> getPropertiesByCode(String code) {
+        return service.getPropertiesByCode(code);
+    }
+
 }

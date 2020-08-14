@@ -8,19 +8,27 @@ import java.io.Serializable;
  * @author 马超(Vision.Mac)
  * @version 1.0.00  2020-08-14 00:22
  */
-public class TableDto implements Serializable {
+public class CodeNameDto implements Serializable {
 
     private static final long serialVersionUID = -8584286659550768870L;
 
+    private String code;
     private String name;
-    private String remark;
 
-    public TableDto() {
+    public CodeNameDto() {
     }
 
-    public TableDto(String name, String remark) {
+    public CodeNameDto(String code, String name) {
+        this.code = code;
         this.name = name;
-        this.remark = remark;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
@@ -31,11 +39,4 @@ public class TableDto implements Serializable {
         this.name = name;
     }
 
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
 }

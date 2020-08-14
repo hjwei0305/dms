@@ -1,6 +1,7 @@
 package com.changhong.sei.mdms.entity;
 
 import com.changhong.sei.core.entity.BaseAuditableEntity;
+import com.changhong.sei.mdms.annotation.MasterData;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -19,6 +20,7 @@ import java.io.Serializable;
 @Table(name = "data_model")
 @DynamicInsert
 @DynamicUpdate
+@MasterData(name = "数据模型")
 public class DataModel extends BaseAuditableEntity implements Serializable {
     private static final long serialVersionUID = -42966144790593251L;
     /**
