@@ -22,13 +22,4 @@ import javax.validation.Valid;
 @FeignClient(name = "mdms", path = "masterData")
 public interface MasterDataManageApi {
 
-    /**
-     * 主数据注册
-     *
-     * @param request 主数据注册请求
-     * @return 操作结果
-     */
-    @PostMapping(path = "register", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ApiOperation(value = "主数据注册", notes = "注册一个主数据")
-    ResultData<String> register(@RequestBody @Valid MasterDataRegisterRequest request);
 }
