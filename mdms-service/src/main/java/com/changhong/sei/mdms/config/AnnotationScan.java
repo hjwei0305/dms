@@ -56,12 +56,18 @@ public class AnnotationScan implements ApplicationListener<ContextRefreshedEvent
                     dto.setFullName(clazz.getName());
                     dto.setRemark(clazz.getAnnotation(MasterData.class).name());
                     entityDtos.add(dto);
-                    fields = clazz.getDeclaredFields();
-                    for (Field field : fields) {
-                        propertyDto = new CodeNameDto();
-                        propertyDto.setName(field.getName());
-                        propertyDto.setCode(field.getName());
-                        propertyDtos.add(propertyDto);
+
+                    for (Class superClass = clazz; superClass != Object.class; superClass = superClass.getSuperclass()) {
+                        fields = superClass.getDeclaredFields();
+                        for (Field field : fields) {
+                            if (StringUtils.equals("serialVersionUID", field.getName())) {
+                                continue;
+                            }
+                            propertyDto = new CodeNameDto();
+                            propertyDto.setName(field.getName());
+                            propertyDto.setCode(field.getName());
+                            propertyDtos.add(propertyDto);
+                        }
                     }
 
                     // 排序
