@@ -2,6 +2,8 @@ package com.changhong.sei.mdms.controller;
 
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.Search;
+import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.mdms.api.MasterDataUiConfigApi;
@@ -15,7 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * 主数据UI配置(MasterDataUiConfig)控制类
@@ -53,5 +57,22 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
         } else {
             return ResultData.fail(result.getMessage());
         }
+    }
+
+    /**
+     * 获取指定主数据的UI配置
+     *
+     * @param code 主数据代码
+     * @return 返回指定主数据的UI配置
+     */
+    @Override
+    public ResultData<List<MasterDataUiConfigDto>> getConfigByCode(String code) {
+        Search search = Search.createSearch();
+        search.addFilter(new SearchFilter(MasterDataUiConfig.CODE_FIELD, code));
+        List<MasterDataUiConfig> list = service.findByFilters(search);
+        if (Objects.isNull(list)) {
+            list = new ArrayList<>();
+        }
+        return ResultData.success(convertToDtos(list));
     }
 }

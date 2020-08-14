@@ -1,5 +1,7 @@
 package com.changhong.sei.mdms.service.manager;
 
+import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.log.LogUtil;
 import com.changhong.sei.mdms.dto.ColumnDto;
 import com.changhong.sei.mdms.dto.TableDto;
 import org.apache.commons.lang3.StringUtils;
@@ -30,8 +32,8 @@ public class DatabaseManager {
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException throwable) {
+            throwable.printStackTrace();
         }
         return conn;
     }
@@ -49,7 +51,7 @@ public class DatabaseManager {
         Connection conn = getConnection();
         try {
             DatabaseMetaData metaData = conn.getMetaData();
-            String catalog = conn.getCatalog();
+//            String catalog = conn.getCatalog();
             ResultSet catalogs = metaData.getCatalogs();
             List<String> rs = new ArrayList<>();
             while (catalogs.next()) {
@@ -71,7 +73,7 @@ public class DatabaseManager {
      * 获取当前数据库所有的表
      * https://cloud.tencent.com/developer/article/1011788
      */
-    public List<TableDto> getAllTableName() {
+    public ResultData<List<TableDto>> getAllTableName() {
         Connection conn = getConnection();
         try {
             String catalog = conn.getCatalog();
@@ -86,15 +88,22 @@ public class DatabaseManager {
                 table = new TableDto(rs.getString("TABLE_NAME"), rs.getString("REMARKS"));
                 ls.add(table);
             }
-            return ls;
+            return ResultData.success(ls);
         } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage(), e);
+            LogUtil.error("获取当前数据库表信息异常", e);
+            return ResultData.fail("获取当前数据库表信息异常");
         } finally {
             closeConnection(conn);
         }
     }
 
-    public List<ColumnDto> getAllColumn(String tableName) {
+    /**
+     * 获取指定表字段信息
+     *
+     * @param tableName 表名
+     * @return 返回指定表字段清单
+     */
+    public ResultData<List<ColumnDto>> getAllColumn(String tableName) {
         Connection conn = getConnection();
         try {
             DatabaseMetaData metaData = conn.getMetaData();
@@ -115,9 +124,10 @@ public class DatabaseManager {
                 }
                 ls.add(column);
             }
-            return ls;
+            return ResultData.success(ls);
         } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage(), e);
+            LogUtil.error("获取指定表字段信息异常", e);
+            return ResultData.fail("获取指定表字段信息异常");
         } finally {
             closeConnection(conn);
         }

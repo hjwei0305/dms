@@ -1,5 +1,6 @@
 package com.changhong.sei.mdms.service.manager;
 
+import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.test.BaseUnitTest;
 import com.changhong.sei.mdms.dto.ColumnDto;
 import com.changhong.sei.mdms.dto.TableDto;
@@ -29,14 +30,14 @@ public class DatabaseManagerTest extends BaseUnitTest {
 
     @Test
     public void getAllTableName() {
-        List<TableDto> tables = manager.getAllTableName();
+        ResultData<List<TableDto>> tables = manager.getAllTableName();
         System.out.println(tables);
     }
 
     @Test
     public void getAllColumn() {
         String table = "master_data_ui_config";
-        List<ColumnDto> columns = manager.getAllColumn(table);
+        ResultData<List<ColumnDto>> columns = manager.getAllColumn(table);
         System.out.println(columns);
     }
 
