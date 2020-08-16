@@ -64,13 +64,13 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
     /**
      * 获取指定主数据的UI配置
      *
-     * @param code 主数据代码
+     * @param typeCode 主数据分类代码
      * @return 返回指定主数据的UI配置
      */
     @Override
-    public ResultData<List<MasterDataUiConfigDto>> getConfigByCode(String code) {
+    public ResultData<List<MasterDataUiConfigDto>> getConfigByTypeCode(String typeCode) {
         Search search = Search.createSearch();
-        search.addFilter(new SearchFilter(MasterDataUiConfig.CODE_FIELD, code));
+        search.addFilter(new SearchFilter(MasterDataUiConfig.TYPE_CODE, typeCode));
         List<MasterDataUiConfig> list = service.findByFilters(search);
         if (Objects.isNull(list)) {
             list = new ArrayList<>();

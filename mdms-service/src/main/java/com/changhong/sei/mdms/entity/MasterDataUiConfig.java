@@ -22,10 +22,11 @@ import java.io.Serializable;
 @DynamicUpdate
 public class MasterDataUiConfig extends BaseAuditableEntity implements Serializable, ICodeUnique {
     private static final long serialVersionUID = -55502538661881172L;
+    public static final String TYPE_CODE = "typeCode";
     /**
      * 代码(表名)
      */
-    @Column(name = "code")
+    @Column(name = "code", nullable = false)
     private String code;
     /**
      * 名称
@@ -33,9 +34,14 @@ public class MasterDataUiConfig extends BaseAuditableEntity implements Serializa
     @Column(name = "name")
     private String name;
     /**
+     * 全路径类名
+     */
+    @Column(name = "full_name", nullable = false)
+    private String fullName;
+    /**
      * 分类代码
      */
-    @Column(name = "type_code")
+    @Column(name = "type_code", nullable = false)
     private String typeCode;
     /**
      * 分类名称
@@ -85,6 +91,14 @@ public class MasterDataUiConfig extends BaseAuditableEntity implements Serializa
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getTypeCode() {

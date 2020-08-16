@@ -19,7 +19,7 @@ public class MasterDataRegisterRequest extends BaseEntityDto {
      * 代码(表名)
      */
     @NotBlank
-    @ApiModelProperty(value = "代码(表名)")
+    @ApiModelProperty(value = "代码")
     private String code;
     /**
      * 名称
@@ -27,6 +27,12 @@ public class MasterDataRegisterRequest extends BaseEntityDto {
     @NotBlank
     @ApiModelProperty(value = "名称")
     private String name;
+    /**
+     * 全路径类名
+     */
+    @NotBlank
+    @ApiModelProperty(value = "全路径类名")
+    private String fullName;
     /**
      * 分类代码
      */
@@ -60,6 +66,14 @@ public class MasterDataRegisterRequest extends BaseEntityDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getTypeCode() {
