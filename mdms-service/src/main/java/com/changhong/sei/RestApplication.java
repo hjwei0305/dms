@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0.1 2019-12-18 10:41
  */
 @SpringBootApplication
-//@EnableFeignClients(basePackages = {"com.changhong.sei.mdms.service.client"})
+//@EnableFeignClients(basePackages = {"com.changhong.sei.mdms.management.service.client"})
 public class RestApplication {
     public static void main(String[] args) {
         SpringApplication.run(RestApplication.class, args);
