@@ -102,6 +102,7 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
     public ResultData<List<MasterDataUiConfigDto>> getConfigByTypeCode(String typeCode) {
         Search search = Search.createSearch();
         search.addFilter(new SearchFilter(MasterDataUiConfig.TYPE_CODE, typeCode));
+        search.addFilter(new SearchFilter(MasterDataUiConfig.FROZEN, Boolean.FALSE));
         List<MasterDataUiConfig> list = service.findByFilters(search);
         if (Objects.isNull(list)) {
             list = new ArrayList<>();

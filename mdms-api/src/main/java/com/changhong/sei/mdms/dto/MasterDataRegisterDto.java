@@ -46,6 +46,12 @@ public class MasterDataRegisterDto extends BaseEntityDto {
     @ApiModelProperty(value = "分类名称")
     private String typeName;
     /**
+     * 冻结
+     * 取消注册即冻结
+     */
+    @ApiModelProperty(value = "冻结, 取消注册即冻结")
+    private Boolean frozen = Boolean.FALSE;
+    /**
      * 描述说明
      */
     @ApiModelProperty(value = "描述说明")
@@ -90,6 +96,14 @@ public class MasterDataRegisterDto extends BaseEntityDto {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public Boolean getFrozen() {
+        return frozen;
+    }
+
+    public void setFrozen(Boolean frozen) {
+        this.frozen = frozen;
     }
 
     public String getRemark() {
