@@ -70,7 +70,7 @@ public interface MasterDataUiConfigApi extends BaseEntityApi<MasterDataUiConfigD
      * @param code 代码
      * @return 返回指定主数据的UI配置
      */
-    @GetMapping(path = "getConfigByTypeCode")
+    @GetMapping(path = "getConfigByCode")
     @ApiOperation(value = "获取指定主数据的UI配置", notes = "获取指定主数据的UI配置")
     ResultData<MasterDataUiConfigDto> getConfigByCode(@RequestParam("code") String code);
 
