@@ -40,7 +40,7 @@ public interface MasterDataUiConfigApi extends BaseEntityApi<MasterDataUiConfigD
      * @param id 取消主数据注册请求id
      * @return 操作结果
      */
-    @PostMapping(path = "unregister/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "unregister/{id}")
     @ApiOperation(value = "取消主数据注册", notes = "取消主数据注册")
     ResultData<String> unregister(@PathVariable("id") String id);
 
