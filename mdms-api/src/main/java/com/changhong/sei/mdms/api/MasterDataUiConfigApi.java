@@ -27,8 +27,8 @@ public interface MasterDataUiConfigApi extends BaseEntityApi<MasterDataUiConfigD
     /**
      * 主数据注册
      *
-     * @PARAM REQUEST 主数据注册请求
-     * @RETURN 操作结果
+     * @param request 主数据注册请求
+     * @return 操作结果
      */
     @PostMapping(path = "register", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "主数据注册", notes = "注册一个主数据")

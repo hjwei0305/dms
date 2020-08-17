@@ -4,7 +4,6 @@ import com.changhong.sei.core.dao.BaseTreeDao;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseTreeService;
 import com.changhong.sei.mdms.dao.MasterDataTypeDao;
-import com.changhong.sei.mdms.entity.DataModelType;
 import com.changhong.sei.mdms.entity.MasterDataType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,7 @@ public class MasterDataTypeService extends BaseTreeService<MasterDataType> {
      * @return 节点树
      */
     public ResultData<MasterDataType> getTreeByCode(String code) {
-        MasterDataType type = dao.findByProperty(DataModelType.CODE, code);
+        MasterDataType type = dao.findByProperty(MasterDataType.CODE, code);
         if (Objects.nonNull(type)) {
             MasterDataType tree = dao.getTree(type.getId());
             return ResultData.success(tree);

@@ -30,7 +30,7 @@ public class MasterDataUiConfigControllerTest extends BaseUnitTest {
         MasterDataRegisterDto request = new MasterDataRegisterDto();
         request.setCode("dataModel");
         request.setName("数据模型");
-        request.setFullName("com.changhong.sei.mdms.entity.DataModel");
+        request.setFullName("com.changhong.sei.datamodel.entity.DataModel");
         request.setTypeCode("master_data");
         request.setTypeName("master_data");
         ResultData<String> resultData = controller.register(request);

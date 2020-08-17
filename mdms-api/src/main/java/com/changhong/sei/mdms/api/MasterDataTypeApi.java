@@ -3,7 +3,6 @@ package com.changhong.sei.mdms.api;
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.BaseTreeApi;
 import com.changhong.sei.core.dto.ResultData;
-import com.changhong.sei.mdms.dto.DataModelTypeDto;
 import com.changhong.sei.mdms.dto.MasterDataTypeDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
