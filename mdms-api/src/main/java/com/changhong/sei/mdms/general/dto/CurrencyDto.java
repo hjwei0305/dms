@@ -1,6 +1,7 @@
 package com.changhong.sei.mdms.general.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
+import com.changhong.sei.mdms.annotation.MasterData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -10,7 +11,8 @@ import io.swagger.annotations.ApiModelProperty;
  * @author sei
  * @since 2020-08-17 14:03:22
  */
-@ApiModel(description = "币种DTO")
+@MasterData
+@ApiModel(description = "币种")
 public class CurrencyDto extends BaseEntityDto {
     private static final long serialVersionUID = 402624026080441813L;
     /**
