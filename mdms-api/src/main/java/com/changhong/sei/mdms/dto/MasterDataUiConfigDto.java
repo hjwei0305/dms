@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2020-08-13 22:47:19
  */
 @ApiModel(description = "主数据UI配置DTO")
-public class MasterDataUiConfigDto extends MasterDataRegisterRequest {
+public class MasterDataUiConfigDto extends MasterDataRegisterDto {
     private static final long serialVersionUID = 835886251258143397L;
 
     /**

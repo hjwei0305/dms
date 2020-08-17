@@ -12,8 +12,8 @@ import javax.validation.constraints.NotBlank;
  * @author sei
  * @since 2020-08-13 22:47:19
  */
-@ApiModel(description = "主数据注册请求")
-public class MasterDataRegisterRequest extends BaseEntityDto {
+@ApiModel(description = "主数据注册dto")
+public class MasterDataRegisterDto extends BaseEntityDto {
     private static final long serialVersionUID = 835886251258143397L;
     /**
      * 代码(表名)

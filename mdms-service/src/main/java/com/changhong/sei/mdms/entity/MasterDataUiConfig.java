@@ -2,6 +2,7 @@ package com.changhong.sei.mdms.entity;
 
 import com.changhong.sei.core.entity.BaseAuditableEntity;
 import com.changhong.sei.core.entity.ICodeUnique;
+import com.changhong.sei.core.entity.IFrozen;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -20,7 +21,7 @@ import java.io.Serializable;
 @Table(name = "master_data_ui_config")
 @DynamicInsert
 @DynamicUpdate
-public class MasterDataUiConfig extends BaseAuditableEntity implements Serializable, ICodeUnique {
+public class MasterDataUiConfig extends BaseAuditableEntity implements Serializable, ICodeUnique, IFrozen {
     private static final long serialVersionUID = -55502538661881172L;
     public static final String TYPE_CODE = "typeCode";
     /**
@@ -48,6 +49,12 @@ public class MasterDataUiConfig extends BaseAuditableEntity implements Serializa
      */
     @Column(name = "type_name")
     private String typeName;
+    /**
+     * 冻结
+     * 取消注册即冻结
+     */
+    @Column(name = "frozen")
+    private Boolean frozen = Boolean.FALSE;
     /**
      * 描述说明
      */
@@ -115,6 +122,16 @@ public class MasterDataUiConfig extends BaseAuditableEntity implements Serializa
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    @Override
+    public Boolean getFrozen() {
+        return frozen;
+    }
+
+    @Override
+    public void setFrozen(Boolean frozen) {
+        this.frozen = frozen;
     }
 
     public String getRemark() {
