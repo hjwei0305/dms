@@ -58,7 +58,7 @@ public class AnnotationScan implements ApplicationListener<ContextRefreshedEvent
                     EntityDto dto;
                     Field[] fields;
                     EntityDto.Property propertyDto;
-                    List<EntityDto.Property> propertyDtos = new ArrayList<>();
+                    List<EntityDto.Property> propertyList;
                     for (Class<?> clazz : classSet) {
                         MasterData masterData = clazz.getAnnotation(MasterData.class);
                         if (Objects.isNull(masterData)) {
@@ -77,6 +77,7 @@ public class AnnotationScan implements ApplicationListener<ContextRefreshedEvent
                         dto.setName(apiModel.description());
                         entityDtos.add(dto);
 
+                        propertyList = new ArrayList<>();
                         for (Class<?> superClass = clazz; superClass != Object.class; superClass = superClass.getSuperclass()) {
                             fields = superClass.getDeclaredFields();
                             for (Field field : fields) {
@@ -87,13 +88,13 @@ public class AnnotationScan implements ApplicationListener<ContextRefreshedEvent
                                 propertyDto = new EntityDto.Property();
                                 propertyDto.setCode(field.getName());
                                 propertyDto.setName(property.value());
-                                propertyDtos.add(propertyDto);
+                                propertyList.add(propertyDto);
                             }
                         }
 
                         // 排序
-                        propertyDtos.sort(Comparator.comparing(EntityDto.Property::getCode));
-                        cacheBuilder.set(Constants.PROPERTY_CACHE_KEY + code, propertyDtos);
+                        propertyList.sort(Comparator.comparing(EntityDto.Property::getCode));
+                        cacheBuilder.set(Constants.PROPERTY_CACHE_KEY + code, propertyList);
                     }
                 }
                 // 排序
