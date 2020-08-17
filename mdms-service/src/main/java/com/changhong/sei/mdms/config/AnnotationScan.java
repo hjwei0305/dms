@@ -60,7 +60,8 @@ public class AnnotationScan implements ApplicationListener<ContextRefreshedEvent
                     EntityDto.Property propertyDto;
                     List<EntityDto.Property> propertyDtos = new ArrayList<>();
                     for (Class<?> clazz : classSet) {
-                        if (!clazz.isAnnotationPresent(MasterData.class)) {
+                        MasterData masterData = clazz.getAnnotation(MasterData.class);
+                        if (Objects.isNull(masterData)) {
                             continue;
                         }
                         ApiModel apiModel = clazz.getAnnotation(ApiModel.class);
@@ -68,7 +69,8 @@ public class AnnotationScan implements ApplicationListener<ContextRefreshedEvent
                             continue;
                         }
 
-                        String code = StringUtils.uncapitalize(clazz.getSimpleName());
+                        // 首字母小写
+                        String code = StringUtils.uncapitalize(masterData.value());
                         dto = new EntityDto();
                         dto.setCode(code);
                         dto.setFullName(clazz.getName());

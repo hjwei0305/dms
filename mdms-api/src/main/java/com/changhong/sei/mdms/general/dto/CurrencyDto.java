@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author sei
  * @since 2020-08-17 14:03:22
  */
-@MasterData
+@MasterData(value = "currency")
 @ApiModel(description = "币种")
 public class CurrencyDto extends BaseEntityDto {
     private static final long serialVersionUID = 402624026080441813L;

@@ -12,4 +12,5 @@ import java.lang.annotation.*;
 @Documented
 @Target({ElementType.TYPE})
 public @interface MasterData {
+    String value();
 }

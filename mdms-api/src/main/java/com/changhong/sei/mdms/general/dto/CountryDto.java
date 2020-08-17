@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author sei
  * @since 2020-08-17 14:03:16
  */
-@MasterData
+@MasterData(value = "country")
 @ApiModel(description = "国家")
 public class CountryDto extends BaseEntityDto {
     private static final long serialVersionUID = 202368163739510191L;
