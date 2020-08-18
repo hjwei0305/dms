@@ -1,6 +1,8 @@
 package com.changhong.sei.mdms.management.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
+import com.changhong.sei.core.dto.serializer.EnumJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -28,11 +30,11 @@ public class MasterDataRegisterDto extends BaseEntityDto {
     @ApiModelProperty(value = "名称")
     private String name;
     /**
-     * 全路径类名
+     * 数据结构
      */
-    @NotBlank
-    @ApiModelProperty(value = "全路径类名")
-    private String fullName;
+    @JsonSerialize(using = EnumJsonSerializer.class)
+    @ApiModelProperty(value = "数据结构")
+    private DataStructureEnum dataStructure;
     /**
      * 分类代码
      */
@@ -74,12 +76,12 @@ public class MasterDataRegisterDto extends BaseEntityDto {
         this.name = name;
     }
 
-    public String getFullName() {
-        return fullName;
+    public DataStructureEnum getDataStructure() {
+        return dataStructure;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setDataStructure(DataStructureEnum dataStructure) {
+        this.dataStructure = dataStructure;
     }
 
     public String getTypeCode() {

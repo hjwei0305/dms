@@ -2,6 +2,7 @@ package com.changhong.sei.mdms.management.controller;
 
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.test.BaseUnitTest;
+import com.changhong.sei.mdms.management.dto.DataStructureEnum;
 import com.changhong.sei.mdms.management.dto.EntityDto;
 import com.changhong.sei.mdms.management.dto.MasterDataRegisterDto;
 import com.changhong.sei.mdms.management.dto.MasterDataUiConfigDto;
@@ -26,7 +27,7 @@ public class MasterDataUiConfigControllerTest extends BaseUnitTest {
         MasterDataRegisterDto request = new MasterDataRegisterDto();
         request.setCode("dataModel");
         request.setName("数据模型");
-        request.setFullName("com.changhong.sei.datamodel.entity.DataModel");
+        request.setDataStructure(DataStructureEnum.LIST);
         request.setTypeCode("master_data");
         request.setTypeName("master_data");
         ResultData<String> resultData = controller.register(request);
