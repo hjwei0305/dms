@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 主数据UI配置(MasterDataUiConfig)API
@@ -22,6 +23,13 @@ import java.util.List;
 @Valid
 @FeignClient(name = "mdms", path = "config")
 public interface MasterDataUiConfigApi extends BaseEntityApi<MasterDataUiConfigDto> {
+
+    /**
+     * 获取支持的数据结构
+     */
+    @GetMapping(path = "getDataStructure")
+    @ApiOperation(value = "获取支持的数据结构", notes = "获取支持的数据结构")
+    ResultData<Map<String, String>> getDataStructure();
 
     /**
      * 主数据注册

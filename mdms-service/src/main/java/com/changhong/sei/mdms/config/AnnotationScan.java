@@ -73,7 +73,6 @@ public class AnnotationScan implements ApplicationListener<ContextRefreshedEvent
                         String code = StringUtils.uncapitalize(masterData.value());
                         dto = new EntityDto();
                         dto.setCode(code);
-                        dto.setFullName(clazz.getName());
                         dto.setName(apiModel.description());
                         entityDtos.add(dto);
 

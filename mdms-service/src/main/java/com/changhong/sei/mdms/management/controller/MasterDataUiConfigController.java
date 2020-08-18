@@ -6,7 +6,9 @@ import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
+import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.mdms.management.api.MasterDataUiConfigApi;
+import com.changhong.sei.mdms.management.dto.DataStructureEnum;
 import com.changhong.sei.mdms.management.dto.EntityDto;
 import com.changhong.sei.mdms.management.dto.MasterDataRegisterDto;
 import com.changhong.sei.mdms.management.dto.MasterDataUiConfigDto;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -43,6 +46,14 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
     @Override
     public BaseEntityService<MasterDataUiConfig> getService() {
         return service;
+    }
+
+    /**
+     * 获取支持的数据结构
+     */
+    @Override
+    public ResultData<Map<String, String>> getDataStructure() {
+        return ResultDataUtil.getEnumMap(DataStructureEnum.class);
     }
 
     /**

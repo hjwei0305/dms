@@ -3,12 +3,11 @@ package com.changhong.sei.mdms.management.entity;
 import com.changhong.sei.core.entity.BaseAuditableEntity;
 import com.changhong.sei.core.entity.ICodeUnique;
 import com.changhong.sei.core.entity.IFrozen;
+import com.changhong.sei.mdms.management.dto.DataStructureEnum;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -35,10 +34,11 @@ public class MasterDataUiConfig extends BaseAuditableEntity implements Serializa
     @Column(name = "name")
     private String name;
     /**
-     * 全路径类名
+     * 数据结构
      */
-    @Column(name = "full_name", nullable = false)
-    private String fullName;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "data_structure", nullable = false)
+    private DataStructureEnum dataStructure;
     /**
      * 分类代码
      */
@@ -100,12 +100,12 @@ public class MasterDataUiConfig extends BaseAuditableEntity implements Serializa
         this.name = name;
     }
 
-    public String getFullName() {
-        return fullName;
+    public DataStructureEnum getDataStructure() {
+        return dataStructure;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setDataStructure(DataStructureEnum dataStructure) {
+        this.dataStructure = dataStructure;
     }
 
     public String getTypeCode() {

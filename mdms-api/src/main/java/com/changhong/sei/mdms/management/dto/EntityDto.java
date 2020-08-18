@@ -1,5 +1,7 @@
 package com.changhong.sei.mdms.management.dto;
 
+import com.changhong.sei.core.dto.serializer.EnumJsonSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -20,16 +22,19 @@ public class EntityDto implements Serializable {
     private String code;
     @ApiModelProperty(value = "备注描述")
     private String name;
-    @ApiModelProperty(value = "全路径类名")
-    private String fullName;
+    /**
+     * 数据结构
+     */
+    @JsonSerialize(using = EnumJsonSerializer.class)
+    @ApiModelProperty(value = "数据结构")
+    private DataStructureEnum dataStructure;
 
     public EntityDto() {
     }
 
-    public EntityDto(String code, String name, String fullName) {
+    public EntityDto(String code, String name) {
         this.name = name;
         this.code = code;
-        this.fullName = fullName;
     }
 
     public String getCode() {
@@ -48,12 +53,12 @@ public class EntityDto implements Serializable {
         this.name = name;
     }
 
-    public String getFullName() {
-        return fullName;
+    public DataStructureEnum getDataStructure() {
+        return dataStructure;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setDataStructure(DataStructureEnum dataStructure) {
+        this.dataStructure = dataStructure;
     }
 
     /**
