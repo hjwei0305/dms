@@ -1,9 +1,11 @@
 package com.changhong.sei.mdms.config;
 
 import com.changhong.sei.core.cache.CacheBuilder;
+import com.changhong.sei.core.dto.TreeEntity;
 import com.changhong.sei.core.log.LogUtil;
 import com.changhong.sei.mdms.annotation.MasterData;
 import com.changhong.sei.mdms.common.Constants;
+import com.changhong.sei.mdms.management.dto.DataStructureEnum;
 import com.changhong.sei.mdms.management.dto.EntityDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -74,6 +76,12 @@ public class AnnotationScan implements ApplicationListener<ContextRefreshedEvent
                         dto = new EntityDto();
                         dto.setCode(code);
                         dto.setName(apiModel.description());
+                        // 检查是否是树形结构
+                        if (TreeEntity.class.isAssignableFrom(clazz)){
+                            dto.setDataStructure(DataStructureEnum.TREE);
+                        } else {
+                            dto.setDataStructure(DataStructureEnum.LIST);
+                        }
                         entityDtos.add(dto);
 
                         propertyList = new ArrayList<>();
