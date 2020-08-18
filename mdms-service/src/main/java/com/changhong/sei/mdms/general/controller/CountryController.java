@@ -1,6 +1,9 @@
 package com.changhong.sei.mdms.general.controller;
 
 import com.changhong.sei.core.controller.BaseEntityController;
+import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.mdms.general.api.CountryApi;
 import com.changhong.sei.mdms.general.dto.CountryDto;
@@ -33,4 +36,14 @@ public class CountryController extends BaseEntityController<Country, CountryDto>
         return service;
     }
 
+    /**
+     * 分页查询业务实体
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<CountryDto>> findByPage(Search search) {
+        return convertToDtoPageResult(service.findByPage(search));
+    }
 }

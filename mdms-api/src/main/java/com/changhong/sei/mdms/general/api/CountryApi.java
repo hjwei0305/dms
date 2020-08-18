@@ -1,6 +1,7 @@
 package com.changhong.sei.mdms.general.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
+import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.mdms.general.dto.CountryDto;
 import org.springframework.cloud.openfeign.FeignClient;
 
@@ -15,6 +16,6 @@ import javax.validation.Valid;
  */
 @Valid
 @FeignClient(name = "mdms", path = "country")
-public interface CountryApi extends BaseEntityApi<CountryDto> {
+public interface CountryApi extends BaseEntityApi<CountryDto>, FindByPageApi<CountryDto> {
 
 }

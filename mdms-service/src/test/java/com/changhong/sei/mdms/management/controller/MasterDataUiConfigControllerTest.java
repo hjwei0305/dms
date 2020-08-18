@@ -47,7 +47,7 @@ public class MasterDataUiConfigControllerTest extends BaseUnitTest {
 
     @Test
     public void getPropertiesByCode() {
-        ResultData<List<EntityDto.Property>> resultData = controller.getPropertiesByCode("dataModel");
+        ResultData<List<EntityDto.Property>> resultData = controller.getPropertiesByCode("country");
         System.out.println(resultData);
     }
 }

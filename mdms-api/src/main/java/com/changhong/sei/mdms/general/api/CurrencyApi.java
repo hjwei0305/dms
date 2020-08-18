@@ -1,6 +1,8 @@
 package com.changhong.sei.mdms.general.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
+import com.changhong.sei.core.api.FindByPageApi;
+import com.changhong.sei.mdms.general.dto.CountryDto;
 import com.changhong.sei.mdms.general.dto.CurrencyDto;
 import org.springframework.cloud.openfeign.FeignClient;
 
@@ -15,6 +17,6 @@ import javax.validation.Valid;
  */
 @Valid
 @FeignClient(name = "mdms", path = "currency")
-public interface CurrencyApi extends BaseEntityApi<CurrencyDto> {
+public interface CurrencyApi extends BaseEntityApi<CurrencyDto>, FindByPageApi<CurrencyDto> {
 
 }
