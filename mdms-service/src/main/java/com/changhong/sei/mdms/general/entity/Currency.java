@@ -1,6 +1,10 @@
 package com.changhong.sei.mdms.general.entity;
 
+import com.changhong.sei.core.dto.IRank;
 import com.changhong.sei.core.entity.BaseAuditableEntity;
+import com.changhong.sei.core.entity.ICodeUnique;
+import com.changhong.sei.core.entity.IFrozen;
+import com.changhong.sei.core.entity.ITenant;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -19,47 +23,45 @@ import java.io.Serializable;
 @Table(name = "currency")
 @DynamicInsert
 @DynamicUpdate
-public class Currency extends BaseAuditableEntity implements Serializable {
+public class Currency extends BaseAuditableEntity implements Serializable, IFrozen, ITenant, IRank, ICodeUnique {
     private static final long serialVersionUID = 479852629248676708L;
-    /**
-     * 租户代码
-     */
-    @Column(name = "tenant_code")
-    private String tenantCode;
     /**
      * 代码
      */
-    @Column(name = "code")
+    @Column(name = "code", length = 20, nullable = false, unique = true)
     private String code;
+
     /**
      * 名称
      */
-    @Column(name = "name")
+    @Column(name = "name", length = 100, nullable = false)
     private String name;
+
     /**
-     * 冻结状态
+     * 租户代码
      */
-    @Column(name = "frozen")
-    private Double frozen;
+    @Column(name = "tenant_code", length = 50)
+    private String tenantCode;
+
     /**
      * 排序
      */
-    @Column(name = "rank")
-    private Double rank;
+    @Column(name = "rank", nullable = false)
+    private Integer rank = 0;
+
+    /**
+     * 冻结
+     */
+    @Column(name = "frozen", nullable = false)
+    private Boolean frozen = Boolean.FALSE;
 
 
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-    }
-
+    @Override
     public String getCode() {
         return code;
     }
 
+    @Override
     public void setCode(String code) {
         this.code = code;
     }
@@ -72,20 +74,33 @@ public class Currency extends BaseAuditableEntity implements Serializable {
         this.name = name;
     }
 
-    public Double getFrozen() {
-        return frozen;
+    @Override
+    public String getTenantCode() {
+        return tenantCode;
     }
 
-    public void setFrozen(Double frozen) {
-        this.frozen = frozen;
+    @Override
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
     }
 
-    public Double getRank() {
+    @Override
+    public Integer getRank() {
         return rank;
     }
 
-    public void setRank(Double rank) {
+    public void setRank(Integer rank) {
         this.rank = rank;
+    }
+
+    @Override
+    public Boolean getFrozen() {
+        return frozen;
+    }
+
+    @Override
+    public void setFrozen(Boolean frozen) {
+        this.frozen = frozen;
     }
 
 }

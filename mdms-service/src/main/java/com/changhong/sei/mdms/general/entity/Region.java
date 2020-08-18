@@ -1,13 +1,16 @@
 package com.changhong.sei.mdms.general.entity;
 
+import com.changhong.sei.core.dto.TreeEntity;
 import com.changhong.sei.core.entity.BaseAuditableEntity;
+import com.changhong.sei.core.entity.ICodeUnique;
+import com.changhong.sei.core.entity.ITenant;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 行政区域(Region)实体类
@@ -19,83 +22,117 @@ import java.io.Serializable;
 @Table(name = "region")
 @DynamicInsert
 @DynamicUpdate
-public class Region extends BaseAuditableEntity implements Serializable {
+public class Region extends BaseAuditableEntity implements Serializable, TreeEntity<Region>, ICodeUnique, ITenant {
     private static final long serialVersionUID = -42649044200407426L;
     /**
      * 代码
      */
-    @Column(name = "code")
+    @Column(name = "code", length = 10, nullable = false, unique = true)
     private String code;
+
     /**
      * 名称
      */
-    @Column(name = "name")
+    @Column(name = "name", length = 90, nullable = false)
     private String name;
+
     /**
      * 代码路径
      */
-    @Column(name = "code_path")
+    @Column(name = "code_path", length = 500, nullable = false)
     private String codePath;
+
     /**
      * 名称路径
      */
-    @Column(name = "name_path")
+    @Column(name = "name_path", length = 500, nullable = false)
     private String namePath;
+
     /**
      * 父节点Id
      */
-    @Column(name = "parent_id")
+    @Column(name = "parent_id", length = 36)
     private String parentId;
+
     /**
      * 层级
      */
-    @Column(name = "node_level")
+    @Column(name = "node_level", nullable = false)
     private Integer nodeLevel;
+
     /**
      * 国家Id
      */
-    @Column(name = "country_id")
+    @Column(name = "country_id", length = 36, nullable = false)
     private String countryId;
+
     /**
-     * 排序号
+     * 关联国家
      */
-    @Column(name = "rank")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "country_id", nullable = false, insertable = false, updatable = false)
+    private Country country;
+
+    /**
+     * 排序
+     */
+    @Column(name = "rank", nullable = false)
     private Integer rank;
+
+
     /**
      * 缩写
      */
-    @Column(name = "short_name")
+    @Column(name = "short_name", length = 30)
     private String shortName;
+
     /**
      * 拼音
      */
-    @Column(name = "pin_yin")
+    @Column(name = "pin_yin", length = 200)
     private String pinYin;
-    /**
-     * 租户代码
-     */
-    @Column(name = "tenant_code")
-    private String tenantCode;
+
     /**
      * 商旅城市代码
      */
-    @Column(name = "travel_city_code")
+    @Column(name = "travel_city_code", length = 10)
     private String travelCityCode;
+
     /**
      * 商旅城市名称
      */
-    @Column(name = "travel_city_name")
+    @Column(name = "travel_city_name", length = 90)
     private String travelCityName;
 
+    /**
+     * 租户代码
+     */
+    @Column(name = "tenant_code", length = 10, nullable = false)
+    private String tenantCode;
 
+    /**
+     * 子节点列表
+     */
+    @Transient
+    private List<Region> children;
+
+    /**
+     * 父节点路径
+     */
+    @Transient
+    private String parentPath;
+
+    @Override
     public String getCode() {
         return code;
     }
 
+    @Override
     public void setCode(String code) {
         this.code = code;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -104,34 +141,42 @@ public class Region extends BaseAuditableEntity implements Serializable {
         this.name = name;
     }
 
+    @Override
     public String getCodePath() {
         return codePath;
     }
 
+    @Override
     public void setCodePath(String codePath) {
         this.codePath = codePath;
     }
 
+    @Override
     public String getNamePath() {
         return namePath;
     }
 
+    @Override
     public void setNamePath(String namePath) {
         this.namePath = namePath;
     }
 
+    @Override
     public String getParentId() {
         return parentId;
     }
 
+    @Override
     public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
+    @Override
     public Integer getNodeLevel() {
         return nodeLevel;
     }
 
+    @Override
     public void setNodeLevel(Integer nodeLevel) {
         this.nodeLevel = nodeLevel;
     }
@@ -144,8 +189,43 @@ public class Region extends BaseAuditableEntity implements Serializable {
         this.countryId = countryId;
     }
 
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public String getTravelCityCode() {
+        return travelCityCode;
+    }
+
+    public void setTravelCityCode(String travelCityCode) {
+        this.travelCityCode = travelCityCode;
+    }
+
+    public String getTravelCityName() {
+        return travelCityName;
+    }
+
+    public void setTravelCityName(String travelCityName) {
+        this.travelCityName = travelCityName;
+    }
+
+    @Override
     public Integer getRank() {
         return rank;
+    }
+
+    @Override
+    public List<Region> getChildren() {
+        return children;
+    }
+
+    @Override
+    public void setChildren(List<Region> children) {
+        this.children = children;
     }
 
     public void setRank(Integer rank) {
@@ -168,28 +248,24 @@ public class Region extends BaseAuditableEntity implements Serializable {
         this.pinYin = pinYin;
     }
 
+    @Override
     public String getTenantCode() {
         return tenantCode;
     }
 
+    @Override
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
     }
 
-    public String getTravelCityCode() {
-        return travelCityCode;
-    }
-
-    public void setTravelCityCode(String travelCityCode) {
-        this.travelCityCode = travelCityCode;
-    }
-
-    public String getTravelCityName() {
-        return travelCityName;
-    }
-
-    public void setTravelCityName(String travelCityName) {
-        this.travelCityName = travelCityName;
+    public String getParentPath() {
+        if (getNodeLevel() == null || StringUtils.isBlank(getNamePath()) || StringUtils.isBlank(getName())) {
+            return "";
+        }
+        if (getNodeLevel() == 0) {
+            return "";
+        }
+        return getNamePath().substring(1, getNamePath().length() - getName().length() - 1);
     }
 
 }

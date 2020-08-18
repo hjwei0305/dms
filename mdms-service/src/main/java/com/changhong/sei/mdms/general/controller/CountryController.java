@@ -15,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * 国家(Country)控制类
  *
@@ -34,6 +36,38 @@ public class CountryController extends BaseEntityController<Country, CountryDto>
     @Override
     public BaseEntityService<Country> getService() {
         return service;
+    }
+
+    /**
+     * 根据代码查询国家
+     *
+     * @param code 代码
+     * @return 国家信息
+     */
+    @Override
+    public ResultData<CountryDto> findByCode(String code) {
+        Country country = service.findByCode(code);
+        return ResultData.success(convertToDto(country));
+    }
+
+    /**
+     * 获取所有业务实体
+     *
+     * @return 业务实体清单
+     */
+    @Override
+    public ResultData<List<CountryDto>> findAll() {
+        return ResultData.success(convertToDtos(service.findAll()));
+    }
+
+    /**
+     * 获取所有未冻结的业务实体
+     *
+     * @return 业务实体清单
+     */
+    @Override
+    public ResultData<List<CountryDto>> findAllUnfrozen() {
+        return ResultData.success(convertToDtos(service.findAllUnfrozen()));
     }
 
     /**

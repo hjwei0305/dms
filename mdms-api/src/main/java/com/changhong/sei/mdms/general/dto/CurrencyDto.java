@@ -5,6 +5,10 @@ import com.changhong.sei.mdms.annotation.MasterData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * 币种(Currency)DTO类
  *
@@ -16,30 +20,40 @@ import io.swagger.annotations.ApiModelProperty;
 public class CurrencyDto extends BaseEntityDto {
     private static final long serialVersionUID = 402624026080441813L;
     /**
+     * 代码
+     */
+    @NotBlank
+    @Size(max = 20)
+    @ApiModelProperty(value = "代码(max = 20)", required = true)
+    private String code;
+
+    /**
+     * 名称
+     */
+    @NotBlank
+    @Size(max = 100)
+    @ApiModelProperty(value = "名称(max = 100)", required = true)
+    private String name;
+
+    /**
+     * 排序
+     */
+    @NotNull
+    @ApiModelProperty(value = "排序", required = true)
+    private Integer rank = 0;
+
+    /**
+     * 冻结
+     */
+    @NotNull
+    @ApiModelProperty(value = "冻结", required = true)
+    private Boolean frozen = Boolean.FALSE;
+
+    /**
      * 租户代码
      */
     @ApiModelProperty(value = "租户代码")
     private String tenantCode;
-    /**
-     * 代码
-     */
-    @ApiModelProperty(value = "代码")
-    private String code;
-    /**
-     * 名称
-     */
-    @ApiModelProperty(value = "名称")
-    private String name;
-    /**
-     * 冻结状态
-     */
-    @ApiModelProperty(value = "冻结状态")
-    private Double frozen;
-    /**
-     * 排序
-     */
-    @ApiModelProperty(value = "排序")
-    private Double rank;
 
 
     public String getTenantCode() {
@@ -66,20 +80,19 @@ public class CurrencyDto extends BaseEntityDto {
         this.name = name;
     }
 
-    public Double getFrozen() {
-        return frozen;
-    }
-
-    public void setFrozen(Double frozen) {
-        this.frozen = frozen;
-    }
-
-    public Double getRank() {
+    public Integer getRank() {
         return rank;
     }
 
-    public void setRank(Double rank) {
+    public void setRank(Integer rank) {
         this.rank = rank;
     }
 
+    public Boolean getFrozen() {
+        return frozen;
+    }
+
+    public void setFrozen(Boolean frozen) {
+        this.frozen = frozen;
+    }
 }

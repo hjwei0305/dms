@@ -1,6 +1,7 @@
 package com.changhong.sei.mdms.general.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
+import com.changhong.sei.core.api.FindAllApi;
 import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.mdms.general.dto.CountryDto;
 import com.changhong.sei.mdms.general.dto.CurrencyDto;
@@ -13,10 +14,9 @@ import javax.validation.Valid;
  *
  * @author sei
  * @since 2020-08-17 14:03:30
- * TODO @FeignClient(name = "请修改为项目服务名")
  */
 @Valid
 @FeignClient(name = "mdms", path = "currency")
-public interface CurrencyApi extends BaseEntityApi<CurrencyDto>, FindByPageApi<CurrencyDto> {
+public interface CurrencyApi extends BaseEntityApi<CurrencyDto>, FindByPageApi<CurrencyDto>, FindAllApi<CurrencyDto> {
 
 }

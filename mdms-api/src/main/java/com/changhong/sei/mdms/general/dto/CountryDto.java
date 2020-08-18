@@ -5,6 +5,10 @@ import com.changhong.sei.mdms.annotation.MasterData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * 国家(Country)DTO类
  *
@@ -18,39 +22,54 @@ public class CountryDto extends BaseEntityDto {
     /**
      * 代码
      */
-    @ApiModelProperty(value = "代码")
+    @NotBlank
+    @Size(max = 4)
+    @ApiModelProperty(value = "代码(max = 4)", required = true)
     private String code;
+
     /**
      * 名称
      */
-    @ApiModelProperty(value = "名称")
+    @NotBlank
+    @Size(max = 60)
+    @ApiModelProperty(value = "名称(max = 60)", required = true)
     private String name;
+
     /**
      * 国家货币代码
      */
-    @ApiModelProperty(value = "国家货币代码")
+    @NotBlank
+    @Size(max = 5)
+    @ApiModelProperty(value = "国家货币代码(max = 5)", required = true)
     private String currencyCode;
+
     /**
      * 国家货币名称
      */
-    @ApiModelProperty(value = "国家货币名称")
+    @NotBlank
+    @Size(max = 20)
+    @ApiModelProperty(value = "国家货币名称(max = 20)", required = true)
     private String currencyName;
+
     /**
      * 是否国外
      */
-    @ApiModelProperty(value = "是否国外")
-    private Boolean toForeign;
+    @NotNull
+    @ApiModelProperty(value = "是否国外", required = true)
+    private Boolean toForeign = Boolean.FALSE;
+
     /**
      * 排序
      */
-    @ApiModelProperty(value = "排序")
-    private Integer rank;
+    @NotNull
+    @ApiModelProperty(value = "排序", required = true)
+    private Integer rank = 0;
+
     /**
      * 租户代码
      */
     @ApiModelProperty(value = "租户代码")
     private String tenantCode;
-
 
     public String getCode() {
         return code;
