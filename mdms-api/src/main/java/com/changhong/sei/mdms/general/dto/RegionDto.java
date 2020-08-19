@@ -27,7 +27,7 @@ public class RegionDto extends BaseEntityDto implements TreeEntity<RegionDto> {
      */
     @NotBlank
     @Size(max = 10)
-    @ApiModelProperty(value = "代码(max = 10)", required = true)
+    @ApiModelProperty(value = "代码", allowableValues="@Size(max = 10)", required = true)
     private String code;
 
     /**
@@ -35,7 +35,7 @@ public class RegionDto extends BaseEntityDto implements TreeEntity<RegionDto> {
      */
     @NotBlank
     @Size(max = 90)
-    @ApiModelProperty(value = "名称(max = 90)", required = true)
+    @ApiModelProperty(value = "名称", allowableValues = "@Size(max = 90)", required = true)
     private String name;
 
     /**
@@ -69,7 +69,7 @@ public class RegionDto extends BaseEntityDto implements TreeEntity<RegionDto> {
      */
     @NotBlank
     @Size(max = 36)
-    @ApiModelProperty(value = "国家Id(max = 36)", required = true)
+    @ApiModelProperty(value = "国家Id", allowableValues = "@Size(max = 36)", required = true)
     private String countryId;
 
     /**
@@ -89,7 +89,7 @@ public class RegionDto extends BaseEntityDto implements TreeEntity<RegionDto> {
      */
     @NotNull
     @Min(0)
-    @ApiModelProperty(value = "排序")
+    @ApiModelProperty(value = "排序", allowableValues = "@Min(0)")
     private Integer rank = 0;
 
 
@@ -97,14 +97,14 @@ public class RegionDto extends BaseEntityDto implements TreeEntity<RegionDto> {
      * 缩写
      */
     @Size(max = 30)
-    @ApiModelProperty(value = "缩写(max = 30)")
+    @ApiModelProperty(value = "缩写", allowableValues = "@Size(max = 30)")
     private String shortName;
 
     /**
      * 拼音
      */
     @Size(max = 200)
-    @ApiModelProperty(value = "拼音(max = 200)")
+    @ApiModelProperty(value = "拼音", allowableValues = "@Size(max = 200)")
     private String pinYin;
 
     /**
@@ -116,20 +116,20 @@ public class RegionDto extends BaseEntityDto implements TreeEntity<RegionDto> {
      * 商旅城市代码
      */
     @Size(max = 10)
-    @ApiModelProperty(value = "商旅城市代码(max = 10)")
+    @ApiModelProperty(value = "商旅城市代码", allowableValues = "@Size(max = 10)")
     private String travelCityCode;
 
     /**
      * 商旅城市名称
      */
     @Size(max = 90)
-    @ApiModelProperty(value = "商旅城市名称(max = 90)")
+    @ApiModelProperty(value = "商旅城市名称", allowableValues = "@Size(max = 90)")
     private String travelCityName;
 
     /**
      * 子节点列表
      */
-    @ApiModelProperty(value = "子节点列表(List)")
+    @ApiModelProperty(value = "子节点列表", allowableValues = "list")
     private List<RegionDto> children;
 
     @Override

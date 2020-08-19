@@ -24,7 +24,7 @@ public class CurrencyDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 20)
-    @ApiModelProperty(value = "代码(max = 20)", required = true)
+    @ApiModelProperty(value = "代码", allowableValues = "@Size(max = 20)", required = true)
     private String code;
 
     /**
@@ -32,7 +32,7 @@ public class CurrencyDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 100)
-    @ApiModelProperty(value = "名称(max = 100)", required = true)
+    @ApiModelProperty(value = "名称", allowableValues = "@Size(max = 100)", required = true)
     private String name;
 
     /**

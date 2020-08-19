@@ -24,7 +24,7 @@ public class CountryDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 4)
-    @ApiModelProperty(value = "代码(max = 4)", required = true)
+    @ApiModelProperty(value = "代码", allowableValues ="@Size(max = 4)", required = true)
     private String code;
 
     /**
@@ -32,7 +32,7 @@ public class CountryDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 60)
-    @ApiModelProperty(value = "名称(max = 60)", required = true)
+    @ApiModelProperty(value = "名称", allowableValues = "@Size(max = 60)", required = true)
     private String name;
 
     /**
@@ -40,7 +40,7 @@ public class CountryDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 5)
-    @ApiModelProperty(value = "国家货币代码(max = 5)", required = true)
+    @ApiModelProperty(value = "国家货币代码", allowableValues = "@Size(max = 5)", required = true)
     private String currencyCode;
 
     /**
@@ -48,7 +48,7 @@ public class CountryDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 20)
-    @ApiModelProperty(value = "国家货币名称(max = 20)", required = true)
+    @ApiModelProperty(value = "国家货币名称", allowableValues = "@Size(max = 20)", required = true)
     private String currencyName;
 
     /**
