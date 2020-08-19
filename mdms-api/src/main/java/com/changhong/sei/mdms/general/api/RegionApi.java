@@ -26,9 +26,9 @@ public interface RegionApi extends BaseTreeApi<RegionDto>, FindByPageApi<RegionD
      *
      * @return 行政区域树形对象集合
      */
-    @GetMapping(path = "getTree")
+    @GetMapping(path = "getMultipleRoots")
     @ApiOperation(notes = "查询所有的行政区域树", value = "查询所有的行政区域树")
-    ResultData<List<RegionDto>> getTree();
+    ResultData<List<RegionDto>> getMultipleRoots();
 
     /**
      * 通过国家id查询行政区域树

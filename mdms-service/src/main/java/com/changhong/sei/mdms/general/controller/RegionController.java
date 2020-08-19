@@ -50,7 +50,7 @@ public class RegionController extends BaseTreeController<Region, RegionDto> impl
      * @return 行政区域树形对象集合
      */
     @Override
-    public ResultData<List<RegionDto>> getTree() {
+    public ResultData<List<RegionDto>> getMultipleRoots() {
         return ResultData.success(convertToDtos(service.getRegionTree()));
     }
 
