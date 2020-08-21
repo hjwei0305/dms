@@ -2,6 +2,8 @@ package com.changhong.sei.mdms.management.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.mdms.management.dto.EntityDto;
 import com.changhong.sei.mdms.management.dto.MasterDataRegisterDto;
 import com.changhong.sei.mdms.management.dto.MasterDataUiConfigDto;
@@ -50,6 +52,16 @@ public interface MasterDataUiConfigApi extends BaseEntityApi<MasterDataUiConfigD
     @PostMapping(path = "unregister/{id}")
     @ApiOperation(value = "取消主数据注册", notes = "取消主数据注册")
     ResultData<String> unregister(@PathVariable("id") String id);
+
+    /**
+     * 分页查询注册的主数据
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
+    @PostMapping(path = "getRegisterDataByPage", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "分页查询注册的主数据", notes = "分页查询注册的主数据")
+    ResultData<PageResult<MasterDataRegisterDto>> getRegisterDataByPage(@RequestBody Search search);
 
     /**
      * 获取指定主数据分类获取注册的主数据

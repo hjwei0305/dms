@@ -2,6 +2,7 @@ package com.changhong.sei.mdms.management.controller;
 
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.service.BaseEntityService;
@@ -82,6 +83,28 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
     @Override
     public ResultData<String> unregister(String id) {
         return service.unregister(id);
+    }
+
+    /**
+     * 分页查询注册的主数据
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<MasterDataRegisterDto>> getRegisterDataByPage(Search search) {
+        PageResult<MasterDataUiConfig> pageResult = service.findByPage(search);
+        PageResult<MasterDataRegisterDto> result = new PageResult<>(pageResult);
+        if (pageResult.getRecords() > 0) {
+            List<MasterDataUiConfig> list = pageResult.getRows();
+            if (Objects.nonNull(list)) {
+                ModelMapper modelMapper = getModelMapper();
+                List<MasterDataRegisterDto> dtos = list.stream()
+                        .map(o -> modelMapper.map(o, MasterDataRegisterDto.class)).collect(Collectors.toList());
+                result.setRows(dtos);
+            }
+        }
+        return ResultData.success(result);
     }
 
     /**
