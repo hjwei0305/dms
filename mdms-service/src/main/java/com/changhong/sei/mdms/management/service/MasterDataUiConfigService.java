@@ -1,6 +1,7 @@
 package com.changhong.sei.mdms.management.service;
 
 import com.changhong.sei.core.cache.CacheBuilder;
+import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseEntityService;
@@ -38,7 +39,8 @@ public class MasterDataUiConfigService extends BaseEntityService<MasterDataUiCon
     public ResultData<String> unregister(String id) {
         MasterDataUiConfig config = dao.findOne(id);
         if (Objects.isNull(config)) {
-            return ResultData.fail("未找到对应的数据");
+            // 未找到对应注册的主数据
+            return ResultData.fail(ContextUtil.getMessage("00020"));
         }
         config.setFrozen(Boolean.TRUE);
         OperateResultWithData<MasterDataUiConfig> result = this.save(config);

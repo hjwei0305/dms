@@ -80,16 +80,18 @@ public class RegionService extends BaseTreeService<Region> {
 
     /**
      * 保存前检查代码唯一性
+     * 同前端约定:根节点为国家前端会传递CountryId,非根节点需要通过parentId获取CountryId
      *
      * @param entity 待保存的行政区域
      * @return 操作结果
      */
     @Override
     public OperateResultWithData<Region> save(Region entity) {
-        if (StringUtils.isBlank(entity.getCountryId())) {
-            // 该行政区域对应国家属性为空！
-            return OperateResultWithData.operationFailure("00010");
-        }
+        // 同前端约定:根节点为国家前端会传递CountryId,非根节点需要通过parentId获取CountryId
+//        if (StringUtils.isBlank(entity.getCountryId())) {
+//            // 该行政区域对应国家属性为空！
+//            return OperateResultWithData.operationFailure("00010");
+//        }
         String id = IdGenerator.uuid();
         if (StringUtils.isNotBlank(entity.getId())) {
             id = entity.getId();
@@ -99,12 +101,23 @@ public class RegionService extends BaseTreeService<Region> {
             return OperateResultWithData.operationFailure("00011");
         }
         //根节点未国家，因此需要检查是否重复添加国家根节点
-        if (StringUtils.isBlank(entity.getParentId())) {
+        String parentId = entity.getParentId();
+        if (StringUtils.isBlank(parentId)) {
             //获取根节点-国家
             Region region = dao.findByCountryIdAndNodeLevel(entity.getCountryId(), 0);
             if (Objects.nonNull(region) && !Objects.equals(region.getId(), entity.getId())) {
                 // 国家根节点，不能重复！
                 return OperateResultWithData.operationFailure("00012", region.getName());
+            }
+        } else {
+            // 同前端约定:根节点为国家前端会传递CountryId,非根节点需要通过parentId获取CountryId
+            Region region = dao.findOne(parentId);
+            if (Objects.nonNull(region)) {
+                // 从父节点获取国家id
+                entity.setCountryId(region.getCountryId());
+            } else {
+                // 【{0}】的上级行政区域不存在！
+                return OperateResultWithData.operationFailure("00017", entity.getName());
             }
         }
         return super.save(entity);

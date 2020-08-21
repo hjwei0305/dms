@@ -6,16 +6,21 @@ import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
-import com.changhong.sei.exception.ServiceException;
 import com.changhong.sei.datamodel.dao.DataModelDao;
 import com.changhong.sei.datamodel.entity.DataModel;
 import com.changhong.sei.datamodel.entity.DataModelField;
+import com.changhong.sei.datamodel.entity.DataSource;
+import com.changhong.sei.datamodel.manager.DatabaseManager;
+import com.changhong.sei.exception.ServiceException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,6 +36,10 @@ public class DataModelService extends BaseEntityService<DataModel> {
     private DataModelDao dao;
     @Autowired
     private DataModelFieldService fieldService;
+    @Autowired
+    private DataSourceService dataSourceService;
+//    @Autowired
+    private DatabaseManager databaseManager;
 
     @Override
     protected BaseEntityDao<DataModel> getDao() {
@@ -296,6 +305,27 @@ public class DataModelService extends BaseEntityService<DataModel> {
         } else {
             return ResultData.fail("参数不能为空.");
         }
+    }
+
+    public ResultData<String> syncDatabase(List<String> dataModelIds) {
+        List<DataModel> dataModels = findByIds(dataModelIds);
+        if (CollectionUtils.isNotEmpty(dataModels)) {
+            for (DataModel dataModel : dataModels) {
+                syncDatabase(dataModel);
+            }
+        }
+        return ResultData.success("ok");
+    }
+
+    public ResultData<String> syncDatabase(DataModel dataModel) {
+        DataSource dataSource = dataSourceService.findOne(dataModel.getDsId());
+        if (Objects.isNull(dataSource)) {
+            return ResultData.fail("未找到数据源配置[" + dataModel.getDsName() + "]");
+        }
+
+        List<DataModelField> fields = getDataModelFields(dataModel.getId());
+
+        return databaseManager.generateScript(dataSource, dataModel, fields);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.changhong.sei.mdms.management.controller;
 
+import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
@@ -153,7 +154,8 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
     public ResultData<MasterDataUiConfigDto> getConfigByCode(String code) {
         MasterDataUiConfig config = service.findByProperty(MasterDataUiConfig.TYPE_CODE, code);
         if (Objects.isNull(config)) {
-            return ResultData.fail("未找到[" + code + "]的主数据UI配置.");
+            // 未找到[{0}]的主数据UI配置.
+            return ResultData.fail(ContextUtil.getMessage("00018", code));
         } else {
             return ResultData.success(convertToDto(config));
         }

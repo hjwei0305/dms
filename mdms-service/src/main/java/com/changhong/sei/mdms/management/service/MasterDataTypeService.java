@@ -1,5 +1,6 @@
 package com.changhong.sei.mdms.management.service;
 
+import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseTreeDao;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseTreeService;
@@ -39,6 +40,7 @@ public class MasterDataTypeService extends BaseTreeService<MasterDataType> {
             MasterDataType tree = dao.getTree(type.getId());
             return ResultData.success(tree);
         }
-        return ResultData.fail("未找到[" + code + "]主数据分类.");
+        // 未找到[" + code + "]主数据分类.
+        return ResultData.fail(ContextUtil.getMessage("00019", code));
     }
 }
