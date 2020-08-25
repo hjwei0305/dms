@@ -85,6 +85,11 @@ public class AnnotationScan implements ApplicationListener<ContextRefreshedEvent
                         entityDtos.add(dto);
 
                         propertyList = new ArrayList<>();
+                        propertyDto = new EntityDto.Property();
+                        propertyDto.setCode("id");
+                        propertyDto.setName("主键ID");
+                        propertyList.add(propertyDto);
+
                         for (Class<?> superClass = clazz; superClass != Object.class; superClass = superClass.getSuperclass()) {
                             fields = superClass.getDeclaredFields();
                             for (Field field : fields) {
