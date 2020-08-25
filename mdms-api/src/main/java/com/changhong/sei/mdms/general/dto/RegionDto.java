@@ -69,7 +69,7 @@ public class RegionDto extends BaseEntityDto implements TreeEntity<RegionDto> {
      */
     @NotBlank
     @Size(max = 36)
-    @ApiModelProperty(value = "国家Id", allowableValues = "@Size(max = 36)", required = true)
+    @ApiModelProperty(value = "国家Id", allowableValues = "@Size(max = 36)")
     private String countryId;
 
     /**
