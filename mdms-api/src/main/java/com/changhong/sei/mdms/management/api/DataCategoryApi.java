@@ -3,10 +3,13 @@ package com.changhong.sei.mdms.management.api;
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.BaseTreeApi;
 import com.changhong.sei.core.dto.ResultData;
-import com.changhong.sei.mdms.management.dto.MasterDataTypeDto;
+import com.changhong.sei.mdms.management.dto.DataCategoryDto;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
@@ -19,8 +22,10 @@ import java.util.List;
  * @since 2020-08-13 22:47:14
  */
 @Valid
-@FeignClient(name = "mdms", path = "masterDataType")
-public interface MasterDataTypeApi extends BaseEntityApi<MasterDataTypeDto>, BaseTreeApi<MasterDataTypeDto> {
+@Api(value = "DataCategoryApi", tags = "主数据分类服务")
+@FeignClient(name = "mdms", path = "dataCategory")
+@RequestMapping(path = "dataCategory", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+public interface DataCategoryApi extends BaseEntityApi<DataCategoryDto>, BaseTreeApi<DataCategoryDto> {
 
     /**
      * 获取主数据分类的树
@@ -29,7 +34,7 @@ public interface MasterDataTypeApi extends BaseEntityApi<MasterDataTypeDto>, Bas
      */
     @GetMapping(path = "getTypeTree")
     @ApiOperation(value = "获取主数据分类的树", notes = "获取主数据分类的树")
-    ResultData<List<MasterDataTypeDto>> getTypeTree();
+    ResultData<List<DataCategoryDto>> getTypeTree();
 
     /**
      * 根据代码获取一个节点的树
@@ -39,5 +44,5 @@ public interface MasterDataTypeApi extends BaseEntityApi<MasterDataTypeDto>, Bas
      */
     @GetMapping(path = "getTreeByCode")
     @ApiOperation(value = "根据代码获取一个节点的树", notes = "根据代码获取一个节点的树")
-    ResultData<MasterDataTypeDto> getTreeByCode(@RequestParam("code") String code);
+    ResultData<DataCategoryDto> getTreeByCode(@RequestParam("code") String code);
 }

@@ -4,9 +4,9 @@ import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
+import com.changhong.sei.mdms.management.dto.DataDefinitionDto;
 import com.changhong.sei.mdms.management.dto.EntityDto;
-import com.changhong.sei.mdms.management.dto.MasterDataRegisterDto;
-import com.changhong.sei.mdms.management.dto.MasterDataUiConfigDto;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -24,7 +24,9 @@ import java.util.Map;
  */
 @Valid
 @FeignClient(name = "mdms", path = "config")
-public interface MasterDataUiConfigApi extends BaseEntityApi<MasterDataUiConfigDto> {
+@Api(value = "DataDefinitionApi", tags = "主数据定义服务")
+@RequestMapping(path = "dataDefinition", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
 
     /**
      * 获取支持的数据结构
@@ -34,6 +36,13 @@ public interface MasterDataUiConfigApi extends BaseEntityApi<MasterDataUiConfigD
     ResultData<Map<String, String>> getDataStructure();
 
     /**
+     * 获取支持的配置类型
+     */
+    @GetMapping(path = "getConfigType")
+    @ApiOperation(value = "获取支持的配置类型", notes = "获取支持的配置类型")
+    ResultData<Map<String, String>> getConfigType();
+
+    /**
      * 主数据注册
      *
      * @param request 主数据注册请求
@@ -41,17 +50,27 @@ public interface MasterDataUiConfigApi extends BaseEntityApi<MasterDataUiConfigD
      */
     @PostMapping(path = "register", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "主数据注册", notes = "注册一个主数据")
-    ResultData<String> register(@RequestBody @Valid MasterDataRegisterDto request);
+    ResultData<String> register(@RequestBody @Valid DataDefinitionDto request);
 
     /**
-     * 取消主数据注册
+     * 冻结数据
      *
-     * @param id 取消主数据注册请求id
+     * @param id id
      * @return 操作结果
      */
-    @PostMapping(path = "unregister/{id}")
-    @ApiOperation(value = "取消主数据注册", notes = "取消主数据注册")
-    ResultData<String> unregister(@PathVariable("id") String id);
+    @PostMapping(path = "frozen/{id}")
+    @ApiOperation(value = "冻结数据", notes = "冻结数据")
+    ResultData<String> frozen(@PathVariable("id") String id);
+
+    /**
+     * 解冻数据
+     *
+     * @param id id
+     * @return 操作结果
+     */
+    @PostMapping(path = "unfrozen/{id}")
+    @ApiOperation(value = "解冻数据", notes = "解冻数据")
+    ResultData<String> unfrozen(@PathVariable("id") String id);
 
     /**
      * 分页查询注册的主数据
@@ -61,27 +80,27 @@ public interface MasterDataUiConfigApi extends BaseEntityApi<MasterDataUiConfigD
      */
     @PostMapping(path = "getRegisterDataByPage", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "分页查询注册的主数据", notes = "分页查询注册的主数据")
-    ResultData<PageResult<MasterDataRegisterDto>> getRegisterDataByPage(@RequestBody Search search);
+    ResultData<PageResult<DataDefinitionDto>> getRegisterDataByPage(@RequestBody Search search);
 
     /**
      * 获取指定主数据分类获取注册的主数据
      *
-     * @param typeCode 分类代码
+     * @param categoryId 分类id
      * @return 返回注册的主数据
      */
-    @GetMapping(path = "getRegisterDataByTypeCode")
+    @GetMapping(path = "getRegisterDataByCategoryId")
     @ApiOperation(value = "获取指定主数据分类获取注册的主数据", notes = "获取指定主数据分类获取注册的主数据")
-    ResultData<List<MasterDataRegisterDto>> getRegisterDataByTypeCode(@RequestParam("typeCode") String typeCode);
+    ResultData<List<DataDefinitionDto>> getRegisterDataByCategoryId(@RequestParam("categoryId") String categoryId);
 
     /**
      * 获取指定分类的主数据UI配置
      *
-     * @param typeCode 分类代码
+     * @param categoryId 分类ID
      * @return 返回指定主数据的UI配置
      */
-    @GetMapping(path = "getConfigByTypeCode")
+    @GetMapping(path = "getConfigByCategoryId")
     @ApiOperation(value = "获取指定分类的主数据UI配置", notes = "获取指定分类的主数据UI配置")
-    ResultData<List<MasterDataUiConfigDto>> getConfigByTypeCode(@RequestParam("typeCode") String typeCode);
+    ResultData<List<DataDefinitionDto>> getConfigByCategoryId(@RequestParam("categoryId") String categoryId);
 
     /**
      * 获取指定主数据的UI配置
@@ -91,12 +110,12 @@ public interface MasterDataUiConfigApi extends BaseEntityApi<MasterDataUiConfigD
      */
     @GetMapping(path = "getConfigByCode")
     @ApiOperation(value = "获取指定主数据的UI配置", notes = "获取指定主数据的UI配置")
-    ResultData<MasterDataUiConfigDto> getConfigByCode(@RequestParam("code") String code);
+    ResultData<DataDefinitionDto> getConfigByCode(@RequestParam("code") String code);
 
     /**
      * 获取当前所有主数据
      */
-    @GetMapping(path = "getAllMasterData")
+    @GetMapping(path = "getAllData")
     @ApiOperation(value = "获取当前所有主数据", notes = "获取当前所有主数据")
     ResultData<List<EntityDto>> getAllMasterData();
 

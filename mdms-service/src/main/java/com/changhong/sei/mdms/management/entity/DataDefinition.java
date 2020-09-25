@@ -9,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.StringJoiner;
 
 /**
  * 主数据UI配置(MasterDataUiConfig)实体类
@@ -17,10 +18,10 @@ import java.io.Serializable;
  * @since 2020-08-13 22:47:16
  */
 @Entity
-@Table(name = "master_data_ui_config")
+@Table(name = "_data_definition")
 @DynamicInsert
 @DynamicUpdate
-public class MasterDataUiConfig extends BaseAuditableEntity implements Serializable, ICodeUnique, IFrozen {
+public class DataDefinition extends BaseAuditableEntity implements Serializable, ICodeUnique, IFrozen {
     private static final long serialVersionUID = -55502538661881172L;
     public static final String TYPE_CODE = "typeCode";
     /**
@@ -40,15 +41,15 @@ public class MasterDataUiConfig extends BaseAuditableEntity implements Serializa
     @Column(name = "data_structure", nullable = false)
     private DataStructureEnum dataStructure;
     /**
-     * 分类代码
+     * 分类id
      */
-    @Column(name = "type_code", nullable = false)
-    private String typeCode;
+    @Column(name = "category_code", nullable = false)
+    private String categoryId;
     /**
      * 分类名称
      */
-    @Column(name = "type_name")
-    private String typeName;
+    @Column(name = "category_name")
+    private String categoryName;
     /**
      * 冻结
      * 取消注册即冻结
@@ -60,27 +61,6 @@ public class MasterDataUiConfig extends BaseAuditableEntity implements Serializa
      */
     @Column(name = "remark")
     private String remark;
-    /**
-     * UI表格默认排序配置json
-     */
-    @Column(name = "rank_fields")
-    private String rankFields;
-    /**
-     * UI表格配置json
-     */
-    @Column(name = "table_data")
-    private String tableData;
-    /**
-     * UI表单配置json
-     */
-    @Column(name = "form_data")
-    private String formData;
-    /**
-     * 导入导出配置json
-     */
-    @Column(name = "imp_exp_data")
-    private String impExpData;
-
 
     @Override
     public String getCode() {
@@ -108,20 +88,20 @@ public class MasterDataUiConfig extends BaseAuditableEntity implements Serializa
         this.dataStructure = dataStructure;
     }
 
-    public String getTypeCode() {
-        return typeCode;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setTypeCode(String typeCode) {
-        this.typeCode = typeCode;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     @Override
@@ -142,36 +122,11 @@ public class MasterDataUiConfig extends BaseAuditableEntity implements Serializa
         this.remark = remark;
     }
 
-    public String getRankFields() {
-        return rankFields;
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", DataDefinition.class.getSimpleName() + "[", "]")
+                .add("code='" + code + "'")
+                .add("name='" + name + "'")
+                .toString();
     }
-
-    public void setRankFields(String rankFields) {
-        this.rankFields = rankFields;
-    }
-
-    public String getTableData() {
-        return tableData;
-    }
-
-    public void setTableData(String tableData) {
-        this.tableData = tableData;
-    }
-
-    public String getFormData() {
-        return formData;
-    }
-
-    public void setFormData(String formData) {
-        this.formData = formData;
-    }
-
-    public String getImpExpData() {
-        return impExpData;
-    }
-
-    public void setImpExpData(String impExpData) {
-        this.impExpData = impExpData;
-    }
-
 }

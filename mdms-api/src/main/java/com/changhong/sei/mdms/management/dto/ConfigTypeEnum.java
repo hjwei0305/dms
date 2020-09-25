@@ -8,17 +8,23 @@ import com.changhong.sei.annotation.Remark;
  * @author 马超(Vision.Mac)
  * @version 1.0.00  2020-08-18 09:38
  */
-public enum DataStructureEnum {
-
-    /**
-     * 普通
-     */
-    @Remark("普通")
-    GENERAL,
+public enum ConfigTypeEnum {
     
     /**
-     * 树
+     * 表单
      */
-    @Remark("树型")
-    TREE
+    @Remark("表单")
+    UI,
+
+    /**
+     * 导入
+     */
+    @Remark("导入")
+    Import,
+
+    /**
+     * 导出
+     */
+    @Remark("导出")
+    Export
 }

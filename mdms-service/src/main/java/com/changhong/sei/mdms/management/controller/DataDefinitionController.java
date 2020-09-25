@@ -9,13 +9,14 @@ import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.core.utils.ResultDataUtil;
-import com.changhong.sei.mdms.management.api.MasterDataUiConfigApi;
+import com.changhong.sei.mdms.management.api.DataDefinitionApi;
+import com.changhong.sei.mdms.management.dto.ConfigTypeEnum;
+import com.changhong.sei.mdms.management.dto.DataDefinitionDto;
 import com.changhong.sei.mdms.management.dto.DataStructureEnum;
 import com.changhong.sei.mdms.management.dto.EntityDto;
-import com.changhong.sei.mdms.management.dto.MasterDataRegisterDto;
-import com.changhong.sei.mdms.management.dto.MasterDataUiConfigDto;
-import com.changhong.sei.mdms.management.entity.MasterDataUiConfig;
-import com.changhong.sei.mdms.management.service.MasterDataUiConfigService;
+import com.changhong.sei.mdms.management.entity.DataConfig;
+import com.changhong.sei.mdms.management.entity.DataDefinition;
+import com.changhong.sei.mdms.management.service.DataDefinitionService;
 import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,23 +31,21 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * 主数据UI配置(MasterDataUiConfig)控制类
+ * 主数据定义(DataDefinition)控制类
  *
  * @author sei
  * @since 2020-08-13 22:47:17
  */
 @RestController
-@Api(value = "MasterDataUiConfigApi", tags = "主数据UI配置服务")
-@RequestMapping(path = "masterDataUiConfig", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class MasterDataUiConfigController extends BaseEntityController<MasterDataUiConfig, MasterDataUiConfigDto> implements MasterDataUiConfigApi {
+public class DataDefinitionController extends BaseEntityController<DataDefinition, DataDefinitionDto> implements DataDefinitionApi {
     /**
      * 主数据UI配置服务对象
      */
     @Autowired
-    private MasterDataUiConfigService service;
+    private DataDefinitionService service;
 
     @Override
-    public BaseEntityService<MasterDataUiConfig> getService() {
+    public BaseEntityService<DataDefinition> getService() {
         return service;
     }
 
@@ -59,15 +58,23 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
     }
 
     /**
+     * 获取支持的配置类型
+     */
+    @Override
+    public ResultData<Map<String, String>> getConfigType() {
+        return ResultDataUtil.getEnumMap(ConfigTypeEnum.class);
+    }
+
+    /**
      * 主数据注册
      *
      * @param request 主数据注册请求
      * @return 操作结果
      */
     @Override
-    public ResultData<String> register(MasterDataRegisterDto request) {
-        MasterDataUiConfig config = getModelMapper().map(request, MasterDataUiConfig.class);
-        OperateResultWithData<MasterDataUiConfig> result = service.save(config);
+    public ResultData<String> register(DataDefinitionDto request) {
+        DataDefinition config = getModelMapper().map(request, DataDefinition.class);
+        OperateResultWithData<DataDefinition> result = service.save(config);
         if (result.successful()) {
             return ResultData.success(result.getMessage());
         } else {
@@ -76,14 +83,25 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
     }
 
     /**
-     * 取消主数据注册
+     * 冻结数据
      *
-     * @param id 取消主数据注册请求id
+     * @param id id
      * @return 操作结果
      */
     @Override
-    public ResultData<String> unregister(String id) {
-        return service.unregister(id);
+    public ResultData<String> frozen(String id) {
+        return service.doFrozen(id, Boolean.TRUE);
+    }
+
+    /**
+     * 解冻数据
+     *
+     * @param id id
+     * @return 操作结果
+     */
+    @Override
+    public ResultData<String> unfrozen(String id) {
+        return service.doFrozen(id, Boolean.FALSE);
     }
 
     /**
@@ -93,15 +111,15 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
      * @return 分页查询结果
      */
     @Override
-    public ResultData<PageResult<MasterDataRegisterDto>> getRegisterDataByPage(Search search) {
-        PageResult<MasterDataUiConfig> pageResult = service.findByPage(search);
-        PageResult<MasterDataRegisterDto> result = new PageResult<>(pageResult);
+    public ResultData<PageResult<DataDefinitionDto>> getRegisterDataByPage(Search search) {
+        PageResult<DataDefinition> pageResult = service.findByPage(search);
+        PageResult<DataDefinitionDto> result = new PageResult<>(pageResult);
         if (pageResult.getRecords() > 0) {
-            List<MasterDataUiConfig> list = pageResult.getRows();
+            List<DataDefinition> list = pageResult.getRows();
             if (Objects.nonNull(list)) {
                 ModelMapper modelMapper = getModelMapper();
-                List<MasterDataRegisterDto> dtos = list.stream()
-                        .map(o -> modelMapper.map(o, MasterDataRegisterDto.class)).collect(Collectors.toList());
+                List<DataDefinitionDto> dtos = list.stream()
+                        .map(o -> modelMapper.map(o, DataDefinitionDto.class)).collect(Collectors.toList());
                 result.setRows(dtos);
             }
         }
@@ -115,15 +133,15 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
      * @return 返回注册的主数据
      */
     @Override
-    public ResultData<List<MasterDataRegisterDto>> getRegisterDataByTypeCode(String typeCode) {
+    public ResultData<List<DataDefinitionDto>> getRegisterDataByCategoryId(String typeCode) {
         Search search = Search.createSearch();
-        search.addFilter(new SearchFilter(MasterDataUiConfig.TYPE_CODE, typeCode));
-        List<MasterDataUiConfig> list = service.findByFilters(search);
+        search.addFilter(new SearchFilter(DataConfig.TYPE_CODE, typeCode));
+        List<DataDefinition> list = service.findByFilters(search);
         if (Objects.isNull(list)) {
             list = new ArrayList<>();
         }
         ModelMapper modelMapper = getModelMapper();
-        return ResultData.success(list.stream().map(o -> modelMapper.map(o, MasterDataRegisterDto.class)).collect(Collectors.toList()));
+        return ResultData.success(list.stream().map(o -> modelMapper.map(o, DataDefinitionDto.class)).collect(Collectors.toList()));
     }
 
     /**
@@ -133,11 +151,11 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
      * @return 返回指定主数据的UI配置
      */
     @Override
-    public ResultData<List<MasterDataUiConfigDto>> getConfigByTypeCode(String typeCode) {
+    public ResultData<List<DataDefinitionDto>> getConfigByCategoryId(String typeCode) {
         Search search = Search.createSearch();
-        search.addFilter(new SearchFilter(MasterDataUiConfig.TYPE_CODE, typeCode));
-        search.addFilter(new SearchFilter(MasterDataUiConfig.FROZEN, Boolean.FALSE));
-        List<MasterDataUiConfig> list = service.findByFilters(search);
+        search.addFilter(new SearchFilter(DataDefinition.TYPE_CODE, typeCode));
+        search.addFilter(new SearchFilter(DataDefinition.FROZEN, Boolean.FALSE));
+        List<DataDefinition> list = service.findByFilters(search);
         if (Objects.isNull(list)) {
             list = new ArrayList<>();
         }
@@ -151,8 +169,8 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
      * @return 返回指定主数据的UI配置
      */
     @Override
-    public ResultData<MasterDataUiConfigDto> getConfigByCode(String code) {
-        MasterDataUiConfig config = service.findByProperty(MasterDataUiConfig.TYPE_CODE, code);
+    public ResultData<DataDefinitionDto> getConfigByCode(String code) {
+        DataDefinition config = service.findByProperty(DataDefinition.TYPE_CODE, code);
         if (Objects.isNull(config)) {
             // 未找到[{0}]的主数据UI配置.
             return ResultData.fail(ContextUtil.getMessage("00018", code));
@@ -162,7 +180,7 @@ public class MasterDataUiConfigController extends BaseEntityController<MasterDat
     }
 
     /**
-     * 获取当前数据库所有的表
+     * 获取当前所有注册数据
      */
     @Override
     public ResultData<List<EntityDto>> getAllMasterData() {

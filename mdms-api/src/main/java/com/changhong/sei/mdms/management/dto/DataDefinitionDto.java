@@ -9,13 +9,13 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotBlank;
 
 /**
- * 主数据UI配置(MasterDataUiConfig)DTO类
+ * 主数据定义(DataDefinition)DTO类
  *
  * @author sei
  * @since 2020-08-13 22:47:19
  */
-@ApiModel(description = "主数据注册dto")
-public class MasterDataRegisterDto extends BaseEntityDto {
+@ApiModel(description = "数据定义dto")
+public class DataDefinitionDto extends BaseEntityDto {
     private static final long serialVersionUID = 835886251258143397L;
     /**
      * 代码(表名)
@@ -36,17 +36,17 @@ public class MasterDataRegisterDto extends BaseEntityDto {
     @ApiModelProperty(value = "数据结构")
     private DataStructureEnum dataStructure;
     /**
-     * 分类代码
+     * 分类id
      */
     @NotBlank
-    @ApiModelProperty(value = "分类代码")
-    private String typeCode;
+    @ApiModelProperty(value = "分类id")
+    private String categoryId;
     /**
      * 分类名称
      */
     @NotBlank
     @ApiModelProperty(value = "分类名称")
-    private String typeName;
+    private String categoryName;
     /**
      * 冻结
      * 取消注册即冻结
@@ -58,7 +58,6 @@ public class MasterDataRegisterDto extends BaseEntityDto {
      */
     @ApiModelProperty(value = "描述说明")
     private String remark;
-
 
     public String getCode() {
         return code;
@@ -84,20 +83,20 @@ public class MasterDataRegisterDto extends BaseEntityDto {
         this.dataStructure = dataStructure;
     }
 
-    public String getTypeCode() {
-        return typeCode;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setTypeCode(String typeCode) {
-        this.typeCode = typeCode;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public Boolean getFrozen() {

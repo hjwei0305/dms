@@ -3,15 +3,12 @@ package com.changhong.sei.mdms.management.controller;
 import com.changhong.sei.core.controller.BaseTreeController;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseTreeService;
-import com.changhong.sei.mdms.management.api.MasterDataTypeApi;
-import com.changhong.sei.mdms.management.dto.MasterDataTypeDto;
-import com.changhong.sei.mdms.management.entity.MasterDataType;
-import com.changhong.sei.mdms.management.service.MasterDataTypeService;
-import io.swagger.annotations.Api;
+import com.changhong.sei.mdms.management.api.DataCategoryApi;
+import com.changhong.sei.mdms.management.dto.DataCategoryDto;
+import com.changhong.sei.mdms.management.entity.DataCategory;
+import com.changhong.sei.mdms.management.service.DataCategoryService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
@@ -24,17 +21,15 @@ import java.util.List;
  * @since 2020-08-13 22:47:06
  */
 @RestController
-@Api(value = "MasterDataTypeApi", tags = "主数据分类服务")
-@RequestMapping(path = "masterDataType", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class MasterDataTypeController extends BaseTreeController<MasterDataType, MasterDataTypeDto> implements MasterDataTypeApi {
+public class DataCategoryController extends BaseTreeController<DataCategory, DataCategoryDto> implements DataCategoryApi {
     /**
      * 主数据分类服务对象
      */
     @Autowired
-    private MasterDataTypeService service;
+    private DataCategoryService service;
 
     @Override
-    public BaseTreeService<MasterDataType> getService() {
+    public BaseTreeService<DataCategory> getService() {
         return service;
     }
 
@@ -44,12 +39,12 @@ public class MasterDataTypeController extends BaseTreeController<MasterDataType,
      * @return 获取主数据分类的树
      */
     @Override
-    public ResultData<List<MasterDataTypeDto>> getTypeTree() {
-        List<MasterDataTypeDto> tree = new LinkedList<>();
-        List<MasterDataType> roots = service.getAllRootNode();
+    public ResultData<List<DataCategoryDto>> getTypeTree() {
+        List<DataCategoryDto> tree = new LinkedList<>();
+        List<DataCategory> roots = service.getAllRootNode();
         if (CollectionUtils.isNotEmpty(roots)) {
-            for (MasterDataType root : roots) {
-                MasterDataType node = service.getTree(root.getId());
+            for (DataCategory root : roots) {
+                DataCategory node = service.getTree(root.getId());
                 tree.add(convertToDto(node));
             }
         }
@@ -64,8 +59,8 @@ public class MasterDataTypeController extends BaseTreeController<MasterDataType,
      * @return 节点树
      */
     @Override
-    public ResultData<MasterDataTypeDto> getTreeByCode(String code) {
-        ResultData<MasterDataType> resultData = service.getTreeByCode(code);
+    public ResultData<DataCategoryDto> getTreeByCode(String code) {
+        ResultData<DataCategory> resultData = service.getTreeByCode(code);
         if (resultData.successful()) {
             return ResultData.success(convertToDto(resultData.getData()));
         }

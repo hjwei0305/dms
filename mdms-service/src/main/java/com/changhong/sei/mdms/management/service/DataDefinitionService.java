@@ -7,43 +7,45 @@ import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.mdms.common.Constants;
-import com.changhong.sei.mdms.management.dao.MasterDataUiConfigDao;
+import com.changhong.sei.mdms.management.dao.DataDefinitionDao;
 import com.changhong.sei.mdms.management.dto.EntityDto;
-import com.changhong.sei.mdms.management.entity.MasterDataUiConfig;
+import com.changhong.sei.mdms.management.entity.DataDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 
 
 /**
- * 主数据UI配置(MasterDataUiConfig)业务逻辑实现类
+ * 主数据定义(DataDefinition)业务逻辑实现类
  *
  * @author sei
  * @since 2020-08-13 22:47:16
  */
-@Service("masterDataUiConfigService")
-public class MasterDataUiConfigService extends BaseEntityService<MasterDataUiConfig> {
+@Service("dataDefinitionService")
+public class DataDefinitionService extends BaseEntityService<DataDefinition> {
     @Autowired
     private CacheBuilder cacheBuilder;
     @Autowired
-    private MasterDataUiConfigDao dao;
+    private DataDefinitionDao dao;
 
 
     @Override
-    protected BaseEntityDao<MasterDataUiConfig> getDao() {
+    protected BaseEntityDao<DataDefinition> getDao() {
         return dao;
     }
 
-    public ResultData<String> unregister(String id) {
-        MasterDataUiConfig config = dao.findOne(id);
-        if (Objects.isNull(config)) {
+    @Transactional
+    public ResultData<String> doFrozen(String id, boolean frozen) {
+        DataDefinition definition = dao.findOne(id);
+        if (Objects.isNull(definition)) {
             // 未找到对应注册的主数据
             return ResultData.fail(ContextUtil.getMessage("00020"));
         }
-        config.setFrozen(Boolean.TRUE);
-        OperateResultWithData<MasterDataUiConfig> result = this.save(config);
+        definition.setFrozen(frozen);
+        OperateResultWithData<DataDefinition> result = this.save(definition);
         if (result.successful()) {
             return ResultData.success(result.getMessage());
         } else {

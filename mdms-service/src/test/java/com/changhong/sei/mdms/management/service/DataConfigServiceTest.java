@@ -14,10 +14,10 @@ import java.util.List;
  * @author 马超(Vision.Mac)
  * @version 1.0.00  2020-08-15 02:04
  */
-public class MasterDataUiConfigServiceTest extends BaseUnitTest {
+public class DataConfigServiceTest extends BaseUnitTest {
 
     @Autowired
-    private MasterDataUiConfigService service;
+    private DataDefinitionService service;
 
     @Test
     public void getAllMasterDataEntities() {

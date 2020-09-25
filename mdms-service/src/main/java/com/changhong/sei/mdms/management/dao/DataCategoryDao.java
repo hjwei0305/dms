@@ -1,7 +1,7 @@
 package com.changhong.sei.mdms.management.dao;
 
 import com.changhong.sei.core.dao.BaseTreeDao;
-import com.changhong.sei.mdms.management.entity.MasterDataType;
+import com.changhong.sei.mdms.management.entity.DataCategory;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @since 2020-08-13 22:47:06
  */
 @Repository
-public interface MasterDataTypeDao extends BaseTreeDao<MasterDataType> {
+public interface DataCategoryDao extends BaseTreeDao<DataCategory> {
 
 }

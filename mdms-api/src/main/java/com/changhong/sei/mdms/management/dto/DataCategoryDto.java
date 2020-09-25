@@ -11,7 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2020-08-13 22:47:08
  */
 @ApiModel(description = "主数据分类DTO")
-public class MasterDataTypeDto extends BaseEntityDto {
+public class DataCategoryDto extends BaseEntityDto {
     private static final long serialVersionUID = 555387474014808942L;
     /**
      * 标识符

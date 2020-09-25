@@ -2,10 +2,9 @@ package com.changhong.sei.mdms.management.controller;
 
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.test.BaseUnitTest;
+import com.changhong.sei.mdms.management.dto.DataDefinitionDto;
 import com.changhong.sei.mdms.management.dto.DataStructureEnum;
 import com.changhong.sei.mdms.management.dto.EntityDto;
-import com.changhong.sei.mdms.management.dto.MasterDataRegisterDto;
-import com.changhong.sei.mdms.management.dto.MasterDataUiConfigDto;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,26 +16,26 @@ import java.util.List;
  * @author 马超(Vision.Mac)
  * @version 1.0.00  2020-08-16 18:03
  */
-public class MasterDataUiConfigControllerTest extends BaseUnitTest {
+public class DataConfigControllerTest extends BaseUnitTest {
 
     @Autowired
-    private MasterDataUiConfigController controller;
+    private DataDefinitionController controller;
 
     @Test
     public void register() {
-        MasterDataRegisterDto request = new MasterDataRegisterDto();
+        DataDefinitionDto request = new DataDefinitionDto();
         request.setCode("dataModel");
         request.setName("数据模型");
-        request.setDataStructure(DataStructureEnum.LIST);
-        request.setTypeCode("master_data");
-        request.setTypeName("master_data");
+        request.setDataStructure(DataStructureEnum.GENERAL);
+        request.setCategoryId("master_data");
+        request.setCategoryName("master_data");
         ResultData<String> resultData = controller.register(request);
         System.out.println(resultData);
     }
 
     @Test
     public void getConfigByTypeCode() {
-        ResultData<List<MasterDataUiConfigDto>> resultData = controller.getConfigByTypeCode("master_data");
+        ResultData<List<DataDefinitionDto>> resultData = controller.getConfigByCategoryId("master_data");
         System.out.println(resultData);
     }
 
@@ -48,7 +47,7 @@ public class MasterDataUiConfigControllerTest extends BaseUnitTest {
 
     @Test
     public void getPropertiesByCode() {
-        ResultData<List<EntityDto.Property>> resultData = controller.getPropertiesByCode("country");
+        ResultData<List<EntityDto.Property>> resultData = controller.getPropertiesByCode("123");
         System.out.println(resultData);
     }
 }

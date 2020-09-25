@@ -21,13 +21,13 @@ import java.util.List;
  * @since 2020-08-13 22:47:05
  */
 @Entity
-@Table(name = "master_data_type")
+@Table(name = "_data_category")
 @DynamicInsert
 @DynamicUpdate
-public class MasterDataType extends BaseAuditableEntity implements Serializable, TreeEntity<MasterDataType>, ICodeUnique, IRank {
+public class DataCategory extends BaseAuditableEntity implements Serializable, TreeEntity<DataCategory>, ICodeUnique, IRank {
     private static final long serialVersionUID = -76211558295839968L;
     /**
-     * 标识符
+     * 标识符(UUID)
      */
     @Column(name = "code")
     private String code;
@@ -73,7 +73,7 @@ public class MasterDataType extends BaseAuditableEntity implements Serializable,
     private Boolean frozen;
 
     @Transient
-    private List<MasterDataType> children;
+    private List<DataCategory> children;
 
     @Override
     public String getCode() {
@@ -160,12 +160,17 @@ public class MasterDataType extends BaseAuditableEntity implements Serializable,
     }
 
     @Override
-    public List<MasterDataType> getChildren() {
+    public List<DataCategory> getChildren() {
         return children;
     }
 
     @Override
-    public void setChildren(List<MasterDataType> children) {
+    public void setChildren(List<DataCategory> children) {
         this.children = children;
+    }
+
+    @Override
+    public String toString() {
+        return namePath;
     }
 }

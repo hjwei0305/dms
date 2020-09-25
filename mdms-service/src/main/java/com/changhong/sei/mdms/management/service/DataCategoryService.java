@@ -4,8 +4,8 @@ import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseTreeDao;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseTreeService;
-import com.changhong.sei.mdms.management.dao.MasterDataTypeDao;
-import com.changhong.sei.mdms.management.entity.MasterDataType;
+import com.changhong.sei.mdms.management.dao.DataCategoryDao;
+import com.changhong.sei.mdms.management.entity.DataCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,18 +13,18 @@ import java.util.Objects;
 
 
 /**
- * 主数据分类(MasterDataType)业务逻辑实现类
+ * 主数据分类(DataCategory)业务逻辑实现类
  *
  * @author sei
  * @since 2020-08-13 22:47:06
  */
-@Service("masterDataTypeService")
-public class MasterDataTypeService extends BaseTreeService<MasterDataType> {
+@Service("dataCategoryService")
+public class DataCategoryService extends BaseTreeService<DataCategory> {
     @Autowired
-    private MasterDataTypeDao dao;
+    private DataCategoryDao dao;
 
     @Override
-    protected BaseTreeDao<MasterDataType> getDao() {
+    protected BaseTreeDao<DataCategory> getDao() {
         return dao;
     }
 
@@ -34,10 +34,10 @@ public class MasterDataTypeService extends BaseTreeService<MasterDataType> {
      * @param code 节点code
      * @return 节点树
      */
-    public ResultData<MasterDataType> getTreeByCode(String code) {
-        MasterDataType type = dao.findByProperty(MasterDataType.CODE, code);
+    public ResultData<DataCategory> getTreeByCode(String code) {
+        DataCategory type = dao.findByProperty(DataCategory.CODE, code);
         if (Objects.nonNull(type)) {
-            MasterDataType tree = dao.getTree(type.getId());
+            DataCategory tree = dao.getTree(type.getId());
             return ResultData.success(tree);
         }
         // 未找到[" + code + "]主数据分类.

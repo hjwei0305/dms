@@ -80,7 +80,7 @@ public class AnnotationScan implements ApplicationListener<ContextRefreshedEvent
                         if (TreeEntity.class.isAssignableFrom(clazz)){
                             dto.setDataStructure(DataStructureEnum.TREE);
                         } else {
-                            dto.setDataStructure(DataStructureEnum.LIST);
+                            dto.setDataStructure(DataStructureEnum.GENERAL);
                         }
                         entityDtos.add(dto);
 
