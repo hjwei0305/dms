@@ -22,7 +22,6 @@ import java.util.List;
  * @since 2020-08-13 22:47:14
  */
 @Valid
-@Api(value = "DataCategoryApi", tags = "主数据分类服务")
 @FeignClient(name = "mdms", path = "dataCategory")
 @RequestMapping(path = "dataCategory", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public interface DataCategoryApi extends BaseEntityApi<DataCategoryDto>, BaseTreeApi<DataCategoryDto> {

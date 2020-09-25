@@ -23,7 +23,7 @@ import java.util.StringJoiner;
 @DynamicUpdate
 public class DataDefinition extends BaseAuditableEntity implements Serializable, ICodeUnique, IFrozen {
     private static final long serialVersionUID = -55502538661881172L;
-    public static final String TYPE_CODE = "typeCode";
+    public static final String CATEGORY_ID = "categoryId";
     /**
      * 代码(表名)
      */

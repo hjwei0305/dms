@@ -4,9 +4,11 @@ import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
+import com.changhong.sei.mdms.management.dto.DataConfigDto;
 import com.changhong.sei.mdms.management.dto.DataDefinitionDto;
 import com.changhong.sei.mdms.management.dto.EntityDto;
-import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -17,14 +19,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 主数据UI配置(MasterDataUiConfig)API
+ * 主数据定义(MasterDataUiConfig)API
  *
  * @author sei
  * @since 2020-08-13 22:47:19
  */
 @Valid
-@FeignClient(name = "mdms", path = "config")
-@Api(value = "DataDefinitionApi", tags = "主数据定义服务")
+@FeignClient(name = "mdms", path = "dataDefinition")
 @RequestMapping(path = "dataDefinition", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
 
@@ -86,31 +87,17 @@ public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
      * 获取指定主数据分类获取注册的主数据
      *
      * @param categoryId 分类id
+     * @param frozen     是否冻结
      * @return 返回注册的主数据
      */
     @GetMapping(path = "getRegisterDataByCategoryId")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "categoryId", value = "分类id", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "frozen", value = "是否冻结.为空或不存则获取所有状态", paramType = "query")
+    })
     @ApiOperation(value = "获取指定主数据分类获取注册的主数据", notes = "获取指定主数据分类获取注册的主数据")
-    ResultData<List<DataDefinitionDto>> getRegisterDataByCategoryId(@RequestParam("categoryId") String categoryId);
-
-    /**
-     * 获取指定分类的主数据UI配置
-     *
-     * @param categoryId 分类ID
-     * @return 返回指定主数据的UI配置
-     */
-    @GetMapping(path = "getConfigByCategoryId")
-    @ApiOperation(value = "获取指定分类的主数据UI配置", notes = "获取指定分类的主数据UI配置")
-    ResultData<List<DataDefinitionDto>> getConfigByCategoryId(@RequestParam("categoryId") String categoryId);
-
-    /**
-     * 获取指定主数据的UI配置
-     *
-     * @param code 代码
-     * @return 返回指定主数据的UI配置
-     */
-    @GetMapping(path = "getConfigByCode")
-    @ApiOperation(value = "获取指定主数据的UI配置", notes = "获取指定主数据的UI配置")
-    ResultData<DataDefinitionDto> getConfigByCode(@RequestParam("code") String code);
+    ResultData<List<DataDefinitionDto>> getRegisterDataByCategoryId(@RequestParam("categoryId") String categoryId,
+                                                                    @RequestParam(name = "frozen", required = false) Boolean frozen);
 
     /**
      * 获取当前所有主数据
@@ -128,4 +115,24 @@ public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
     @GetMapping(path = "getPropertiesByCode")
     @ApiOperation(value = "获取指定主数据的属性清单", notes = "获取指定主数据的属性清单")
     ResultData<List<EntityDto.Property>> getPropertiesByCode(@RequestParam("code") String code);
+
+    /**
+     * 获取指定主数据的UI配置
+     *
+     * @param id id
+     * @return 返回指定主数据的UI配置
+     */
+    @GetMapping(path = "getConfigByCode")
+    @ApiOperation(value = "获取指定主数据的UI配置", notes = "获取指定主数据的UI配置")
+    ResultData<Map<String, String>> getConfigById(@RequestParam("id") String id);
+
+    /**
+     * 保存主数据的UI配置
+     *
+     * @param configDto ui配置
+     * @return 返回保存结果
+     */
+    @GetMapping(path = "saveConfig", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "保存主数据的UI配置", notes = "保存主数据的UI配置")
+    ResultData<String> saveConfig(@RequestBody @Valid DataConfigDto configDto);
 }

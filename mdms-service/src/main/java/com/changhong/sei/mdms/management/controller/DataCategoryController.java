@@ -7,6 +7,7 @@ import com.changhong.sei.mdms.management.api.DataCategoryApi;
 import com.changhong.sei.mdms.management.dto.DataCategoryDto;
 import com.changhong.sei.mdms.management.entity.DataCategory;
 import com.changhong.sei.mdms.management.service.DataCategoryService;
+import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ import java.util.List;
  * @since 2020-08-13 22:47:06
  */
 @RestController
+@Api(value = "DataCategoryApi", tags = "主数据分类服务")
 public class DataCategoryController extends BaseTreeController<DataCategory, DataCategoryDto> implements DataCategoryApi {
     /**
      * 主数据分类服务对象

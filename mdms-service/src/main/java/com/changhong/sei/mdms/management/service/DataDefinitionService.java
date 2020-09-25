@@ -9,12 +9,16 @@ import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.mdms.common.Constants;
 import com.changhong.sei.mdms.management.dao.DataDefinitionDao;
 import com.changhong.sei.mdms.management.dto.EntityDto;
+import com.changhong.sei.mdms.management.entity.DataConfig;
 import com.changhong.sei.mdms.management.entity.DataDefinition;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -30,7 +34,8 @@ public class DataDefinitionService extends BaseEntityService<DataDefinition> {
     private CacheBuilder cacheBuilder;
     @Autowired
     private DataDefinitionDao dao;
-
+    @Autowired
+    private DataConfigService configService;
 
     @Override
     protected BaseEntityDao<DataDefinition> getDao() {
@@ -67,5 +72,40 @@ public class DataDefinitionService extends BaseEntityService<DataDefinition> {
     public ResultData<List<EntityDto.Property>> getPropertiesByCode(String code) {
         List<EntityDto.Property> dtos = cacheBuilder.get(Constants.PROPERTY_CACHE_KEY + code);
         return ResultData.success(dtos);
+    }
+
+    /**
+     * 获取指定主数据的UI配置
+     *
+     * @param id id
+     * @return UI配置
+     */
+    public ResultData<Map<String, String>> getConfigById(String id) {
+        Map<String, String> result = new HashMap<>();
+        List<DataConfig> configs = configService.findListByProperty(DataConfig.DATA_DEFINITION_ID, id);
+        if (CollectionUtils.isNotEmpty(configs)) {
+            for (DataConfig config : configs) {
+                result.put(config.getConfigType().name(), config.getConfigData());
+            }
+        }
+        return ResultData.success(result);
+    }
+
+    /**
+     * 保存主数据的UI配置
+     *
+     * @param config ui配置
+     * @return 返回保存结果
+     */
+    public ResultData<String> saveConfig(DataConfig config) {
+        if (Objects.isNull(config)) {
+            return ResultData.fail("配置不能为空.");
+        }
+        OperateResultWithData<DataConfig> result = configService.save(config);
+        if (result.successful()) {
+            return ResultData.success(result.getMessage());
+        } else {
+            return ResultData.fail(result.getMessage());
+        }
     }
 }

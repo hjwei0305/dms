@@ -20,7 +20,7 @@ import java.io.Serializable;
 @DynamicUpdate
 public class DataConfig extends BaseAuditableEntity implements Serializable {
     private static final long serialVersionUID = -55502538661881172L;
-    public static final String TYPE_CODE = "typeCode";
+    public static final String DATA_DEFINITION_ID = "dataDefinitionId";
     /**
      * 数据定义Id
      */
