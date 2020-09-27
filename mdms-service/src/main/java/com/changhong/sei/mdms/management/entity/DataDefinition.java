@@ -43,7 +43,7 @@ public class DataDefinition extends BaseAuditableEntity implements Serializable,
     /**
      * 分类id
      */
-    @Column(name = "category_code", nullable = false)
+    @Column(name = "category_id", nullable = false)
     private String categoryId;
     /**
      * 分类名称
