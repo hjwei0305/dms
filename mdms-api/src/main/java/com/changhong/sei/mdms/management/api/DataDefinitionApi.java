@@ -132,7 +132,7 @@ public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
      * @param configDto ui配置
      * @return 返回保存结果
      */
-    @GetMapping(path = "saveConfig", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "saveConfig", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "保存主数据的UI配置", notes = "保存主数据的UI配置")
     ResultData<String> saveConfig(@RequestBody @Valid DataConfigDto configDto);
 }
