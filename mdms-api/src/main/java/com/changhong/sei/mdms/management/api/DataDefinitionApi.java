@@ -122,7 +122,7 @@ public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
      * @param id id
      * @return 返回指定主数据的UI配置
      */
-    @GetMapping(path = "getConfigByCode")
+    @GetMapping(path = "getConfigById")
     @ApiOperation(value = "获取指定主数据的UI配置", notes = "获取指定主数据的UI配置")
     ResultData<Map<String, String>> getConfigById(@RequestParam("id") String id);
 
