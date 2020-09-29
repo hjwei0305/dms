@@ -14,6 +14,7 @@ import com.changhong.sei.mdms.management.entity.DataConfig;
 import com.changhong.sei.mdms.management.entity.DataDefinition;
 import com.changhong.sei.mdms.management.service.DataDefinitionService;
 import io.swagger.annotations.Api;
+import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +40,8 @@ public class DataDefinitionController extends BaseEntityController<DataDefinitio
      */
     @Autowired
     private DataDefinitionService service;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public BaseEntityService<DataDefinition> getService() {
@@ -169,8 +172,16 @@ public class DataDefinitionController extends BaseEntityController<DataDefinitio
      * @return 返回指定主数据的UI配置
      */
     @Override
-    public ResultData<Map<String, String>> getConfigById(String id) {
-        return service.getConfigById(id);
+    public ResultData<List<DataConfigDto>> getConfigById(String id) {
+        List<DataConfigDto> configDtos;
+        List<DataConfig> configs = service.getConfigById(id);
+        if (CollectionUtils.isNotEmpty(configs)) {
+            configDtos = configs.stream()
+                    .map(o -> modelMapper.map(o, DataConfigDto.class)).collect(Collectors.toList());
+        } else {
+            configDtos = new ArrayList<>();
+        }
+        return ResultData.success(configDtos);
     }
 
     /**
@@ -180,8 +191,14 @@ public class DataDefinitionController extends BaseEntityController<DataDefinitio
      * @return 返回保存结果
      */
     @Override
-    public ResultData<String> saveConfig(@Valid DataConfigDto configDto) {
+    public ResultData<DataConfigDto> saveConfig(@Valid DataConfigDto configDto) {
         DataConfig config = getModelMapper().map(configDto, DataConfig.class);
-        return service.saveConfig(config);
+        ResultData<DataConfig> resultData = service.saveConfig(config);
+        if (resultData.successful()) {
+            DataConfigDto dto = modelMapper.map(resultData.getData(), DataConfigDto.class);
+            return ResultData.success(dto);
+        } else {
+            return ResultData.fail(resultData.getMessage());
+        }
     }
 }

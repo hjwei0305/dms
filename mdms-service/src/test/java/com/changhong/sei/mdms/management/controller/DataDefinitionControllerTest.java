@@ -10,13 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 /**
  * 实现功能：
  *
  * @author 马超(Vision.Mac)
- * @version 1.0.00  2020-08-16 18:03
+ * @version 1.0.00  2020-09-27 16:37
  */
-public class DataConfigControllerTest extends BaseUnitTest {
+public class DataDefinitionControllerTest extends BaseUnitTest {
 
     @Autowired
     private DataDefinitionController controller;
@@ -34,9 +36,8 @@ public class DataConfigControllerTest extends BaseUnitTest {
     }
 
     @Test
-    public void getConfigByTypeCode() {
-        ResultData<List<DataDefinitionDto>> resultData = controller.getConfigByCategoryId("master_data");
-        System.out.println(resultData);
+    public void getRegisterDataByCategoryId() {
+        System.out.println(controller.getRegisterDataByCategoryId("1123", null));
     }
 
     @Test

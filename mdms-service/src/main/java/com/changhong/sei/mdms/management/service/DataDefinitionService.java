@@ -8,6 +8,7 @@ import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.mdms.common.Constants;
 import com.changhong.sei.mdms.management.dao.DataDefinitionDao;
+import com.changhong.sei.mdms.management.dto.DataConfigDto;
 import com.changhong.sei.mdms.management.dto.EntityDto;
 import com.changhong.sei.mdms.management.entity.DataConfig;
 import com.changhong.sei.mdms.management.entity.DataDefinition;
@@ -80,15 +81,8 @@ public class DataDefinitionService extends BaseEntityService<DataDefinition> {
      * @param id id
      * @return UI配置
      */
-    public ResultData<Map<String, String>> getConfigById(String id) {
-        Map<String, String> result = new HashMap<>();
-        List<DataConfig> configs = configService.findListByProperty(DataConfig.DATA_DEFINITION_ID, id);
-        if (CollectionUtils.isNotEmpty(configs)) {
-            for (DataConfig config : configs) {
-                result.put(config.getConfigType().name(), config.getConfigData());
-            }
-        }
-        return ResultData.success(result);
+    public List<DataConfig> getConfigById(String id) {
+        return configService.findListByProperty(DataConfig.DATA_DEFINITION_ID, id);
     }
 
     /**
@@ -97,13 +91,13 @@ public class DataDefinitionService extends BaseEntityService<DataDefinition> {
      * @param config ui配置
      * @return 返回保存结果
      */
-    public ResultData<String> saveConfig(DataConfig config) {
+    public ResultData<DataConfig> saveConfig(DataConfig config) {
         if (Objects.isNull(config)) {
             return ResultData.fail("配置不能为空.");
         }
         OperateResultWithData<DataConfig> result = configService.save(config);
         if (result.successful()) {
-            return ResultData.success(result.getMessage());
+            return ResultData.success(result.getData());
         } else {
             return ResultData.fail(result.getMessage());
         }

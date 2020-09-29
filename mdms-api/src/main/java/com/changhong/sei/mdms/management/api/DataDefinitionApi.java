@@ -124,7 +124,7 @@ public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
      */
     @GetMapping(path = "getConfigById")
     @ApiOperation(value = "获取指定主数据的UI配置", notes = "获取指定主数据的UI配置")
-    ResultData<Map<String, String>> getConfigById(@RequestParam("id") String id);
+    ResultData<List<DataConfigDto>> getConfigById(@RequestParam("id") String id);
 
     /**
      * 保存主数据的UI配置
@@ -134,5 +134,5 @@ public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
      */
     @PostMapping(path = "saveConfig", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "保存主数据的UI配置", notes = "保存主数据的UI配置")
-    ResultData<String> saveConfig(@RequestBody @Valid DataConfigDto configDto);
+    ResultData<DataConfigDto> saveConfig(@RequestBody @Valid DataConfigDto configDto);
 }
