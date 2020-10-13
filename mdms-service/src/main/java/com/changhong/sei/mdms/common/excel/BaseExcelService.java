@@ -5,7 +5,6 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import com.alibaba.excel.annotation.format.NumberFormat;
 import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
-import com.changhong.sei.core.cache.CacheBuilder;
 import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageInfo;
@@ -25,6 +24,7 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,6 +39,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -53,7 +54,7 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
     @Autowired
     protected DocumentManager documentManager;
     @Autowired
-    protected CacheBuilder cacheBuilder;
+    protected RedisTemplate<String, Object> redisTemplate;
     @Autowired
     protected NotifyManager notifyManager;
 
@@ -128,11 +129,11 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
     public ResultData<List<ProcessResult>> imExStatus() {
         List<ProcessResult> results = new ArrayList<>();
         String userId = ContextUtil.getUserId();
-        ProcessResult<V> importResult = cacheBuilder.get(getProcessCacheKey(TypeEnum.import_, userId));
+        ProcessResult<V> importResult = (ProcessResult) redisTemplate.opsForValue().get(getProcessCacheKey(TypeEnum.import_, userId));
         if (Objects.nonNull(importResult)) {
             results.add(importResult);
         }
-        ProcessResult<V> exportResult = cacheBuilder.get(getProcessCacheKey(TypeEnum.export_, userId));
+        ProcessResult<V> exportResult = (ProcessResult) redisTemplate.opsForValue().get(getProcessCacheKey(TypeEnum.export_, userId));
         if (Objects.nonNull(exportResult)) {
             results.add(exportResult);
         }
@@ -195,7 +196,7 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
         // 批量导入成功【{0}】条，失败【{1}】条！
         processResult.setProgressNote(ContextUtil.getMessage("batch_import_001", 0, 0));
         //
-        cacheBuilder.set(batchId, processResult, EXPIRE_TIME);
+        redisTemplate.opsForValue().set(batchId, processResult, EXPIRE_TIME, TimeUnit.MILLISECONDS);
 
         try {
             BaseExcelListener<V> excelListener = new BaseExcelListener<V>(voClass, importBatchCount()) {
@@ -214,7 +215,7 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
                     // 批量导入成功【{0}】条，失败【{1}】条！
                     processResult.setProgressNote(ContextUtil.getMessage("batch_import_001", successCount, errorList.size()));
                     // 更新缓存
-                    cacheBuilder.set(batchId, processResult, EXPIRE_TIME);
+                    redisTemplate.opsForValue().set(batchId, processResult, EXPIRE_TIME, TimeUnit.MILLISECONDS);
                     doImportAfterHandle(processResult);
                 }
 
@@ -304,7 +305,7 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
         // 批量导入成功【{0}】条，失败【{1}】条！
         processResult.setProgressNote(ContextUtil.getMessage("batch_import_001", 0, 0));
         //
-        cacheBuilder.set(batchId, processResult, EXPIRE_TIME);
+        redisTemplate.opsForValue().set(batchId, processResult, EXPIRE_TIME, TimeUnit.MILLISECONDS);
 
         if (Objects.isNull(search)) {
             search = Search.createSearch();
@@ -369,7 +370,7 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
         }
 
         // 加入缓存
-        cacheBuilder.set(batchId, processResult, EXPIRE_TIME);
+        redisTemplate.opsForValue().set(batchId, processResult, EXPIRE_TIME, TimeUnit.MILLISECONDS);
 
         doExportAfterHandle(processResult);
     }

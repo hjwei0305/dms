@@ -119,6 +119,7 @@ public abstract class BaseExcelListener<T extends BaseExcelRow> extends Analysis
         // 这里也要保存数据，确保最后遗留的数据也存储到数据库
         try {
             doHandle(dataList);
+            successCount.addAndGet(dataList.size());
         } catch (Exception e) {
             LOGGER.error("数据处理异常", e);
             for (T t : dataList) {
