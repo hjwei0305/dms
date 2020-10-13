@@ -48,7 +48,7 @@ public class Country extends BaseAuditableEntity implements Serializable, ICodeU
      * 是否国外
      */
     @Column(name = "to_foreign")
-    private Boolean toForeign;
+    private Boolean toForeign = Boolean.FALSE;
     /**
      * 排序
      */
@@ -59,7 +59,6 @@ public class Country extends BaseAuditableEntity implements Serializable, ICodeU
      */
     @Column(name = "tenant_code")
     private String tenantCode;
-
 
     @Override
     public String getCode() {

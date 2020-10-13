@@ -1,74 +1,61 @@
-package com.changhong.sei.mdms.general.dto;
+package com.changhong.sei.mdms.general.service.excel.vo;
 
-import com.changhong.sei.core.dto.BaseEntityDto;
-import com.changhong.sei.mdms.annotation.MasterData;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.changhong.sei.mdms.common.excel.BaseExcelRow;
+import com.changhong.sei.mdms.common.excel.validate.NotDuplicate;
+import com.changhong.sei.mdms.general.entity.Country;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
- * 国家(Country)DTO类
+ * 国家(Country)Excel导入导出模版vo
  *
  * @author sei
- * @since 2020-08-17 14:03:16
+ * @since 2020-08-17 14:02:39
  */
-@MasterData(value = "country")
-@ApiModel(description = "国家")
-public class CountryDto extends BaseEntityDto {
-    private static final long serialVersionUID = 202368163739510191L;
+public class CountryVo extends BaseExcelRow implements Serializable {
+    private static final long serialVersionUID = 180242575737929170L;
     /**
      * 代码
      */
+    @NotDuplicate
     @NotBlank
-    @Size(max = 4)
-    @ApiModelProperty(value = "代码", allowableValues = "@Size(max = 4)", required = true)
+    @ExcelProperty(value = "代码", order = 1)
     private String code;
-
     /**
      * 名称
      */
     @NotBlank
-    @Size(max = 60)
-    @ApiModelProperty(value = "名称", allowableValues = "@Size(max = 60)", required = true)
+    @ExcelProperty(value = "名称", order = 2)
     private String name;
-
     /**
      * 国家货币代码
      */
     @NotBlank
-    @Size(max = 5)
-    @ApiModelProperty(value = "国家货币代码", allowableValues = "@Size(max = 5)", required = true)
+    @ExcelProperty(value = "国家货币代码", order = 3)
     private String currencyCode;
-
     /**
      * 国家货币名称
      */
     @NotBlank
-    @Size(max = 20)
-    @ApiModelProperty(value = "国家货币名称", allowableValues = "@Size(max = 20)", required = true)
+    @ExcelProperty(value = "国家货币名称", order = 4)
     private String currencyName;
-
     /**
      * 是否国外
      */
-    @NotNull
-    @ApiModelProperty(value = "是否国外", required = true)
+    @ExcelProperty(value = "是否国外", order = 5)
     private Boolean toForeign = Boolean.FALSE;
-
     /**
      * 排序
      */
-    @NotNull
-    @ApiModelProperty(value = "排序", required = true)
+    @ExcelProperty(value = "排序", order = 6)
     private Integer rank = 0;
-
     /**
      * 租户代码
      */
-    @ApiModelProperty(value = "租户代码")
+    @NotBlank
+    @ExcelProperty(value = "租户代码", order = 7)
     private String tenantCode;
 
     public String getCode() {

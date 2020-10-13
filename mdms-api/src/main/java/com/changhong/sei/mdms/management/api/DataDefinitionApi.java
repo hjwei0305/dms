@@ -26,7 +26,6 @@ import java.util.Map;
  */
 @Valid
 @FeignClient(name = "mdms", path = "dataDefinition")
-@RequestMapping(path = "dataDefinition", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
 
     /**

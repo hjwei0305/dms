@@ -10,6 +10,8 @@ import com.changhong.sei.mdms.management.service.DataCategoryService;
 import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.LinkedList;
@@ -23,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @Api(value = "DataCategoryApi", tags = "主数据分类服务")
+@RequestMapping(path = "dataCategory", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class DataCategoryController extends BaseTreeController<DataCategory, DataCategoryDto> implements DataCategoryApi {
     /**
      * 主数据分类服务对象

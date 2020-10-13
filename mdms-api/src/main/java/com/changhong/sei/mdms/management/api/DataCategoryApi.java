@@ -23,7 +23,6 @@ import java.util.List;
  */
 @Valid
 @FeignClient(name = "mdms", path = "dataCategory")
-@RequestMapping(path = "dataCategory", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public interface DataCategoryApi extends BaseEntityApi<DataCategoryDto>, BaseTreeApi<DataCategoryDto> {
 
     /**
