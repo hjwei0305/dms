@@ -1,8 +1,8 @@
-package com.changhong.sei.mdms.general.api;
+package com.changhong.sei.mdms.commom;
 
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.Search;
-import com.changhong.sei.mdms.management.dto.ProcessResult;
+import com.changhong.sei.mdms.commom.ProcessResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +35,7 @@ public interface ImportExportDataApi {
      *
      * @return 导入模版数据
      */
-    @PostMapping(path = "importDataExcel")
+    @GetMapping(path = "importTemplateData")
     @ApiOperation(value = "导入模版数据", notes = "导入模版数据,前端应用根据数据生成excel模版")
     ResultData<Map<String, List<String>>> importTemplateData();
 

@@ -18,6 +18,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -35,6 +37,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @Api(value = "DataDefinitionApi", tags = "主数据定义服务")
+@RequestMapping(path = "dataDefinition", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class DataDefinitionController extends BaseEntityController<DataDefinition, DataDefinitionDto>
         implements DataDefinitionApi {
     /**

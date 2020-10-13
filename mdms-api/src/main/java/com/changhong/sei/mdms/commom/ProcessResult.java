@@ -1,4 +1,4 @@
-package com.changhong.sei.mdms.management.dto;
+package com.changhong.sei.mdms.commom;
 
 import java.io.Serializable;
 import java.util.ArrayList;

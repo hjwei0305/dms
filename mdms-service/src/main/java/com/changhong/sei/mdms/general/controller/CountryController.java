@@ -5,7 +5,7 @@ import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
-import com.changhong.sei.mdms.management.dto.ProcessResult;
+import com.changhong.sei.mdms.commom.ProcessResult;
 import com.changhong.sei.mdms.general.api.CountryApi;
 import com.changhong.sei.mdms.general.dto.CountryDto;
 import com.changhong.sei.mdms.general.entity.Country;

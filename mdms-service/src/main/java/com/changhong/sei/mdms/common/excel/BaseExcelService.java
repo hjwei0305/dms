@@ -16,7 +16,7 @@ import com.changhong.sei.core.entity.BaseEntity;
 import com.changhong.sei.edm.dto.UploadResponse;
 import com.changhong.sei.edm.sdk.DocumentManager;
 import com.changhong.sei.mdms.common.excel.validate.NotDuplicate;
-import com.changhong.sei.mdms.management.dto.ProcessResult;
+import com.changhong.sei.mdms.commom.ProcessResult;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
