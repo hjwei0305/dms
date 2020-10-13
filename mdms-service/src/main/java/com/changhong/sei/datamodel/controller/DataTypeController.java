@@ -24,7 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(value = "DataTypeApi", tags = "数据类型服务")
 @RequestMapping(path = "dataType", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class DataTypeController extends BaseEntityController<DataType, DataTypeDto> implements DataTypeApi {
+public class DataTypeController extends BaseEntityController<DataType, DataTypeDto>
+        implements DataTypeApi {
     /**
      * 数据类型服务对象
      */

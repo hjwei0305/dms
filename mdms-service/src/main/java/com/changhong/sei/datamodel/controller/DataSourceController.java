@@ -1,7 +1,7 @@
 package com.changhong.sei.datamodel.controller;
 
 import com.changhong.sei.core.context.ContextUtil;
-import com.changhong.sei.core.controller.DefaultBaseController;
+import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
@@ -38,7 +38,8 @@ import java.util.Objects;
 @RestController
 @Api(value = "DataSourceApi", tags = "数据源服务")
 @RequestMapping(path = "dataSource", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-public class DataSourceController implements DefaultBaseController<DataSource, DataSourceDto>, DataSourceApi {
+public class DataSourceController extends BaseEntityController<DataSource, DataSourceDto>
+        implements DataSourceApi {
     /**
      * 数据源服务对象
      */

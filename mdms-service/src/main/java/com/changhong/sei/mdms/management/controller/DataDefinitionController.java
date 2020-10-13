@@ -16,6 +16,7 @@ import com.changhong.sei.mdms.management.service.DataDefinitionService;
 import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,18 +35,29 @@ import java.util.stream.Collectors;
  */
 @RestController
 @Api(value = "DataDefinitionApi", tags = "主数据定义服务")
-public class DataDefinitionController extends BaseEntityController<DataDefinition, DataDefinitionDto> implements DataDefinitionApi {
+public class DataDefinitionController extends BaseEntityController<DataDefinition, DataDefinitionDto>
+        implements DataDefinitionApi {
     /**
      * 主数据UI配置服务对象
      */
     @Autowired
     private DataDefinitionService service;
-    @Autowired
-    private ModelMapper modelMapper;
 
     @Override
     public BaseEntityService<DataDefinition> getService() {
         return service;
+    }
+
+    /**
+     * DataConfig的转换器
+     */
+    private static final ModelMapper configModelMapper;
+    // 初始化静态属性
+    static {
+        // 初始化转换器
+        configModelMapper = new ModelMapper();
+        // 设置为严格匹配
+        configModelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**
@@ -72,7 +84,7 @@ public class DataDefinitionController extends BaseEntityController<DataDefinitio
      */
     @Override
     public ResultData<String> register(DataDefinitionDto request) {
-        DataDefinition config = getModelMapper().map(request, DataDefinition.class);
+        DataDefinition config = convertToEntity(request);
         OperateResultWithData<DataDefinition> result = service.save(config);
         if (result.successful()) {
             return ResultData.success(result.getMessage());
@@ -111,18 +123,7 @@ public class DataDefinitionController extends BaseEntityController<DataDefinitio
      */
     @Override
     public ResultData<PageResult<DataDefinitionDto>> getRegisterDataByPage(Search search) {
-        PageResult<DataDefinition> pageResult = service.findByPage(search);
-        PageResult<DataDefinitionDto> result = new PageResult<>(pageResult);
-        if (pageResult.getRecords() > 0) {
-            List<DataDefinition> list = pageResult.getRows();
-            if (Objects.nonNull(list)) {
-                ModelMapper modelMapper = getModelMapper();
-                List<DataDefinitionDto> dtos = list.stream()
-                        .map(o -> modelMapper.map(o, DataDefinitionDto.class)).collect(Collectors.toList());
-                result.setRows(dtos);
-            }
-        }
-        return ResultData.success(result);
+        return convertToDtoPageResult(service.findByPage(search));
     }
 
     /**
@@ -142,8 +143,7 @@ public class DataDefinitionController extends BaseEntityController<DataDefinitio
         if (Objects.isNull(list)) {
             list = new ArrayList<>();
         }
-        ModelMapper modelMapper = getModelMapper();
-        return ResultData.success(list.stream().map(o -> modelMapper.map(o, DataDefinitionDto.class)).collect(Collectors.toList()));
+        return ResultData.success(convertToDtos(list));
     }
 
     /**
@@ -177,7 +177,7 @@ public class DataDefinitionController extends BaseEntityController<DataDefinitio
         List<DataConfig> configs = service.getConfigById(id);
         if (CollectionUtils.isNotEmpty(configs)) {
             configDtos = configs.stream()
-                    .map(o -> modelMapper.map(o, DataConfigDto.class)).collect(Collectors.toList());
+                    .map(o -> configModelMapper.map(o, DataConfigDto.class)).collect(Collectors.toList());
         } else {
             configDtos = new ArrayList<>();
         }
@@ -192,10 +192,10 @@ public class DataDefinitionController extends BaseEntityController<DataDefinitio
      */
     @Override
     public ResultData<DataConfigDto> saveConfig(@Valid DataConfigDto configDto) {
-        DataConfig config = getModelMapper().map(configDto, DataConfig.class);
+        DataConfig config = configModelMapper.map(configDto, DataConfig.class);
         ResultData<DataConfig> resultData = service.saveConfig(config);
         if (resultData.successful()) {
-            DataConfigDto dto = modelMapper.map(resultData.getData(), DataConfigDto.class);
+            DataConfigDto dto = configModelMapper.map(resultData.getData(), DataConfigDto.class);
             return ResultData.success(dto);
         } else {
             return ResultData.fail(resultData.getMessage());

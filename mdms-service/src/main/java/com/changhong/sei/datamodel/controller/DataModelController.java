@@ -39,6 +39,17 @@ public class DataModelController extends BaseEntityController<DataModel, DataMod
      */
     @Autowired
     private DataModelService service;
+    /**
+     * ModelField的转换器
+     */
+    private static final ModelMapper fieldModelMapper;
+    // 初始化静态属性
+    static {
+        // 初始化转换器
+        fieldModelMapper = new ModelMapper();
+        // 设置为严格匹配
+        fieldModelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
 
     @Override
     public BaseEntityService<DataModel> getService() {
@@ -78,10 +89,7 @@ public class DataModelController extends BaseEntityController<DataModel, DataMod
         List<DataModelFieldDto> result;
         List<DataModelField> fields = service.getDataModelFields(modelId);
         if (CollectionUtils.isNotEmpty(fields)) {
-            ModelMapper mapper = getModelMapper();
-            // 设置为严格匹配
-            mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-            result = fields.parallelStream().map(f -> mapper.map(f, DataModelFieldDto.class)).collect(Collectors.toList());
+            result = fields.parallelStream().map(f -> fieldModelMapper.map(f, DataModelFieldDto.class)).collect(Collectors.toList());
         } else {
             result = new ArrayList<>();
         }
@@ -108,11 +116,8 @@ public class DataModelController extends BaseEntityController<DataModel, DataMod
     @Override
     public ResultData<String> saveModelFields(List<DataModelFieldDto> fieldDtos) {
         if (CollectionUtils.isNotEmpty(fieldDtos)) {
-            ModelMapper mapper = getModelMapper();
-            // 设置为严格匹配
-            mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
             List<DataModelField> modelFields = fieldDtos.parallelStream()
-                    .map(f -> mapper.map(f, DataModelField.class)).collect(Collectors.toList());
+                    .map(f -> fieldModelMapper.map(f, DataModelField.class)).collect(Collectors.toList());
             return service.saveModelFields(modelFields);
         }
         return ResultData.fail("请求参数不能为空.");
@@ -126,7 +131,7 @@ public class DataModelController extends BaseEntityController<DataModel, DataMod
      */
     @Override
     public ResultData<String> saveModelField(DataModelFieldDto dto) {
-        DataModelField field = getModelMapper().map(dto, DataModelField.class);
+        DataModelField field = fieldModelMapper.map(dto, DataModelField.class);
         return service.saveField(field);
     }
 
