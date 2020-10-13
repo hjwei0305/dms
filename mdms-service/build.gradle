@@ -21,6 +21,8 @@ dependencies {
     compile("com.changhong.sei:sei-cloud-zookeeper-starter:$sei_version")
     // edm sdk
     compile("com.changhong.sei:sei-edm-sdk:$sei_version")
+    // 直接引用消息通知包
+    compile("com.changhong.sei:sei-notify-sdk:$sei_version")
     // 第三方组件依赖包
     compile("mysql:mysql-connector-java:$mysqlVersion")
     // easyexcel

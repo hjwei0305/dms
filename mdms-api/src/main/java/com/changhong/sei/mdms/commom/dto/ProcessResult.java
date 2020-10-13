@@ -1,10 +1,7 @@
-package com.changhong.sei.mdms.commom;
+package com.changhong.sei.mdms.commom.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 实现功能：excel数据导入到出记录
@@ -115,5 +112,16 @@ public class ProcessResult<T extends Serializable> implements Serializable {
             failedItems = new ArrayList<>();
         }
         failedItems.addAll(items);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ")
+                .add("状态:" + finished)
+                .add("总数量:" + total)
+                .add("成功数:" + current)
+                .add("消息:'" + progressNote + "'")
+                .add("文档id:'" + docId + "'")
+                .toString();
     }
 }

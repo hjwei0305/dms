@@ -5,21 +5,17 @@ import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
-import com.changhong.sei.mdms.commom.ProcessResult;
 import com.changhong.sei.mdms.general.api.CountryApi;
 import com.changhong.sei.mdms.general.dto.CountryDto;
 import com.changhong.sei.mdms.general.entity.Country;
 import com.changhong.sei.mdms.general.service.CountryService;
-import com.changhong.sei.mdms.general.service.excel.CountryExcelService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 国家(Country)控制类
@@ -36,8 +32,6 @@ public class CountryController extends BaseEntityController<Country, CountryDto>
      */
     @Autowired
     private CountryService service;
-    @Autowired
-    private CountryExcelService countryExcelService;
 
     @Override
     public BaseEntityService<Country> getService() {
@@ -85,51 +79,5 @@ public class CountryController extends BaseEntityController<Country, CountryDto>
     @Override
     public ResultData<PageResult<CountryDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
-    }
-
-    /**
-     * 获取导入导出状态
-     *
-     * @return 获取导入导出状态
-     */
-    @Override
-    public ResultData<List<ProcessResult>> imExStatus() {
-        return countryExcelService.imExStatus();
-    }
-
-    /**
-     * excel导入模版数据
-     *
-     * @return 导入模版数据
-     */
-    @Override
-    public ResultData<Map<String, List<String>>> importTemplateData() {
-        return countryExcelService.importTemplateData();
-    }
-
-    /**
-     * excel文件数据导入
-     *
-     * @param file excel文件
-     * @return 导入结果
-     */
-    @Override
-    public ResultData<String> importDataExcel(MultipartFile file) {
-        countryExcelService.importDataExcel(file);
-
-        return ResultData.success();
-    }
-
-    /**
-     * 分页查询业务实体
-     *
-     * @param search 查询参数
-     * @return 分页查询结果
-     */
-    @Override
-    public ResultData<String> exportData(Search search) {
-        countryExcelService.exportData(search);
-
-        return ResultData.success();
     }
 }

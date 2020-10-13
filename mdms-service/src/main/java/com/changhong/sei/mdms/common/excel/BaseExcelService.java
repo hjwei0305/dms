@@ -7,7 +7,6 @@ import com.alibaba.excel.annotation.format.NumberFormat;
 import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
 import com.changhong.sei.core.cache.CacheBuilder;
 import com.changhong.sei.core.context.ContextUtil;
-import com.changhong.sei.core.context.SessionUser;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageInfo;
 import com.changhong.sei.core.dto.serach.PageResult;
@@ -15,8 +14,11 @@ import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.entity.BaseEntity;
 import com.changhong.sei.edm.dto.UploadResponse;
 import com.changhong.sei.edm.sdk.DocumentManager;
+import com.changhong.sei.mdms.commom.dto.ProcessResult;
 import com.changhong.sei.mdms.common.excel.validate.NotDuplicate;
-import com.changhong.sei.mdms.commom.ProcessResult;
+import com.changhong.sei.notify.dto.NotifyMessage;
+import com.changhong.sei.notify.sdk.manager.NotifyManager;
+import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -45,13 +47,15 @@ import java.util.stream.Collectors;
  * @author 马超(Vision.Mac)
  * @version 1.0.00  2020-10-11 23:18
  */
-public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcelRow> {
+public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcelRow> implements IBaseExcelService {
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseExcelService.class);
 
     @Autowired
     protected DocumentManager documentManager;
     @Autowired
     protected CacheBuilder cacheBuilder;
+    @Autowired
+    protected NotifyManager notifyManager;
 
     protected static final ModelMapper MODEL_MAPPER;
 
@@ -119,14 +123,16 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
      *
      * @return 获取导入导出状态
      */
+    @Override
+    @SuppressWarnings("rawtypes")
     public ResultData<List<ProcessResult>> imExStatus() {
         List<ProcessResult> results = new ArrayList<>();
-        SessionUser user = ContextUtil.getSessionUser();
-        ProcessResult<V> importResult = cacheBuilder.get(getProcessCacheKey(TypeEnum.import_, user.getUserId()));
+        String userId = ContextUtil.getUserId();
+        ProcessResult<V> importResult = cacheBuilder.get(getProcessCacheKey(TypeEnum.import_, userId));
         if (Objects.nonNull(importResult)) {
             results.add(importResult);
         }
-        ProcessResult<V> exportResult = cacheBuilder.get(getProcessCacheKey(TypeEnum.export_, user.getUserId()));
+        ProcessResult<V> exportResult = cacheBuilder.get(getProcessCacheKey(TypeEnum.export_, userId));
         if (Objects.nonNull(exportResult)) {
             results.add(exportResult);
         }
@@ -138,6 +144,7 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
      *
      * @return 导入模版数据
      */
+    @Override
     public ResultData<Map<String, List<String>>> importTemplateData() {
         // 名称
         List<String> names = new ArrayList<>();
@@ -180,10 +187,10 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
      *
      * @param file excel文件
      */
+    @Override
     @Async
     public void importDataExcel(final MultipartFile file) {
-        SessionUser user = ContextUtil.getSessionUser();
-        final String batchId = getProcessCacheKey(TypeEnum.import_, user.getUserId());
+        final String batchId = getProcessCacheKey(TypeEnum.import_, ContextUtil.getUserId());
         ProcessResult<V> processResult = new ProcessResult<>();
         // 批量导入成功【{0}】条，失败【{1}】条！
         processResult.setProgressNote(ContextUtil.getMessage("batch_import_001", 0, 0));
@@ -266,7 +273,12 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
      * @param processResult 处理结果
      */
     public void doImportAfterHandle(ProcessResult<V> processResult) {
-        // TODO 消息通知
+        // 系统消息提醒
+        NotifyMessage message = new NotifyMessage();
+        message.setSubject(entityClass.getSimpleName() + "-数据导入处理结果");
+        message.setReceiverIds(Lists.newArrayList(ContextUtil.getUserId()));
+        message.setContent(processResult.getProgressNote());
+        notifyManager.send(message);
     }
 
     /**
@@ -284,10 +296,10 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
      *
      * @param search 查询参数
      */
+    @Override
     @Async
     public void exportData(Search search) {
-        SessionUser user = ContextUtil.getSessionUser();
-        final String batchId = getProcessCacheKey(TypeEnum.export_, user.getUserId());
+        final String batchId = getProcessCacheKey(TypeEnum.export_, ContextUtil.getUserId());
         ProcessResult<V> processResult = new ProcessResult<>();
         // 批量导入成功【{0}】条，失败【{1}】条！
         processResult.setProgressNote(ContextUtil.getMessage("batch_import_001", 0, 0));
@@ -400,6 +412,11 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
      * @param processResult 处理结果
      */
     public void doExportAfterHandle(ProcessResult<V> processResult) {
-        // TODO 消息通知
+        // 系统消息提醒
+        NotifyMessage message = new NotifyMessage();
+        message.setSubject(entityClass.getSimpleName() + "-数据导出处理结果");
+        message.setReceiverIds(Lists.newArrayList(ContextUtil.getUserId()));
+        message.setContent(processResult.getProgressNote());
+        notifyManager.send(message);
     }
 }

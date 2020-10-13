@@ -4,7 +4,7 @@ import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.FindAllApi;
 import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
-import com.changhong.sei.mdms.commom.ImportExportDataApi;
+import com.changhong.sei.mdms.commom.api.ImportExportDataApi;
 import com.changhong.sei.mdms.general.dto.CountryDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -21,7 +21,7 @@ import javax.validation.Valid;
  */
 @Valid
 @FeignClient(name = "mdms", path = "country")
-public interface CountryApi extends BaseEntityApi<CountryDto>, FindByPageApi<CountryDto>, FindAllApi<CountryDto>, ImportExportDataApi {
+public interface CountryApi extends BaseEntityApi<CountryDto>, FindByPageApi<CountryDto>, FindAllApi<CountryDto> {
 
     /**
      * 根据代码查询国家

@@ -1,11 +1,12 @@
-package com.changhong.sei.mdms.commom;
+package com.changhong.sei.mdms.commom.api;
 
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.Search;
-import com.changhong.sei.mdms.commom.ProcessResult;
+import com.changhong.sei.mdms.commom.dto.ProcessResult;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ import java.util.Map;
  * @author 马超(Vision.Mac)
  * @version 1.0.00  2020-10-09 13:08
  */
+@SuppressWarnings("rawtypes")
 public interface ImportExportDataApi {
 
     /**
@@ -26,18 +28,18 @@ public interface ImportExportDataApi {
      *
      * @return 获取导入导出状态
      */
-    @GetMapping(path = "imExStatus")
+    @GetMapping(path = "{serviceName}/imExStatus")
     @ApiOperation(value = "获取导入导出状态", notes = "获取导入导出状态")
-    ResultData<List<ProcessResult>> imExStatus();
+    ResultData<List<ProcessResult>> imExStatus(@PathVariable("serviceName") String serviceName);
 
     /**
      * excel导入模版数据
      *
      * @return 导入模版数据
      */
-    @GetMapping(path = "importTemplateData")
+    @GetMapping(path = "{serviceName}/importTemplateData")
     @ApiOperation(value = "导入模版数据", notes = "导入模版数据,前端应用根据数据生成excel模版")
-    ResultData<Map<String, List<String>>> importTemplateData();
+    ResultData<Map<String, List<String>>> importTemplateData(@PathVariable("serviceName") String serviceName);
 
     /**
      * excel文件数据导入
@@ -45,9 +47,9 @@ public interface ImportExportDataApi {
      * @param file excel文件
      * @return 导入结果
      */
-    @PostMapping(path = "importDataExcel", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "{serviceName}/importDataExcel")
     @ApiOperation(value = "excel文件数据导入", notes = "excel文件数据导入")
-    ResultData<String> importDataExcel(MultipartFile file);
+    ResultData<List<ProcessResult>> importDataExcel(@PathVariable("serviceName") String serviceName, MultipartFile file);
 
     /**
      * 数据导出excel文件
@@ -55,7 +57,7 @@ public interface ImportExportDataApi {
      * @param search 导出查询参数
      * @return 导出结果
      */
-    @PostMapping(path = "exportData", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "{serviceName}/exportData", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "数据导出excel文件", notes = "数据导出excel文件")
-    ResultData<String> exportData(@RequestBody Search search);
+    ResultData<List<ProcessResult>> exportData(@PathVariable("serviceName") String serviceName, @RequestBody Search search);
 }
