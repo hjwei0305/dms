@@ -23,10 +23,10 @@ public class DataSourceControllerTest extends BaseUnitTest {
     private DataSourceController controller;
 
     @Test
-    public void save() {
+    public void saveRequest() {
         String json = "{\"id\":\"E94BAB8E-D223-11EA-8A84-0242C0A84617\",\"code\":\"test\",\"remark\":\"123123123\",\"dbType\":\"MYSQL\",\"host\":\"127.0.0.1\",\"port\":3306,\"url\":\"jdbc:mysql://127.0.0.1:3306/test\",\"username\":\"dsfd\",\"password\":\"MTIzNA==\",\"frozen\":null}";
         DataSourceRequest dto = JsonUtils.fromJson(json, DataSourceRequest.class);
-        ResultData<DataSourceDto> resultData = controller.save(dto);
+        ResultData<DataSourceDto> resultData = controller.saveRequest(dto);
         System.out.println(resultData);
     }
 

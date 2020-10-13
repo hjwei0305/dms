@@ -52,33 +52,13 @@ public class DataSourceController extends BaseEntityController<DataSource, DataS
     }
 
     /**
-     * 获取数据实体的类型
-     *
-     * @return 类型Class
-     */
-    @Override
-    public Class<DataSource> getEntityClass() {
-        return DataSource.class;
-    }
-
-    /**
-     * 获取传输实体的类型
-     *
-     * @return 类型Class
-     */
-    @Override
-    public Class<DataSourceDto> getDtoClass() {
-        return DataSourceDto.class;
-    }
-
-    /**
      * 保存业务实体
      *
      * @param dto 业务实体DTO
      * @return 操作结果
      */
     @Override
-    public ResultData<DataSourceDto> save(DataSourceRequest dto) {
+    public ResultData<DataSourceDto> saveRequest(DataSourceRequest dto) {
         if (Objects.isNull(dto)) {
             return ResultData.fail(ContextUtil.getMessage("core_service_00002"));
         }

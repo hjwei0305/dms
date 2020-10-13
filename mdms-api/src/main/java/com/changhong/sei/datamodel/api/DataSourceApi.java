@@ -1,10 +1,12 @@
 package com.changhong.sei.datamodel.api;
 
+import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.datamodel.dto.DBTypeDto;
 import com.changhong.sei.datamodel.dto.DataSourceDto;
 import com.changhong.sei.datamodel.dto.DataSourceRequest;
+import com.changhong.sei.datamodel.dto.DataTypeDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -29,9 +31,9 @@ public interface DataSourceApi extends FindByPageApi<DataSourceDto> {
      * @param dto 数据源实体DTO
      * @return 操作结果
      */
-    @PostMapping(path = "save", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "saveRequest", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "保存数据源实体", notes = "保存一个数据源实体")
-    ResultData<DataSourceDto> save(@Valid DataSourceRequest dto);
+    ResultData<DataSourceDto> saveRequest(@Valid DataSourceRequest dto);
 
     /**
      * 删除数据源实体
