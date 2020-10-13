@@ -321,8 +321,6 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
         PageResult<V> pageResult = exportDataByPage(search);
         // 设置总数
         processResult.setTotal(pageResult.getRecords());
-        // 设置一样的总数,更新完成状态
-        processResult.setCurrent(pageResult.getRecords());
         if (pageResult.getRecords() > 0) {
             try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
                 // 这里 需要指定写用哪个class去写
@@ -352,6 +350,9 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
                     if (Objects.nonNull(uploadResponse)) {
                         processResult.setDocId(uploadResponse.getDocId());
                     }
+
+                    // 设置一样的总数
+                    processResult.setCurrent(pageResult.getRecords());
                     // 更新状态为完成
                     processResult.setFinished(Boolean.TRUE);
                     // 导出【{0}】数据【{1}】条！
@@ -359,11 +360,11 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
                 } catch (Exception e) {
                     LOGGER.error(entityClass.getSimpleName() + "数据导出异常", e);
                     // 导出【{0}】数据异常: {1}
-                    processResult.setProgressNote(ContextUtil.getMessage("batch_export_001", entityClass.getSimpleName(), e.getMessage()));
+                    processResult.setProgressNote(ContextUtil.getMessage("batch_export_002", entityClass.getSimpleName(), e.getMessage()));
                 }
             } catch (Exception e) {
                 LOGGER.error(entityClass.getSimpleName() + "数据导出异常", e);
-                processResult.setProgressNote(ContextUtil.getMessage("batch_export_001", entityClass.getSimpleName(), e.getMessage()));
+                processResult.setProgressNote(ContextUtil.getMessage("batch_export_002", entityClass.getSimpleName(), e.getMessage()));
             }
         }
 
