@@ -83,9 +83,11 @@ public abstract class BaseExcelListener<T extends BaseExcelRow> extends Analysis
             boolean validate = validate(data);
             if (!validate) {
                 errorList.add(data);
+                return;
+            } else {
+                dataList.add(data);
             }
 
-            dataList.add(data);
             // 达到batchCount了，需要去存储一次数据库，防止数据几万条数据在内存，容易OOM
             if (batchCount > 0 && dataList.size() >= batchCount) {
                 try {
@@ -103,8 +105,6 @@ public abstract class BaseExcelListener<T extends BaseExcelRow> extends Analysis
                     dataList.clear();
                 }
             }
-
-
         } catch (Exception e) {
             LOGGER.error("解析异常: {}", e.getMessage());
         }

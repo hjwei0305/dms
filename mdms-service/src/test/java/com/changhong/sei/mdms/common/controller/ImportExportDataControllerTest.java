@@ -63,6 +63,12 @@ public class ImportExportDataControllerTest extends BaseUnitTest {
         }
         ResultData<List<ProcessResult>> resultData = controller.importDataExcel(SERVICE_NAME, file);
         System.out.println(resultData);
+
+        try {
+            Thread.sleep(200000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

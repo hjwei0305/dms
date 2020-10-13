@@ -37,7 +37,7 @@ public class CountryExcelService extends BaseExcelService<Country, CountryVo> {
     @Transactional
     public void doImportHandle(final String batchId, List<CountryVo> dataList) {
         List<Country> countries = dataList.stream()
-                .map(o -> MODEL_MAPPER.map(dataList, Country.class)).collect(Collectors.toList());
+                .map(o -> MODEL_MAPPER.map(o, Country.class)).collect(Collectors.toList());
         service.save(countries);
     }
 
