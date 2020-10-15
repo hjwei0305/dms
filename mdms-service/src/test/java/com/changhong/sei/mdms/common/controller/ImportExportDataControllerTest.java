@@ -36,15 +36,15 @@ public class ImportExportDataControllerTest extends BaseUnitTest {
 
     @Test
     public void imExStatus() {
-        ResultData<List<ProcessResult>> resultData = controller.imExStatus(SERVICE_NAME);
+        ResultData<Map<String, ProcessResult>> resultData = controller.imExStatus(SERVICE_NAME);
         System.out.println(resultData);
 
-        // 系统消息提醒
-        NotifyMessage message = new NotifyMessage();
-        message.setSubject("数据导出处理结果");
-        message.setReceiverIds(Lists.newArrayList(ContextUtil.getUserId()));
-        message.setContent("数据导出处理结果");
-        notifyManager.send(message);
+//        // 系统消息提醒
+//        NotifyMessage message = new NotifyMessage();
+//        message.setSubject("数据导出处理结果");
+//        message.setReceiverIds(Lists.newArrayList(ContextUtil.getUserId()));
+//        message.setContent("数据导出处理结果");
+//        notifyManager.send(message);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class ImportExportDataControllerTest extends BaseUnitTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ResultData<List<ProcessResult>> resultData = controller.importDataExcel(SERVICE_NAME, file);
+        ResultData<Map<String, ProcessResult>> resultData = controller.importDataExcel(SERVICE_NAME, file);
         System.out.println(resultData);
 
         try {
@@ -73,7 +73,7 @@ public class ImportExportDataControllerTest extends BaseUnitTest {
 
     @Test
     public void exportData() {
-        ResultData<List<ProcessResult>> resultData = controller.exportData(SERVICE_NAME, Search.createSearch());
+        ResultData<Map<String, ProcessResult>> resultData = controller.exportData(SERVICE_NAME, Search.createSearch());
         System.out.println(resultData);
 
         try {

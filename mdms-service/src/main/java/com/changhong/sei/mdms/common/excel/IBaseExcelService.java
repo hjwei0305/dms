@@ -22,7 +22,7 @@ public interface IBaseExcelService {
      * @return 获取导入导出状态
      */
     @SuppressWarnings("rawtypes")
-    ResultData<List<ProcessResult>> imExStatus();
+    ResultData<Map<String, ProcessResult>> imExStatus();
 
     /**
      * 获取excel导入模版数据

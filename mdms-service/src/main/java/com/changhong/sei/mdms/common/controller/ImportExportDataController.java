@@ -44,7 +44,7 @@ public class ImportExportDataController implements ImportExportDataApi {
      */
     @Override
     @ResponseBody
-    public ResultData<List<ProcessResult>> imExStatus(String serviceName) {
+    public ResultData<Map<String, ProcessResult>> imExStatus(String serviceName) {
         return getExcelService(serviceName).imExStatus();
     }
 
@@ -67,7 +67,7 @@ public class ImportExportDataController implements ImportExportDataApi {
      */
     @Override
     @ResponseBody
-    public ResultData<List<ProcessResult>> importDataExcel(String serviceName, MultipartFile file) {
+    public ResultData<Map<String, ProcessResult>> importDataExcel(String serviceName, MultipartFile file) {
         // 提交异步处理
         getExcelService(serviceName).importDataExcel(file);
 
@@ -88,7 +88,7 @@ public class ImportExportDataController implements ImportExportDataApi {
      */
     @Override
     @ResponseBody
-    public ResultData<List<ProcessResult>> exportData(String serviceName, Search search) {
+    public ResultData<Map<String, ProcessResult>> exportData(String serviceName, Search search) {
         // 提交异步处理
         getExcelService(serviceName).exportData(search);
 

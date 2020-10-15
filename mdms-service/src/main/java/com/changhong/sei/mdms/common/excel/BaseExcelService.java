@@ -17,6 +17,7 @@ import com.changhong.sei.mdms.commom.dto.ProcessResult;
 import com.changhong.sei.mdms.common.excel.validate.NotDuplicate;
 import com.changhong.sei.notify.dto.NotifyMessage;
 import com.changhong.sei.notify.sdk.manager.NotifyManager;
+import com.changhong.sei.util.DateUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
@@ -126,18 +127,18 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
      */
     @Override
     @SuppressWarnings("rawtypes")
-    public ResultData<List<ProcessResult>> imExStatus() {
-        List<ProcessResult> results = new ArrayList<>();
+    public ResultData<Map<String, ProcessResult>> imExStatus() {
+        Map<String, ProcessResult> data = new HashMap<>();
         String userId = ContextUtil.getUserId();
         ProcessResult<V> importResult = (ProcessResult) redisTemplate.opsForValue().get(getProcessCacheKey(TypeEnum.import_, userId));
         if (Objects.nonNull(importResult)) {
-            results.add(importResult);
+            data.put("import", importResult);
         }
         ProcessResult<V> exportResult = (ProcessResult) redisTemplate.opsForValue().get(getProcessCacheKey(TypeEnum.export_, userId));
         if (Objects.nonNull(exportResult)) {
-            results.add(exportResult);
+            data.put("export", exportResult);
         }
-        return ResultData.success(results);
+        return ResultData.success(data);
     }
 
     /**
@@ -195,7 +196,8 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
         ProcessResult<V> processResult = new ProcessResult<>();
         // 批量导入成功【{0}】条，失败【{1}】条！
         processResult.setProgressNote(ContextUtil.getMessage("batch_import_001", 0, 0));
-        //
+        // 时间
+        processResult.setDate(DateUtils.formatTime(new Date()));
         redisTemplate.opsForValue().set(batchId, processResult, EXPIRE_TIME, TimeUnit.MILLISECONDS);
 
         try {
@@ -304,7 +306,8 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
         ProcessResult<V> processResult = new ProcessResult<>();
         // 批量导入成功【{0}】条，失败【{1}】条！
         processResult.setProgressNote(ContextUtil.getMessage("batch_import_001", 0, 0));
-        //
+        // 时间
+        processResult.setDate(DateUtils.formatTime(new Date()));
         redisTemplate.opsForValue().set(batchId, processResult, EXPIRE_TIME, TimeUnit.MILLISECONDS);
 
         if (Objects.isNull(search)) {

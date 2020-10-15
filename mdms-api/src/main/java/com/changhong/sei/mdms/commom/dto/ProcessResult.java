@@ -16,6 +16,10 @@ public class ProcessResult<T extends Serializable> implements Serializable {
      * 文档id
      */
     private String docId;
+    /**
+     * yyyy-MM-dd HH:mm:ss
+     */
+    private String date;
 
     /**
      * 当前完成数量
@@ -48,6 +52,14 @@ public class ProcessResult<T extends Serializable> implements Serializable {
 
     public void setDocId(String docId) {
         this.docId = docId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Long getCurrent() {
@@ -121,6 +133,7 @@ public class ProcessResult<T extends Serializable> implements Serializable {
                 .add("总数量:" + total)
                 .add("成功数:" + current)
                 .add("消息:'" + progressNote + "'")
+                .add("时间:'" + date + "'")
                 .add("文档id:'" + docId + "'")
                 .toString();
     }

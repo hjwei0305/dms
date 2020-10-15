@@ -30,7 +30,7 @@ public interface ImportExportDataApi {
      */
     @GetMapping(path = "{serviceName}/imExStatus")
     @ApiOperation(value = "获取导入导出状态", notes = "获取导入导出状态")
-    ResultData<List<ProcessResult>> imExStatus(@PathVariable("serviceName") String serviceName);
+    ResultData<Map<String, ProcessResult>> imExStatus(@PathVariable("serviceName") String serviceName);
 
     /**
      * excel导入模版数据
@@ -49,7 +49,7 @@ public interface ImportExportDataApi {
      */
     @PostMapping(path = "{serviceName}/importDataExcel")
     @ApiOperation(value = "excel文件数据导入", notes = "excel文件数据导入")
-    ResultData<List<ProcessResult>> importDataExcel(@PathVariable("serviceName") String serviceName, MultipartFile file);
+    ResultData<Map<String, ProcessResult>> importDataExcel(@PathVariable("serviceName") String serviceName, MultipartFile file);
 
     /**
      * 数据导出excel文件
@@ -59,5 +59,5 @@ public interface ImportExportDataApi {
      */
     @PostMapping(path = "{serviceName}/exportData", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "数据导出excel文件", notes = "数据导出excel文件")
-    ResultData<List<ProcessResult>> exportData(@PathVariable("serviceName") String serviceName, @RequestBody Search search);
+    ResultData<Map<String, ProcessResult>> exportData(@PathVariable("serviceName") String serviceName, @RequestBody Search search);
 }
