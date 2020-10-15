@@ -328,7 +328,9 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
         if (pageResult.getRecords() > 0) {
             try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
                 // 这里 需要指定写用哪个class去写
-                writerSheetBuilder = EasyExcelFactory.write(outputStream, voClass).sheet(entityClass.getSimpleName());
+                writerSheetBuilder = EasyExcelFactory.write(outputStream, voClass)
+                        // 不自动关闭
+                        .autoCloseStream(false).sheet(entityClass.getSimpleName());
                 if (includeColumnFiledNames.size() > 0) {
                     writerSheetBuilder.includeColumnFiledNames(includeColumnFiledNames);
                 }
