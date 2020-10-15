@@ -3,7 +3,6 @@ package com.changhong.sei.mdms.general.service.excel.vo;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.changhong.sei.mdms.common.excel.BaseExcelRow;
 import com.changhong.sei.mdms.common.excel.validate.NotDuplicate;
-import com.changhong.sei.mdms.general.entity.Country;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -51,12 +50,6 @@ public class CountryVo extends BaseExcelRow implements Serializable {
      */
     @ExcelProperty(value = "排序", order = 6)
     private Integer rank = 0;
-    /**
-     * 租户代码
-     */
-    @NotBlank
-    @ExcelProperty(value = "租户代码", order = 7)
-    private String tenantCode;
 
     public String getCode() {
         return code;
@@ -104,14 +97,6 @@ public class CountryVo extends BaseExcelRow implements Serializable {
 
     public void setRank(Integer rank) {
         this.rank = rank;
-    }
-
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
     }
 
 }
