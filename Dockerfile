@@ -1,8 +1,8 @@
 # Docker for java mdms
 
 # Base image oracle jdk8
-#FROM openjdk:8-jre-alpine
-FROM rddhub.changhong.com/library/frolvlad-alpine-java
+FROM openjdk:8-jre-alpine-ttf
+#FROM rddhub.changhong.com/library/frolvlad-alpine-java
 
 # Author
 LABEL maintainer="brianhsiung@outlook.com"
