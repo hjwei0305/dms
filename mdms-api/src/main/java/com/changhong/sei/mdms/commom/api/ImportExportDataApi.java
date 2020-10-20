@@ -39,7 +39,7 @@ public interface ImportExportDataApi {
      */
     @GetMapping(path = "{serviceName}/importTemplateData")
     @ApiOperation(value = "导入模版数据", notes = "导入模版数据,前端应用根据数据生成excel模版")
-    ResultData<Map<String, List<String>>> importTemplateData(@PathVariable("serviceName") String serviceName);
+    ResultData<Map<String, Object>> importTemplateData(@PathVariable("serviceName") String serviceName);
 
     /**
      * excel文件数据导入

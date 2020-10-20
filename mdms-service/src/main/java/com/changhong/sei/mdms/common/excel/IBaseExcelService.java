@@ -29,7 +29,7 @@ public interface IBaseExcelService {
      *
      * @return 导入模版数据
      */
-    ResultData<Map<String, List<String>>> importTemplateData();
+    ResultData<Map<String, Object>> importTemplateData();
 
     /**
      * 异步将excel文件数据导入系统

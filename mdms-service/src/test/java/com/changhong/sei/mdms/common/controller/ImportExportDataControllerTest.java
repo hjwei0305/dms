@@ -49,7 +49,7 @@ public class ImportExportDataControllerTest extends BaseUnitTest {
 
     @Test
     public void importTemplateData() {
-        ResultData<Map<String, List<String>>> resultData = controller.importTemplateData(SERVICE_NAME);
+        ResultData<Map<String, Object>> resultData = controller.importTemplateData(SERVICE_NAME);
         System.out.println(resultData);
     }
 

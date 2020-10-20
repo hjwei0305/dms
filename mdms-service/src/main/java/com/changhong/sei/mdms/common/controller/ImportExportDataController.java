@@ -55,7 +55,7 @@ public class ImportExportDataController implements ImportExportDataApi {
      */
     @Override
     @ResponseBody
-    public ResultData<Map<String, List<String>>> importTemplateData(String serviceName) {
+    public ResultData<Map<String, Object>> importTemplateData(String serviceName) {
         return getExcelService(serviceName).importTemplateData();
     }
 

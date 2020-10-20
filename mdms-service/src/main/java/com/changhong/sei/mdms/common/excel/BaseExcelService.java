@@ -147,19 +147,23 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
      * @return 导入模版数据
      */
     @Override
-    public ResultData<Map<String, List<String>>> importTemplateData() {
+    public ResultData<Map<String, Object>> importTemplateData() {
         // 名称
-        List<String> names = new ArrayList<>();
+        List<Map<String, String>> names = new ArrayList<>();
         // 标题
         List<String> examples = new ArrayList<>();
 
+        Map<String, String> title;
         ExcelProperty property;
         Field[] fields = voClass.getDeclaredFields();
         for (Field field : fields) {
             property = field.getAnnotation(ExcelProperty.class);
             if (Objects.nonNull(property)) {
                 String name = property.value()[0];
-                names.add(name);
+                title = new HashMap<>();
+                title.put("code", field.getName());
+                title.put("name", name);
+                names.add(title);
 
                 String data = "文本";
                 if (field.isAnnotationPresent(DateTimeFormat.class)) {
@@ -178,7 +182,7 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
                 examples.add(data);
             }
         }
-        Map<String, List<String>> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("title", names);
         map.put("example", examples);
         return ResultData.success(map);
