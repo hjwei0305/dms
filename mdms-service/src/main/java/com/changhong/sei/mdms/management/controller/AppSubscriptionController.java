@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  * @version 1.0.00  2021-02-22 11:09
  */
 @RestController
-@Api(value = "AppSubscriptionApi", tags = "主数据分类服务")
+@Api(value = "AppSubscriptionApi", tags = "应用数据订阅服务")
 @RequestMapping(path = "appSubscription", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AppSubscriptionController implements AppSubscriptionApi {
 
