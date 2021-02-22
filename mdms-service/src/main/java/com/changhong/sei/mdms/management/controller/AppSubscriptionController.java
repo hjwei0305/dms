@@ -94,16 +94,18 @@ public class AppSubscriptionController implements AppSubscriptionApi {
     @Override
     public ResultData<List<DataDefinitionDto>> getUnassignedChildren(String appCode) {
         List<DataDefinitionDto> dtoList;
+        List<DataDefinition> definitionList;
+        Search search = Search.createSearch();
         List<Subscription> list = subscriptionService.findListByProperty(Subscription.FIELD_APP_CODE, appCode);
         if (CollectionUtils.isNotEmpty(list)) {
             Set<String> codeSet = list.stream().map(Subscription::getAppCode).collect(Collectors.toSet());
-            Search search = Search.createSearch();
             search.addFilter(new SearchFilter(DataDefinition.CODE_FIELD, codeSet, SearchFilter.Operator.NOTIN));
-            List<DataDefinition> definitionList = dataDefinitionService.findByFilters(search);
-            dtoList = definitionList.stream().map(s -> modelMapper.map(s, DataDefinitionDto.class)).collect(Collectors.toList());
+            definitionList = dataDefinitionService.findByFilters(search);
         } else {
-            dtoList = new ArrayList<>();
+            definitionList = dataDefinitionService.findByFilters(search);
         }
+
+        dtoList = definitionList.stream().map(s -> modelMapper.map(s, DataDefinitionDto.class)).collect(Collectors.toList());
         return ResultData.success(dtoList);
     }
 
