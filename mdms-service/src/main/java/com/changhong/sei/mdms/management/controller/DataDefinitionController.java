@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @Api(value = "DataDefinitionApi", tags = "主数据定义服务")
-@RequestMapping(path = "dataDefinition", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(path = "dataDefinition", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DataDefinitionController extends BaseEntityController<DataDefinition, DataDefinitionDto>
         implements DataDefinitionApi {
     /**

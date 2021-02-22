@@ -48,7 +48,7 @@ public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
      * @param request 主数据注册请求
      * @return 操作结果
      */
-    @PostMapping(path = "register", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "register", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "主数据注册", notes = "注册一个主数据")
     ResultData<String> register(@RequestBody @Valid DataDefinitionDto request);
 
@@ -78,7 +78,7 @@ public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
      * @param search 查询参数
      * @return 分页查询结果
      */
-    @PostMapping(path = "getRegisterDataByPage", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "getRegisterDataByPage", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "分页查询注册的主数据", notes = "分页查询注册的主数据")
     ResultData<PageResult<DataDefinitionDto>> getRegisterDataByPage(@RequestBody Search search);
 
@@ -131,7 +131,7 @@ public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
      * @param configDto ui配置
      * @return 返回保存结果
      */
-    @PostMapping(path = "saveConfig", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "saveConfig", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "保存主数据的UI配置", notes = "保存主数据的UI配置")
     ResultData<DataConfigDto> saveConfig(@RequestBody @Valid DataConfigDto configDto);
 }

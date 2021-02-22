@@ -31,7 +31,7 @@ import java.util.Objects;
  */
 @RestController
 @Api(value = "RegionApi", tags = "行政区域服务")
-@RequestMapping(path = "region", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(path = "region", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RegionController extends BaseTreeController<Region, RegionDto> implements RegionApi {
     /**
      * 行政区域服务对象

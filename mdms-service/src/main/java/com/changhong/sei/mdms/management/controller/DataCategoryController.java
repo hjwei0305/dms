@@ -25,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @Api(value = "DataCategoryApi", tags = "主数据分类服务")
-@RequestMapping(path = "dataCategory", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(path = "dataCategory", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DataCategoryController extends BaseTreeController<DataCategory, DataCategoryDto> implements DataCategoryApi {
     /**
      * 主数据分类服务对象

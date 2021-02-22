@@ -26,7 +26,7 @@ import java.util.List;
  */
 @RestController
 @Api(value = "CurrencyApi", tags = "币种服务")
-@RequestMapping(path = "currency", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(path = "currency", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CurrencyController extends BaseEntityController<Currency, CurrencyDto> implements CurrencyApi {
     /**
      * 币种服务对象

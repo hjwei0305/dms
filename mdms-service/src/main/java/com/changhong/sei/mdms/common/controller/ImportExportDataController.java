@@ -26,7 +26,7 @@ import java.util.Map;
 @SuppressWarnings("rawtypes")
 @Controller
 @Api(value = "ImportExportDataApi", tags = "Excel导入导出服务")
-@RequestMapping(path = "excel", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(path = "excel", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ImportExportDataController implements ImportExportDataApi {
 
     @Autowired

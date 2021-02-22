@@ -57,7 +57,7 @@ public interface ImportExportDataApi {
      * @param search 导出查询参数
      * @return 导出结果
      */
-    @PostMapping(path = "{serviceName}/exportData", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(path = "{serviceName}/exportData", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "数据导出excel文件", notes = "数据导出excel文件")
     ResultData<Map<String, ProcessResult>> exportData(@PathVariable("serviceName") String serviceName, @RequestBody Search search);
 }

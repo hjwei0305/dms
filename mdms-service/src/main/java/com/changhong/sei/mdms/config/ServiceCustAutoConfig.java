@@ -29,7 +29,7 @@ public class ServiceCustAutoConfig {
     }
 
     @Bean("currencyExcelService")
-    @ConditionalOnMissingBean(CountryExcelService.class)
+    @ConditionalOnMissingBean(CurrencyExcelService.class)
     public CurrencyExcelService currencyExcelService() {
         return new DefaultCurrencyExcelService();
     }
