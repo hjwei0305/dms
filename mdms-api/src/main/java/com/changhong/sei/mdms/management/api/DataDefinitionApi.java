@@ -25,7 +25,7 @@ import java.util.Map;
  * @since 2020-08-13 22:47:19
  */
 @Valid
-@FeignClient(name = "mdms", path = "dataDefinition")
+@FeignClient(name = "dms", path = "dataDefinition")
 public interface DataDefinitionApi extends BaseEntityApi<DataDefinitionDto> {
 
     /**

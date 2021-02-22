@@ -19,7 +19,7 @@ import java.util.List;
  * @since 2020-08-17 14:03:33
  */
 @Valid
-@FeignClient(name = "mdms", path = "region")
+@FeignClient(name = "dms", path = "region")
 public interface RegionApi extends BaseTreeApi<RegionDto>, FindByPageApi<RegionDto> {
     /**
      * 获取所有行政区域树

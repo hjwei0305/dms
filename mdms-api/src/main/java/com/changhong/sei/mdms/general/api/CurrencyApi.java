@@ -18,7 +18,7 @@ import javax.validation.Valid;
  * @since 2020-08-17 14:03:30
  */
 @Valid
-@FeignClient(name = "mdms", path = "currency")
+@FeignClient(name = "dms", path = "currency")
 public interface CurrencyApi extends BaseEntityApi<CurrencyDto>, FindByPageApi<CurrencyDto>, FindAllApi<CurrencyDto> {
 
 }

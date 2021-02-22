@@ -22,7 +22,7 @@ import java.util.List;
  * @since 2020-08-13 22:47:14
  */
 @Valid
-@FeignClient(name = "mdms", path = "dataCategory")
+@FeignClient(name = "dms", path = "dataCategory")
 public interface DataCategoryApi extends BaseEntityApi<DataCategoryDto>, BaseTreeApi<DataCategoryDto> {
 
     /**

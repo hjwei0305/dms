@@ -20,7 +20,7 @@ import javax.validation.Valid;
  * @since 2020-08-17 14:03:21
  */
 @Valid
-@FeignClient(name = "mdms", path = "country")
+@FeignClient(name = "dms", path = "country")
 public interface CountryApi extends BaseEntityApi<CountryDto>, FindByPageApi<CountryDto>, FindAllApi<CountryDto> {
 
     /**
