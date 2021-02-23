@@ -28,6 +28,11 @@ public class SubscriptionDto extends BaseEntityDto {
     @ApiModelProperty(value = "数据代码")
     private String dataCode;
     /**
+     * 数据名称
+     */
+    @ApiModelProperty(value = "数据名称")
+    private String dataName;
+    /**
      * 冻结
      * 取消注册即冻结
      */
@@ -65,6 +70,14 @@ public class SubscriptionDto extends BaseEntityDto {
 
     public void setDataCode(String dataCode) {
         this.dataCode = dataCode;
+    }
+
+    public String getDataName() {
+        return dataName;
+    }
+
+    public void setDataName(String dataName) {
+        this.dataName = dataName;
     }
 
     public Boolean getFrozen() {
