@@ -22,6 +22,11 @@ public class SubscriptionDto extends BaseEntityDto {
     @ApiModelProperty(value = "应用服务代码")
     private String appCode;
     /**
+     * 应用服务名称
+     */
+    @ApiModelProperty(value = "应用服务名称")
+    private String appName;
+    /**
      * 数据代码
      */
     @NotBlank
@@ -62,6 +67,14 @@ public class SubscriptionDto extends BaseEntityDto {
 
     public void setAppCode(String appCode) {
         this.appCode = appCode;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 
     public String getDataCode() {

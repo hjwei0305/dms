@@ -30,6 +30,11 @@ public class Subscription extends BaseAuditableEntity implements Serializable, I
     @Column(name = "app_code", nullable = false)
     private String appCode;
     /**
+     * 应用服务名称
+     */
+    @Column(name = "app_name", nullable = false)
+    private String appName;
+    /**
      * 数据代码
      */
     @Column(name = "data_code", nullable = false)
@@ -66,6 +71,14 @@ public class Subscription extends BaseAuditableEntity implements Serializable, I
 
     public void setAppCode(String appCode) {
         this.appCode = appCode;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 
     public String getDataCode() {
