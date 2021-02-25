@@ -31,7 +31,7 @@ class AppSubscriptionControllerTest extends BaseUnit5Test {
 
     @Test
     void getUnassignedChildren() {
-        ResultData<List<DataDefinitionDto>> resultData = controller.getUnassignedChildren("aaa");
+        ResultData<List<DataDefinitionDto>> resultData = controller.getUnassignedChildren("测试1");
         System.out.println(resultData);
     }
 

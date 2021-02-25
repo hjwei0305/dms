@@ -76,6 +76,16 @@ public interface AppSubscriptionApi {
     ResultData<List<SubscriptionDto>> getDataFromAppCode(@RequestParam("appCode") String appCode);
 
     /**
+     * 通过dataCode获取应用订阅清单
+     *
+     * @param dataCode dataCode
+     * @return 订阅数据清单
+     */
+    @GetMapping(path = "getAppFromDataCode")
+    @ApiOperation(value = "通过dataCode获取应用订阅清单", notes = "通过dataCode获取应用订阅清单")
+    ResultData<List<SubscriptionDto>> getAppFromDataCode(@RequestParam("dataCode") String dataCode);
+
+    /**
      * 保存应用与数据订阅关系
      *
      * @param subscriptionDto 分配关系参数

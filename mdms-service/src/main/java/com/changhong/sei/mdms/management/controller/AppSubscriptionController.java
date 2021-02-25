@@ -95,14 +95,15 @@ public class AppSubscriptionController implements AppSubscriptionApi {
     public ResultData<List<DataDefinitionDto>> getUnassignedChildren(String appCode) {
         List<DataDefinitionDto> dtoList;
         List<DataDefinition> definitionList;
-        Search search = Search.createSearch();
         List<Subscription> list = subscriptionService.findListByProperty(Subscription.FIELD_APP_CODE, appCode);
         if (CollectionUtils.isNotEmpty(list)) {
-            Set<String> codeSet = list.stream().map(Subscription::getAppCode).collect(Collectors.toSet());
+            Set<String> codeSet = list.stream().map(Subscription::getDataCode).collect(Collectors.toSet());
+
+            Search search = Search.createSearch();
             search.addFilter(new SearchFilter(DataDefinition.CODE_FIELD, codeSet, SearchFilter.Operator.NOTIN));
             definitionList = dataDefinitionService.findByFilters(search);
         } else {
-            definitionList = dataDefinitionService.findByFilters(search);
+            definitionList = dataDefinitionService.findAllUnfrozen();
         }
 
         dtoList = definitionList.stream().map(s -> modelMapper.map(s, DataDefinitionDto.class)).collect(Collectors.toList());
@@ -119,6 +120,24 @@ public class AppSubscriptionController implements AppSubscriptionApi {
     public ResultData<List<SubscriptionDto>> getDataFromAppCode(String appCode) {
         List<SubscriptionDto> dtoList;
         List<Subscription> list = subscriptionService.findListByProperty(Subscription.FIELD_APP_CODE, appCode);
+        if (CollectionUtils.isNotEmpty(list)) {
+            dtoList = list.stream().map(s -> modelMapper.map(s, SubscriptionDto.class)).collect(Collectors.toList());
+        } else {
+            dtoList = new ArrayList<>();
+        }
+        return ResultData.success(dtoList);
+    }
+
+    /**
+     * 通过dataCode获取应用订阅清单
+     *
+     * @param dataCode dataCode
+     * @return 订阅数据清单
+     */
+    @Override
+    public ResultData<List<SubscriptionDto>> getAppFromDataCode(String dataCode) {
+        List<SubscriptionDto> dtoList;
+        List<Subscription> list = subscriptionService.findListByProperty(Subscription.FIELD_DATA_CODE, dataCode);
         if (CollectionUtils.isNotEmpty(list)) {
             dtoList = list.stream().map(s -> modelMapper.map(s, SubscriptionDto.class)).collect(Collectors.toList());
         } else {

@@ -23,6 +23,7 @@ import java.io.Serializable;
 public class Subscription extends BaseAuditableEntity implements Serializable, IFrozen {
     private static final long serialVersionUID = -8289122883080864166L;
     public static final String FIELD_APP_CODE = "appCode";
+    public static final String FIELD_DATA_CODE = "dataCode";
     /**
      * 应用服务代码
      */
