@@ -8,7 +8,7 @@ FROM openjdk:8-jre-alpine-ttf
 LABEL maintainer="brianhsiung@outlook.com"
 
 # Environment 此处需要根据实际情况修改APP_NAME
-ENV JAVA_OPTS="" APP_NAME="mdms"
+ENV JAVA_OPTS="" APP_NAME="dms"
 
 # Timezone
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
