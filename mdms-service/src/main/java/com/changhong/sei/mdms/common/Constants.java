@@ -8,6 +8,11 @@ package com.changhong.sei.mdms.common;
  */
 public interface Constants {
     /**
+     * 默认全局租户代码
+     */
+    String DEFAULT_TENANT = "global";
+
+    /**
      *
      */
     String ENTITY_CACHE_KEY = "sei:mdms:md:clazz";

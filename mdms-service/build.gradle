@@ -44,7 +44,7 @@ processResources {
         ]
     }
     // 默认application文件中的配置从配置中心获取
-//    excludes = ["**/application.yaml", "**/application.properties"]
+    excludes = ["**/application.yaml", "**/application.properties"]
 }
 
 // 打ar包
