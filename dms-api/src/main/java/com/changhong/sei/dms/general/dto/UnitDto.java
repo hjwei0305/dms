@@ -24,7 +24,7 @@ public class UnitDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 20)
-    @ApiModelProperty(value = "代码(max = 20)", required = true)
+    @ApiModelProperty(value = "代码", required = true)
     private String code;
 
     /**
@@ -32,14 +32,14 @@ public class UnitDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 100)
-    @ApiModelProperty(value = "名称(max = 100)", required = true)
+    @ApiModelProperty(value = "名称", required = true)
     private String name;
 
     /**
      * 计量单位描述
      */
     @Size(max = 100)
-    @ApiModelProperty(value = "计量单位描述(max = 100)")
+    @ApiModelProperty(value = "计量单位描述")
     private String unitDesc;
 
     /**

@@ -23,7 +23,7 @@ public class TaxRateDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 20)
-    @ApiModelProperty(value = "代码 max = 20", required = true)
+    @ApiModelProperty(value = "代码", required = true)
     private String code;
 
     /**
@@ -31,7 +31,7 @@ public class TaxRateDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 100)
-    @ApiModelProperty(value = "名称 max = 100", required = true)
+    @ApiModelProperty(value = "名称", required = true)
     private String name;
 
     /**
@@ -40,7 +40,7 @@ public class TaxRateDto extends BaseEntityDto {
     @NotNull
     @Min(0)
     @Max(100)
-    @ApiModelProperty(value = "税率百分比 (0-100)", required = true)
+    @ApiModelProperty(value = "税率百分比", required = true)
     private Double taxRate;
 
     /**
