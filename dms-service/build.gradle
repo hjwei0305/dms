@@ -53,7 +53,7 @@ processResources {
 // 打ar包
 bootJar  {
     enabled = true
-    archiveName = 'mdms.jar'
+    archiveName = 'dms.jar'
     mainClassName = MainClass
     manifest {
         attributes("Manifest-Version": "6.0")
