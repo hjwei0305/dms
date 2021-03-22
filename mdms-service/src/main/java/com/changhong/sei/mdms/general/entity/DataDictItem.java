@@ -4,6 +4,7 @@ import com.changhong.sei.core.dto.IRank;
 import com.changhong.sei.core.entity.BaseAuditableEntity;
 import com.changhong.sei.core.entity.IFrozen;
 import com.changhong.sei.core.entity.ITenant;
+import com.changhong.sei.mdms.common.Constants;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -18,13 +19,13 @@ import javax.persistence.*;
 @DynamicUpdate
 @DynamicInsert
 public class DataDictItem extends BaseAuditableEntity implements ITenant, IFrozen, IRank {
-    public static final String DEFAULT_TENANT = "global";
+    private static final long serialVersionUID = -2013360193839296084L;
     /**
      * 租户代码
      * 默认租户代码为 global
      */
     @Column(name = "tenant_code", nullable = false)
-    private String tenantCode = DEFAULT_TENANT;
+    private String tenantCode = Constants.DEFAULT_TENANT;
     /**
      * 数据字典Id
      */
@@ -120,6 +121,7 @@ public class DataDictItem extends BaseAuditableEntity implements ITenant, IFroze
         this.frozen = frozen;
     }
 
+    @Override
     public Integer getRank() {
         return rank;
     }

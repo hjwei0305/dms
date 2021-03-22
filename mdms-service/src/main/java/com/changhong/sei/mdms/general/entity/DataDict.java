@@ -16,7 +16,8 @@ import javax.persistence.*;
 @Table(name = "data_dict")
 @DynamicUpdate
 @DynamicInsert
-public class DataDict extends BaseAuditableEntity implements ICodeUnique, IFrozen{
+public class DataDict extends BaseAuditableEntity implements ICodeUnique, IFrozen {
+    private static final long serialVersionUID = 7665641870616737740L;
     /**
      * 代码
      */
@@ -66,6 +67,7 @@ public class DataDict extends BaseAuditableEntity implements ICodeUnique, IFroze
         return frozen;
     }
 
+    @Override
     public void setFrozen(Boolean frozen) {
         this.frozen = frozen;
     }

@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @Api(value = "DataDictApi", tags = "数据字典API服务实现")
-@RequestMapping(path = "dataDict", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(path = "dataDict", produces = MediaType.APPLICATION_JSON_VALUE)
 public class DataDictController extends BaseEntityController<DataDict, DataDictDto>
         implements DataDictApi {
     @Autowired

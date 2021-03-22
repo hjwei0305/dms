@@ -2,4 +2,5 @@ rootProject.name = 'mdms'
 
 include 'mdms-service'
 include 'mdms-api'
+include 'multilingual-sdk'
 

@@ -4,17 +4,16 @@ import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseTreeDao;
 import com.changhong.sei.core.service.BaseTreeService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
+import com.changhong.sei.mdms.common.utils.PinYinUtil;
 import com.changhong.sei.mdms.general.dao.RegionDao;
 import com.changhong.sei.mdms.general.entity.Region;
 import com.changhong.sei.util.IdGenerator;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 /**
@@ -32,7 +31,6 @@ public class RegionService extends BaseTreeService<Region> {
     protected BaseTreeDao<Region> getDao() {
         return dao;
     }
-
 
     public List<Region> getRegionTree() {
         List<Region> rootTree = getAllRootNode();
@@ -120,6 +118,47 @@ public class RegionService extends BaseTreeService<Region> {
                 return OperateResultWithData.operationFailure("00017", entity.getName());
             }
         }
-        return super.save(entity);
+        // 设置简称为拼音首字母
+        if (StringUtils.isBlank(entity.getShortName())) {
+            entity.setShortName(PinYinUtil.getUpperCase(entity.getName(), false));
+        }
+        // 设置汉语拼音
+        if (StringUtils.isBlank(entity.getPinYin())) {
+            entity.setPinYin(PinYinUtil.getLowerCase(entity.getName(), true));
+        }
+        OperateResultWithData<Region> resultWithData = super.save(entity);
+        //保存成功，移除所有缓存，防止旧数据
+        if (resultWithData.successful()) {
+            String keyPattern = "sei:commomsdata:region:*";
+            Set<String> keySet = cacheBuilder.keys(keyPattern);
+            keySet.forEach(key -> {
+                cacheBuilder.remove(key);
+            });
+        }
+        return resultWithData;
+    }
+
+    /**
+     * 更新简称为拼音大写首字母
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public void refreshShortName() {
+        List<Region> regions = findAll();
+        regions.forEach(region -> {
+            boolean isChange = Boolean.FALSE;
+            // 设置简称为拼音首字母
+            if (StringUtils.isBlank(region.getShortName())) {
+                region.setShortName(PinYinUtil.getUpperCase(region.getName(), false));
+                isChange = Boolean.TRUE;
+            }
+            // 设置汉语拼音
+            if (StringUtils.isBlank(region.getPinYin())) {
+                region.setPinYin(PinYinUtil.getLowerCase(region.getName(), true));
+                isChange = Boolean.TRUE;
+            }
+            if (isChange) {
+                dao.save(region);
+            }
+        });
     }
 }
