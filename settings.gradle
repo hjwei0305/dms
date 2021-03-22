@@ -1,6 +1,6 @@
-rootProject.name = 'mdms'
+rootProject.name = 'dms'
 
-include 'mdms-service'
-include 'mdms-api'
+include 'dms-service'
+include 'dms-api'
 include 'multilingual-sdk'
 
