@@ -27,7 +27,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -117,11 +116,15 @@ public class DataDictController extends BaseEntityController<DataDict, DataDictD
      * @return 返回保存字典项目的结果
      */
     @Override
-    public ResultData<DataDictItemDto> saveDictItem(@Valid DataDictItemDto dictItemDto) {
+    public ResultData<DataDictItemDto> saveDictItem(DataDictItemDto dictItemDto) {
         // 转换行项目DTO为entity
         DataDictItem item = convertItemToEntity(dictItemDto);
-        OperateResultWithData<DataDictItem> saveResult = service.saveDictItem(item);
-        return ResultDataUtil.convertFromOperateResult(saveResult, convertItemToDto(saveResult.getData()));
+        if (Objects.nonNull(item)) {
+            OperateResultWithData<DataDictItem> saveResult = service.saveDictItem(item);
+            return ResultDataUtil.convertFromOperateResult(saveResult, convertItemToDto(saveResult.getData()));
+        } else {
+            return ResultData.fail(ContextUtil.getMessage("00008", dictItemDto));
+        }
     }
 
     /**
@@ -131,7 +134,7 @@ public class DataDictController extends BaseEntityController<DataDict, DataDictD
      * @return 返回保存字典项目的结果
      */
     @Override
-    public ResultData<?> deleteDictItem(String id) {
+    public ResultData<Void> deleteDictItem(String id) {
         OperateResult result = service.deleteDictItem(id);
         return ResultDataUtil.convertFromOperateResult(result);
     }
@@ -202,16 +205,8 @@ public class DataDictController extends BaseEntityController<DataDict, DataDictD
      * @param includeFrozen 包含已冻结
      * @return 数据字典项DTO清单
      */
-    private List<DataDictItemDto> getDataDictItemDtos(DataDict dataDict, Boolean includeFrozen) {
-        List<DataDictItem> items;
-        String lang = ContextUtil.getLocaleLang();
-        if (dataDict.getTenantPrivate()) {
-            // 如果是租户私有，获取当前租户的字典项
-            items = service.getDataDictItems(dataDict.getId(), ContextUtil.getTenantCode(), includeFrozen, lang);
-        } else {
-            // 如果是全局字典，获取全局租户的字典项
-            items = service.getDataDictItems(dataDict.getId(), DataDictItemDto.DEFAULT_TENANT, includeFrozen, lang);
-        }
+    private List<DataDictItemDto> getDataDictItemDtos(DataDict dataDict, boolean includeFrozen) {
+        List<DataDictItem> items = service.getDataDictItems(dataDict.getId(), includeFrozen);
         return items.stream().map(this::convertItemToDto).collect(Collectors.toList());
     }
 
@@ -223,16 +218,8 @@ public class DataDictController extends BaseEntityController<DataDict, DataDictD
      * @param includeFrozen 包含已冻结
      * @return 指定数据字典项DTO
      */
-    private DataDictItemDto getDataDictItemDto(DataDict dataDict, String dataName, Boolean includeFrozen) {
-        DataDictItem item;
-        String lang = ContextUtil.getLocaleLang();
-        if (dataDict.getTenantPrivate()) {
-            // 如果是租户私有，获取当前租户的字典项
-            item = service.getDataDictItem(dataDict.getId(), dataName, ContextUtil.getTenantCode(), includeFrozen, lang);
-        } else {
-            // 如果是全局字典，获取全局租户的字典项
-            item = service.getDataDictItem(dataDict.getId(), dataName, DataDictItemDto.DEFAULT_TENANT, includeFrozen, lang);
-        }
+    private DataDictItemDto getDataDictItemDto(DataDict dataDict, String dataName, boolean includeFrozen) {
+        DataDictItem item = service.getDataDictItem(dataDict.getId(), dataName, includeFrozen);
         return convertItemToDto(item);
     }
 
@@ -273,5 +260,17 @@ public class DataDictController extends BaseEntityController<DataDict, DataDictD
     @Override
     public ResultData<PageResult<DataDictDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
+    }
+
+    /**
+     * 字典项转为(取消)租户私有
+     *
+     * @param dictId 字典id
+     * @param action 操作(true or false)
+     * @return 操作结果
+     */
+    @Override
+    public ResultData<Void> tenantPrivate(String dictId, boolean action) {
+        return service.tenantPrivate(dictId, action);
     }
 }

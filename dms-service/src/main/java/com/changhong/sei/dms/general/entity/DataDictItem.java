@@ -4,7 +4,7 @@ import com.changhong.sei.core.dto.IRank;
 import com.changhong.sei.core.entity.BaseAuditableEntity;
 import com.changhong.sei.core.entity.IFrozen;
 import com.changhong.sei.core.entity.ITenant;
-import com.changhong.sei.dms.common.Constants;
+import com.changhong.sei.dms.commom.Constants;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -31,13 +31,6 @@ public class DataDictItem extends BaseAuditableEntity implements ITenant, IFroze
      */
     @Column(name = "data_dict_id", length = 36, nullable = false)
     private String dataDictId;
-
-    /**
-     * 数据字典
-     */
-    @ManyToOne
-    @JoinColumn(name = "data_dict_id", nullable = false, insertable = false, updatable = false)
-    private DataDict dataDict;
 
     /**
      * 展示值
@@ -85,14 +78,6 @@ public class DataDictItem extends BaseAuditableEntity implements ITenant, IFroze
 
     public void setDataDictId(String dataDictId) {
         this.dataDictId = dataDictId;
-    }
-
-    public DataDict getDataDict() {
-        return dataDict;
-    }
-
-    public void setDataDict(DataDict dataDict) {
-        this.dataDict = dataDict;
     }
 
     public String getDataName() {

@@ -16,7 +16,7 @@ public interface DataDictItemDao extends BaseEntityDao<DataDictItem> {
      * @param tenantCode 租户代码
      * @return 字典下的字典项
      */
-    @Query("select item from DataDictItem item where item.dataDict.id=?1 and item.tenantCode=?2 order by item.rank")
+    @Query("select item from DataDictItem item where item.dataDictId=?1 and item.tenantCode=?2 order by item.rank")
     List<DataDictItem> findByDictId(String dataDictId, String tenantCode);
 
     /**
@@ -27,7 +27,7 @@ public interface DataDictItemDao extends BaseEntityDao<DataDictItem> {
      * @param tenantCode 租户代码
      * @return 字典下的字典项
      */
-    @Query("select item from DataDictItem item where item.dataDict.id=?1 and item.dataName=?2 and item.tenantCode=?3")
+    @Query("select item from DataDictItem item where item.dataDictId=?1 and item.dataName=?2 and item.tenantCode=?3")
     DataDictItem findByDictIdAndDataName(String dataDictId, String dataName, String tenantCode);
 
     /**
@@ -38,7 +38,7 @@ public interface DataDictItemDao extends BaseEntityDao<DataDictItem> {
      * @param tenantCode 租户代码
      * @return 字典下的字典项
      */
-    @Query("select item from DataDictItem item where item.dataDict.id=?1 and item.dataName=?2 and item.tenantCode=?3 and item.frozen=false")
+    @Query("select item from DataDictItem item where item.dataDictId=?1 and item.dataName=?2 and item.tenantCode=?3 and item.frozen=false")
     DataDictItem findByDictIdAndDataNameUnfrozen(String dataDictId, String dataName, String tenantCode);
 
 
@@ -49,7 +49,7 @@ public interface DataDictItemDao extends BaseEntityDao<DataDictItem> {
      * @param tenantCode 租户代码
      * @return 字典下的字典项
      */
-    @Query("select item from DataDictItem item where item.dataDict.id=?1 and item.tenantCode=?2 and item.frozen=false order by item.rank")
+    @Query("select item from DataDictItem item where item.dataDictId=?1 and item.tenantCode=?2 and item.frozen=false order by item.rank")
     List<DataDictItem> findByDictIdUnfrozen(String dataDictId, String tenantCode);
 
     /**

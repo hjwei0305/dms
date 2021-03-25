@@ -4,7 +4,7 @@ import com.changhong.sei.core.cache.CacheBuilder;
 import com.changhong.sei.core.dto.TreeEntity;
 import com.changhong.sei.core.log.LogUtil;
 import com.changhong.sei.dms.annotation.MasterData;
-import com.changhong.sei.dms.common.Constants;
+import com.changhong.sei.dms.commom.Constants;
 import com.changhong.sei.dms.management.dto.DataStructureEnum;
 import com.changhong.sei.dms.management.dto.EntityDto;
 import io.swagger.annotations.ApiModel;

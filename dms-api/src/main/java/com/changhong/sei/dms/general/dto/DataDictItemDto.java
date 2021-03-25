@@ -1,12 +1,14 @@
 package com.changhong.sei.dms.general.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
+import com.changhong.sei.dms.commom.Constants;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.StringJoiner;
 
 /**
  * 实现功能: 数据字典项目DTO
@@ -16,15 +18,13 @@ import javax.validation.constraints.Size;
  */
 @ApiModel(description = "数据字典项目DTO")
 public class DataDictItemDto extends BaseEntityDto {
-    public static final String DEFAULT_TENANT = "global";
     private static final long serialVersionUID = 6473909758037634659L;
     /**
      * 租户代码
      * 默认租户代码为 global
      */
     @ApiModelProperty(value = "租户代码")
-    private String tenantCode = DEFAULT_TENANT;
-
+    private String tenantCode = Constants.DEFAULT_TENANT;
     /**
      * 数据字典Id
      */
@@ -77,6 +77,13 @@ public class DataDictItemDto extends BaseEntityDto {
         this.tenantCode = tenantCode;
     }
 
+    /**
+     * 是否为租户私有
+     */
+    public Boolean getTenantPrivate() {
+        return !Constants.DEFAULT_TENANT.equals(getTenantCode());
+    }
+
     public String getDataDictId() {
         return dataDictId;
     }
@@ -123,5 +130,13 @@ public class DataDictItemDto extends BaseEntityDto {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", DataDictItemDto.class.getSimpleName() + "[", "]")
+                .add("dataName='" + dataName + "'")
+                .add("dataValue='" + dataValue + "'")
+                .toString();
     }
 }

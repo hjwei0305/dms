@@ -21,8 +21,7 @@ import java.util.List;
  * @version 2020-01-26 19:55
  */
 @FeignClient(name = "dms", path = "dataDict")
-public interface DataDictApi extends BaseEntityApi<DataDictDto>,
-        FindByPageApi<DataDictDto> {
+public interface DataDictApi extends BaseEntityApi<DataDictDto>, FindByPageApi<DataDictDto> {
     /**
      * 保存字典项
      *
@@ -41,7 +40,7 @@ public interface DataDictApi extends BaseEntityApi<DataDictDto>,
      */
     @DeleteMapping(path = "deleteDictItem/{id}")
     @ApiOperation(value = "删除字典项", notes = "通过Id删除字典项")
-    ResultData<?> deleteDictItem(@PathVariable("id") String id);
+    ResultData<Void> deleteDictItem(@PathVariable("id") String id);
 
     /**
      * 通过字典Id获取字典项
@@ -83,4 +82,15 @@ public interface DataDictApi extends BaseEntityApi<DataDictDto>,
     @PostMapping(path = "batchSaveDataDict")
     @ApiOperation(value = "批量存储数据字典", notes = "批量存储数据字典")
     ResultData<Boolean> batchSaveDataDict(@RequestBody DataDictBatchSaveDto batchDataDictSaveDto);
+
+    /**
+     * 字典项转为(取消)租户私有
+     *
+     * @param dictId 字典id
+     * @param action 操作(true or false)
+     * @return 操作结果
+     */
+    @PostMapping(path = "tenantPrivate/{dictId}/{action}")
+    @ApiOperation(value = "字典项转为(取消)租户私有", notes = "字典项转为(取消)租户私有")
+    ResultData<Void> tenantPrivate(@PathVariable("dictId") String dictId, @PathVariable("action") boolean action);
 }

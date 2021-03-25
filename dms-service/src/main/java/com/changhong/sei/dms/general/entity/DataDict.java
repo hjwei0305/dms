@@ -34,11 +34,6 @@ public class DataDict extends BaseAuditableEntity implements ICodeUnique, IFroze
     @Column(name = "frozen")
     private Boolean frozen = Boolean.FALSE;
     /**
-     * 是否为租户私有
-     */
-    @Column(name = "tenant_private")
-    private Boolean tenantPrivate = Boolean.FALSE;
-    /**
      * 备注
      */
     @Column(name = "remark", length = 100)
@@ -70,14 +65,6 @@ public class DataDict extends BaseAuditableEntity implements ICodeUnique, IFroze
     @Override
     public void setFrozen(Boolean frozen) {
         this.frozen = frozen;
-    }
-
-    public Boolean getTenantPrivate() {
-        return tenantPrivate;
-    }
-
-    public void setTenantPrivate(Boolean tenantPrivate) {
-        this.tenantPrivate = tenantPrivate;
     }
 
     public String getRemark() {

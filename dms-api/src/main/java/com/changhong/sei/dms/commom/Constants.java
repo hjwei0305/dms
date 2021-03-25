@@ -1,4 +1,4 @@
-package com.changhong.sei.dms.common;
+package com.changhong.sei.dms.commom;
 
 /**
  * 实现功能：常量定义

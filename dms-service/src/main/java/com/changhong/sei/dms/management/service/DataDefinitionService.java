@@ -6,7 +6,7 @@ import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
-import com.changhong.sei.dms.common.Constants;
+import com.changhong.sei.dms.commom.Constants;
 import com.changhong.sei.dms.management.dao.DataDefinitionDao;
 import com.changhong.sei.dms.management.dto.EntityDto;
 import com.changhong.sei.dms.management.entity.DataConfig;
