@@ -145,6 +145,11 @@ public class DataDictService extends BaseEntityService<DataDict> {
             // 数据字典【{0}】存在相同的使用值【{1}】
             return OperateResultWithData.operationFailure("00007", dataDict.getName(), dataValue);
         }
+        if (StringUtils.equalsIgnoreCase(Constants.DEFAULT_TENANT, tenantCode)) {
+            dictItem.setTenantCode(Constants.DEFAULT_TENANT);
+        } else {
+            dictItem.setTenantCode(tenantCode);
+        }
         // 提交保存
         dictItemDao.save(dictItem);
         // 保存成功！
@@ -344,6 +349,7 @@ public class DataDictService extends BaseEntityService<DataDict> {
                         dictItem.setFrozen(item.getFrozen());
                         dictItem.setRank(item.getRank());
                         dictItem.setRemark(item.getRemark());
+                        dictItem.setTenantCode(tenantCode);
                         dictItemList.add(dictItem);
                     }
                     dictItemDao.save(dictItemList);
