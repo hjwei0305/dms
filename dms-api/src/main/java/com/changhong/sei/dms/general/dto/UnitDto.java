@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
  * @Description: 计量单位DTO
  */
 @MasterData(value = "Unit")
-@ApiModel("计量单位DTO")
+@ApiModel(description = "计量单位")
 public class UnitDto extends BaseEntityDto {
     private static final long serialVersionUID = 1420683414499183523L;
     /**

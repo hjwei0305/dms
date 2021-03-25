@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
  * @Description: 税率DTO
  */
 @MasterData(value = "TaxRate")
-@ApiModel("税率DTO")
+@ApiModel(description = "税率")
 public class TaxRateDto extends BaseEntityDto {
 
     private static final long serialVersionUID = -1921601364683613579L;
