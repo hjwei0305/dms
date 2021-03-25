@@ -27,6 +27,7 @@ class DataDictServiceTest extends BaseUnit5Test {
 
     @Test
     void getDataDictItems() {
+        service.getDataDictItems("609236C2-56E0-11EB-9F0C-0242C0A84624", true);
     }
 
     @Test

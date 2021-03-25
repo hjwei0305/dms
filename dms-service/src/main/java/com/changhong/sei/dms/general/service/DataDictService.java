@@ -100,6 +100,18 @@ public class DataDictService extends BaseEntityService<DataDict> {
     }
 
     /**
+     * 主键删除
+     *
+     * @param s 主键
+     * @return 返回操作结果对象
+     */
+    @Override
+    @CacheEvict(allEntries = true)
+    public OperateResult delete(String s) {
+        return super.delete(s);
+    }
+
+    /**
      * 保存字典项目
      *
      * @param dictItem 字典项目
@@ -316,6 +328,7 @@ public class DataDictService extends BaseEntityService<DataDict> {
      * @return 操作结果
      */
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(allEntries = true)
     public ResultData<Void> tenantPrivate(String dictId, boolean action) {
         SessionUser sessionUser = ContextUtil.getSessionUser();
         if (UserAuthorityPolicy.TenantAdmin.equals(sessionUser.getAuthorityPolicy())) {
