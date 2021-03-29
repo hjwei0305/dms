@@ -2,6 +2,7 @@ package com.changhong.sei.dms.general.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.FindAllApi;
+import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.dms.general.dto.UnitDto;
 import org.springframework.cloud.openfeign.FeignClient;
 
@@ -12,5 +13,5 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @Description: 计量单位API接口
  */
 @FeignClient(name = "dms", path = "unit")
-public interface UnitApi extends BaseEntityApi<UnitDto>, FindAllApi<UnitDto> {
+public interface UnitApi extends BaseEntityApi<UnitDto>, FindByPageApi<UnitDto>, FindAllApi<UnitDto> {
 }

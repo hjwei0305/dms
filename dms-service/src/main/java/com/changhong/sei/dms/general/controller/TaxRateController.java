@@ -2,8 +2,11 @@ package com.changhong.sei.dms.general.controller;
 
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.api.TaxRateApi;
+import com.changhong.sei.dms.general.dto.CountryDto;
 import com.changhong.sei.dms.general.dto.TaxRateDto;
 import com.changhong.sei.dms.general.entity.TaxRate;
 import com.changhong.sei.dms.general.service.TaxRateService;
@@ -55,6 +58,17 @@ public class TaxRateController extends BaseEntityController<TaxRate, TaxRateDto>
     @Override
     public ResultData<List<TaxRateDto>> findAllUnfrozen() {
         return ResultData.success(convertToDtos(service.findAllUnfrozen()));
+    }
+
+    /**
+     * 分页查询业务实体
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<TaxRateDto>> findByPage(Search search) {
+        return convertToDtoPageResult(service.findByPage(search));
     }
 
     /**

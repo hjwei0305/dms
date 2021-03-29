@@ -2,6 +2,8 @@ package com.changhong.sei.dms.general.controller;
 
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.api.UnitApi;
 import com.changhong.sei.dms.general.dto.UnitDto;
@@ -51,5 +53,16 @@ public class UnitController extends BaseEntityController<Unit, UnitDto> implemen
     @Override
     public ResultData<List<UnitDto>> findAllUnfrozen() {
         return ResultData.success(convertToDtos(service.findAllUnfrozen()));
+    }
+
+    /**
+     * 分页查询业务实体
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<UnitDto>> findByPage(Search search) {
+        return convertToDtoPageResult(service.findByPage(search));
     }
 }

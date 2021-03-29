@@ -2,6 +2,7 @@ package com.changhong.sei.dms.general.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.FindAllApi;
+import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.dms.general.dto.TransportationWayDto;
 import org.springframework.cloud.openfeign.FeignClient;
 
@@ -13,5 +14,5 @@ import org.springframework.cloud.openfeign.FeignClient;
  */
 @FeignClient(name = "dms", path = "transportationWay")
 public interface TransportationWayApi extends BaseEntityApi<TransportationWayDto>,
-        FindAllApi<TransportationWayDto> {
+        FindByPageApi<TransportationWayDto>, FindAllApi<TransportationWayDto> {
 }

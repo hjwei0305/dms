@@ -2,6 +2,7 @@ package com.changhong.sei.dms.general.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.FindAllApi;
+import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.dms.general.dto.TaxRateDto;
 import org.springframework.cloud.openfeign.FeignClient;
 
@@ -12,5 +13,5 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @Description: 税率API接口
  */
 @FeignClient(name = "dms", path = "taxRate")
-public interface TaxRateApi extends BaseEntityApi<TaxRateDto>, FindAllApi<TaxRateDto> {
+public interface TaxRateApi extends BaseEntityApi<TaxRateDto>, FindByPageApi<TaxRateDto>, FindAllApi<TaxRateDto> {
 }
