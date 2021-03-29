@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
  * @Date: 2020/3/12 15:59
  * @Description: 运输方式DTO
  */
-@MasterData(value = "TransportationWay")
+@MasterData(code = "TransportationWay", name = "运输方式")
 @ApiModel(description = "运输方式")
 public class TransportationWayDto extends BaseEntityDto {
     private static final long serialVersionUID = -7855014348560931511L;

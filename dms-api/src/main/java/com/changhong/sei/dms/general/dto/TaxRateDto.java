@@ -13,7 +13,7 @@ import javax.validation.constraints.*;
  * @Date: 2020/3/12 15:50
  * @Description: 税率DTO
  */
-@MasterData(value = "TaxRate")
+@MasterData(code = "TaxRate", name = "税率")
 @ApiModel(description = "税率")
 public class TaxRateDto extends BaseEntityDto {
 

@@ -54,7 +54,7 @@ public class AnnotationScan implements ApplicationListener<ContextRefreshedEvent
             ApplicationContext context = event.getApplicationContext();
             List<EntityDto> entityDtos = new ArrayList<>();
             try {
-                Set<Class<?>> classSet = this.scan(context, MasterData.class, ApiModel.class);
+                Set<Class<?>> classSet = this.scan(context, MasterData.class);
                 if (CollectionUtils.isNotEmpty(classSet)) {
                     ApiModelProperty property;
                     EntityDto dto;
@@ -66,18 +66,13 @@ public class AnnotationScan implements ApplicationListener<ContextRefreshedEvent
                         if (Objects.isNull(masterData)) {
                             continue;
                         }
-                        ApiModel apiModel = clazz.getAnnotation(ApiModel.class);
-                        if (Objects.isNull(apiModel)) {
-                            continue;
-                        }
 
-                        // 首字母小写
-                        String code = StringUtils.uncapitalize(masterData.value());
+                        String code = masterData.code();
                         dto = new EntityDto();
                         dto.setCode(code);
-                        dto.setName(apiModel.description());
+                        dto.setName(masterData.name());
                         // 检查是否是树形结构
-                        if (TreeEntity.class.isAssignableFrom(clazz)){
+                        if (TreeEntity.class.isAssignableFrom(clazz)) {
                             dto.setDataStructure(DataStructureEnum.TREE);
                         } else {
                             dto.setDataStructure(DataStructureEnum.GENERAL);
