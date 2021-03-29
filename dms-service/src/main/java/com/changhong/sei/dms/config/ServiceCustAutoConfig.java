@@ -1,9 +1,8 @@
 package com.changhong.sei.dms.config;
 
-import com.changhong.sei.dms.general.service.excel.CountryExcelService;
-import com.changhong.sei.dms.general.service.excel.CurrencyExcelService;
-import com.changhong.sei.dms.general.service.excel.impl.DefaultCountryExcelService;
-import com.changhong.sei.dms.general.service.excel.impl.DefaultCurrencyExcelService;
+import com.changhong.sei.dms.general.service.*;
+import com.changhong.sei.dms.general.service.excel.*;
+import com.changhong.sei.dms.general.service.excel.impl.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,13 +23,37 @@ public class ServiceCustAutoConfig {
      */
     @Bean("countryExcelService")
     @ConditionalOnMissingBean(CountryExcelService.class)
-    public CountryExcelService countryExcelService() {
-        return new DefaultCountryExcelService();
+    public CountryExcelService countryExcelService(CountryService service) {
+        return new DefaultCountryExcelService(service);
     }
 
     @Bean("currencyExcelService")
     @ConditionalOnMissingBean(CurrencyExcelService.class)
-    public CurrencyExcelService currencyExcelService() {
-        return new DefaultCurrencyExcelService();
+    public CurrencyExcelService currencyExcelService(CurrencyService service) {
+        return new DefaultCurrencyExcelService(service);
+    }
+
+    @Bean("regionExcelService")
+    @ConditionalOnMissingBean(RegionExcelService.class)
+    public RegionExcelService regionExcelService(RegionService service) {
+        return new DefaultRegionExcelService(service);
+    }
+
+    @Bean("unitExcelService")
+    @ConditionalOnMissingBean(UnitExcelService.class)
+    public UnitExcelService unitExcelService(UnitService service) {
+        return new DefaultUnitExcelService(service);
+    }
+
+    @Bean("transportationWayExcelService")
+    @ConditionalOnMissingBean(TransportationWayExcelService.class)
+    public TransportationWayExcelService transportationWayExcelService(TransportationWayService service) {
+        return new DefaultTransportationWayExcelService(service);
+    }
+
+    @Bean("taxRateExcelService")
+    @ConditionalOnMissingBean(TaxRateExcelService.class)
+    public TaxRateExcelService taxRateExcelService(TaxRateService service) {
+        return new DefaultTaxRateExcelService(service);
     }
 }

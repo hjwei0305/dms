@@ -11,10 +11,11 @@ import com.changhong.sei.core.dto.serach.PageInfo;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.entity.BaseEntity;
-import com.changhong.sei.edm.dto.UploadResponse;
-import com.changhong.sei.edm.sdk.DocumentManager;
+import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.commom.dto.ProcessResult;
 import com.changhong.sei.dms.common.excel.validate.NotDuplicate;
+import com.changhong.sei.edm.dto.UploadResponse;
+import com.changhong.sei.edm.sdk.DocumentManager;
 import com.changhong.sei.notify.dto.NotifyMessage;
 import com.changhong.sei.notify.sdk.manager.NotifyManager;
 import com.changhong.sei.util.DateUtils;
@@ -76,24 +77,28 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
     private final int batchCount;
     private final Set<String> includeColumnFiledNames = new HashSet<>();
 
+    protected final BaseEntityService<E> service;
+
     static {
         MODEL_MAPPER = new ModelMapper();
         MODEL_MAPPER.getConfiguration().setFullTypeMatchingRequired(true);
         MODEL_MAPPER.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
-    public BaseExcelService() {
-        this(BATCH_COUNT);
+    public BaseExcelService(BaseEntityService<E> service) {
+        this(service, BATCH_COUNT);
     }
 
     @SuppressWarnings("unchecked")
-    public BaseExcelService(int batchCount) {
+    public BaseExcelService(BaseEntityService<E> service, int batchCount) {
         ParameterizedType parameterizedType = (ParameterizedType) getClass().getGenericSuperclass();
         Type[] genericTypes = parameterizedType.getActualTypeArguments();
         this.entityClass = (Class<E>) genericTypes[0];
         this.voClass = (Class<V>) genericTypes[1];
 
         this.batchCount = batchCount;
+
+        this.service = service;
 
         Field[] fields = voClass.getDeclaredFields();
         for (Field field : fields) {
@@ -108,6 +113,13 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
         import_,
         // 导出
         export_
+    }
+
+    /**
+     * 获取当前服务
+     */
+    public BaseEntityService<E> getService() {
+        return service;
     }
 
     /**
@@ -272,7 +284,11 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
      * @param dataList 校验通过的解析数据
      */
     @Transactional
-    public abstract void doImportHandle(final String batchId, List<V> dataList);
+    public void doImportHandle(final String batchId, List<V> dataList) {
+        List<E> countries = dataList.stream()
+                .map(o -> MODEL_MAPPER.map(o, entityClass)).collect(Collectors.toList());
+        service.save(countries);
+    }
 
     /**
      * 处理完成方法
@@ -312,76 +328,78 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
         processResult.setProgressNote(ContextUtil.getMessage("batch_import_001", 0, 0));
         // 时间
         processResult.setDate(DateUtils.formatTime(new Date()));
-        redisTemplate.opsForValue().set(batchId, processResult, EXPIRE_TIME, TimeUnit.MILLISECONDS);
 
-        if (Objects.isNull(search)) {
-            search = Search.createSearch();
-        }
-        PageInfo pageInfo = search.getPageInfo();
-        if (Objects.isNull(pageInfo)) {
-            pageInfo = new PageInfo();
-        }
-        // 重置每页大小
-        pageInfo.setRows(batchCount);
-        search.setPageInfo(pageInfo);
+        try {
+            redisTemplate.opsForValue().set(batchId, processResult, EXPIRE_TIME, TimeUnit.MILLISECONDS);
 
-        ExcelWriterSheetBuilder writerSheetBuilder;
-        PageResult<V> pageResult = exportDataByPage(search);
-        // 设置总数
-        processResult.setTotal(pageResult.getRecords());
-        if (pageResult.getRecords() > 0) {
-            try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
-                // 这里 需要指定写用哪个class去写
-                writerSheetBuilder = EasyExcelFactory.write(outputStream, voClass)
-                        // 不自动关闭
-                        .autoCloseStream(false).sheet(entityClass.getSimpleName());
-                if (includeColumnFiledNames.size() > 0) {
-                    writerSheetBuilder.includeColumnFiledNames(includeColumnFiledNames);
-                }
+            if (Objects.isNull(search)) {
+                search = Search.createSearch();
+            }
+            PageInfo pageInfo = search.getPageInfo();
+            if (Objects.isNull(pageInfo)) {
+                pageInfo = new PageInfo();
+            }
+            // 重置每页大小
+            pageInfo.setRows(batchCount);
+            search.setPageInfo(pageInfo);
 
-                // 当前页码
-                int page = pageResult.getPage();
-                // 总页数
-                int totalPage = pageResult.getTotal();
-
-                List<V> dataList;
-                do {
-                    dataList = pageResult.getRows();
-                    writerSheetBuilder.doWrite(dataList);
-                    dataList.clear();
-
-                    pageInfo.setPage(page++);
-                    search.setPageInfo(pageInfo);
-                    pageResult = exportDataByPage(search);
-                } while (page < totalPage);
-
-                try (InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
-                    UploadResponse uploadResponse = documentManager.uploadDocument(entityClass.getSimpleName() + ".xlsx", inputStream);
-                    if (Objects.nonNull(uploadResponse)) {
-                        processResult.setDocId(uploadResponse.getDocId());
+            ExcelWriterSheetBuilder writerSheetBuilder;
+            PageResult<V> pageResult = exportDataByPage(search);
+            // 设置总数
+            processResult.setTotal(pageResult.getRecords());
+            if (pageResult.getRecords() > 0) {
+                try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+                    // 这里 需要指定写用哪个class去写
+                    writerSheetBuilder = EasyExcelFactory.write(outputStream, voClass)
+                            // 不自动关闭
+                            .autoCloseStream(false).sheet(entityClass.getSimpleName());
+                    if (includeColumnFiledNames.size() > 0) {
+                        writerSheetBuilder.includeColumnFiledNames(includeColumnFiledNames);
                     }
 
-                    // 设置一样的总数
-                    processResult.setCurrent(pageResult.getRecords());
-                    // 更新状态为完成
-                    processResult.setFinished(Boolean.TRUE);
-                    // 导出【{0}】数据【{1}】条！
-                    processResult.setProgressNote(ContextUtil.getMessage("batch_export_001", entityClass.getSimpleName(), pageResult.getRecords()));
+                    // 当前页码
+                    int page = pageResult.getPage();
+                    // 总页数
+                    int totalPage = pageResult.getTotal();
+
+                    List<V> dataList;
+                    do {
+                        dataList = pageResult.getRows();
+                        writerSheetBuilder.doWrite(dataList);
+                        dataList.clear();
+
+                        pageInfo.setPage(page++);
+                        search.setPageInfo(pageInfo);
+                        pageResult = exportDataByPage(search);
+                    } while (page < totalPage);
+
+                    try (InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray())) {
+                        UploadResponse uploadResponse = documentManager.uploadDocument(entityClass.getSimpleName() + ".xlsx", inputStream);
+                        if (Objects.nonNull(uploadResponse)) {
+                            processResult.setDocId(uploadResponse.getDocId());
+                        }
+
+                        // 设置一样的总数
+                        processResult.setCurrent(pageResult.getRecords());
+                        // 更新状态为完成
+                        processResult.setFinished(Boolean.TRUE);
+                        // 导出【{0}】数据【{1}】条！
+                        processResult.setProgressNote(ContextUtil.getMessage("batch_export_001", entityClass.getSimpleName(), pageResult.getRecords()));
+                    } catch (Exception e) {
+                        LOGGER.error(entityClass.getSimpleName() + "数据导出异常", e);
+                        // 导出【{0}】数据异常: {1}
+                        processResult.setProgressNote(ContextUtil.getMessage("batch_export_002", entityClass.getSimpleName(), e.getMessage()));
+                    }
                 } catch (Exception e) {
                     LOGGER.error(entityClass.getSimpleName() + "数据导出异常", e);
-                    // 导出【{0}】数据异常: {1}
                     processResult.setProgressNote(ContextUtil.getMessage("batch_export_002", entityClass.getSimpleName(), e.getMessage()));
                 }
-            } catch (Exception e) {
-                LOGGER.error(entityClass.getSimpleName() + "数据导出异常", e);
-                processResult.setProgressNote(ContextUtil.getMessage("batch_export_002", entityClass.getSimpleName(), e.getMessage()));
             }
+            // 加入缓存
+            redisTemplate.opsForValue().set(batchId, processResult, EXPIRE_TIME, TimeUnit.MILLISECONDS);
+        } finally {
+            doExportAfterHandle(processResult);
         }
-
-        // 加入缓存
-        redisTemplate.opsForValue().set(batchId, processResult, EXPIRE_TIME, TimeUnit.MILLISECONDS);
-
-        doExportAfterHandle(processResult);
     }
 
     /**
@@ -402,7 +420,9 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
      * @param search 分页查询对象
      * @return 返回分页查询结果
      */
-    public abstract PageResult<E> findByPage(Search search);
+    public PageResult<E> findByPage(Search search) {
+        return service.findByPage(search);
+    }
 
     public PageResult<V> convertToVoPageResult(PageResult<E> pageResult) {
         PageResult<V> result = new PageResult<>(pageResult);

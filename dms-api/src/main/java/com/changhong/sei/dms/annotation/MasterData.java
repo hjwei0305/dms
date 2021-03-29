@@ -12,7 +12,13 @@ import java.lang.annotation.*;
 @Documented
 @Target({ElementType.TYPE})
 public @interface MasterData {
+    /**
+     * @return 主数据实体名作为代码
+     */
     String code();
 
+    /**
+     * @return 主数据描述说明
+     */
     String name();
 }

@@ -116,12 +116,6 @@ public class Region extends BaseAuditableEntity implements Serializable, TreeEnt
     @Transient
     private List<Region> children;
 
-    /**
-     * 父节点路径
-     */
-    @Transient
-    private String parentPath;
-
     @Override
     public String getCode() {
         return code;
@@ -258,6 +252,7 @@ public class Region extends BaseAuditableEntity implements Serializable, TreeEnt
         this.tenantCode = tenantCode;
     }
 
+    @Transient
     public String getParentPath() {
         if (getNodeLevel() == null || StringUtils.isBlank(getNamePath()) || StringUtils.isBlank(getName())) {
             return "";

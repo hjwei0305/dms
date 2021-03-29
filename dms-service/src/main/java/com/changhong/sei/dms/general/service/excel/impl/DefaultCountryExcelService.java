@@ -2,6 +2,7 @@ package com.changhong.sei.dms.general.service.excel.impl;
 
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
+import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.common.excel.BaseExcelService;
 import com.changhong.sei.dms.general.entity.Country;
 import com.changhong.sei.dms.general.service.CountryService;
@@ -20,33 +21,9 @@ import java.util.stream.Collectors;
  * @version 1.0.00  2020-10-12 00:35
  */
 public class DefaultCountryExcelService extends BaseExcelService<Country, CountryVo> implements CountryExcelService {
-    /**
-     * 国家服务对象
-     */
-    @Autowired
-    private CountryService service;
 
-    /**
-     * 处理数据方法
-     *
-     * @param dataList 校验通过的解析数据
-     */
-    @Override
-    @Transactional
-    public void doImportHandle(final String batchId, List<CountryVo> dataList) {
-        List<Country> countries = dataList.stream()
-                .map(o -> MODEL_MAPPER.map(o, Country.class)).collect(Collectors.toList());
-        service.save(countries);
+    public DefaultCountryExcelService(BaseEntityService<Country> service) {
+        super(service);
     }
 
-    /**
-     * 分页导出数据
-     *
-     * @param search 分页查询对象
-     * @return 返回分页查询结果
-     */
-    @Override
-    public PageResult<Country> findByPage(Search search) {
-        return service.findByPage(search);
-    }
 }

@@ -77,10 +77,12 @@ public class TaxRate extends BaseAuditableEntity implements ITenant, ICodeUnique
         this.tenantCode = tenantCode;
     }
 
+    @Override
     public String getCode() {
         return code;
     }
 
+    @Override
     public void setCode(String code) {
         this.code = code;
     }
@@ -106,6 +108,7 @@ public class TaxRate extends BaseAuditableEntity implements ITenant, ICodeUnique
         return frozen;
     }
 
+    @Override
     public void setFrozen(Boolean frozen) {
         this.frozen = frozen;
     }
