@@ -51,6 +51,11 @@ public class DataDefinition extends BaseAuditableEntity implements Serializable,
     @Column(name = "category_name")
     private String categoryName;
     /**
+     * 自定义UI
+     */
+    @Column(name = "customize")
+    private Boolean customize = Boolean.FALSE;
+    /**
      * 冻结
      * 取消注册即冻结
      */
@@ -102,6 +107,14 @@ public class DataDefinition extends BaseAuditableEntity implements Serializable,
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public Boolean getCustomize() {
+        return customize;
+    }
+
+    public void setCustomize(Boolean customize) {
+        this.customize = customize;
     }
 
     @Override

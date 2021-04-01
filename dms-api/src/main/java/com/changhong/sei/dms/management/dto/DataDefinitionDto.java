@@ -48,6 +48,11 @@ public class DataDefinitionDto extends BaseEntityDto {
     @ApiModelProperty(value = "分类名称")
     private String categoryName;
     /**
+     * 自定义UI
+     */
+    @ApiModelProperty(value = "自定义UI")
+    private Boolean customize = Boolean.FALSE;
+    /**
      * 冻结
      * 取消注册即冻结
      */
@@ -97,6 +102,14 @@ public class DataDefinitionDto extends BaseEntityDto {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public Boolean getCustomize() {
+        return customize;
+    }
+
+    public void setCustomize(Boolean customize) {
+        this.customize = customize;
     }
 
     public Boolean getFrozen() {

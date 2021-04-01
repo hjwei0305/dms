@@ -19,8 +19,9 @@ import javax.validation.Valid;
  * @since 2020-08-17 14:03:21
  */
 @Valid
-@FeignClient(name = "dms", path = "country")
+@FeignClient(name = "dms", path = CountryApi.PATH)
 public interface CountryApi extends BaseEntityApi<CountryDto>, FindByPageApi<CountryDto>, FindAllApi<CountryDto> {
+    String PATH = "country";
 
     /**
      * 根据代码查询国家

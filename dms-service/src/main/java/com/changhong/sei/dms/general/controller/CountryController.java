@@ -25,8 +25,9 @@ import java.util.List;
  */
 @RestController
 @Api(value = "CountryApi", tags = "国家服务")
-@RequestMapping(path = "country", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path = CountryApi.PATH, produces = MediaType.APPLICATION_JSON_VALUE)
 public class CountryController extends BaseEntityController<Country, CountryDto> implements CountryApi {
+
     /**
      * 国家服务对象
      */
