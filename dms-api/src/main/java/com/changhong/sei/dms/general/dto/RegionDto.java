@@ -18,7 +18,7 @@ import java.util.List;
  * @author sei
  * @since 2020-08-17 14:03:33
  */
-@MasterData(code = "region", name = "行政区域")
+@MasterData(code = "Region", name = "行政区域")
 @ApiModel(description = "行政区域")
 public class RegionDto extends BaseEntityDto implements TreeEntity<RegionDto> {
     private static final long serialVersionUID = -65672153789421738L;

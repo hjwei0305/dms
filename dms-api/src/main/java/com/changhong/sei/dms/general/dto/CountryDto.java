@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
  * @author sei
  * @since 2020-08-17 14:03:16
  */
-@MasterData(code = "country", name = "国家")
+@MasterData(code = "Country", name = "国家")
 @ApiModel(description = "国家")
 public class CountryDto extends BaseEntityDto {
     private static final long serialVersionUID = 202368163739510191L;

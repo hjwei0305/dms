@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
  * @author sei
  * @since 2020-08-17 14:03:22
  */
-@MasterData(code = "currency", name = "币种")
+@MasterData(code = "Currency", name = "币种")
 @ApiModel(description = "币种")
 public class CurrencyDto extends BaseEntityDto {
     private static final long serialVersionUID = 402624026080441813L;
