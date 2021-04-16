@@ -2,8 +2,11 @@ package com.changhong.sei.dms.general.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
 import com.changhong.sei.dms.annotation.MasterData;
+import com.changhong.sei.util.DateUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -47,11 +50,15 @@ public class CostCenterDto extends BaseEntityDto {
      * 起始日期
      */
     @ApiModelProperty(value = "起始日期")
+    @DateTimeFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
+    @JsonFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     private Date startDate;
     /**
      * 截止日期
      */
     @ApiModelProperty(value = "截止日期")
+    @DateTimeFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
+    @JsonFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     private Date endDate;
     /**
      * 业务范围
