@@ -16,6 +16,6 @@ import javax.validation.Valid;
  */
 @Valid
 @FeignClient(name = "dms", path = InnerOrderApi.PATH)
-public interface InnerOrderApi extends BaseEntityApi<InnerOrderDto> , FindByPageApi<InnerOrderDto>, FindAllApi<InnerOrderDto> {
+public interface InnerOrderApi extends BaseEntityApi<InnerOrderDto> , FindByPageApi<InnerOrderDto> {
     String PATH = "innerOrder";
 }

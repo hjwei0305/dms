@@ -74,4 +74,10 @@ public class ServiceCustAutoConfig {
     public InnerOrderExcelService innerOrderExcelService(InnerOrderService service) {
         return new DefaultInnerOrderExcelService(service);
     }
+
+    @Bean("ledgerAccountExcelService")
+    @ConditionalOnMissingBean(LedgerAccountExcelService.class)
+    public LedgerAccountExcelService innerOrderExcelService(LedgerAccountService service) {
+        return new DefaultLedgerAccountExcelService(service);
+    }
 }

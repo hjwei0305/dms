@@ -17,6 +17,6 @@ import javax.validation.Valid;
  */
 @Valid
 @FeignClient(name = "dms", path = CostCenterApi.PATH)
-public interface CostCenterApi extends BaseEntityApi<CostCenterDto>, FindByPageApi<CostCenterDto>, FindAllApi<CostCenterDto> {
+public interface CostCenterApi extends BaseEntityApi<CostCenterDto>, FindByPageApi<CostCenterDto> {
     String PATH = "costCenter";
 }

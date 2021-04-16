@@ -39,26 +39,6 @@ public class CostCenterController extends BaseEntityController<CostCenter, CostC
     }
 
     /**
-     * 获取所有业务实体
-     *
-     * @return 业务实体清单
-     */
-    @Override
-    public ResultData<List<CostCenterDto>> findAll() {
-        return ResultData.success(convertToDtos(service.findAll()));
-    }
-
-    /**
-     * 获取所有未冻结的业务实体
-     *
-     * @return 业务实体清单
-     */
-    @Override
-    public ResultData<List<CostCenterDto>> findAllUnfrozen() {
-        return ResultData.success(convertToDtos(service.findAllUnfrozen()));
-    }
-
-    /**
      * 分页查询业务实体
      *
      * @param search 查询参数
