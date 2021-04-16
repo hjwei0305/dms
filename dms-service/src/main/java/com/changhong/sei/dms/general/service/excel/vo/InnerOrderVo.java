@@ -3,19 +3,21 @@ package com.changhong.sei.dms.general.service.excel.vo;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.changhong.sei.dms.common.excel.BaseExcelRow;
 import com.changhong.sei.dms.common.excel.validate.NotDuplicate;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 实现功能:成本中心Excel导入导出模版vo
+ * 实现功能:
  *
  * @author 冯华
- * @create 2021-04-16 11:43
+ * @create 2021-04-16 14:41
  */
-public class CostCenterVo extends BaseExcelRow implements Serializable {
-    private static final long serialVersionUID = 180242571037929170L;
+public class InnerOrderVo extends BaseExcelRow implements Serializable {
+    private static final long serialVersionUID = 110242571037929170L;
     /**
      * 代码
      */
@@ -30,17 +32,18 @@ public class CostCenterVo extends BaseExcelRow implements Serializable {
     @ExcelProperty(value = "名称", order = 2)
     private String name;
     /**
-     * 公司代码
+     * ERP公司代码
      */
     @NotBlank
     @ExcelProperty(value = "ERP公司代码", order = 3)
     private String erpCorporationCode;
     /**
-     * 分类码
+     * 订单类型
      */
     @NotBlank
-    @ExcelProperty(value = "分类码", order = 4)
-    private String categoryCode;
+    @ExcelProperty(value = "订单类型",order  =4)
+    private String orderType;
+
     /**
      * 货币代码
      */
@@ -48,41 +51,24 @@ public class CostCenterVo extends BaseExcelRow implements Serializable {
     @ExcelProperty(value = "货币代码", order = 5)
     private String currency;
     /**
-     * 起始日期
-     */
-    @NotBlank
-    @ExcelProperty(value = "起始日期", order = 6)
-    private Date startDate;
-    /**
-     * 截止日期
-     */
-    @NotBlank
-    @ExcelProperty(value = "截止日期", order = 7)
-    private Date endDate;
-    /**
      * 业务范围
      */
-    @ExcelProperty(value = "业务范围", order = 8)
+    @ExcelProperty(value = "业务范围", order = 7)
     private String costRange;
     /**
      * 负责人
      */
-    @ExcelProperty(value = "负责人", order = 9)
+    @ExcelProperty(value = "负责人", order = 8)
     private String keyPerson;
     /**
-     * 利润中心代码
+     * 成本中心代码
      */
-    @ExcelProperty(value = "利润中心代码", order = 10)
-    private String profitCenterCode;
-    /**
-     * 功能范围
-     */
-    @ExcelProperty(value = "功能范围", order = 11)
-    private String featureRange;
+    @ExcelProperty(value = "成本中心代码", order = 9)
+    private String costCenterCode;
     /**
      * 已冻结
      */
-    @ExcelProperty(value = "已冻结", order = 12)
+    @ExcelProperty(value = "已冻结", order = 11)
     private Boolean frozen = Boolean.FALSE;
 
     public String getCode() {
@@ -109,12 +95,12 @@ public class CostCenterVo extends BaseExcelRow implements Serializable {
         this.erpCorporationCode = erpCorporationCode;
     }
 
-    public String getCategoryCode() {
-        return categoryCode;
+    public String getOrderType() {
+        return orderType;
     }
 
-    public void setCategoryCode(String categoryCode) {
-        this.categoryCode = categoryCode;
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 
     public String getCurrency() {
@@ -123,22 +109,6 @@ public class CostCenterVo extends BaseExcelRow implements Serializable {
 
     public void setCurrency(String currency) {
         this.currency = currency;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
     }
 
     public String getCostRange() {
@@ -157,20 +127,12 @@ public class CostCenterVo extends BaseExcelRow implements Serializable {
         this.keyPerson = keyPerson;
     }
 
-    public String getProfitCenterCode() {
-        return profitCenterCode;
+    public String getCostCenterCode() {
+        return costCenterCode;
     }
 
-    public void setProfitCenterCode(String profitCenterCode) {
-        this.profitCenterCode = profitCenterCode;
-    }
-
-    public String getFeatureRange() {
-        return featureRange;
-    }
-
-    public void setFeatureRange(String featureRange) {
-        this.featureRange = featureRange;
+    public void setCostCenterCode(String costCenterCode) {
+        this.costCenterCode = costCenterCode;
     }
 
     public Boolean getFrozen() {

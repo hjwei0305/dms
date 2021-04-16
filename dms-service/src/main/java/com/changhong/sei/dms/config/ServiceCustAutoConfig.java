@@ -68,4 +68,10 @@ public class ServiceCustAutoConfig {
     public CostCenterExcelService costCenterExcelService(CostCenterService service) {
         return new DefaultCostCenterExcelService(service);
     }
+
+    @Bean("innerOrderExcelService")
+    @ConditionalOnMissingBean(InnerOrderExcelService.class)
+    public InnerOrderExcelService innerOrderExcelService(InnerOrderService service) {
+        return new DefaultInnerOrderExcelService(service);
+    }
 }

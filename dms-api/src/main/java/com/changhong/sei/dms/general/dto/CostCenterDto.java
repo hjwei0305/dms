@@ -8,7 +8,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -24,31 +26,42 @@ public class CostCenterDto extends BaseEntityDto {
     /**
      * 代码
      */
+    @NotBlank
+    @Size(max = 10)
     @ApiModelProperty(value = "代码")
     private String code;
     /**
      * 名称
      */
+    @NotBlank
+    @Size(max = 50)
     @ApiModelProperty(value = "名称")
     private String name;
     /**
      * 公司代码
      */
+    @NotBlank
+    @Size(max = 4)
     @ApiModelProperty(value = "ERP公司代码")
     private String erpCorporationCode;
     /**
      * 分类码
      */
+    @NotBlank
+    @Size(max = 1)
     @ApiModelProperty(value = "分类码")
     private String categoryCode;
     /**
      * 货币代码
      */
+    @NotBlank
+    @Size(max = 5)
     @ApiModelProperty(value = "货币代码")
-    private String currency;
+    private String currencyCode;
     /**
      * 起始日期
      */
+    @NotNull
     @ApiModelProperty(value = "起始日期")
     @DateTimeFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     @JsonFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
@@ -56,6 +69,7 @@ public class CostCenterDto extends BaseEntityDto {
     /**
      * 截止日期
      */
+    @NotNull
     @ApiModelProperty(value = "截止日期")
     @DateTimeFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     @JsonFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
@@ -63,21 +77,25 @@ public class CostCenterDto extends BaseEntityDto {
     /**
      * 业务范围
      */
+    @Size(max = 4)
     @ApiModelProperty(value = "业务范围")
     private String costRange;
     /**
      * 负责人
      */
+    @Size(max = 20)
     @ApiModelProperty(value = "负责人")
     private String keyPerson;
     /**
      * 利润中心代码
      */
+    @Size(max = 10)
     @ApiModelProperty(value = "利润中心代码")
     private String profitCenterCode;
     /**
      * 功能范围
      */
+    @Size(max = 16)
     @ApiModelProperty(value = "功能范围")
     private String featureRange;
     /**
@@ -125,12 +143,12 @@ public class CostCenterDto extends BaseEntityDto {
         this.categoryCode = categoryCode;
     }
 
-    public String getCurrency() {
-        return currency;
+    public String getCurrencyCode() {
+        return currencyCode;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
     }
 
     public Date getStartDate() {
