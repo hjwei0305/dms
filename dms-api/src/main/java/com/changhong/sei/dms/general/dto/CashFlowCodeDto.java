@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
  * @author 冯华
  * @create 2021-04-16 10:10
  */
-@MasterData(code = "cashFlowCode", name = "现金流代码")
+@MasterData(code = "CashFlowCode", name = "现金流代码")
 @ApiModel(description = "现金流代码")
 public class CashFlowCodeDto extends BaseEntityDto {
     private static final long serialVersionUID = 402624026080442813L;
