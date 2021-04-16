@@ -56,4 +56,16 @@ public class ServiceCustAutoConfig {
     public TaxRateExcelService taxRateExcelService(TaxRateService service) {
         return new DefaultTaxRateExcelService(service);
     }
+
+    @Bean("cashFlowCodeExcelService")
+    @ConditionalOnMissingBean(CashFlowCodeExcelService.class)
+    public CashFlowCodeExcelService cashFlowCodeExcelService(CashFlowCodeService service) {
+        return new DefaultCashFlowCodeExcelService(service);
+    }
+
+    @Bean("costCenterExcelService")
+    @ConditionalOnMissingBean(CostCenterExcelService.class)
+    public CostCenterExcelService costCenterExcelService(CostCenterService service) {
+        return new DefaultCostCenterExcelService(service);
+    }
 }
