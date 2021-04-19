@@ -1,6 +1,7 @@
 package com.changhong.sei.dms.general.entity;
 
 import com.changhong.sei.core.entity.BaseAuditableEntity;
+import com.changhong.sei.core.entity.ITenant;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -19,7 +20,7 @@ import java.io.Serializable;
 @Table(name = "ledger_account_corporation")
 @DynamicInsert
 @DynamicUpdate
-public class LedgerAccountCorporation extends BaseAuditableEntity implements Serializable {
+public class LedgerAccountCorporation extends BaseAuditableEntity implements Serializable, ITenant {
     private static final long serialVersionUID = -28512789568531175L;
     /**
      * 总账科目Id
@@ -119,10 +120,11 @@ public class LedgerAccountCorporation extends BaseAuditableEntity implements Ser
         this.frozen = frozen;
     }
 
+    @Override
     public String getTenantCode() {
         return tenantCode;
     }
-
+    @Override
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
     }

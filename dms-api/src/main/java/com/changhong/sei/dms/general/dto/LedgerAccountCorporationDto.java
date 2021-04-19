@@ -28,17 +28,19 @@ public class LedgerAccountCorporationDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 4)
-    @ApiModelProperty(value = "ERP公司代码")
+    @ApiModelProperty(value = "ERP公司代码(最大长度4)")
     private String erpCorporationCode;
     /**
      * 统驭科目标识
      */
-    @ApiModelProperty(value = "统驭科目标识")
+    @Size(max = 1)
+    @ApiModelProperty(value = "统驭科目标识(最大长度1)")
     private String categoryCode;
     /**
      * 税务类型
      */
-    @ApiModelProperty(value = "税务类型")
+    @Size(max = 2)
+    @ApiModelProperty(value = "税务类型(最大长度2)")
     private String taxCategoryCode;
     /**
      * 允许无税码过账
@@ -48,7 +50,8 @@ public class LedgerAccountCorporationDto extends BaseEntityDto {
     /**
      * 字段状态组
      */
-    @ApiModelProperty(value = "字段状态组")
+    @Size(max = 4)
+    @ApiModelProperty(value = "字段状态组(最大长度4)")
     private String fieldGroup;
     /**
      * 已冻结
