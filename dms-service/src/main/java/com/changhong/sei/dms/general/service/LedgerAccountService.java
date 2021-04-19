@@ -2,6 +2,7 @@ package com.changhong.sei.dms.general.service;
 
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.core.service.bo.OperateResult;
 import com.changhong.sei.dms.general.dao.LedgerAccountCorporationDao;
 import com.changhong.sei.dms.general.dao.LedgerAccountDao;
 import com.changhong.sei.dms.general.entity.LedgerAccount;
@@ -20,10 +21,28 @@ import org.springframework.stereotype.Service;
 public class LedgerAccountService extends BaseEntityService<LedgerAccount> {
     @Autowired
     private LedgerAccountDao dao;
+    @Autowired
+    private LedgerAccountCorporationDao ledgerAccountCorporationDao;
 
     @Override
     protected BaseEntityDao<LedgerAccount> getDao() {
         return dao;
     }
+
+
+    /**
+     * 删除数据前校验
+     *
+     * @param id 待删除数据对象主键
+     */
+    @Override
+    protected OperateResult preDelete(String id) {
+        boolean exists = ledgerAccountCorporationDao.isExistsByProperty("ledgerAccountId", id);
+        if (exists) {
+            return OperateResult.operationWarning("00022");
+        }
+        return OperateResult.operationSuccess("core_service_00028");
+    }
+
 
 }
