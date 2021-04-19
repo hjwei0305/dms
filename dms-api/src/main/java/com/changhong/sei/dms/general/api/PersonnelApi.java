@@ -11,7 +11,6 @@ import javax.validation.Valid;
  *
  * @author sei
  * @since 2021-04-19 10:53:34
- * TODO @FeignClient(name = "请修改为项目服务名")
  */
 @Valid
 @FeignClient(name = "dms", path = PersonnelApi.PATH)
