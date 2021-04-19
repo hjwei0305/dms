@@ -80,4 +80,16 @@ public class ServiceCustAutoConfig {
     public LedgerAccountExcelService innerOrderExcelService(LedgerAccountService service) {
         return new DefaultLedgerAccountExcelService(service);
     }
+
+    @Bean("personnelExcelService")
+    @ConditionalOnMissingBean(PersonnelExcelService.class)
+    public PersonnelExcelService personnelExcelService(PersonnelService service) {
+        return new DefaultPersonnelExcelService(service);
+    }
+
+    @Bean("hrOrganizationExcelService")
+    @ConditionalOnMissingBean(HrOrganizationExcelService.class)
+    public HrOrganizationExcelService hrOrganizationExcelService(HrOrganizationService service) {
+        return new DefaultHrOrganizationExcelService(service);
+    }
 }
