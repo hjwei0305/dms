@@ -130,6 +130,17 @@ public class LedgerAccountController extends BaseEntityController<LedgerAccount,
     }
 
     /**
+     * 分页查询科目的公司信息
+     *
+     * @param search 查询参数
+     * @return 查询结果
+     */
+    @Override
+    public ResultData<PageResult<LedgerAccountCorporationDto>> findCorporationInfoByPage(Search search) {
+        return corporationInfoConvertToDtoPageResult(ledgerAccountCorporationService.findByPage(search));
+    }
+
+    /**
      * 将科目的公司信息清单转换成DTO清单
      *
      * @param entities 数据实体清单
@@ -143,6 +154,20 @@ public class LedgerAccountController extends BaseEntityController<LedgerAccount,
             return new ArrayList<>();
         }
         return entities.stream().map(this::corporationInfoConvertToDto).collect(Collectors.toList());
+    }
+
+
+    /**
+     * 将科目的公司信息分页查询结果转换为返回结果
+     *
+     * @param pageResult 科目的公司信息分页查询结果
+     * @return 返回结果
+     */
+    public ResultData<PageResult<LedgerAccountCorporationDto>> corporationInfoConvertToDtoPageResult(PageResult<LedgerAccountCorporation> pageResult) {
+        PageResult<LedgerAccountCorporationDto> result = new PageResult<>(pageResult);
+        List<LedgerAccountCorporationDto> dtos = corporationInfoConvertToDtos(pageResult.getRows());
+        result.setRows(dtos);
+        return ResultData.success(result);
     }
 
     /**

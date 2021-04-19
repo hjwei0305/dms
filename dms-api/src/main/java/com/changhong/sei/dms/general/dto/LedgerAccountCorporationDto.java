@@ -24,6 +24,11 @@ public class LedgerAccountCorporationDto extends BaseEntityDto {
     @ApiModelProperty(value = "总账科目Id")
     private String ledgerAccountId;
     /**
+     * 总账科目
+     */
+    @ApiModelProperty(value = "总账科目")
+    private LedgerAccountDto ledgerAccount;
+    /**
      * ERP公司代码
      */
     @NotBlank
@@ -71,6 +76,14 @@ public class LedgerAccountCorporationDto extends BaseEntityDto {
 
     public void setLedgerAccountId(String ledgerAccountId) {
         this.ledgerAccountId = ledgerAccountId;
+    }
+
+    public LedgerAccountDto getLedgerAccount() {
+        return ledgerAccount;
+    }
+
+    public void setLedgerAccount(LedgerAccountDto ledgerAccount) {
+        this.ledgerAccount = ledgerAccount;
     }
 
     public String getErpCorporationCode() {

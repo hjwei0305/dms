@@ -5,9 +5,7 @@ import com.changhong.sei.core.entity.ITenant;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -27,6 +25,12 @@ public class LedgerAccountCorporation extends BaseAuditableEntity implements Ser
      */
     @Column(name = "ledger_account_id")
     private String ledgerAccountId;
+    /**
+     * 总账科目
+     */
+    @ManyToOne
+    @JoinColumn(name = "ledger_account_id", insertable = false, updatable = false)
+    private LedgerAccount ledgerAccount;
     /**
      * ERP公司代码
      */
@@ -70,6 +74,14 @@ public class LedgerAccountCorporation extends BaseAuditableEntity implements Ser
 
     public void setLedgerAccountId(String ledgerAccountId) {
         this.ledgerAccountId = ledgerAccountId;
+    }
+
+    public LedgerAccount getLedgerAccount() {
+        return ledgerAccount;
+    }
+
+    public void setLedgerAccount(LedgerAccount ledgerAccount) {
+        this.ledgerAccount = ledgerAccount;
     }
 
     public String getErpCorporationCode() {
@@ -124,6 +136,7 @@ public class LedgerAccountCorporation extends BaseAuditableEntity implements Ser
     public String getTenantCode() {
         return tenantCode;
     }
+
     @Override
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;

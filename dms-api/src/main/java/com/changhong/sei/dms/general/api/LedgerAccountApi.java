@@ -3,6 +3,8 @@ package com.changhong.sei.dms.general.api;
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.dms.general.dto.InnerOrderDto;
 import com.changhong.sei.dms.general.dto.LedgerAccountCorporationDto;
 import com.changhong.sei.dms.general.dto.LedgerAccountDto;
@@ -54,5 +56,16 @@ public interface LedgerAccountApi extends BaseEntityApi<LedgerAccountDto>, FindB
     @DeleteMapping(path = "deleteCorporationInfo/{id}")
     @ApiOperation(value = "删除科目的公司信息", notes = "删除科目的公司信息")
     ResultData<?> deleteCorporationInfo(@PathVariable("id") String id);
+
+
+    /**
+     * 分页查询科目的公司信息
+     *
+     * @param search 查询参数
+     * @return 查询结果
+     */
+    @PostMapping(path = "findCorporationInfoByPage", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "分页查询科目的公司信息", notes = "分页查询科目的公司信息")
+    ResultData<PageResult<LedgerAccountCorporationDto>> findCorporationInfoByPage(@RequestBody Search search);
 
 }
