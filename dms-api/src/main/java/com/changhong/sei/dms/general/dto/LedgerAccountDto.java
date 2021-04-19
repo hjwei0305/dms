@@ -1,6 +1,7 @@
 package com.changhong.sei.dms.general.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
+import com.changhong.sei.dms.annotation.MasterData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -12,6 +13,7 @@ import javax.validation.constraints.Size;
  * @author sei
  * @since 2021-04-16 16:16:42
  */
+@MasterData(code = "LedgerAccount", name = "总帐科目")
 @ApiModel(description = "总帐科目DTO")
 public class LedgerAccountDto extends BaseEntityDto {
     private static final long serialVersionUID = -20597707472993289L;

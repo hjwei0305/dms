@@ -3,6 +3,9 @@ package com.changhong.sei.dms.general.service.excel.vo;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.changhong.sei.dms.common.excel.BaseExcelRow;
 import com.changhong.sei.dms.common.excel.validate.NotDuplicate;
+import com.changhong.sei.util.DateUtils;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -51,12 +54,16 @@ public class CostCenterVo extends BaseExcelRow implements Serializable {
      * 起始日期
      */
     @NotBlank
+    @DateTimeFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
+    @JsonFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     @ExcelProperty(value = "起始日期", order = 6)
     private Date startDate;
     /**
      * 截止日期
      */
     @NotBlank
+    @DateTimeFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
+    @JsonFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     @ExcelProperty(value = "截止日期", order = 7)
     private Date endDate;
     /**

@@ -1,0 +1,36 @@
+package com.changhong.sei.dms.general.controller;
+
+import com.changhong.sei.core.controller.BaseEntityController;
+import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.dms.general.api.PersonnelApi;
+import com.changhong.sei.dms.general.dto.PersonnelDto;
+import com.changhong.sei.dms.general.entity.Personnel;
+import com.changhong.sei.dms.general.service.PersonnelService;
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * 公司员工(ERP)(Personnel)控制类
+ *
+ * @author sei
+ * @since 2021-04-19 10:18:20
+ */
+@RestController
+@Api(value = "PersonnelApi", tags = "公司员工(ERP)服务")
+@RequestMapping(path = PersonnelApi.PATH, produces = MediaType.APPLICATION_JSON_VALUE)
+public class PersonnelController extends BaseEntityController<Personnel, PersonnelDto> implements PersonnelApi {
+    /**
+     * 公司员工(ERP)服务对象
+     */
+    @Autowired
+    private PersonnelService service;
+
+    @Override
+    public BaseEntityService<Personnel> getService() {
+        return service;
+    }
+
+}
