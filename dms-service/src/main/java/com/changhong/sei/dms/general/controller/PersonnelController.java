@@ -1,8 +1,12 @@
 package com.changhong.sei.dms.general.controller;
 
 import com.changhong.sei.core.controller.BaseEntityController;
+import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.api.PersonnelApi;
+import com.changhong.sei.dms.general.dto.CashFlowCodeDto;
 import com.changhong.sei.dms.general.dto.PersonnelDto;
 import com.changhong.sei.dms.general.entity.Personnel;
 import com.changhong.sei.dms.general.service.PersonnelService;
@@ -31,6 +35,17 @@ public class PersonnelController extends BaseEntityController<Personnel, Personn
     @Override
     public BaseEntityService<Personnel> getService() {
         return service;
+    }
+
+    /**
+     * 分页查询业务实体
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<PersonnelDto>> findByPage(Search search) {
+        return convertToDtoPageResult(service.findByPage(search));
     }
 
 }

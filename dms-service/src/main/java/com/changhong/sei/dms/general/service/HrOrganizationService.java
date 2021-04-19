@@ -53,11 +53,11 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
     }
 
     /**
-     * 获取整个HrOrganization多根树的树形对象
+     * 获取HR组织机构树（未冻结的）
      *
      * @return HrOrganization多根树对象集合
      */
-    public List<HrOrganization> getHrOrganizationTree() {
+    public List<HrOrganization> getUnfrozenTree() {
         List<HrOrganization> treeList = new ArrayList<>();
         List<HrOrganization> allList = dao.findAllUnfrozen();
         List<HrOrganization> rootNodeList = allList.stream().filter(a -> StringUtils.isBlank(a.getParentCode())).collect(Collectors.toList());

@@ -92,4 +92,10 @@ public class ServiceCustAutoConfig {
     public HrOrganizationExcelService hrOrganizationExcelService(HrOrganizationService service) {
         return new DefaultHrOrganizationExcelService(service);
     }
+
+    @Bean("wbsProjectExcelService")
+    @ConditionalOnMissingBean(WbsProjectExcelService.class)
+    public WbsProjectExcelService wbsProjectExcelService(WbsProjectService service) {
+        return new DefaultWbsProjectExcelService(service);
+    }
 }

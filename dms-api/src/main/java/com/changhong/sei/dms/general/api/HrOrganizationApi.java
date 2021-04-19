@@ -26,11 +26,11 @@ public interface HrOrganizationApi extends BaseEntityApi<HrOrganizationDto>, Fin
     String PATH = "hrOrganization";
 
     /**
-     * 获取HR组织机构树（未冻结的）
+     * 获取未冻结的HR组织机构树
      */
     @GetMapping(path = "getHrOrganizationTree")
-    @ApiOperation(value = "获取HR组织机构树（未冻结的）", notes = "获取整个HrOrganization多根树的树形对象（未冻结的）")
-    List<HrOrganizationDto> getHrOrganizationTree();
+    @ApiOperation(value = "获取未冻结的HR组织机构树", notes = "获取未冻结的HR组织机构树")
+    List<HrOrganizationDto> getUnfrozenTree();
 
     /**
      * 添加映射关系
