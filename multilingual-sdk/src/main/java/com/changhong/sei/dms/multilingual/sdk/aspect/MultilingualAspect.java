@@ -1,6 +1,7 @@
 package com.changhong.sei.dms.multilingual.sdk.aspect;
 
 import com.changhong.sei.core.context.ContextUtil;
+import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.log.LogUtil;
 import com.changhong.sei.core.util.JsonUtils;
 import com.changhong.sei.dms.multilingual.sdk.annotation.MultilingualEnable;
@@ -77,6 +78,9 @@ public class MultilingualAspect {
      */
     @AfterReturning(pointcut = "multilingual()", returning = "retValue")
     public void doAfterService(JoinPoint joinPoint, Object retValue) {
+        if (retValue instanceof ResultData) {
+            return;
+        }
         // 判断当前语言为zh_CN，则不执行多语言翻译
         String localeLang = ContextUtil.getLocaleLang();
         if (LanguageDto.DEFAULT_LANG.equals(localeLang)) {

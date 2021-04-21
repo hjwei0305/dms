@@ -55,6 +55,11 @@ public class Subscription extends BaseAuditableEntity implements Serializable, I
     @Column(name = "remark")
     private String remark;
     /**
+     * 接收地址
+     */
+    @Column(name = "receive_url")
+    private String receiveUrl;
+    /**
      * 拥有者名称
      */
     @Column(name = "owner_name")
@@ -105,6 +110,14 @@ public class Subscription extends BaseAuditableEntity implements Serializable, I
     @Override
     public void setFrozen(Boolean frozen) {
         this.frozen = frozen;
+    }
+
+    public String getReceiveUrl() {
+        return receiveUrl;
+    }
+
+    public void setReceiveUrl(String receiveUrl) {
+        this.receiveUrl = receiveUrl;
     }
 
     public String getRemark() {

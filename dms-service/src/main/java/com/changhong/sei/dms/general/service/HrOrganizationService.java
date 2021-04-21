@@ -1,12 +1,15 @@
 package com.changhong.sei.dms.general.service;
 
 import com.changhong.sei.core.dao.BaseEntityDao;
+import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.dms.general.dao.HrOrganizationDao;
+import com.changhong.sei.dms.general.dto.HrOrganizationDto;
 import com.changhong.sei.dms.general.entity.HrOrganization;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,8 @@ import java.util.stream.Collectors;
 public class HrOrganizationService extends BaseEntityService<HrOrganization> {
     @Autowired
     private HrOrganizationDao dao;
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     protected BaseEntityDao<HrOrganization> getDao() {
@@ -57,20 +62,21 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
      *
      * @return HrOrganization多根树对象集合
      */
-    public List<HrOrganization> getUnfrozenTree() {
-        List<HrOrganization> treeList = new ArrayList<>();
+    public ResultData<List<HrOrganizationDto>> getUnfrozenTree() {
+        List<HrOrganizationDto> treeList = new ArrayList<>();
         List<HrOrganization> allList = dao.findAllUnfrozen();
         List<HrOrganization> rootNodeList = allList.stream().filter(a -> StringUtils.isBlank(a.getParentCode())).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(rootNodeList)) {
             allList.removeAll(rootNodeList);
             for (HrOrganization rootNode : rootNodeList) {
                 if (Objects.nonNull(rootNode)) {
-                    HrOrganization tree = getTree(rootNode, allList);
+                    HrOrganizationDto rootDto = modelMapper.map(rootNode, HrOrganizationDto.class);
+                    HrOrganizationDto tree = getTree(rootDto, allList);
                     treeList.add(tree);
                 }
             }
         }
-        return treeList;
+        return ResultData.success(treeList);
     }
 
     /**
@@ -80,9 +86,11 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
      * @param allChildrenList 子节点清单
      * @return 返回指定节点树形对象
      */
-    private HrOrganization getTree(HrOrganization rootNode, List<HrOrganization> allChildrenList) {
-        List<HrOrganization> childrenTreeList = new ArrayList<>();
+    private HrOrganizationDto getTree(HrOrganizationDto rootNode, List<HrOrganization> allChildrenList) {
+        List<HrOrganizationDto> childrenTreeList = new ArrayList<>();
         if (Objects.nonNull(rootNode)) {
+            rootNode.setCodePath(HrOrganizationDto.CODE_DELIMITER + rootNode.getCode());
+            rootNode.setNamePath(HrOrganizationDto.NAME_DELIMITER + rootNode.getName());
             if (CollectionUtils.isNotEmpty(allChildrenList)) {
                 List<HrOrganization> rootChildrenList = allChildrenList.stream().filter(e -> Objects.equals(e.getParentCode(), rootNode.getCode())).collect(Collectors.toList());
                 if (CollectionUtils.isNotEmpty(rootChildrenList)) {
@@ -90,7 +98,11 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
                     //递归构造子节点
                     rootChildrenList.forEach(children -> {
                         if (Objects.nonNull(children)) {
-                            HrOrganization childrenTree = getTree(children, allChildrenList);
+                            HrOrganizationDto childrenTree = getTree(modelMapper.map(children, HrOrganizationDto.class), allChildrenList);
+                            childrenTree.setCodePath(rootNode.getCodePath() + HrOrganizationDto.CODE_DELIMITER + childrenTree.getCode());
+                            childrenTree.setNamePath(rootNode.getNamePath() + HrOrganizationDto.NAME_DELIMITER + childrenTree.getName());
+                            childrenTree.setNodeLevel(rootNode.getNodeLevel() + 1);
+                            childrenTree.setParentId(rootNode.getId());
                             childrenTreeList.add(childrenTree);
                         }
                     });

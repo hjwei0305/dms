@@ -30,7 +30,7 @@ public interface HrOrganizationApi extends BaseEntityApi<HrOrganizationDto>, Fin
      */
     @GetMapping(path = "getHrOrganizationTree")
     @ApiOperation(value = "获取未冻结的HR组织机构树", notes = "获取未冻结的HR组织机构树")
-    List<HrOrganizationDto> getUnfrozenTree();
+    ResultData<List<HrOrganizationDto>> getUnfrozenTree();
 
     /**
      * 添加映射关系

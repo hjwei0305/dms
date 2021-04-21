@@ -1,6 +1,7 @@
 package com.changhong.sei.dms.general.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
+import com.changhong.sei.core.dto.TreeEntity;
 import com.changhong.sei.dms.annotation.MasterData;
 import com.changhong.sei.util.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 @MasterData(code = "HrOrganization", name = "HR组织机构")
 @ApiModel(description = "HR组织机构DTO")
-public class HrOrganizationDto extends BaseEntityDto {
+public class HrOrganizationDto extends BaseEntityDto implements TreeEntity<HrOrganizationDto> {
     private static final long serialVersionUID = -98413581382520252L;
     /**
      * 代码
@@ -82,12 +83,38 @@ public class HrOrganizationDto extends BaseEntityDto {
     private String tenantCode;
 
     /**
+     * 层级
+     */
+    @ApiModelProperty(value = "层级")
+    private Integer nodeLevel = 0;
+    /**
+     * 排序
+     */
+    @ApiModelProperty(value = "排序")
+    private Integer rank = 0;
+    /**
+     * 代码路径
+     */
+    @ApiModelProperty(value = "代码路径")
+    private String codePath;
+    /**
+     * 名称路径
+     */
+    @ApiModelProperty(value = "名称路径")
+    private String namePath;
+    /**
+     * 父节点id
+     */
+    @ApiModelProperty(value = "父节点id")
+    private String parentId;
+    /**
      * 子节点列表
      */
     @ApiModelProperty(value = "子节点列表")
     private List<HrOrganizationDto> children;
 
 
+    @Override
     public String getCode() {
         return code;
     }
@@ -96,6 +123,7 @@ public class HrOrganizationDto extends BaseEntityDto {
         this.code = code;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -160,10 +188,61 @@ public class HrOrganizationDto extends BaseEntityDto {
         this.tenantCode = tenantCode;
     }
 
+    @Override
+    public Integer getNodeLevel() {
+        return nodeLevel;
+    }
+
+    @Override
+    public void setNodeLevel(Integer nodeLevel) {
+        this.nodeLevel = nodeLevel;
+    }
+
+    @Override
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
+    @Override
+    public String getCodePath() {
+        return codePath;
+    }
+
+    @Override
+    public void setCodePath(String codePath) {
+        this.codePath = codePath;
+    }
+
+    @Override
+    public String getNamePath() {
+        return namePath;
+    }
+
+    @Override
+    public void setNamePath(String namePath) {
+        this.namePath = namePath;
+    }
+
+    @Override
+    public String getParentId() {
+        return parentId;
+    }
+
+    @Override
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    @Override
     public List<HrOrganizationDto> getChildren() {
         return children;
     }
 
+    @Override
     public void setChildren(List<HrOrganizationDto> children) {
         this.children = children;
     }

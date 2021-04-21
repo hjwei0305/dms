@@ -56,8 +56,8 @@ public class HrOrganizationController extends BaseEntityController<HrOrganizatio
      * 获取HR组织机构树（未冻结的）
      */
     @Override
-    public List<HrOrganizationDto> getUnfrozenTree() {
-        return convertToDtos(service.getUnfrozenTree());
+    public ResultData<List<HrOrganizationDto>> getUnfrozenTree() {
+        return service.getUnfrozenTree();
     }
 
     /**
