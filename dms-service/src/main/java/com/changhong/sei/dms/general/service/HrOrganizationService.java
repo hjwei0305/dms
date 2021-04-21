@@ -71,8 +71,8 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
             for (HrOrganization rootNode : rootNodeList) {
                 if (Objects.nonNull(rootNode)) {
                     HrOrganizationDto rootDto = modelMapper.map(rootNode, HrOrganizationDto.class);
-                    rootDto.setCodePath(HrOrganizationDto.CODE_DELIMITER + rootDto.getCode());
-                    rootDto.setNamePath(HrOrganizationDto.NAME_DELIMITER + rootDto.getName());
+                    rootDto.setCodePath(HrOrganizationDto.CODE_DELIMITER + rootNode.getCode());
+                    rootDto.setNamePath(HrOrganizationDto.NAME_DELIMITER + rootNode.getName());
                     HrOrganizationDto tree = getTree(rootDto, allList);
                     treeList.add(tree);
                 }
@@ -98,11 +98,12 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
                     //递归构造子节点
                     rootChildrenList.forEach(children -> {
                         if (Objects.nonNull(children)) {
-                            HrOrganizationDto childrenTree = getTree(modelMapper.map(children, HrOrganizationDto.class), allChildrenList);
-                            childrenTree.setCodePath(rootNode.getCodePath() + HrOrganizationDto.CODE_DELIMITER + childrenTree.getCode());
-                            childrenTree.setNamePath(rootNode.getNamePath() + HrOrganizationDto.NAME_DELIMITER + childrenTree.getName());
-                            childrenTree.setNodeLevel(rootNode.getNodeLevel() + 1);
-                            childrenTree.setParentId(rootNode.getId());
+                            HrOrganizationDto childrenDto = modelMapper.map(children, HrOrganizationDto.class);
+                            childrenDto.setCodePath(rootNode.getCodePath() + HrOrganizationDto.CODE_DELIMITER + childrenDto.getCode());
+                            childrenDto.setNamePath(rootNode.getNamePath() + HrOrganizationDto.NAME_DELIMITER + childrenDto.getName());
+                            childrenDto.setNodeLevel(rootNode.getNodeLevel() + 1);
+                            childrenDto.setParentId(rootNode.getId());
+                            HrOrganizationDto childrenTree = getTree(childrenDto, allChildrenList);
                             childrenTreeList.add(childrenTree);
                         }
                     });
