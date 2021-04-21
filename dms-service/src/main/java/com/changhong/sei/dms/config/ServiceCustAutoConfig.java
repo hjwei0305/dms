@@ -98,4 +98,11 @@ public class ServiceCustAutoConfig {
     public WbsProjectExcelService wbsProjectExcelService(WbsProjectService service) {
         return new DefaultWbsProjectExcelService(service);
     }
+
+
+    @Bean("imprestEmployeeExcelService")
+    @ConditionalOnMissingBean(ImprestEmployeeExcelService.class)
+    public ImprestEmployeeExcelService imprestEmployeeExcelService(ImprestEmployeeService service) {
+        return new DefaultImprestEmployeeExcelService(service);
+    }
 }

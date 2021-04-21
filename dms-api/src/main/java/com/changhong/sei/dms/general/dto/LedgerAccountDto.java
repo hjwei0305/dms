@@ -5,6 +5,7 @@ import com.changhong.sei.dms.annotation.MasterData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
@@ -20,12 +21,14 @@ public class LedgerAccountDto extends BaseEntityDto {
     /**
      * 代码
      */
+    @NotBlank
     @Size(max = 10)
     @ApiModelProperty(value = "代码")
     private String code;
     /**
      * 名称
      */
+    @NotBlank
     @Size(max = 200)
     @ApiModelProperty(value = "名称")
     private String name;
