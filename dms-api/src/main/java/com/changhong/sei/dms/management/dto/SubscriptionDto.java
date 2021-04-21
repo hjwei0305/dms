@@ -49,6 +49,11 @@ public class SubscriptionDto extends BaseEntityDto {
     @ApiModelProperty(value = "描述说明")
     private String remark;
     /**
+     * 接收地址
+     */
+    @ApiModelProperty(value = "接收地址")
+    private String receiveUrl;
+    /**
      * 拥有者名称
      */
     @NotBlank
@@ -107,6 +112,14 @@ public class SubscriptionDto extends BaseEntityDto {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getReceiveUrl() {
+        return receiveUrl;
+    }
+
+    public void setReceiveUrl(String receiveUrl) {
+        this.receiveUrl = receiveUrl;
     }
 
     public String getOwnerName() {
