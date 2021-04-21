@@ -71,6 +71,8 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
             for (HrOrganization rootNode : rootNodeList) {
                 if (Objects.nonNull(rootNode)) {
                     HrOrganizationDto rootDto = modelMapper.map(rootNode, HrOrganizationDto.class);
+                    rootDto.setCodePath(HrOrganizationDto.CODE_DELIMITER + rootDto.getCode());
+                    rootDto.setNamePath(HrOrganizationDto.NAME_DELIMITER + rootDto.getName());
                     HrOrganizationDto tree = getTree(rootDto, allList);
                     treeList.add(tree);
                 }
@@ -89,8 +91,6 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
     private HrOrganizationDto getTree(HrOrganizationDto rootNode, List<HrOrganization> allChildrenList) {
         List<HrOrganizationDto> childrenTreeList = new ArrayList<>();
         if (Objects.nonNull(rootNode)) {
-            rootNode.setCodePath(HrOrganizationDto.CODE_DELIMITER + rootNode.getCode());
-            rootNode.setNamePath(HrOrganizationDto.NAME_DELIMITER + rootNode.getName());
             if (CollectionUtils.isNotEmpty(allChildrenList)) {
                 List<HrOrganization> rootChildrenList = allChildrenList.stream().filter(e -> Objects.equals(e.getParentCode(), rootNode.getCode())).collect(Collectors.toList());
                 if (CollectionUtils.isNotEmpty(rootChildrenList)) {
