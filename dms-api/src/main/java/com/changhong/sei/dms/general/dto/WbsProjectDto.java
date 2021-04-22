@@ -62,9 +62,8 @@ public class WbsProjectDto extends BaseEntityDto implements TreeEntity<WbsProjec
     /**
      * 层级
      */
-    @NotNull
     @ApiModelProperty(value = "层级")
-    private Integer nodeLevel;
+    private Integer nodeLevel = 0;
     /**
      * 成本中心代码
      */

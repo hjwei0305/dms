@@ -1,5 +1,6 @@
 package com.changhong.sei.dms.general.dto;
 
+import com.changhong.sei.dms.annotation.MasterData;
 import com.changhong.sei.dms.general.dto.cust.CorporationCustDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
  * 实现功能: 公司DTO
  *
  */
+@MasterData(code = "Corporation", name = "公司")
 @ApiModel(description = "公司DTO")
 public class CorporationDto extends CorporationCustDto {
     /**

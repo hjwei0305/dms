@@ -56,7 +56,7 @@ public class WbsProject extends BaseAuditableEntity implements Serializable, ICo
      * 层级
      */
     @Column(name = "node_level", nullable = false)
-    private Integer nodeLevel;
+    private Integer nodeLevel = 0;
     /**
      * 成本中心代码
      */

@@ -5,16 +5,21 @@ import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.dms.general.api.PersonnelApi;
 import com.changhong.sei.dms.general.dto.CashFlowCodeDto;
 import com.changhong.sei.dms.general.dto.PersonnelDto;
+import com.changhong.sei.dms.general.dto.WorkingStatusEnum;
 import com.changhong.sei.dms.general.entity.Personnel;
 import com.changhong.sei.dms.general.service.PersonnelService;
+import com.changhong.sei.dms.management.dto.ConfigTypeEnum;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 /**
  * 公司员工(ERP)(Personnel)控制类
@@ -46,6 +51,14 @@ public class PersonnelController extends BaseEntityController<Personnel, Personn
     @Override
     public ResultData<PageResult<PersonnelDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
+    }
+
+    /**
+     * 获取在职状态
+     */
+    @Override
+    public ResultData<Map<String, String>> getWorkingStatus() {
+        return ResultDataUtil.getEnumMap(WorkingStatusEnum.class);
     }
 
 }
