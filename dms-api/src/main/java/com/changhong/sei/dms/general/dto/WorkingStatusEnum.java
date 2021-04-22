@@ -1,4 +1,4 @@
-package com.changhong.sei.dms.management.dto;
+package com.changhong.sei.dms.general.dto;
 
 import com.changhong.sei.annotation.Remark;
 

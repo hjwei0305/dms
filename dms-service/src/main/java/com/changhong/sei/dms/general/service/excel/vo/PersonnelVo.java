@@ -3,7 +3,7 @@ package com.changhong.sei.dms.general.service.excel.vo;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.changhong.sei.dms.common.excel.BaseExcelRow;
 import com.changhong.sei.dms.common.excel.validate.NotDuplicate;
-import com.changhong.sei.dms.management.dto.WorkingStatusEnum;
+import com.changhong.sei.dms.general.dto.WorkingStatusEnum;
 import com.changhong.sei.util.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;

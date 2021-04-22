@@ -3,7 +3,7 @@ package com.changhong.sei.dms.general.entity;
 import com.changhong.sei.core.entity.BaseAuditableEntity;
 import com.changhong.sei.core.entity.ICodeUnique;
 import com.changhong.sei.core.entity.ITenant;
-import com.changhong.sei.dms.management.dto.WorkingStatusEnum;
+import com.changhong.sei.dms.general.dto.WorkingStatusEnum;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 

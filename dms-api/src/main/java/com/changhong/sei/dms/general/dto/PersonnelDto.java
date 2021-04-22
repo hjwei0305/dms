@@ -2,14 +2,12 @@ package com.changhong.sei.dms.general.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
 import com.changhong.sei.dms.annotation.MasterData;
-import com.changhong.sei.dms.management.dto.WorkingStatusEnum;
 import com.changhong.sei.util.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
