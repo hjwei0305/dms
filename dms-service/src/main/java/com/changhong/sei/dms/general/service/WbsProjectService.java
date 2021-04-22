@@ -4,11 +4,14 @@ import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.dms.general.dao.WbsProjectDao;
+import com.changhong.sei.dms.general.dto.HrOrganizationDto;
 import com.changhong.sei.dms.general.dto.WbsProjectDto;
 import com.changhong.sei.dms.general.entity.HrOrganization;
 import com.changhong.sei.dms.general.entity.WbsProject;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,17 @@ import java.util.stream.Collectors;
 public class WbsProjectService extends BaseEntityService<WbsProject> {
     @Autowired
     private WbsProjectDao dao;
+
+    protected static final ModelMapper dtoModelMapper;
+
+    // 初始化静态属性
+    static {
+        // 初始化Entity与DTO的转换器
+        dtoModelMapper = new ModelMapper();
+        // 设置为严格匹配
+        dtoModelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
+
 
     @Override
     protected BaseEntityDao<WbsProject> getDao() {
@@ -60,15 +74,18 @@ public class WbsProjectService extends BaseEntityService<WbsProject> {
      *
      * @return WBS项目多根树对象集合
      */
-    public List<WbsProject> getUnfrozenTree() {
-        List<WbsProject> treeList = new ArrayList<>();
+    public List<WbsProjectDto> getUnfrozenTree() {
+        List<WbsProjectDto> treeList = new ArrayList<>();
         List<WbsProject> allList = dao.findAllUnfrozen();
         List<WbsProject> rootNodeList = allList.stream().filter(a -> StringUtils.isBlank(a.getParentCode())).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(rootNodeList)) {
             allList.removeAll(rootNodeList);
             for (WbsProject rootNode : rootNodeList) {
                 if (Objects.nonNull(rootNode)) {
-                    WbsProject tree = getTree(rootNode, allList);
+                    WbsProjectDto rootDto = dtoModelMapper.map(rootNode, WbsProjectDto.class);
+                    rootDto.setCodePath(WbsProjectDto.CODE_DELIMITER + rootNode.getCode());
+                    rootDto.setNamePath(WbsProjectDto.NAME_DELIMITER + rootNode.getName());
+                    WbsProjectDto tree = getTree(rootDto, allList);
                     treeList.add(tree);
                 }
             }
@@ -79,15 +96,18 @@ public class WbsProjectService extends BaseEntityService<WbsProject> {
     /**
      * 获取WBS项目树（含冻结）
      */
-    public List<WbsProject> getAllTree() {
-        List<WbsProject> treeList = new ArrayList<>();
+    public List<WbsProjectDto> getAllTree() {
+        List<WbsProjectDto> treeList = new ArrayList<>();
         List<WbsProject> allList = dao.findAll();
         List<WbsProject> rootNodeList = allList.stream().filter(a -> StringUtils.isBlank(a.getParentCode())).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(rootNodeList)) {
             allList.removeAll(rootNodeList);
             for (WbsProject rootNode : rootNodeList) {
                 if (Objects.nonNull(rootNode)) {
-                    WbsProject tree = getTree(rootNode, allList);
+                    WbsProjectDto rootDto = dtoModelMapper.map(rootNode, WbsProjectDto.class);
+                    rootDto.setCodePath(WbsProjectDto.CODE_DELIMITER + rootNode.getCode());
+                    rootDto.setNamePath(WbsProjectDto.NAME_DELIMITER + rootNode.getName());
+                    WbsProjectDto tree = getTree(rootDto, allList);
                     treeList.add(tree);
                 }
             }
@@ -103,8 +123,8 @@ public class WbsProjectService extends BaseEntityService<WbsProject> {
      * @param allChildrenList 子节点清单
      * @return 返回指定节点树形对象
      */
-    private WbsProject getTree(WbsProject rootNode, List<WbsProject> allChildrenList) {
-        List<WbsProject> childrenTreeList = new ArrayList<>();
+    private WbsProjectDto getTree(WbsProjectDto rootNode, List<WbsProject> allChildrenList) {
+        List<WbsProjectDto> childrenTreeList = new ArrayList<>();
         if (Objects.nonNull(rootNode)) {
             if (CollectionUtils.isNotEmpty(allChildrenList)) {
                 List<WbsProject> rootChildrenList = allChildrenList.stream().filter(e -> Objects.equals(e.getParentCode(), rootNode.getCode())).collect(Collectors.toList());
@@ -113,7 +133,12 @@ public class WbsProjectService extends BaseEntityService<WbsProject> {
                     //递归构造子节点
                     rootChildrenList.forEach(children -> {
                         if (Objects.nonNull(children)) {
-                            WbsProject childrenTree = getTree(children, allChildrenList);
+                            WbsProjectDto childrenDto = dtoModelMapper.map(children, WbsProjectDto.class);
+                            childrenDto.setCodePath(rootNode.getCodePath() + WbsProjectDto.CODE_DELIMITER + childrenDto.getCode());
+                            childrenDto.setNamePath(rootNode.getNamePath() + WbsProjectDto.NAME_DELIMITER + childrenDto.getName());
+                            childrenDto.setNodeLevel(rootNode.getNodeLevel() + 1);
+                            childrenDto.setParentId(rootNode.getId());
+                            WbsProjectDto childrenTree = getTree(childrenDto, allChildrenList);
                             childrenTreeList.add(childrenTree);
                         }
                     });

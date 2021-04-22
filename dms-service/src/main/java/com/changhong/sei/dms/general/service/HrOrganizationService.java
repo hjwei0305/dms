@@ -10,6 +10,7 @@ import com.changhong.sei.dms.general.entity.HrOrganization;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +30,16 @@ import java.util.stream.Collectors;
 public class HrOrganizationService extends BaseEntityService<HrOrganization> {
     @Autowired
     private HrOrganizationDao dao;
-    @Autowired
-    private ModelMapper modelMapper;
+
+    protected static final ModelMapper dtoModelMapper;
+
+    // 初始化静态属性
+    static {
+        // 初始化Entity与DTO的转换器
+        dtoModelMapper = new ModelMapper();
+        // 设置为严格匹配
+        dtoModelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+    }
 
     @Override
     protected BaseEntityDao<HrOrganization> getDao() {
@@ -70,7 +79,7 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
             allList.removeAll(rootNodeList);
             for (HrOrganization rootNode : rootNodeList) {
                 if (Objects.nonNull(rootNode)) {
-                    HrOrganizationDto rootDto = modelMapper.map(rootNode, HrOrganizationDto.class);
+                    HrOrganizationDto rootDto = dtoModelMapper.map(rootNode, HrOrganizationDto.class);
                     rootDto.setCodePath(HrOrganizationDto.CODE_DELIMITER + rootNode.getCode());
                     rootDto.setNamePath(HrOrganizationDto.NAME_DELIMITER + rootNode.getName());
                     HrOrganizationDto tree = getTree(rootDto, allList);
@@ -98,7 +107,7 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
                     //递归构造子节点
                     rootChildrenList.forEach(children -> {
                         if (Objects.nonNull(children)) {
-                            HrOrganizationDto childrenDto = modelMapper.map(children, HrOrganizationDto.class);
+                            HrOrganizationDto childrenDto = dtoModelMapper.map(children, HrOrganizationDto.class);
                             childrenDto.setCodePath(rootNode.getCodePath() + HrOrganizationDto.CODE_DELIMITER + childrenDto.getCode());
                             childrenDto.setNamePath(rootNode.getNamePath() + HrOrganizationDto.NAME_DELIMITER + childrenDto.getName());
                             childrenDto.setNodeLevel(rootNode.getNodeLevel() + 1);

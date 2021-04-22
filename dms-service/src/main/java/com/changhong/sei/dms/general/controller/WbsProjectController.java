@@ -54,7 +54,7 @@ public class WbsProjectController extends BaseEntityController<WbsProject, WbsPr
      */
     @Override
     public List<WbsProjectDto> getAllTree() {
-        return convertToDtos(service.getAllTree());
+        return service.getAllTree();
     }
 
     /**
@@ -62,6 +62,6 @@ public class WbsProjectController extends BaseEntityController<WbsProject, WbsPr
      */
     @Override
     public List<WbsProjectDto> getUnfrozenTree() {
-        return convertToDtos(service.getUnfrozenTree());
+        return service.getUnfrozenTree();
     }
 }

@@ -1,6 +1,7 @@
 package com.changhong.sei.dms.general.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
+import com.changhong.sei.core.dto.TreeEntity;
 import com.changhong.sei.dms.annotation.MasterData;
 import com.changhong.sei.util.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 @MasterData(code = "WbsProject", name = "WBS项目")
 @ApiModel(description = "WBS项目DTO")
-public class WbsProjectDto extends BaseEntityDto {
+public class WbsProjectDto extends BaseEntityDto implements TreeEntity<WbsProjectDto> {
     private static final long serialVersionUID = 994343553751342075L;
     /**
      * 代码
@@ -113,7 +114,29 @@ public class WbsProjectDto extends BaseEntityDto {
     @ApiModelProperty(value = "子节点列表")
     private List<WbsProjectDto> children;
 
+    /**
+     * 代码路径
+     */
+    @ApiModelProperty(value = "代码路径")
+    private String codePath;
+    /**
+     * 名称路径
+     */
+    @ApiModelProperty(value = "名称路径")
+    private String namePath;
+    /**
+     * 父节点id
+     */
+    @ApiModelProperty(value = "父节点id")
+    private String parentId;
 
+    /**
+     * 排序
+     */
+    @ApiModelProperty(value = "排序")
+    private Integer rank = 0;
+
+    @Override
     public String getCode() {
         return code;
     }
@@ -122,6 +145,7 @@ public class WbsProjectDto extends BaseEntityDto {
         this.code = code;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -154,10 +178,12 @@ public class WbsProjectDto extends BaseEntityDto {
         this.erpCorporationCode = erpCorporationCode;
     }
 
+    @Override
     public Integer getNodeLevel() {
         return nodeLevel;
     }
 
+    @Override
     public void setNodeLevel(Integer nodeLevel) {
         this.nodeLevel = nodeLevel;
     }
@@ -218,11 +244,52 @@ public class WbsProjectDto extends BaseEntityDto {
         this.tenantCode = tenantCode;
     }
 
+    @Override
     public List<WbsProjectDto> getChildren() {
         return children;
     }
 
+    @Override
     public void setChildren(List<WbsProjectDto> children) {
         this.children = children;
+    }
+
+    @Override
+    public String getCodePath() {
+        return codePath;
+    }
+
+    @Override
+    public void setCodePath(String codePath) {
+        this.codePath = codePath;
+    }
+
+    @Override
+    public String getNamePath() {
+        return namePath;
+    }
+
+    @Override
+    public void setNamePath(String namePath) {
+        this.namePath = namePath;
+    }
+
+    @Override
+    public String getParentId() {
+        return parentId;
+    }
+
+    @Override
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    @Override
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 }
