@@ -1,9 +1,6 @@
 package com.changhong.sei.dms.general.api;
 
-import com.changhong.sei.core.api.BaseEntityApi;
-import com.changhong.sei.core.api.DataAuthEntityApi;
-import com.changhong.sei.core.api.DataAuthEntityIncludeFrozenApi;
-import com.changhong.sei.core.api.FindAllApi;
+import com.changhong.sei.core.api.*;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.dms.general.dto.CorporationDto;
 import io.swagger.annotations.ApiOperation;
@@ -19,8 +16,9 @@ import java.util.List;
  * @author 王锦光 wangjg
  * @version 2020-01-26 16:16
  */
-@FeignClient(name = "sei-basic", path = "corporation")
+@FeignClient(name = "dms", path = "corporation")
 public interface CorporationApi extends BaseEntityApi<CorporationDto>,
+        FindByPageApi<CorporationDto>,
         FindAllApi<CorporationDto> {
     /**
      * 根据公司代码查询公司

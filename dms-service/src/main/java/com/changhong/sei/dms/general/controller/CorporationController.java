@@ -3,7 +3,8 @@ package com.changhong.sei.dms.general.controller;
 
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
-import com.changhong.sei.core.dto.auth.AuthEntityData;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.api.CorporationApi;
 import com.changhong.sei.dms.general.dto.CorporationDto;
@@ -52,6 +53,17 @@ public class CorporationController extends BaseEntityController<Corporation, Cor
         // 自定义扩展实体转DTO属性赋值
         serviceCust.customEntityToDto(entity, dto);
         return dto;
+    }
+
+    /**
+     * 分页查询业务实体
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<CorporationDto>> findByPage(Search search) {
+        return convertToDtoPageResult(service.findByPage(search));
     }
 
     /**
