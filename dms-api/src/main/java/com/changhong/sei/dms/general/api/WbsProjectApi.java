@@ -2,6 +2,7 @@ package com.changhong.sei.dms.general.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.FindByPageApi;
+import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.dms.general.dto.CostCenterDto;
 import com.changhong.sei.dms.general.dto.HrOrganizationDto;
 import com.changhong.sei.dms.general.dto.WbsProjectDto;
@@ -29,12 +30,12 @@ public interface WbsProjectApi extends BaseEntityApi<WbsProjectDto>, FindByPageA
      */
     @GetMapping(path = "getAllTree")
     @ApiOperation(value = "根据ERP公司代码获取WBS项目树（含冻结）", notes = "根据ERP公司代码获取WBS项目树（含冻结）")
-    List<WbsProjectDto> getAllTree(@RequestParam("erpCorporationCode") String erpCorporationCode);
+    ResultData<List<WbsProjectDto>> getAllTree(@RequestParam("erpCorporationCode") String erpCorporationCode);
 
     /**
      * 根据ERP公司代码获取未冻结的WBS项目树
      */
     @GetMapping(path = "getUnfrozenTree")
     @ApiOperation(value = "根据ERP公司代码获取未冻结的WBS项目树", notes = "根据ERP公司代码获取未冻结的WBS项目树")
-    List<WbsProjectDto> getUnfrozenTree(@RequestParam("erpCorporationCode") String erpCorporationCode);
+    ResultData<List<WbsProjectDto>> getUnfrozenTree(@RequestParam("erpCorporationCode") String erpCorporationCode);
 }
