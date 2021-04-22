@@ -53,15 +53,15 @@ public class WbsProjectController extends BaseEntityController<WbsProject, WbsPr
      * 获取WBS项目树（含冻结）
      */
     @Override
-    public List<WbsProjectDto> getAllTree() {
-        return service.getAllTree();
+    public List<WbsProjectDto> getAllTree(String erpCorporationCode) {
+        return service.getAllTree(erpCorporationCode);
     }
 
     /**
      * 获取未冻结的WBS项目树
      */
     @Override
-    public List<WbsProjectDto> getUnfrozenTree() {
-        return service.getUnfrozenTree();
+    public List<WbsProjectDto> getUnfrozenTree(String erpCorporationCode) {
+        return service.getUnfrozenTree(erpCorporationCode);
     }
 }

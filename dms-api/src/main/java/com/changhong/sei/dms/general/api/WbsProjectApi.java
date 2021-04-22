@@ -8,6 +8,7 @@ import com.changhong.sei.dms.general.dto.WbsProjectDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,16 +25,16 @@ public interface WbsProjectApi extends BaseEntityApi<WbsProjectDto>, FindByPageA
     String PATH = "wbsProject";
 
     /**
-     * 获取WBS项目树（含冻结）
+     * 根据ERP公司代码获取WBS项目树（含冻结）
      */
     @GetMapping(path = "getAllTree")
-    @ApiOperation(value = "获取WBS项目树（含冻结）", notes = "获取WBS项目树（含冻结）")
-    List<WbsProjectDto> getAllTree();
+    @ApiOperation(value = "根据ERP公司代码获取WBS项目树（含冻结）", notes = "根据ERP公司代码获取WBS项目树（含冻结）")
+    List<WbsProjectDto> getAllTree(@RequestParam("erpCorporationCode") String erpCorporationCode);
 
     /**
-     * 获取未冻结的WBS项目树
+     * 根据ERP公司代码获取未冻结的WBS项目树
      */
     @GetMapping(path = "getUnfrozenTree")
-    @ApiOperation(value = "获取未冻结的WBS项目树", notes = "获取未冻结的WBS项目树")
-    List<WbsProjectDto> getUnfrozenTree();
+    @ApiOperation(value = "根据ERP公司代码获取未冻结的WBS项目树", notes = "根据ERP公司代码获取未冻结的WBS项目树")
+    List<WbsProjectDto> getUnfrozenTree(@RequestParam("erpCorporationCode") String erpCorporationCode);
 }

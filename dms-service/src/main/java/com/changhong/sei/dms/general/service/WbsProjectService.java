@@ -1,6 +1,8 @@
 package com.changhong.sei.dms.general.service;
 
 import com.changhong.sei.core.dao.BaseEntityDao;
+import com.changhong.sei.core.dto.serach.Search;
+import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.dms.general.dao.WbsProjectDao;
@@ -74,9 +76,12 @@ public class WbsProjectService extends BaseEntityService<WbsProject> {
      *
      * @return WBS项目多根树对象集合
      */
-    public List<WbsProjectDto> getUnfrozenTree() {
+    public List<WbsProjectDto> getUnfrozenTree(String erpCorporationCode) {
         List<WbsProjectDto> treeList = new ArrayList<>();
-        List<WbsProject> allList = dao.findAllUnfrozen();
+        Search search = new Search();
+        search.addFilter(new SearchFilter(WbsProject.FROZEN, Boolean.FALSE));
+        search.addFilter(new SearchFilter("erpCorporationCode", erpCorporationCode));
+        List<WbsProject> allList = findByFilters(search);
         List<WbsProject> rootNodeList = allList.stream().filter(a -> StringUtils.isBlank(a.getParentCode())).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(rootNodeList)) {
             allList.removeAll(rootNodeList);
@@ -96,9 +101,9 @@ public class WbsProjectService extends BaseEntityService<WbsProject> {
     /**
      * 获取WBS项目树（含冻结）
      */
-    public List<WbsProjectDto> getAllTree() {
+    public List<WbsProjectDto> getAllTree(String erpCorporationCode) {
         List<WbsProjectDto> treeList = new ArrayList<>();
-        List<WbsProject> allList = dao.findAll();
+        List<WbsProject> allList = findListByProperty("erpCorporationCode", erpCorporationCode);
         List<WbsProject> rootNodeList = allList.stream().filter(a -> StringUtils.isBlank(a.getParentCode())).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(rootNodeList)) {
             allList.removeAll(rootNodeList);
