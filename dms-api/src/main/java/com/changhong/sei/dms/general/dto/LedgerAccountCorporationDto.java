@@ -32,8 +32,8 @@ public class LedgerAccountCorporationDto extends BaseEntityDto {
      * ERP公司代码
      */
     @NotBlank
-    @Size(max = 4)
-    @ApiModelProperty(value = "ERP公司代码(最大长度4)")
+    @Size(max = 10)
+    @ApiModelProperty(value = "ERP公司代码(最大长度10)")
     private String erpCorporationCode;
     /**
      * 统驭科目标识

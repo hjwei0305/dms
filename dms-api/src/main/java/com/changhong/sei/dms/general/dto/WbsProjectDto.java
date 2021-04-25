@@ -56,7 +56,7 @@ public class WbsProjectDto extends BaseEntityDto implements TreeEntity<WbsProjec
      * ERP公司代码
      */
     @NotBlank
-    @Size(max = 4)
+    @Size(max = 10)
     @ApiModelProperty(value = "ERP公司代码")
     private String erpCorporationCode;
     /**

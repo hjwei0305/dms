@@ -1,9 +1,11 @@
 package com.changhong.sei.dms.general.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
+import com.changhong.sei.core.dto.serializer.EnumJsonSerializer;
 import com.changhong.sei.dms.annotation.MasterData;
 import com.changhong.sei.util.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -54,7 +56,7 @@ public class PersonnelDto extends BaseEntityDto {
      * ERP公司代码
      */
     @NotBlank
-    @Size(max = 4)
+    @Size(max = 10)
     @ApiModelProperty(value = "ERP公司代码(必需，最大长度4)")
     private String erpCorporationCode;
     /**
@@ -67,6 +69,7 @@ public class PersonnelDto extends BaseEntityDto {
      * 在职状态
      */
     @NotNull
+    @JsonSerialize(using = EnumJsonSerializer.class)
     @ApiModelProperty(value = "在职状态(必需)")
     private WorkingStatusEnum workingStatus;
     /**
