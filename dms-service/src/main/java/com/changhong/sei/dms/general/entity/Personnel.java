@@ -82,8 +82,8 @@ public class Personnel extends BaseAuditableEntity implements Serializable, ICod
     /**
      * 职位等级
      */
-    @Column(name = "post_grade")
-    private String postGrade;
+    @Column(name = "post")
+    private String post;
     /**
      * 生日
      */
@@ -210,12 +210,12 @@ public class Personnel extends BaseAuditableEntity implements Serializable, ICod
         this.gender = gender;
     }
 
-    public String getPostGrade() {
-        return postGrade;
+    public String getPost() {
+        return post;
     }
 
-    public void setPostGrade(String postGrade) {
-        this.postGrade = postGrade;
+    public void setPost(String post) {
+        this.post = post;
     }
 
     public Date getBirthday() {

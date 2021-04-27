@@ -98,11 +98,11 @@ public class PersonnelDto extends BaseEntityDto {
     @ApiModelProperty(value = "性别(必需，M:男、F:女)")
     private String gender;
     /**
-     * 职位等级
+     * 职位
      */
     @Size(max = 8)
-    @ApiModelProperty(value = "职位等级(最大长度8)")
-    private String postGrade;
+    @ApiModelProperty(value = "职位(最大长度8)")
+    private String post;
     /**
      * 生日
      */
@@ -235,12 +235,12 @@ public class PersonnelDto extends BaseEntityDto {
         this.gender = gender;
     }
 
-    public String getPostGrade() {
-        return postGrade;
+    public String getPost() {
+        return post;
     }
 
-    public void setPostGrade(String postGrade) {
-        this.postGrade = postGrade;
+    public void setPost(String post) {
+        this.post = post;
     }
 
     public Date getBirthday() {
