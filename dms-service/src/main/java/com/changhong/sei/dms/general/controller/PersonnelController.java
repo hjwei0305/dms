@@ -61,4 +61,15 @@ public class PersonnelController extends BaseEntityController<Personnel, Personn
         return ResultDataUtil.getEnumMap(WorkingStatusEnum.class);
     }
 
+    /**
+     * 根据员工编号获取员工
+     *
+     * @param code 员工编号
+     * @return 员工
+     */
+    @Override
+    public ResultData<PersonnelDto> findByCode(String code) {
+        return ResultData.success(convertToDto(service.findByCode(code)));
+    }
+
 }

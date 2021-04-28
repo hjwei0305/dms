@@ -8,6 +8,7 @@ import com.changhong.sei.dms.general.dto.PersonnelDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -29,4 +30,14 @@ public interface PersonnelApi extends BaseEntityApi<PersonnelDto>, FindByPageApi
     @GetMapping(path = "getWorkingStatus")
     @ApiOperation(value = "获取在职状态", notes = "获取在职状态")
     ResultData<Map<String, String>> getWorkingStatus();
+
+    /**
+     * 根据员工编号获取员工
+     *
+     * @param code 员工编号
+     * @return 员工
+     */
+    @GetMapping(path = "findByCode")
+    @ApiOperation(value = "根据员工编号获取员工", notes = "根据员工编号获取员工")
+    ResultData<PersonnelDto> findByCode(@RequestParam("code") String code);
 }
