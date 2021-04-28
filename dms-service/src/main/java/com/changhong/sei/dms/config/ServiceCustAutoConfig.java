@@ -1,8 +1,6 @@
 package com.changhong.sei.dms.config;
 
 import com.changhong.sei.dms.general.service.*;
-import com.changhong.sei.dms.general.service.cust.CorporationServiceCust;
-import com.changhong.sei.dms.general.service.cust.CorporationServiceCustBase;
 import com.changhong.sei.dms.general.service.excel.*;
 import com.changhong.sei.dms.general.service.excel.impl.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -18,15 +16,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class ServiceCustAutoConfig {
-    /**
-     * 公司业务逻辑扩展实现
-     * @return 扩展实现
-     */
-    @Bean
-    @ConditionalOnMissingBean(CorporationServiceCust.class)
-    public CorporationServiceCust corporationServiceCust(){
-        return new CorporationServiceCustBase();
-    }
     /**
      * 国家导入导出扩展实现
      *
