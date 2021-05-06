@@ -31,7 +31,7 @@ public class ExchangeRateService extends BaseEntityService<ExchangeRate> {
 
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public OperateResultWithData<ExchangeRate> save(ExchangeRate entity) {
         //代码：汇率类型、起始日期、货币（从）、货币（到）
         String code = String.format("%s%s%s%s", entity.getRateType(),
