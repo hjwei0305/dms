@@ -57,52 +57,102 @@ public class ServiceCustAutoConfig {
         return new DefaultTaxRateExcelService(service);
     }
 
+    /**
+     * 现金流代码导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
     @Bean("cashFlowCodeExcelService")
     @ConditionalOnMissingBean(CashFlowCodeExcelService.class)
     public CashFlowCodeExcelService cashFlowCodeExcelService(CashFlowCodeService service) {
         return new DefaultCashFlowCodeExcelService(service);
     }
 
+    /**
+     * 成本中心导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
     @Bean("costCenterExcelService")
     @ConditionalOnMissingBean(CostCenterExcelService.class)
     public CostCenterExcelService costCenterExcelService(CostCenterService service) {
         return new DefaultCostCenterExcelService(service);
     }
 
+    /**
+     * 内部订单导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
     @Bean("innerOrderExcelService")
     @ConditionalOnMissingBean(InnerOrderExcelService.class)
     public InnerOrderExcelService innerOrderExcelService(InnerOrderService service) {
         return new DefaultInnerOrderExcelService(service);
     }
 
+    /**
+     * 总账科目导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
     @Bean("ledgerAccountExcelService")
     @ConditionalOnMissingBean(LedgerAccountExcelService.class)
     public LedgerAccountExcelService innerOrderExcelService(LedgerAccountService service) {
         return new DefaultLedgerAccountExcelService(service);
     }
 
+    /**
+     * 企业员工导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
     @Bean("personnelExcelService")
     @ConditionalOnMissingBean(PersonnelExcelService.class)
     public PersonnelExcelService personnelExcelService(PersonnelService service) {
         return new DefaultPersonnelExcelService(service);
     }
 
+    /**
+     * HR组织机构导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
     @Bean("hrOrganizationExcelService")
     @ConditionalOnMissingBean(HrOrganizationExcelService.class)
     public HrOrganizationExcelService hrOrganizationExcelService(HrOrganizationService service) {
         return new DefaultHrOrganizationExcelService(service);
     }
 
+    /**
+     * WBS项目导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
     @Bean("wbsProjectExcelService")
     @ConditionalOnMissingBean(WbsProjectExcelService.class)
     public WbsProjectExcelService wbsProjectExcelService(WbsProjectService service) {
         return new DefaultWbsProjectExcelService(service);
     }
 
-
+    /**
+     * 备用金员工导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
     @Bean("imprestEmployeeExcelService")
     @ConditionalOnMissingBean(ImprestEmployeeExcelService.class)
     public ImprestEmployeeExcelService imprestEmployeeExcelService(ImprestEmployeeService service) {
         return new DefaultImprestEmployeeExcelService(service);
+    }
+
+    /**
+     * 客户导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
+    @Bean("customerExcelService")
+    @ConditionalOnMissingBean(CustomerExcelService.class)
+    public CustomerExcelService customerExcelService(CustomerService service) {
+        return new DefaultCustomerExcelService(service);
     }
 }
