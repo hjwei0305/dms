@@ -5,24 +5,19 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * 公司的备用金员工(ERP)(ImprestEmployeeCorporation)DTO类
+ * 客户的公司视图(CustomerCorporation)DTO类
  *
  * @author sei
- * @since 2021-04-20 17:09:15
+ * @since 2021-05-06 13:10:12
  */
-@ApiModel(description = "公司的备用金员工(ERP)DTO")
-public class ImprestEmployeeCorporationDto extends BaseEntityDto {
-    private static final long serialVersionUID = -84732560872444586L;
+@ApiModel(description = "客户的公司视图DTO")
+public class CustomerCorporationDto extends BaseEntityDto {
+    private static final long serialVersionUID = -65598599730341379L;
     /**
-     * 备用金员工Id
+     * 客户Id
      */
-    @ApiModelProperty(value = "备用金员工Id")
-    private String imprestEmployeeId;
-    /**
-     * 备用金员工
-     */
-    @ApiModelProperty(value = "备用金员工")
-    private ImprestEmployeeDto imprestEmployee;
+    @ApiModelProperty(value = "客户Id")
+    private String customerId;
     /**
      * ERP公司代码
      */
@@ -44,26 +39,23 @@ public class ImprestEmployeeCorporationDto extends BaseEntityDto {
     @ApiModelProperty(value = "已冻结")
     private Boolean frozen = Boolean.FALSE;
     /**
+     * 支付冻结标识
+     */
+    @ApiModelProperty(value = "支付冻结标识")
+    private Boolean payFrozen = Boolean.FALSE;
+    /**
      * 租户代码
      */
     @ApiModelProperty(value = "租户代码")
     private String tenantCode;
 
 
-    public String getImprestEmployeeId() {
-        return imprestEmployeeId;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setImprestEmployeeId(String imprestEmployeeId) {
-        this.imprestEmployeeId = imprestEmployeeId;
-    }
-
-    public ImprestEmployeeDto getImprestEmployee() {
-        return imprestEmployee;
-    }
-
-    public void setImprestEmployee(ImprestEmployeeDto imprestEmployee) {
-        this.imprestEmployee = imprestEmployee;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public String getErpCorporationCode() {
@@ -96,6 +88,14 @@ public class ImprestEmployeeCorporationDto extends BaseEntityDto {
 
     public void setFrozen(Boolean frozen) {
         this.frozen = frozen;
+    }
+
+    public Boolean getPayFrozen() {
+        return payFrozen;
+    }
+
+    public void setPayFrozen(Boolean payFrozen) {
+        this.payFrozen = payFrozen;
     }
 
     public String getTenantCode() {

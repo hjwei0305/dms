@@ -6,32 +6,28 @@ import com.changhong.sei.core.entity.ITenant;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * 公司的备用金员工(ERP)(ImprestEmployeeCorporation)实体类
+ * 客户的公司视图(CustomerCorporation)实体类
  *
  * @author sei
- * @since 2021-04-20 17:06:38
+ * @since 2021-05-06 13:09:31
  */
 @Entity
-@Table(name = "imprest_employee_corporation")
+@Table(name = "customer_corporation")
 @DynamicInsert
 @DynamicUpdate
-public class ImprestEmployeeCorporation extends BaseAuditableEntity implements Serializable, ITenant, IFrozen {
-    private static final long serialVersionUID = -94141310572634904L;
+public class CustomerCorporation extends BaseAuditableEntity implements Serializable, ITenant, IFrozen {
+    private static final long serialVersionUID = 549392523730992071L;
     /**
-     * 备用金员工Id
+     * 客户Id
      */
-    @Column(name = "imprest_employee_id")
-    private String imprestEmployeeId;
-    /**
-     * 备用金员工
-     */
-    @ManyToOne
-    @JoinColumn(name = "imprest_employee_id", insertable = false, updatable = false)
-    private ImprestEmployee imprestEmployee;
+    @Column(name = "customer_id")
+    private String customerId;
     /**
      * ERP公司代码
      */
@@ -53,26 +49,23 @@ public class ImprestEmployeeCorporation extends BaseAuditableEntity implements S
     @Column(name = "frozen")
     private Boolean frozen = Boolean.FALSE;
     /**
+     * 支付冻结标识
+     */
+    @Column(name = "pay_frozen")
+    private Boolean payFrozen = Boolean.FALSE;
+    /**
      * 租户代码
      */
     @Column(name = "tenant_code")
     private String tenantCode;
 
 
-    public String getImprestEmployeeId() {
-        return imprestEmployeeId;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setImprestEmployeeId(String imprestEmployeeId) {
-        this.imprestEmployeeId = imprestEmployeeId;
-    }
-
-    public ImprestEmployee getImprestEmployee() {
-        return imprestEmployee;
-    }
-
-    public void setImprestEmployee(ImprestEmployee imprestEmployee) {
-        this.imprestEmployee = imprestEmployee;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
     public String getErpCorporationCode() {
@@ -107,6 +100,14 @@ public class ImprestEmployeeCorporation extends BaseAuditableEntity implements S
     @Override
     public void setFrozen(Boolean frozen) {
         this.frozen = frozen;
+    }
+
+    public Boolean getPayFrozen() {
+        return payFrozen;
+    }
+
+    public void setPayFrozen(Boolean payFrozen) {
+        this.payFrozen = payFrozen;
     }
 
     @Override

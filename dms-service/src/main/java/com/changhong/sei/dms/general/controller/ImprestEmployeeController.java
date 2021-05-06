@@ -13,17 +13,13 @@ import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.dms.general.api.ImprestEmployeeApi;
 import com.changhong.sei.dms.general.dto.ImprestEmployeeCorporationDto;
 import com.changhong.sei.dms.general.dto.ImprestEmployeeDto;
-import com.changhong.sei.dms.general.dto.LedgerAccountCorporationDto;
 import com.changhong.sei.dms.general.entity.ImprestEmployee;
 import com.changhong.sei.dms.general.entity.ImprestEmployeeCorporation;
-import com.changhong.sei.dms.general.entity.LedgerAccountCorporation;
 import com.changhong.sei.dms.general.service.ImprestEmployeeCorporationService;
 import com.changhong.sei.dms.general.service.ImprestEmployeeService;
-import com.changhong.sei.dms.general.service.LedgerAccountCorporationService;
 import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,23 +51,12 @@ public class ImprestEmployeeController extends BaseEntityController<ImprestEmplo
      */
     @Autowired
     private ImprestEmployeeCorporationService imprestEmployeeCorporationService;
+    @Autowired
+    private ModelMapper mapper;
 
     @Override
     public BaseEntityService<ImprestEmployee> getService() {
         return service;
-    }
-
-    /**
-     * Entity与DTO的转换器
-     */
-    protected static final ModelMapper dtoModelMapper;
-
-    // 初始化静态属性
-    static {
-        // 初始化Entity与DTO的转换器
-        dtoModelMapper = new ModelMapper();
-        // 设置为严格匹配
-        dtoModelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
 
@@ -167,7 +152,7 @@ public class ImprestEmployeeController extends BaseEntityController<ImprestEmplo
      * @param pageResult 备用金员工的公司信息分页查询结果
      * @return 返回结果
      */
-    public ResultData<PageResult<ImprestEmployeeCorporationDto>> corporationInfoConvertToDtoPageResult(PageResult<ImprestEmployeeCorporation> pageResult) {
+    private ResultData<PageResult<ImprestEmployeeCorporationDto>> corporationInfoConvertToDtoPageResult(PageResult<ImprestEmployeeCorporation> pageResult) {
         PageResult<ImprestEmployeeCorporationDto> result = new PageResult<>(pageResult);
         List<ImprestEmployeeCorporationDto> dtos = corporationInfoConvertToDtos(pageResult.getRows());
         result.setRows(dtos);
@@ -185,7 +170,7 @@ public class ImprestEmployeeController extends BaseEntityController<ImprestEmplo
             return null;
         }
         ImprestEmployeeCorporationDto result = new ImprestEmployeeCorporationDto();
-        dtoModelMapper.map(entity, result);
+        mapper.map(entity, result);
         return result;
     }
 
@@ -200,7 +185,7 @@ public class ImprestEmployeeController extends BaseEntityController<ImprestEmplo
             return null;
         }
         ImprestEmployeeCorporation result = new ImprestEmployeeCorporation();
-        dtoModelMapper.map(dto, result);
+        mapper.map(dto, result);
         return result;
     }
 }
