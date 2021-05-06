@@ -155,4 +155,15 @@ public class ServiceCustAutoConfig {
     public CustomerExcelService customerExcelService(CustomerService service) {
         return new DefaultCustomerExcelService(service);
     }
+
+    /**
+     * 供应商导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
+    @Bean("supplierExcelService")
+    @ConditionalOnMissingBean(SupplierExcelService.class)
+    public SupplierExcelService supplierExcelService(SupplierService service) {
+        return new DefaultSupplierExcelService(service);
+    }
 }

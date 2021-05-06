@@ -5,24 +5,25 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * 客户的公司视图(CustomerCorporation)DTO类
+ * 供应商的公司信息(SupplierCorporation)DTO类
  *
  * @author sei
- * @since 2021-05-06 13:10:12
+ * @since 2021-05-06 14:08:31
  */
-@ApiModel(description = "客户的公司视图DTO")
-public class CustomerCorporationDto extends BaseEntityDto {
-    private static final long serialVersionUID = -65598599730341379L;
+@ApiModel(description = "供应商的公司信息DTO")
+public class SupplierCorporationDto extends BaseEntityDto {
+    private static final long serialVersionUID = -49302856532753197L;
     /**
-     * 客户Id
+     * 供应商Id
      */
-    @ApiModelProperty(value = "客户Id")
-    private String customerId;
+    @ApiModelProperty(value = "供应商Id")
+    private String supplierId;
     /**
-     * 客户
+     * 供应商
      */
-    @ApiModelProperty(value = "客户")
-    private CustomerDto customer;
+    @ApiModelProperty(value = "供应商")
+    private SupplierDto supplier;
+
     /**
      * ERP公司代码
      */
@@ -39,15 +40,15 @@ public class CustomerCorporationDto extends BaseEntityDto {
     @ApiModelProperty(value = "支付条款代码")
     private String paymentTermCode;
     /**
+     * 支付冻结
+     */
+    @ApiModelProperty(value = "支付冻结")
+    private Boolean payFrozen = Boolean.FALSE;
+    /**
      * 已冻结
      */
     @ApiModelProperty(value = "已冻结")
     private Boolean frozen = Boolean.FALSE;
-    /**
-     * 支付冻结标识
-     */
-    @ApiModelProperty(value = "支付冻结标识")
-    private Boolean payFrozen = Boolean.FALSE;
     /**
      * 租户代码
      */
@@ -55,20 +56,20 @@ public class CustomerCorporationDto extends BaseEntityDto {
     private String tenantCode;
 
 
-    public String getCustomerId() {
-        return customerId;
+    public String getSupplierId() {
+        return supplierId;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId;
     }
 
-    public CustomerDto getCustomer() {
-        return customer;
+    public SupplierDto getSupplier() {
+        return supplier;
     }
 
-    public void setCustomer(CustomerDto customer) {
-        this.customer = customer;
+    public void setSupplier(SupplierDto supplier) {
+        this.supplier = supplier;
     }
 
     public String getErpCorporationCode() {
@@ -95,20 +96,20 @@ public class CustomerCorporationDto extends BaseEntityDto {
         this.paymentTermCode = paymentTermCode;
     }
 
-    public Boolean getFrozen() {
-        return frozen;
-    }
-
-    public void setFrozen(Boolean frozen) {
-        this.frozen = frozen;
-    }
-
     public Boolean getPayFrozen() {
         return payFrozen;
     }
 
     public void setPayFrozen(Boolean payFrozen) {
         this.payFrozen = payFrozen;
+    }
+
+    public Boolean getFrozen() {
+        return frozen;
+    }
+
+    public void setFrozen(Boolean frozen) {
+        this.frozen = frozen;
     }
 
     public String getTenantCode() {

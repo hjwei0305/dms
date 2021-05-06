@@ -128,6 +128,8 @@ public class CustomerController extends BaseEntityController<Customer, CustomerD
     public ResultData<PageResult<CustomerDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
     }
+
+
     /**
      * 将客户的公司信息清单转换成DTO清单
      *

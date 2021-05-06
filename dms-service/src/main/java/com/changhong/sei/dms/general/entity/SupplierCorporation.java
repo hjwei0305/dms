@@ -10,28 +10,28 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * 客户的公司视图(CustomerCorporation)实体类
+ * 供应商的公司信息(SupplierCorporation)实体类
  *
  * @author sei
- * @since 2021-05-06 13:09:31
+ * @since 2021-05-06 14:08:14
  */
 @Entity
-@Table(name = "customer_corporation")
+@Table(name = "supplier_corporation")
 @DynamicInsert
 @DynamicUpdate
-public class CustomerCorporation extends BaseAuditableEntity implements Serializable, ITenant, IFrozen {
-    private static final long serialVersionUID = 549392523730992071L;
+public class SupplierCorporation extends BaseAuditableEntity implements Serializable, ITenant, IFrozen {
+    private static final long serialVersionUID = 802624109277219982L;
     /**
-     * 客户Id
+     * 供应商Id
      */
-    @Column(name = "customer_id")
-    private String customerId;
+    @Column(name = "supplier_id")
+    private String supplierId;
     /**
-     * 客户
+     * 供应商
      */
     @ManyToOne
-    @JoinColumn(name = "customer_id", insertable = false, updatable = false)
-    private Customer customer;
+    @JoinColumn(name = "supplier_id", insertable = false, updatable = false)
+    private Supplier supplier;
     /**
      * ERP公司代码
      */
@@ -48,15 +48,15 @@ public class CustomerCorporation extends BaseAuditableEntity implements Serializ
     @Column(name = "payment_term_code")
     private String paymentTermCode;
     /**
+     * 支付冻结
+     */
+    @Column(name = "pay_frozen")
+    private Boolean payFrozen = Boolean.FALSE;
+    /**
      * 已冻结
      */
     @Column(name = "frozen")
     private Boolean frozen = Boolean.FALSE;
-    /**
-     * 支付冻结标识
-     */
-    @Column(name = "pay_frozen")
-    private Boolean payFrozen = Boolean.FALSE;
     /**
      * 租户代码
      */
@@ -64,20 +64,20 @@ public class CustomerCorporation extends BaseAuditableEntity implements Serializ
     private String tenantCode;
 
 
-    public String getCustomerId() {
-        return customerId;
+    public String getSupplierId() {
+        return supplierId;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Supplier getSupplier() {
+        return supplier;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
     }
 
     public String getErpCorporationCode() {
@@ -104,6 +104,14 @@ public class CustomerCorporation extends BaseAuditableEntity implements Serializ
         this.paymentTermCode = paymentTermCode;
     }
 
+    public Boolean getPayFrozen() {
+        return payFrozen;
+    }
+
+    public void setPayFrozen(Boolean payFrozen) {
+        this.payFrozen = payFrozen;
+    }
+
     @Override
     public Boolean getFrozen() {
         return frozen;
@@ -112,14 +120,6 @@ public class CustomerCorporation extends BaseAuditableEntity implements Serializ
     @Override
     public void setFrozen(Boolean frozen) {
         this.frozen = frozen;
-    }
-
-    public Boolean getPayFrozen() {
-        return payFrozen;
-    }
-
-    public void setPayFrozen(Boolean payFrozen) {
-        this.payFrozen = payFrozen;
     }
 
     @Override
