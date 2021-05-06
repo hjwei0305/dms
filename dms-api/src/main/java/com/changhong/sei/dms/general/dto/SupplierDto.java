@@ -1,6 +1,7 @@
 package com.changhong.sei.dms.general.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
+import com.changhong.sei.dms.annotation.MasterData;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
  * @author sei
  * @since 2021-05-06 14:07:48
  */
+@MasterData(code = "Supplier", name = "供应商")
 @ApiModel(description = "供应商DTO")
 public class SupplierDto extends BaseEntityDto {
     private static final long serialVersionUID = 919578515133581473L;

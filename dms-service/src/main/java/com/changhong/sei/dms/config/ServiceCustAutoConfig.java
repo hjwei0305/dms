@@ -166,4 +166,16 @@ public class ServiceCustAutoConfig {
     public SupplierExcelService supplierExcelService(SupplierService service) {
         return new DefaultSupplierExcelService(service);
     }
+
+
+    /**
+     * 汇率导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
+    @Bean("exchangeRateExcelService")
+    @ConditionalOnMissingBean(ExchangeRateExcelService.class)
+    public ExchangeRateExcelService exchangeRateExcelService(ExchangeRateService service) {
+        return new DefaultExchangeRateExcelService(service);
+    }
 }
