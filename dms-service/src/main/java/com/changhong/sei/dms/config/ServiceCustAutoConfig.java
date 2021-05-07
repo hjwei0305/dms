@@ -188,4 +188,15 @@ public class ServiceCustAutoConfig {
     public BankCategoryExcelService bankCategoryExcelService(BankCategoryService service) {
         return new DefaultBankCategoryExcelService(service);
     }
+
+    /**
+     * 银行省区导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
+    @Bean("bankProvincesExcelService")
+    @ConditionalOnMissingBean(BankProvincesExcelService.class)
+    public BankProvincesExcelService bankProvincesExcelService(BankProvincesService service) {
+        return new DefaultBankProvincesExcelService(service);
+    }
 }
