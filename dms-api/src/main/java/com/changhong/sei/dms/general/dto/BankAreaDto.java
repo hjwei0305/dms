@@ -9,15 +9,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
- * 银行城市(BankCity)DTO类
+ * 银行地区(BankArea)DTO类
  *
  * @author sei
- * @since 2021-05-07 15:13:25
+ * @since 2021-05-07 15:55:29
  */
-@MasterData(code = "BankCity", name = "银行城市")
-@ApiModel(description = "银行城市DTO")
-public class BankCityDto extends BaseEntityDto {
-    private static final long serialVersionUID = -94964024585132997L;
+@MasterData(code = "BankArea", name = "银行地区")
+@ApiModel(description = "银行地区DTO")
+public class BankAreaDto extends BaseEntityDto {
+    private static final long serialVersionUID = -13214805485278715L;
     /**
      * 代码
      */
@@ -39,17 +39,25 @@ public class BankCityDto extends BaseEntityDto {
     @ApiModelProperty(value = "名称")
     private String name;
     /**
-     * 银行省区Id
+     * 银行城市Id
      */
-    @NotBlank
-    @ApiModelProperty(value = "银行省区Id")
-    private String bankProvinceId;
-
+    @ApiModelProperty(value = "银行城市Id")
+    private String bankCityId;
     /**
-     * 银行省区
+     * 银行城市
      */
-    @ApiModelProperty(value = "银行省区")
-    private BankProvincesDto bankProvince;
+    @ApiModelProperty(value = "银行城市")
+    private BankCityDto bankCity;
+    /**
+     * 级别代码
+     */
+    @ApiModelProperty(value = "级别代码")
+    private Integer levelCode;
+    /**
+     * 级别名称
+     */
+    @ApiModelProperty(value = "级别名称")
+    private String levelName;
     /**
      * 已冻结
      */
@@ -91,20 +99,36 @@ public class BankCityDto extends BaseEntityDto {
         this.name = name;
     }
 
-    public String getBankProvinceId() {
-        return bankProvinceId;
+    public String getBankCityId() {
+        return bankCityId;
     }
 
-    public void setBankProvinceId(String bankProvinceId) {
-        this.bankProvinceId = bankProvinceId;
+    public void setBankCityId(String bankCityId) {
+        this.bankCityId = bankCityId;
     }
 
-    public BankProvincesDto getBankProvince() {
-        return bankProvince;
+    public BankCityDto getBankCity() {
+        return bankCity;
     }
 
-    public void setBankProvince(BankProvincesDto bankProvince) {
-        this.bankProvince = bankProvince;
+    public void setBankCity(BankCityDto bankCity) {
+        this.bankCity = bankCity;
+    }
+
+    public Integer getLevelCode() {
+        return levelCode;
+    }
+
+    public void setLevelCode(Integer levelCode) {
+        this.levelCode = levelCode;
+    }
+
+    public String getLevelName() {
+        return levelName;
+    }
+
+    public void setLevelName(String levelName) {
+        this.levelName = levelName;
     }
 
     public Boolean getFrozen() {
