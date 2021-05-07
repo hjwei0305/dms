@@ -16,6 +16,6 @@ import javax.validation.Valid;
  */
 @Valid
 @FeignClient(name = "dms", path = "cashFlowCode")
-public interface CashFlowCodeApi extends BaseEntityApi<CashFlowCodeDto>, FindByPageApi<CashFlowCodeDto>, FindAllApi<CashFlowCodeDto> {
+public interface CashFlowCodeApi extends BaseEntityApi<CashFlowCodeDto>, FindByPageApi<CashFlowCodeDto> {
 
 }

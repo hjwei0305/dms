@@ -167,7 +167,6 @@ public class ServiceCustAutoConfig {
         return new DefaultSupplierExcelService(service);
     }
 
-
     /**
      * 汇率导入导出扩展实现
      *
@@ -177,5 +176,16 @@ public class ServiceCustAutoConfig {
     @ConditionalOnMissingBean(ExchangeRateExcelService.class)
     public ExchangeRateExcelService exchangeRateExcelService(ExchangeRateService service) {
         return new DefaultExchangeRateExcelService(service);
+    }
+
+    /**
+     * 银行类别导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
+    @Bean("bankCategoryExcelService")
+    @ConditionalOnMissingBean(BankCategoryExcelService.class)
+    public BankCategoryExcelService bankCategoryExcelService(BankCategoryService service) {
+        return new DefaultBankCategoryExcelService(service);
     }
 }

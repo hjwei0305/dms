@@ -25,7 +25,7 @@ public class CashFlowCodeDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 30)
-    @ApiModelProperty(value = "代码", notes = "必需，最大长度200", required = true)
+    @ApiModelProperty(value = "代码",  required = true)
     private String code;
 
     /**
@@ -33,7 +33,7 @@ public class CashFlowCodeDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 200)
-    @ApiModelProperty(value = "名称",  notes = "必需，最大长度200", required = true)
+    @ApiModelProperty(value = "名称", required = true)
     private String name;
 
     /**
