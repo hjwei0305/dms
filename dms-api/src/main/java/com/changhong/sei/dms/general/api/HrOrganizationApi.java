@@ -4,6 +4,7 @@ import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.dms.general.dto.HrOrganizationDto;
+import com.changhong.sei.dms.general.dto.RegionDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -24,6 +25,15 @@ import java.util.List;
 @FeignClient(name = "dms", path = HrOrganizationApi.PATH)
 public interface HrOrganizationApi extends BaseEntityApi<HrOrganizationDto>, FindByPageApi<HrOrganizationDto> {
     String PATH = "hrOrganization";
+
+    /**
+     * 获取所有HR组织机构树
+     *
+     * @return HR组织机构树形对象集合
+     */
+    @GetMapping(path = "getMultipleRoots")
+    @ApiOperation(notes = "获取所有HR组织机构树", value = "获取所有HR组织机构树")
+    ResultData<List<HrOrganizationDto>> getMultipleRoots();
 
     /**
      * 获取未冻结的HR组织机构树

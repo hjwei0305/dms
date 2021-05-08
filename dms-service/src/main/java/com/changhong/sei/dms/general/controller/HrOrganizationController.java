@@ -9,6 +9,7 @@ import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.dms.general.api.HrOrganizationApi;
 import com.changhong.sei.dms.general.dto.HrOrganizationDto;
 import com.changhong.sei.dms.general.dto.InnerOrderDto;
+import com.changhong.sei.dms.general.dto.RegionDto;
 import com.changhong.sei.dms.general.entity.HrOrganization;
 import com.changhong.sei.dms.general.service.HrOrganizationService;
 import io.swagger.annotations.Api;
@@ -53,11 +54,21 @@ public class HrOrganizationController extends BaseEntityController<HrOrganizatio
     }
 
     /**
+     * 获取所有HR组织机构树
+     *
+     * @return HR组织机构树形对象集合
+     */
+    @Override
+    public ResultData<List<HrOrganizationDto>> getMultipleRoots() {
+        return service.getTree(Boolean.TRUE);
+    }
+
+    /**
      * 获取HR组织机构树（未冻结的）
      */
     @Override
     public ResultData<List<HrOrganizationDto>> getUnfrozenTree() {
-        return service.getUnfrozenTree();
+        return service.getTree(Boolean.FALSE);
     }
 
     /**

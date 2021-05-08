@@ -68,12 +68,18 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
 
     /**
      * 获取HR组织机构树（未冻结的）
+     * containsFreeze 包含冻结
      *
      * @return HrOrganization多根树对象集合
      */
-    public ResultData<List<HrOrganizationDto>> getUnfrozenTree() {
+    public ResultData<List<HrOrganizationDto>> getTree(Boolean containsFreeze) {
         List<HrOrganizationDto> treeList = new ArrayList<>();
-        List<HrOrganization> allList = dao.findAllUnfrozen();
+        List<HrOrganization> allList = new ArrayList<>();
+        if (containsFreeze) {
+            allList = dao.findAll();
+        } else {
+            allList = dao.findAllUnfrozen();
+        }
         List<HrOrganization> rootNodeList = allList.stream().filter(a -> StringUtils.isBlank(a.getParentCode())).collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(rootNodeList)) {
             allList.removeAll(rootNodeList);
@@ -82,7 +88,7 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
                     HrOrganizationDto rootDto = dtoModelMapper.map(rootNode, HrOrganizationDto.class);
                     rootDto.setCodePath(HrOrganizationDto.CODE_DELIMITER + rootNode.getCode());
                     rootDto.setNamePath(HrOrganizationDto.NAME_DELIMITER + rootNode.getName());
-                    HrOrganizationDto tree = getTree(rootDto, allList);
+                    HrOrganizationDto tree = constructTree(rootDto, allList);
                     treeList.add(tree);
                 }
             }
@@ -97,7 +103,7 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
      * @param allChildrenList 子节点清单
      * @return 返回指定节点树形对象
      */
-    private HrOrganizationDto getTree(HrOrganizationDto rootNode, List<HrOrganization> allChildrenList) {
+    private HrOrganizationDto constructTree(HrOrganizationDto rootNode, List<HrOrganization> allChildrenList) {
         List<HrOrganizationDto> childrenTreeList = new ArrayList<>();
         if (Objects.nonNull(rootNode)) {
             if (CollectionUtils.isNotEmpty(allChildrenList)) {
@@ -112,7 +118,7 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
                             childrenDto.setNamePath(rootNode.getNamePath() + HrOrganizationDto.NAME_DELIMITER + childrenDto.getName());
                             childrenDto.setNodeLevel(rootNode.getNodeLevel() + 1);
                             childrenDto.setParentId(rootNode.getId());
-                            HrOrganizationDto childrenTree = getTree(childrenDto, allChildrenList);
+                            HrOrganizationDto childrenTree = constructTree(childrenDto, allChildrenList);
                             childrenTreeList.add(childrenTree);
                         }
                     });
