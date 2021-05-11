@@ -166,4 +166,17 @@ public class HrOrganizationService extends BaseEntityService<HrOrganization> {
         return save(hrOrganization);
     }
 
+    /**
+     * 根据HR组织机构代码获取HR组织机构
+     *
+     * @param code HR组织机构代码
+     */
+    public HrOrganization findByCode(String code) {
+        if (StringUtils.isNotBlank(code)) {
+            return findByProperty("code", code);
+        } else {
+            return null;
+        }
+    }
+
 }

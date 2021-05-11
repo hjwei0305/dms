@@ -8,8 +8,6 @@ import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.dms.general.api.HrOrganizationApi;
 import com.changhong.sei.dms.general.dto.HrOrganizationDto;
-import com.changhong.sei.dms.general.dto.InnerOrderDto;
-import com.changhong.sei.dms.general.dto.RegionDto;
 import com.changhong.sei.dms.general.entity.HrOrganization;
 import com.changhong.sei.dms.general.service.HrOrganizationService;
 import io.swagger.annotations.Api;
@@ -104,5 +102,15 @@ public class HrOrganizationController extends BaseEntityController<HrOrganizatio
         // 数据转换 to DTO
         HrOrganizationDto resultData = convertToDto(result.getData());
         return ResultData.success(result.getMessage(), resultData);
+    }
+
+    /**
+     * 根据HR组织机构代码获取HR组织机构
+     *
+     * @param code
+     */
+    @Override
+    public ResultData<HrOrganizationDto> findByCode(String code) {
+        return ResultData.success(convertToDto(service.findByCode(code)));
     }
 }

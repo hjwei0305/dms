@@ -63,4 +63,11 @@ public interface HrOrganizationApi extends BaseEntityApi<HrOrganizationDto>, Fin
     @PostMapping(path = "removeRelation", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "移除映射关系", notes = "移除HR组织机构的映射关系")
     ResultData<HrOrganizationDto> removeRelation(@RequestParam("id") String id);
+
+    /**
+     * 根据HR组织机构代码获取HR组织机构
+     */
+    @GetMapping(path = "findByCode")
+    @ApiOperation(value = "根据HR组织机构代码获取HR组织机构", notes = "根据HR组织机构代码获取HR组织机构")
+    ResultData<HrOrganizationDto> findByCode(@RequestParam("code") String code);
 }
