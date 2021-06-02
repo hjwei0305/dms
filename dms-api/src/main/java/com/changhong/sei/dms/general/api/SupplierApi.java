@@ -5,6 +5,7 @@ import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
+import com.changhong.sei.dms.general.dto.CustomerDto;
 import com.changhong.sei.dms.general.dto.SupplierCorporationDto;
 import com.changhong.sei.dms.general.dto.SupplierDto;
 import io.swagger.annotations.ApiOperation;
@@ -68,5 +69,17 @@ public interface SupplierApi extends BaseEntityApi<SupplierDto>, FindByPageApi<S
     @PostMapping(path = "findCorporationInfoByPage", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "分页查询供应商的公司信息", notes = "分页查询供应商的公司信息")
     ResultData<PageResult<SupplierCorporationDto>> findCorporationInfoByPage(@RequestBody Search search);
+
+
+
+    /**
+     * 根据代码查询供应商
+     *
+     * @param code 供应商代码
+     * @return 供应商
+     */
+    @GetMapping(path = "findByCode")
+    @ApiOperation(value = "根据代码查询供应商", notes = "根据代码查询供应商")
+    ResultData<SupplierDto> findByCode(@RequestParam("code") String code);
 
 }

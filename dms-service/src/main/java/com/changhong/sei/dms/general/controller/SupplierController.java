@@ -11,12 +11,12 @@ import com.changhong.sei.core.service.bo.OperateResult;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.dms.general.api.SupplierApi;
-import com.changhong.sei.dms.general.dto. SupplierCorporationDto;
+import com.changhong.sei.dms.general.dto.SupplierCorporationDto;
 import com.changhong.sei.dms.general.dto.SupplierCorporationDto;
 import com.changhong.sei.dms.general.dto.SupplierDto;
-import com.changhong.sei.dms.general.entity. SupplierCorporation;
+import com.changhong.sei.dms.general.entity.SupplierCorporation;
 import com.changhong.sei.dms.general.entity.Supplier;
-import com.changhong.sei.dms.general.service. SupplierCorporationService;
+import com.changhong.sei.dms.general.service.SupplierCorporationService;
 import com.changhong.sei.dms.general.service.SupplierCorporationService;
 import com.changhong.sei.dms.general.service.SupplierService;
 import io.swagger.annotations.Api;
@@ -69,7 +69,7 @@ public class SupplierController extends BaseEntityController<Supplier, SupplierD
      */
     @Override
     public ResultData<List<SupplierCorporationDto>> getCorporationInfo(String supplierId) {
-        List< SupplierCorporation> supplierCorporationList = supplierCorporationService.findByFilter(new SearchFilter("supplierId", supplierId));
+        List<SupplierCorporation> supplierCorporationList = supplierCorporationService.getCorporationInfo(supplierId);
         return ResultData.success(corporationInfoConvertToDtos(supplierCorporationList));
     }
 
@@ -85,13 +85,13 @@ public class SupplierController extends BaseEntityController<Supplier, SupplierD
             // 输入的数据传输对象为空！
             return ResultData.fail(ContextUtil.getMessage("core_service_00002"));
         }
-         SupplierCorporation supplierCorporation = corporationInfoConvertToEntity(dto);
-        OperateResultWithData< SupplierCorporation> saveResult = supplierCorporationService.save(supplierCorporation);
+        SupplierCorporation supplierCorporation = corporationInfoConvertToEntity(dto);
+        OperateResultWithData<SupplierCorporation> saveResult = supplierCorporationService.save(supplierCorporation);
         if (saveResult.notSuccessful()) {
             return ResultData.fail(saveResult.getMessage());
         }
         // 数据转换 to DTO
-         SupplierCorporationDto resultData = corporationInfoConvertToDto(saveResult.getData());
+        SupplierCorporationDto resultData = corporationInfoConvertToDto(saveResult.getData());
         return ResultData.success(saveResult.getMessage(), resultData);
     }
 
@@ -130,12 +130,23 @@ public class SupplierController extends BaseEntityController<Supplier, SupplierD
     }
 
     /**
+     * 根据代码查询供应商
+     *
+     * @param code 供应商代码
+     * @return 供应商
+     */
+    @Override
+    public ResultData<SupplierDto> findByCode(String code) {
+        return ResultData.success(convertToDto(service.findByCode(code)));
+    }
+
+    /**
      * 将供应商的公司信息清单转换成DTO清单
      *
      * @param entities 数据实体清单
      * @return DTO清单
      */
-    private List< SupplierCorporationDto> corporationInfoConvertToDtos(List< SupplierCorporation> entities) {
+    private List<SupplierCorporationDto> corporationInfoConvertToDtos(List<SupplierCorporation> entities) {
         if (Objects.isNull(entities)) {
             return null;
         }
@@ -152,9 +163,9 @@ public class SupplierController extends BaseEntityController<Supplier, SupplierD
      * @param pageResult 供应商的公司信息分页查询结果
      * @return 返回结果
      */
-    private ResultData<PageResult< SupplierCorporationDto>> corporationInfoConvertToDtoPageResult(PageResult< SupplierCorporation> pageResult) {
-        PageResult< SupplierCorporationDto> result = new PageResult<>(pageResult);
-        List< SupplierCorporationDto> dtos = corporationInfoConvertToDtos(pageResult.getRows());
+    private ResultData<PageResult<SupplierCorporationDto>> corporationInfoConvertToDtoPageResult(PageResult<SupplierCorporation> pageResult) {
+        PageResult<SupplierCorporationDto> result = new PageResult<>(pageResult);
+        List<SupplierCorporationDto> dtos = corporationInfoConvertToDtos(pageResult.getRows());
         result.setRows(dtos);
         return ResultData.success(result);
     }
@@ -165,11 +176,11 @@ public class SupplierController extends BaseEntityController<Supplier, SupplierD
      * @param entity 供应商的公司信息
      * @return DTO
      */
-    private  SupplierCorporationDto corporationInfoConvertToDto( SupplierCorporation entity) {
+    private SupplierCorporationDto corporationInfoConvertToDto(SupplierCorporation entity) {
         if (Objects.isNull(entity)) {
             return null;
         }
-         SupplierCorporationDto result = new  SupplierCorporationDto();
+        SupplierCorporationDto result = new SupplierCorporationDto();
         mapper.map(entity, result);
         return result;
     }
@@ -180,11 +191,11 @@ public class SupplierController extends BaseEntityController<Supplier, SupplierD
      * @param dto 供应商的公司信息DTO
      * @return 实体
      */
-    private  SupplierCorporation corporationInfoConvertToEntity( SupplierCorporationDto dto) {
+    private SupplierCorporation corporationInfoConvertToEntity(SupplierCorporationDto dto) {
         if (Objects.isNull(dto)) {
             return null;
         }
-         SupplierCorporation result = new  SupplierCorporation();
+        SupplierCorporation result = new SupplierCorporation();
         mapper.map(dto, result);
         return result;
     }

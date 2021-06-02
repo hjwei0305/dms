@@ -69,7 +69,7 @@ public class CustomerController extends BaseEntityController<Customer, CustomerD
      */
     @Override
     public ResultData<List<CustomerCorporationDto>> getCorporationInfo(String customerId) {
-        List<CustomerCorporation> customerCorporationList = customerCorporationService.findByFilter(new SearchFilter("customerId", customerId));
+        List<CustomerCorporation> customerCorporationList = customerCorporationService.getCorporationInfo(customerId);
         return ResultData.success(corporationInfoConvertToDtos(customerCorporationList));
     }
 
@@ -129,6 +129,16 @@ public class CustomerController extends BaseEntityController<Customer, CustomerD
         return convertToDtoPageResult(service.findByPage(search));
     }
 
+    /**
+     * 根据代码查询客户
+     *
+     * @param code 客户代码
+     * @return 客户
+     */
+    @Override
+    public ResultData<CustomerDto> findByCode(String code) {
+        return ResultData.success(convertToDto(service.findByCode(code)));
+    }
 
     /**
      * 将客户的公司信息清单转换成DTO清单

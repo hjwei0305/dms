@@ -67,4 +67,17 @@ public interface CustomerApi extends BaseEntityApi<CustomerDto>, FindByPageApi<C
     @PostMapping(path = "findCorporationInfoByPage", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "分页查询客户的公司信息", notes = "分页查询客户的公司信息")
     ResultData<PageResult<CustomerCorporationDto>> findCorporationInfoByPage(@RequestBody Search search);
+
+
+    /**
+     * 根据代码查询客户
+     *
+     * @param code 客户代码
+     * @return 客户
+     */
+    @GetMapping(path = "findByCode")
+    @ApiOperation(value = "根据代码查询客户", notes = "根据代码查询客户")
+    ResultData<CustomerDto> findByCode(@RequestParam("code") String code);
+
+
 }
