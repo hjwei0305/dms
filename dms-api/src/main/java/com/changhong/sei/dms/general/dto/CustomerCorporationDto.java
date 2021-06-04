@@ -4,6 +4,9 @@ import com.changhong.sei.core.dto.BaseEntityDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 /**
  * 客户的公司视图(CustomerCorporation)DTO类
  *
@@ -16,7 +19,8 @@ public class CustomerCorporationDto extends BaseEntityDto {
     /**
      * 客户Id
      */
-    @ApiModelProperty(value = "客户Id")
+    @NotBlank
+    @ApiModelProperty(value = "客户Id",required = true)
     private String customerId;
     /**
      * 客户
@@ -26,16 +30,20 @@ public class CustomerCorporationDto extends BaseEntityDto {
     /**
      * ERP公司代码
      */
-    @ApiModelProperty(value = "ERP公司代码")
+    @NotBlank
+    @Size(max = 10)
+    @ApiModelProperty(value = "ERP公司代码",required = true)
     private String erpCorporationCode;
     /**
      * 统驭科目代码
      */
+    @Size(max = 10)
     @ApiModelProperty(value = "统驭科目代码")
     private String accountCode;
     /**
      * 支付条款代码
      */
+    @Size(max = 4)
     @ApiModelProperty(value = "支付条款代码")
     private String paymentTermCode;
     /**

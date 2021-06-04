@@ -23,14 +23,14 @@ public class CustomerDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 20)
-    @ApiModelProperty(value = "代码")
+    @ApiModelProperty(value = "代码",required = true)
     private String code;
     /**
      * 名称
      */
     @NotBlank
     @Size(max = 100)
-    @ApiModelProperty(value = "名称")
+    @ApiModelProperty(value = "名称",required = true)
     private String name;
     /**
      * 账户组
