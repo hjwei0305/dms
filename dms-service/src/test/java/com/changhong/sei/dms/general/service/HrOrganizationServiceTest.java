@@ -23,12 +23,6 @@ class HrOrganizationServiceTest extends BaseUnit5Test {
     }
 
     @Test
-    void getUnfrozenTree() {
-        ResultData<List<HrOrganizationDto>> tree = service.getUnfrozenTree();
-        System.out.println(tree);
-    }
-
-    @Test
     void insertRelation() {
     }
 
