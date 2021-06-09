@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @since 2021-05-06 13:05:15
  */
 @Repository
-public interface CustomerDao extends BaseEntityDao<Customer> {
+public interface CustomerDao extends BaseEntityDao<Customer>, CustomerExtDao {
 
 }
