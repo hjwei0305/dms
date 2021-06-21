@@ -8,15 +8,9 @@ import com.changhong.sei.annotation.Remark;
  * @author 杨沄炜
  * @create 2021/06/21 11:28
  */
-public enum TaxCategoryEnum {
+public enum TaxCategory {
     @Remark("销项")
-    TaxCategoryEnum0(0),
+    OUTPUT,
     @Remark("进项")
-    TaxCategoryEnum1(1);
-
-    private int value;
-
-    private TaxCategoryEnum(int num) {
-        this.value = num;
-    }
+    INPUT
 }

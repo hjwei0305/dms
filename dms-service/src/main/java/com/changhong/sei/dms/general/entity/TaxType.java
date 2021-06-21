@@ -4,7 +4,7 @@ import com.changhong.sei.core.dto.IRank;
 import com.changhong.sei.core.entity.BaseAuditableEntity;
 import com.changhong.sei.core.entity.ICodeUnique;
 import com.changhong.sei.core.entity.ITenant;
-import com.changhong.sei.dms.general.dto.TaxCategoryEnum;
+import com.changhong.sei.dms.general.dto.TaxCategory;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -45,9 +45,9 @@ public class TaxType extends BaseAuditableEntity implements Serializable, ICodeU
     /**
      * 税分类
      */
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(name = "tax_category", nullable = false, length = 20)
-    private TaxCategoryEnum taxCategory = TaxCategoryEnum.TaxCategoryEnum0;
+    private TaxCategory taxCategory = TaxCategory.OUTPUT;
 
     /**
      * 税率
@@ -143,9 +143,9 @@ public class TaxType extends BaseAuditableEntity implements Serializable, ICodeU
 
     public void setName(String name) { this.name = name; }
 
-    public TaxCategoryEnum getTaxCategory() { return taxCategory; }
+    public TaxCategory getTaxCategory() { return taxCategory; }
 
-    public void setTaxCategory(TaxCategoryEnum taxCategory) { this.taxCategory = taxCategory; }
+    public void setTaxCategory(TaxCategory taxCategory) { this.taxCategory = taxCategory; }
 
     public Double getTaxRate() { return taxRate; }
 
