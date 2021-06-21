@@ -9,8 +9,8 @@ import com.changhong.sei.annotation.Remark;
  * @create 2021/06/21 11:28
  */
 public enum TaxCategory {
-    @Remark("销项")
+    @Remark("销项税")
     OUTPUT,
-    @Remark("进项")
+    @Remark("进项税")
     INPUT
 }

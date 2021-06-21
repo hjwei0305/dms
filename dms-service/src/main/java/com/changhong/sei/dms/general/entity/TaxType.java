@@ -9,7 +9,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -22,7 +22,7 @@ import java.util.Date;
 @Table(name = "tax_type")
 @DynamicInsert
 @DynamicUpdate
-public class TaxType extends BaseAuditableEntity implements Serializable, ICodeUnique, IRank, ITenant{
+public class TaxType extends BaseAuditableEntity implements ICodeUnique, IRank, ITenant{
     private static final long serialVersionUID = -1710768247895818110L;
     /**
      * Id
@@ -33,7 +33,7 @@ public class TaxType extends BaseAuditableEntity implements Serializable, ICodeU
     /**
      * 税码
      */
-    @Column(name = "code", length = 4, nullable = false, unique = true)
+    @Column(name = "code", length = 10, nullable = false, unique = true)
     private String code;
 
     /**
@@ -53,13 +53,13 @@ public class TaxType extends BaseAuditableEntity implements Serializable, ICodeU
      * 税率
      */
     @Column(name = "tax_rate", nullable = false, precision = 10, scale = 4)
-    private Double taxRate = 0.00;
+    private BigDecimal taxRate = BigDecimal.ZERO;
 
     /**
      * 排序
      */
     @Column(name = "rank", nullable = false)
-    private Integer rank;
+    private Integer rank = 0;
 
     /**
      * 总账科目代码
@@ -147,9 +147,9 @@ public class TaxType extends BaseAuditableEntity implements Serializable, ICodeU
 
     public void setTaxCategory(TaxCategory taxCategory) { this.taxCategory = taxCategory; }
 
-    public Double getTaxRate() { return taxRate; }
+    public BigDecimal getTaxRate() { return taxRate; }
 
-    public void setTaxRate(Double taxRate) { this.taxRate = taxRate; }
+    public void setTaxRate(BigDecimal taxRate) { this.taxRate = taxRate; }
 
     @Override
     public Integer getRank() { return rank; }
