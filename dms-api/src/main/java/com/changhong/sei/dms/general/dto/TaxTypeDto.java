@@ -24,19 +24,11 @@ import java.util.Date;
 public class TaxTypeDto extends BaseEntityDto  {
     private static final long serialVersionUID = -6796808683898161332L;
     /**
-     * Id
-     */
-    @NotBlank
-    @Size(max = 36)
-    @ApiModelProperty(value = "Id(必需，最大长度36)")
-    private String id;
-
-    /**
      * 税码
      */
     @NotBlank
     @Size(max = 10)
-    @ApiModelProperty(value = "税码(必需，最大长度10)")
+    @ApiModelProperty(value = "税码", required = true)
     private String code;
 
     /**
@@ -44,7 +36,7 @@ public class TaxTypeDto extends BaseEntityDto  {
      */
     @NotBlank
     @Size(max = 50)
-    @ApiModelProperty(value = "名称(必需，最大长度50)")
+    @ApiModelProperty(value = "名称", required = true)
     private String name;
 
     /**
@@ -52,35 +44,35 @@ public class TaxTypeDto extends BaseEntityDto  {
      */
     @NotNull
     @JsonSerialize(using = EnumJsonSerializer.class)
-    @ApiModelProperty(value = "税分类(必需)")
-    private TaxCategory taxCategory;
+    @ApiModelProperty(value = "税分类", required = true)
+    private TaxCategory taxCategory = TaxCategory.OUTPUT;
 
     /**
      * 税率
      */
     @NotNull
-    @ApiModelProperty(value = "税率(必需，精确到小数点后四位)")
-    private BigDecimal taxRate;
+    @ApiModelProperty(value = "税率", required = true)
+    private BigDecimal taxRate = BigDecimal.ZERO;
 
     /**
      * 排序
      */
     @NotNull
-    @ApiModelProperty(value = "排序（必需）")
-    private Integer rank;
+    @ApiModelProperty(value = "排序", required = true)
+    private Integer rank = 0;
 
     /**
      * 总账科目代码
      */
     @Size(max = 20)
-    @ApiModelProperty(value = "总账科目代码（最大长度20）")
+    @ApiModelProperty(value = "总账科目代码")
     private String ledgerAccountCode;
 
     /**
      * 总账科目名称
      */
     @Size(max = 100)
-    @ApiModelProperty(value = "总账科目名称（最大长度100）")
+    @ApiModelProperty(value = "总账科目名称")
     private String ledgerAccountName;
 
     /**
@@ -88,28 +80,28 @@ public class TaxTypeDto extends BaseEntityDto  {
      */
     @NotBlank
     @Size(max = 10)
-    @ApiModelProperty(value = "租户代码(必需，最大长度10）")
+    @ApiModelProperty(value = "租户代码", required = true)
     private String tenantCode;
 
     /**
      * 创建人Id
      */
     @Size(max = 36)
-    @ApiModelProperty(value = "创建人Id（最大长度36）")
+    @ApiModelProperty(value = "创建人Id")
     private String creatorId;
 
     /**
      * 创建人账号
      */
     @Size(max = 50)
-    @ApiModelProperty(value = "创建人账号（最大长度50）")
+    @ApiModelProperty(value = "创建人账号")
     private String creatorAccount;
 
     /**
      * 创建人名称
      */
     @Size(max = 50)
-    @ApiModelProperty(value = "创建人名称（最大长度50）")
+    @ApiModelProperty(value = "创建人名称")
     private String creatorName;
 
     /**
@@ -122,21 +114,21 @@ public class TaxTypeDto extends BaseEntityDto  {
      * 最后修改人Id
      */
     @Size(max = 36)
-    @ApiModelProperty(value = "最后修改人Id（最大长度36）")
+    @ApiModelProperty(value = "最后修改人Id")
     private String lastEditorId;
 
     /**
      * 最后修改人账号
      */
     @Size(max = 50)
-    @ApiModelProperty(value = "最后修改人账号（最大长度50）")
+    @ApiModelProperty(value = "最后修改人账号")
     private String lastEditorAccount;
 
     /**
      * 最后修改人名称
      */
     @Size(max = 50)
-    @ApiModelProperty(value = "最后修改人名称（最大长度50）")
+    @ApiModelProperty(value = "最后修改人名称")
     private String lastEditorName;
 
     /**
@@ -174,6 +166,10 @@ public class TaxTypeDto extends BaseEntityDto  {
     public String getLedgerAccountCode() { return ledgerAccountCode; }
 
     public void setLedgerAccountCode(String ledgerAccountCode) { this.ledgerAccountCode = ledgerAccountCode; }
+
+    public String getLedgerAccountName() { return ledgerAccountName; }
+
+    public void setLedgerAccountName(String ledgerAccountName) { this.ledgerAccountName = ledgerAccountName; }
 
     public String getTenantCode() { return tenantCode; }
 
