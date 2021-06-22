@@ -78,64 +78,9 @@ public class TaxTypeDto extends BaseEntityDto  {
     /**
      * 租户代码
      */
-    @NotBlank
     @Size(max = 10)
-    @ApiModelProperty(value = "租户代码", required = true)
+    @ApiModelProperty(value = "租户代码")
     private String tenantCode;
-
-    /**
-     * 创建人Id
-     */
-    @Size(max = 36)
-    @ApiModelProperty(value = "创建人Id")
-    private String creatorId;
-
-    /**
-     * 创建人账号
-     */
-    @Size(max = 50)
-    @ApiModelProperty(value = "创建人账号")
-    private String creatorAccount;
-
-    /**
-     * 创建人名称
-     */
-    @Size(max = 50)
-    @ApiModelProperty(value = "创建人名称")
-    private String creatorName;
-
-    /**
-     * 创建时间
-     */
-    @ApiModelProperty(value = "创建时间")
-    private Date createdDate;
-
-    /**
-     * 最后修改人Id
-     */
-    @Size(max = 36)
-    @ApiModelProperty(value = "最后修改人Id")
-    private String lastEditorId;
-
-    /**
-     * 最后修改人账号
-     */
-    @Size(max = 50)
-    @ApiModelProperty(value = "最后修改人账号")
-    private String lastEditorAccount;
-
-    /**
-     * 最后修改人名称
-     */
-    @Size(max = 50)
-    @ApiModelProperty(value = "最后修改人名称")
-    private String lastEditorName;
-
-    /**
-     * 最后修改时间
-     */
-    @ApiModelProperty(value = "最后修改时间")
-    private Date lastEditedDate;
 
     @Override
     public String getId() { return id; }
@@ -174,36 +119,4 @@ public class TaxTypeDto extends BaseEntityDto  {
     public String getTenantCode() { return tenantCode; }
 
     public void setTenantCode(String tenantCode) { this.tenantCode = tenantCode; }
-
-    public String getCreatorId() { return creatorId; }
-
-    public void setCreatorId(String creatorId) { this.creatorId = creatorId; }
-
-    public String getCreatorAccount() { return creatorAccount; }
-
-    public void setCreatorAccount(String creatorAccount) { this.creatorAccount = creatorAccount; }
-
-    public String getCreatorName() { return creatorName; }
-
-    public void setCreatorName(String creatorName) { this.creatorName = creatorName; }
-
-    public Date getCreatedDate() { return createdDate; }
-
-    public void setCreatedDate(Date createdDate) { this.createdDate = createdDate; }
-
-    public String getLastEditorId() { return lastEditorId; }
-
-    public void setLastEditorId(String lastEditorId) { this.lastEditorId = lastEditorId; }
-
-    public String getLastEditorAccount() { return lastEditorAccount; }
-
-    public void setLastEditorAccount(String lastEditorAccount) { this.lastEditorAccount = lastEditorAccount; }
-
-    public String getLastEditorName() { return lastEditorName; }
-
-    public void setLastEditorName(String lastEditorName) { this.lastEditorName = lastEditorName; }
-
-    public Date getLastEditedDate() { return lastEditedDate; }
-
-    public void setLastEditedDate(Date lastEditedDate) { this.lastEditedDate = lastEditedDate; }
 }

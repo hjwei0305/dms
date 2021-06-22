@@ -79,54 +79,6 @@ public class TaxType extends BaseAuditableEntity implements ICodeUnique, IRank, 
     @Column(name = "tenant_code", length = 10, nullable = false, unique = true)
     private String tenantCode;
 
-    /**
-     * 创建人Id
-     */
-    @Column(name = "creator_id", length = 36)
-    private String creatorId;
-
-    /**
-     * 创建人账号
-     */
-    @Column(name = "creator_account", length = 50)
-    private String creatorAccount;
-
-    /**
-     * 创建人名称
-     */
-    @Column(name = "creator_name", length = 50)
-    private String creatorName;
-
-    /**
-     * 创建时间
-     */
-    @Column(name = "created_time")
-    private Date createdDate;
-
-    /**
-     * 最后修改人Id
-     */
-    @Column(name = "last_editor_id", length = 36)
-    private String lastEditorId;
-
-    /**
-     * 最后修改人账号
-     */
-    @Column(name = "last_editor_account", length = 50)
-    private String lastEditorAccount;
-
-    /**
-     * 最后修改人名称
-     */
-    @Column(name = "last_editor_name", length = 50)
-    private String lastEditorName;
-
-    /**
-     * 最后修改时间
-     */
-    @Column(name = "last_edited_date")
-    private Date lastEditedDate;
-
     @Override
     public String getId() { return id; }
 
@@ -169,52 +121,4 @@ public class TaxType extends BaseAuditableEntity implements ICodeUnique, IRank, 
 
     @Override
     public void setTenantCode(String tenantCode) { this.tenantCode = tenantCode; }
-
-    @Override
-    public String getCreatorId() { return creatorId; }
-
-    @Override
-    public void setCreatorId(String creatorId) { this.creatorId = creatorId; }
-
-    @Override
-    public String getCreatorAccount() { return creatorAccount; }
-
-    @Override
-    public void setCreatorAccount(String creatorAccount) { this.creatorAccount = creatorAccount; }
-
-    @Override
-    public String getCreatorName() { return creatorName; }
-
-    @Override
-    public void setCreatorName(String creatorName) { this.creatorName = creatorName; }
-
-    @Override
-    public Date getCreatedDate() { return createdDate; }
-
-    @Override
-    public void setCreatedDate(Date createdDate) { this.createdDate = createdDate; }
-
-    @Override
-    public String getLastEditorId() { return lastEditorId; }
-
-    @Override
-    public void setLastEditorId(String lastEditorId) { this.lastEditorId = lastEditorId; }
-
-    @Override
-    public String getLastEditorAccount() { return lastEditorAccount; }
-
-    @Override
-    public void setLastEditorAccount(String lastEditorAccount) { this.lastEditorAccount = lastEditorAccount; }
-
-    @Override
-    public String getLastEditorName() { return lastEditorName; }
-
-    @Override
-    public void setLastEditorName(String lastEditorName) { this.lastEditorName = lastEditorName; }
-
-    @Override
-    public Date getLastEditedDate() { return lastEditedDate; }
-
-    @Override
-    public void setLastEditedDate(Date lastEditedDate) { this.lastEditedDate = lastEditedDate; }
 }
