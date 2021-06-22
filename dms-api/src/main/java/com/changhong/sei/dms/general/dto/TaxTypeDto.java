@@ -82,12 +82,6 @@ public class TaxTypeDto extends BaseEntityDto  {
     @ApiModelProperty(value = "租户代码")
     private String tenantCode;
 
-    @Override
-    public String getId() { return id; }
-
-    @Override
-    public void setId(String id) { this.id = id; }
-
     public String getCode() { return code; }
 
     public void setCode(String code) { this.code = code; }
