@@ -5,7 +5,6 @@ import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
-import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResult;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
@@ -13,11 +12,9 @@ import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.dms.general.api.CustomerApi;
 import com.changhong.sei.dms.general.dto.CustomerCorporationDto;
 import com.changhong.sei.dms.general.dto.CustomerDto;
-import com.changhong.sei.dms.general.dto.ImprestEmployeeCorporationDto;
-import com.changhong.sei.dms.general.dto.search.CustomerQuickSearchParam;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.Customer;
 import com.changhong.sei.dms.general.entity.CustomerCorporation;
-import com.changhong.sei.dms.general.entity.ImprestEmployeeCorporation;
 import com.changhong.sei.dms.general.service.CustomerCorporationService;
 import com.changhong.sei.dms.general.service.CustomerService;
 import io.swagger.annotations.Api;
@@ -148,7 +145,7 @@ public class CustomerController extends BaseEntityController<Customer, CustomerD
      * @return 分页查询结果
      */
     @Override
-    public ResultData<PageResult<CustomerDto>> search(CustomerQuickSearchParam searchParam) {
+    public ResultData<PageResult<CustomerDto>> search(ErpCodeQuickSearchParam searchParam) {
         return convertToDtoPageResult(service.search(searchParam));
     }
 

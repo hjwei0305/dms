@@ -4,7 +4,7 @@ import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageInfo;
 import com.changhong.sei.core.test.BaseUnit5Test;
 import com.changhong.sei.core.util.JsonUtils;
-import com.changhong.sei.dms.general.dto.search.CustomerQuickSearchParam;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ class CustomerControllerTest extends BaseUnit5Test {
 
     @Test
     void search() {
-        CustomerQuickSearchParam searchParam = new CustomerQuickSearchParam();
+        ErpCodeQuickSearchParam searchParam = new ErpCodeQuickSearchParam();
         searchParam.setPageInfo(new PageInfo());
         searchParam.setErpCode("Q000");
         searchParam.setQuickSearchValue("平安");

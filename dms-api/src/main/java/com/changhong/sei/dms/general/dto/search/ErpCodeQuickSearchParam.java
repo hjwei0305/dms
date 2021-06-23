@@ -8,13 +8,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
- * 实现功能: 客户主数据快速查询参数
+ * 实现功能: 通过ERP公司代码查询主数据的参数
  *
  * @author 王锦光 wangjg
  * @version 2021-06-09 14:06
  */
-@ApiModel("客户主数据快速查询参数")
-public class CustomerQuickSearchParam extends QuickQueryParam {
+@ApiModel("通过ERP公司代码查询主数据的参数")
+public class ErpCodeQuickSearchParam extends QuickQueryParam {
     private static final long serialVersionUID = 703364187619287975L;
     /**
      * ERP公司代码

@@ -7,7 +7,7 @@ import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.dms.general.dto.CustomerCorporationDto;
 import com.changhong.sei.dms.general.dto.CustomerDto;
-import com.changhong.sei.dms.general.dto.search.CustomerQuickSearchParam;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -87,5 +87,5 @@ public interface CustomerApi extends BaseEntityApi<CustomerDto>, FindByPageApi<C
      */
     @PostMapping(path = "search", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "分页查询客户主数据", notes = "分页查询客户主数据，限定ERP公司代码")
-    ResultData<PageResult<CustomerDto>> search(@RequestBody CustomerQuickSearchParam searchParam);
+    ResultData<PageResult<CustomerDto>> search(@RequestBody ErpCodeQuickSearchParam searchParam);
 }

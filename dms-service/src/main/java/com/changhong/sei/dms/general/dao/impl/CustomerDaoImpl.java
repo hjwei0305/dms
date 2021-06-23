@@ -6,7 +6,7 @@ import com.changhong.sei.core.dao.impl.PageResultUtil;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.entity.search.QuerySql;
 import com.changhong.sei.dms.general.dao.CustomerExtDao;
-import com.changhong.sei.dms.general.dto.search.CustomerQuickSearchParam;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.Customer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +21,7 @@ import java.util.Map;
  * @author 王锦光 wangjg
  * @version 2021-06-09 14:58
  */
-public class CustomerDaoImpl  extends BaseEntityDaoImpl<Customer>
+public class CustomerDaoImpl extends BaseEntityDaoImpl<Customer>
         implements CustomerExtDao {
     /**
      * 构造函数
@@ -40,7 +40,7 @@ public class CustomerDaoImpl  extends BaseEntityDaoImpl<Customer>
      * @return 客户主数据
      */
     @Override
-    public PageResult<Customer> search(CustomerQuickSearchParam searchParam, String tenantCode) {
+    public PageResult<Customer> search(ErpCodeQuickSearchParam searchParam, String tenantCode) {
         String select = "select cc.customer";
         String fromAndWhere = "from CustomerCorporation cc " +
                 "where cc.tenantCode=:tenantCode " +
