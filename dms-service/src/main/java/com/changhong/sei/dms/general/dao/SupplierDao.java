@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @since 2021-05-06 14:07:30
  */
 @Repository
-public interface SupplierDao extends BaseEntityDao<Supplier> {
+public interface SupplierDao extends BaseEntityDao<Supplier>, SupplierExtDao {
 
 }

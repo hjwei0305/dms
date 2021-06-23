@@ -14,6 +14,7 @@ import com.changhong.sei.dms.general.api.SupplierApi;
 import com.changhong.sei.dms.general.dto.SupplierCorporationDto;
 import com.changhong.sei.dms.general.dto.SupplierCorporationDto;
 import com.changhong.sei.dms.general.dto.SupplierDto;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.SupplierCorporation;
 import com.changhong.sei.dms.general.entity.Supplier;
 import com.changhong.sei.dms.general.service.SupplierCorporationService;
@@ -138,6 +139,17 @@ public class SupplierController extends BaseEntityController<Supplier, SupplierD
     @Override
     public ResultData<SupplierDto> findByCode(String code) {
         return ResultData.success(convertToDto(service.findByCode(code)));
+    }
+
+    /**
+     * 分页查询供应商主数据
+     *
+     * @param searchParam 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<SupplierDto>> search(ErpCodeQuickSearchParam searchParam) {
+        return convertToDtoPageResult(service.search(searchParam));
     }
 
     /**

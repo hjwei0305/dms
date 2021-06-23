@@ -1,8 +1,11 @@
 package com.changhong.sei.dms.general.service;
 
+import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseEntityDao;
+import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.dao.SupplierDao;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.Customer;
 import com.changhong.sei.dms.general.entity.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +39,13 @@ public class SupplierService extends BaseEntityService<Supplier> {
         return findByProperty("code", code);
     }
 
-
+    /**
+     * 分页查询供应商主数据
+     *
+     * @param searchParam 查询参数
+     * @return 分页查询结果
+     */
+    public PageResult<Supplier> search(ErpCodeQuickSearchParam searchParam) {
+        return dao.search(searchParam, ContextUtil.getTenantCode());
+    }
 }
