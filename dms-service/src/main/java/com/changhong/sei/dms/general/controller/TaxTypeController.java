@@ -2,6 +2,8 @@ package com.changhong.sei.dms.general.controller;
 
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.api.TaxTypeApi;
 import com.changhong.sei.dms.general.dto.TaxCategory;
@@ -64,5 +66,10 @@ public class TaxTypeController extends BaseEntityController<TaxType, TaxTypeDto>
     @Override
     public ResultData<List<TaxTypeDto>> findByTaxCategory(TaxCategory taxCategory) {
         return ResultData.success(convertToDtos(service.findByTaxCategory(taxCategory)));
+    }
+
+    @Override
+    public ResultData<PageResult<TaxTypeDto>> findByPage(Search search) {
+        return convertToDtoPageResult(service.findByPage(search));
     }
 }

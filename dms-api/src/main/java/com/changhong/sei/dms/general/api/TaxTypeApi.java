@@ -2,6 +2,7 @@ package com.changhong.sei.dms.general.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.FindAllApi;
+import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.dms.general.dto.TaxCategory;
 import com.changhong.sei.dms.general.dto.TaxTypeDto;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 @Valid
 @FeignClient(name = "dms", path = TaxTypeApi.PATH)
-public interface TaxTypeApi extends BaseEntityApi<TaxTypeDto>, FindAllApi<TaxTypeDto> {
+public interface TaxTypeApi extends BaseEntityApi<TaxTypeDto>, FindByPageApi<TaxTypeDto>, FindAllApi<TaxTypeDto> {
     String PATH = "taxType";
 
     /**
