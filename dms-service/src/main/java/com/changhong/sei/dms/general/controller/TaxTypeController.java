@@ -56,13 +56,13 @@ public class TaxTypeController extends BaseEntityController<TaxType, TaxTypeDto>
     }
 
     /**
-     * 根据税分类获取税类型集合
+     * 根据税分类获取税类型清单
      *
      * @param taxCategory 税分类
-     * @return 税类型集合
+     * @return 税类型清单
      */
     @Override
     public ResultData<List<TaxTypeDto>> findByTaxCategory(TaxCategory taxCategory) {
-        return ResultData.success(convertToDtos(service.findListByProperty("taxCategory", taxCategory)));
+        return ResultData.success(convertToDtos(service.findByTaxCategory(taxCategory)));
     }
 }

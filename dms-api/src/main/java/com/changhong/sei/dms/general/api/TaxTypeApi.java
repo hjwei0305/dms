@@ -25,10 +25,10 @@ public interface TaxTypeApi extends BaseEntityApi<TaxTypeDto>, FindAllApi<TaxTyp
     String PATH = "taxType";
 
     /**
-     * 根据税分类获取税类型集合
+     * 根据税分类获取税类型清单
      *
      * @param taxCategory 税分类
-     * @return 税类型集合
+     * @return 税类型清单
      */
     @GetMapping(path = "findByTaxCategory")
     @ApiOperation(value = "根据税分类获取税类型集合", notes = "根据税分类获取税类型集合")
