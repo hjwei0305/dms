@@ -4,6 +4,7 @@ import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.api.TaxTypeApi;
+import com.changhong.sei.dms.general.dto.TaxCategory;
 import com.changhong.sei.dms.general.dto.TaxTypeDto;
 import com.changhong.sei.dms.general.entity.TaxType;
 import com.changhong.sei.dms.general.service.TaxTypeService;
@@ -52,5 +53,16 @@ public class TaxTypeController extends BaseEntityController<TaxType, TaxTypeDto>
     @Override
     public ResultData<List<TaxTypeDto>> findAllUnfrozen() {
         return ResultData.success(convertToDtos(service.findAllUnfrozen()));
+    }
+
+    /**
+     * 根据税分类获取税类型集合
+     *
+     * @param taxCategory 税分类
+     * @return 税类型集合
+     */
+    @Override
+    public ResultData<List<TaxTypeDto>> findByTaxCategory(TaxCategory taxCategory) {
+        return ResultData.success(convertToDtos(service.findListByProperty("tax_category", taxCategory)));
     }
 }
