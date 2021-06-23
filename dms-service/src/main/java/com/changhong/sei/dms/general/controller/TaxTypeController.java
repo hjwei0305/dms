@@ -68,6 +68,12 @@ public class TaxTypeController extends BaseEntityController<TaxType, TaxTypeDto>
         return ResultData.success(convertToDtos(service.findByTaxCategory(taxCategory)));
     }
 
+    /**
+     * 分页查询业务实体
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
     @Override
     public ResultData<PageResult<TaxTypeDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
