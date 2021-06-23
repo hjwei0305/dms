@@ -1,5 +1,6 @@
 package com.changhong.sei.dms.general.service;
 
+import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.dao.TaxTypeDao;
@@ -31,6 +32,18 @@ public class TaxTypeService extends BaseEntityService<TaxType>{
      * @return 税类型清单
      */
     public List<TaxType> findByTaxCategory(TaxCategory taxCategory) {
-        return dao.findByTaxCategoryOrderByRank(taxCategory);
+        String tenantCode = ContextUtil.getTenantCode();
+        return dao.findByTaxCategory(taxCategory, tenantCode);
+    }
+
+    /**
+     * 根据税码获取税类型
+     *
+     * @param code 税码
+     * @return 税类型
+     */
+    public TaxType findByCode(String code) {
+        String tenantCode = ContextUtil.getTenantCode();
+        return dao.findByCodeAndTenantCode(code, tenantCode);
     }
 }

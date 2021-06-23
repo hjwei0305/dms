@@ -41,4 +41,12 @@ class TaxTypeControllerTest extends BaseUnit5Test {
         System.out.println(JsonUtils.toJson(resultData));
         Assertions.assertTrue(resultData.successful());
     }
+
+    @Test
+    void findByCode(){
+        String code = "0000000001";
+        ResultData<?> resultData=controller.findByCode(code);
+        System.out.println(JsonUtils.toJson(resultData));
+        Assertions.assertTrue(resultData.successful());
+    }
 }
