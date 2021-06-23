@@ -31,6 +31,6 @@ public class TaxTypeService extends BaseEntityService<TaxType>{
      * @return 税类型清单
      */
     public List<TaxType> findByTaxCategory(TaxCategory taxCategory) {
-        return dao.findByTaxCategory(taxCategory);
+        return dao.findByTaxCategoryOrderByRank(taxCategory);
     }
 }

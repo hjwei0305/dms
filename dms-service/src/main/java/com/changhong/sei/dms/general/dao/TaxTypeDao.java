@@ -22,5 +22,5 @@ public interface TaxTypeDao extends BaseEntityDao<TaxType> {
      * @param taxCategory 税分类
      * @return 税类型清单
      */
-    List<TaxType> findByTaxCategory(TaxCategory taxCategory);
+    List<TaxType> findByTaxCategoryOrderByRank(TaxCategory taxCategory);
 }
