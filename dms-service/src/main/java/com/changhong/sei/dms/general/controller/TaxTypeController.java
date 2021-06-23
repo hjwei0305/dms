@@ -63,6 +63,6 @@ public class TaxTypeController extends BaseEntityController<TaxType, TaxTypeDto>
      */
     @Override
     public ResultData<List<TaxTypeDto>> findByTaxCategory(TaxCategory taxCategory) {
-        return ResultData.success(convertToDtos(service.findListByProperty("tax_category", taxCategory)));
+        return ResultData.success(convertToDtos(service.findListByProperty("taxCategory", taxCategory)));
     }
 }
