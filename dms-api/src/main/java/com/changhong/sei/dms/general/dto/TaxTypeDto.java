@@ -11,10 +11,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
- * 税分类(TaxType)DTO类
+ * 税类型(TaxType)DTO类
  *
  * @author 杨沄炜
  * @since 2021-06-21 16:32

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 税分类(TaxType)业务逻辑实现类
+ * 税类型(TaxType)业务逻辑实现类
  *
  * @author 杨沄炜
  * @since 2021/06/23 8:30

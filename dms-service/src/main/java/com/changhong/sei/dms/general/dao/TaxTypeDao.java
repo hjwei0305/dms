@@ -5,7 +5,7 @@ import com.changhong.sei.dms.general.entity.TaxType;
 import org.springframework.stereotype.Repository;
 
 /**
- * 税分类(TaxType)数据库访问类
+ * 税类型(TaxType)数据库访问类
  *
  * @author 杨沄炜
  * @since 2021/06/22 9:02
