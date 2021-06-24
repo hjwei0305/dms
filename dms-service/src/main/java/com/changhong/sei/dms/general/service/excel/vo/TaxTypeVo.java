@@ -38,7 +38,7 @@ public class TaxTypeVo extends BaseExcelRow {
      */
     @NotNull
     @ExcelProperty(value = "税分类", order = 3)
-    private TaxCategory taxCategory = TaxCategory.OUTPUT;
+    private String taxCategory;
 
     /**
      * 税率
@@ -90,11 +90,11 @@ public class TaxTypeVo extends BaseExcelRow {
         this.name = name;
     }
 
-    public TaxCategory getTaxCategory() {
+    public String getTaxCategory() {
         return taxCategory;
     }
 
-    public void setTaxCategory(TaxCategory taxCategory) {
+    public void setTaxCategory(String taxCategory) {
         this.taxCategory = taxCategory;
     }
 
