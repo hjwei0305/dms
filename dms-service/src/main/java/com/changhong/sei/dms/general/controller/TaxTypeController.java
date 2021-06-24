@@ -85,6 +85,7 @@ public class TaxTypeController extends BaseEntityController<TaxType, TaxTypeDto>
      * @param code 税码
      * @return 税类型
      */
+    @Override
     public ResultData<TaxTypeDto> findByCode(String code){
         return ResultData.success(convertToDto(service.findByCode(code)));
     }

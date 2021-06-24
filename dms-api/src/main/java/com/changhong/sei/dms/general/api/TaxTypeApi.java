@@ -34,4 +34,14 @@ public interface TaxTypeApi extends BaseEntityApi<TaxTypeDto>, FindByPageApi<Tax
     @GetMapping(path = "findByTaxCategory")
     @ApiOperation(value = "根据税分类获取税类型清单", notes = "根据税分类获取税类型清单")
     ResultData<List<TaxTypeDto>> findByTaxCategory(@RequestParam("taxCategory") TaxCategory taxCategory);
+
+    /**
+     * 根据税码获取税类型清单
+     *
+     * @param code 税码
+     * @return 税类型
+     */
+    @GetMapping(path = "findByCode")
+    @ApiOperation(value = "根据税码获取税类型", notes = "根据税码获取税类型")
+    ResultData<TaxTypeDto> findByCode(@RequestParam("code") String code);
 }
