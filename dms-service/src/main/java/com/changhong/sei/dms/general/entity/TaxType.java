@@ -10,7 +10,6 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * 税类型(TaxType)实体类
