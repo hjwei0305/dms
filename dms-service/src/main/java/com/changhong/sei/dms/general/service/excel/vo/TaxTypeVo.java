@@ -3,7 +3,6 @@ package com.changhong.sei.dms.general.service.excel.vo;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.changhong.sei.dms.common.excel.BaseExcelRow;
 import com.changhong.sei.dms.common.excel.validate.NotDuplicate;
-import com.changhong.sei.dms.general.dto.TaxCategory;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -66,14 +65,6 @@ public class TaxTypeVo extends BaseExcelRow {
     @ExcelProperty(value = "总账科目名称", order = 7)
     private String ledgerAccountName;
 
-    /**
-     * 租户代码
-     */
-    @NotBlank
-    @NotDuplicate
-    @ExcelProperty(value = "租户代码", order = 8)
-    private String tenantCode;
-
     public String getCode() {
         return code;
     }
@@ -128,13 +119,5 @@ public class TaxTypeVo extends BaseExcelRow {
 
     public void setLedgerAccountName(String ledgerAccountName) {
         this.ledgerAccountName = ledgerAccountName;
-    }
-
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
     }
 }
