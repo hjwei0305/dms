@@ -78,9 +78,9 @@ public class MultilingualAspect {
      */
     @AfterReturning(pointcut = "multilingual()", returning = "retValue")
     public void doAfterService(JoinPoint joinPoint, Object retValue) {
-        if (retValue instanceof ResultData) {
-            return;
-        }
+//        if (retValue instanceof ResultData) {
+//            return;
+//        }
         // 判断当前语言为zh_CN，则不执行多语言翻译
         String localeLang = ContextUtil.getLocaleLang();
         if (LanguageDto.DEFAULT_LANG.equals(localeLang)) {
