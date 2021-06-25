@@ -11,6 +11,6 @@ import org.springframework.cloud.openfeign.FeignClient;
  * @author 王锦光 wangjg
  * @version 2020-03-22 8:00
  */
-@FeignClient(name = "sei-commons-data", path = "semantemeType")
+@FeignClient(name = "dms", path = "semantemeType")
 public interface SemantemeTypeApi extends BaseEntityApi<SemantemeTypeDto>, FindAllApi<SemantemeTypeDto> {
 }

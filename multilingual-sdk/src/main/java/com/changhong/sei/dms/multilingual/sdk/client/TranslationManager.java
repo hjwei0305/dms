@@ -25,7 +25,7 @@ import java.util.Objects;
 public class TranslationManager {
     @Autowired
     private ApiTemplate apiTemplate;
-    private final String APP_CODE = "sei-commons-data";
+    private final String APP_CODE = "dms";
 
     /**
      * 通过翻译请求获取翻译结果

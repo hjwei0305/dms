@@ -118,16 +118,17 @@ public class TranslationController extends BaseEntityController<Translation, Tra
                 TransPropertyResult needTransResult = new TransPropertyResult();
                 needTransResult.setPropertyName(v.getPropertyName());
                 needTransResult.setPropertyValue(v.getPropertyValue());
-                transReturnResults.add(needTransResult);
+                // 默认为原译文值
+                transReturnResults.add(new TransPropertyResult(v.getPropertyName(), v.getPropertyValue(), v.getPropertyValue()));
                 needTransResults.add(needTransResult);
             }
         });
-        // 调用翻译API执行默认翻译
-        transManager.translate(needTransResults, FROM_LANG, language.getBaseCode());
         response.setTransPropertyResults(transReturnResults);
         // 异步保存不存在的语义和译文
         asyncRunUtil.runAsync(() -> {
             try {
+                // 调用翻译API执行默认翻译
+                transManager.translate(needTransResults, FROM_LANG, language.getBaseCode());
                 service.saveNeedTransResults(language.getId(), className, needTransResults);
             } catch (Exception e) {
                 LogUtil.error("保存不存在的语义和译文时发生异常！", e);

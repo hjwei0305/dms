@@ -16,7 +16,7 @@ import java.util.List;
  * @author 王锦光 wangjg
  * @version 2020-03-22 8:00
  */
-@FeignClient(name = "sei-commons-data", path = "language")
+@FeignClient(name = "dms", path = "language")
 public interface LanguageApi extends BaseEntityApi<LanguageDto>, FindAllApi<LanguageDto> {
     /**
      * 获取外国语类型
