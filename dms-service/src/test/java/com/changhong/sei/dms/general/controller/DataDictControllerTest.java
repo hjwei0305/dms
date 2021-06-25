@@ -25,6 +25,6 @@ class DataDictControllerTest extends BaseUnit5Test {
         ResultData<?> resultData = controller.getCanUseDataDictValues(dictCode);
         System.out.println(JsonUtils.toJson(resultData));
         Assertions.assertTrue(resultData.successful());
-        Thread.sleep(10*1000);
+        Thread.sleep(30*1000);
     }
 }

@@ -23,7 +23,8 @@ class TranslationControllerTest extends BaseUnit5Test {
 
     @Test
     public void translate() throws Exception{
-        String json = "{\"className\":\"com.changhong.sei.dms.general.dto.DataDictValue\",\"propertyNames\":[\"dataName\"],\"langCode\":\"en_US\",\"propertyValues\":[{\"propertyName\":\"dataName\",\"propertyValue\":\"身份证\"},{\"propertyName\":\"dataName\",\"propertyValue\":\"护照\"},{\"propertyName\":\"dataName\",\"propertyValue\":\"驾驶证\"}]}\n";
+        String json =
+                "{\"className\":\"com.changhong.sei.dms.general.dto.DataDictValue\",\"propertyNames\":[\"dataName\"],\"langCode\":\"en_US\",\"propertyValues\":[{\"propertyName\":\"dataName\",\"propertyValue\":\"升序\"},{\"propertyName\":\"dataName\",\"propertyValue\":\"降序\"}]}";
         TranslateRequest request = JsonUtils.fromJson(json, TranslateRequest.class);
         ResultData<TranslateResponse> resultData = controller.translate(request);
         System.out.println(JsonUtils.toJson(resultData));
