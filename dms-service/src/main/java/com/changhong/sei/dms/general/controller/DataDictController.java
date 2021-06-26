@@ -162,7 +162,7 @@ public class DataDictController extends BaseEntityController<DataDict, DataDictD
      * @return 可使用的数据字典值
      */
     @Override
-//    @MultilingualEnable(className = "com.changhong.sei.dms.general.dto.DataDictValue", propertyNames = {"dataName"})
+    //@MultilingualEnable(className = "com.changhong.sei.dms.general.dto.DataDictValue", propertyNames = {"dataName"})
     public ResultData<List<DataDictValue>> getCanUseDataDictValues(String dictCode) {
         // 获取数据字典
         DataDict dataDict = service.findByCode(dictCode);

@@ -20,11 +20,10 @@ class DataDictControllerTest extends BaseUnit5Test {
     private DataDictController controller;
 
     @Test
-    void getCanUseDataDictValues() throws Exception{
+    void getCanUseDataDictValues() {
         String dictCode = "PUB-List-Sort";
         ResultData<?> resultData = controller.getCanUseDataDictValues(dictCode);
         System.out.println(JsonUtils.toJson(resultData));
         Assertions.assertTrue(resultData.successful());
-        Thread.sleep(30*1000);
     }
 }
