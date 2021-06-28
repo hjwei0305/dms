@@ -23,31 +23,40 @@ public class BankAreaDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 10)
-    @ApiModelProperty(value = "代码")
+    @ApiModelProperty(value = "代码", required = true)
     private String code;
     /**
-     * 行政区域代码
-     */
-    @Size(max = 20)
-    @ApiModelProperty(value = "行政区域代码")
-    private String regionCode;
-    /**
-     * 名称
+     * 行政区域Id
      */
     @NotBlank
-    @Size(max = 20)
-    @ApiModelProperty(value = "名称")
-    private String name;
+    @ApiModelProperty(value = "行政区域Id", required = true)
+    private String regionId;
+    /**
+     * 关联行政区域代码
+     */
+    @ApiModelProperty(value = "关联行政区域代码")
+    private String regionCode;
+    /**
+     * 关联行政区域名称
+     */
+    @ApiModelProperty(value = "关联行政区域名称")
+    private String regionName;
     /**
      * 银行城市Id
      */
-    @ApiModelProperty(value = "银行城市Id")
+    @ApiModelProperty(value = "银行城市Id", required = true)
+    @NotBlank
     private String bankCityId;
     /**
-     * 银行城市
+     * 关联银行城市代码
      */
-    @ApiModelProperty(value = "银行城市")
-    private BankCityDto bankCity;
+    @ApiModelProperty(value = "关联银行城市代码")
+    private String bankCityCode;
+    /**
+     * 关联银行城市名称
+     */
+    @ApiModelProperty(value = "关联银行城市名称")
+    private String bankCityName;
     /**
      * 级别代码
      */
@@ -91,12 +100,20 @@ public class BankAreaDto extends BaseEntityDto {
         this.regionCode = regionCode;
     }
 
-    public String getName() {
-        return name;
+    public String getRegionId() {
+        return regionId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRegionId(String regionId) {
+        this.regionId = regionId;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
     }
 
     public String getBankCityId() {
@@ -107,12 +124,20 @@ public class BankAreaDto extends BaseEntityDto {
         this.bankCityId = bankCityId;
     }
 
-    public BankCityDto getBankCity() {
-        return bankCity;
+    public String getBankCityCode() {
+        return bankCityCode;
     }
 
-    public void setBankCity(BankCityDto bankCity) {
-        this.bankCity = bankCity;
+    public void setBankCityCode(String bankCityCode) {
+        this.bankCityCode = bankCityCode;
+    }
+
+    public String getBankCityName() {
+        return bankCityName;
+    }
+
+    public void setBankCityName(String bankCityName) {
+        this.bankCityName = bankCityName;
     }
 
     public Integer getLevelCode() {

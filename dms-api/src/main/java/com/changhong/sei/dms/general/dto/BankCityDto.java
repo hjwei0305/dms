@@ -32,10 +32,15 @@ public class BankCityDto extends BaseEntityDto {
     @ApiModelProperty(value = "银行省区Id", required = true)
     private String bankProvinceId;
     /**
-     * 关联省区代码
+     * 关联银行省区代码
      */
-    @ApiModelProperty(value = "关联省区代码")
+    @ApiModelProperty(value = "关联银行省区代码")
     private String bankProvinceCode;
+    /**
+     * 关联银行省区名称
+     */
+    @ApiModelProperty(value = "关联银行省区名称")
+    private String bankProvinceName;
     /**
      * 行政区域Id
      */
@@ -52,17 +57,6 @@ public class BankCityDto extends BaseEntityDto {
      */
     @ApiModelProperty(value = "关联行政区域名称")
     private String regionName;
-    /**
-     * 关联国家代码
-     */
-    @ApiModelProperty(value = "关联国家代码")
-    private String countryCode;
-
-    /**
-     * 关联国家名称
-     */
-    @ApiModelProperty(value = "关联国家名称")
-    private String countryName;
     /**
      * 已冻结
      */
@@ -120,21 +114,6 @@ public class BankCityDto extends BaseEntityDto {
         this.regionName = regionName;
     }
 
-    public String getCountryCode() {
-        return countryCode;
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
-    }
-
-    public String getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(String countryName) {
-        this.countryName = countryName;
-    }
 
     public Boolean getFrozen() {
         return frozen;
@@ -158,6 +137,14 @@ public class BankCityDto extends BaseEntityDto {
 
     public void setBankProvinceCode(String bankProvinceCode) {
         this.bankProvinceCode = bankProvinceCode;
+    }
+
+    public String getBankProvinceName() {
+        return bankProvinceName;
+    }
+
+    public void setBankProvinceName(String bankProvinceName) {
+        this.bankProvinceName = bankProvinceName;
     }
 
     public String getTenantCode() {

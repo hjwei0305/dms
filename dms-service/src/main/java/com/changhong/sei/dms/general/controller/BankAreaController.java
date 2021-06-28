@@ -7,7 +7,9 @@ import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.api.BankAreaApi;
 import com.changhong.sei.dms.general.dto.BankAreaDto;
+import com.changhong.sei.dms.general.dto.BankCityDto;
 import com.changhong.sei.dms.general.entity.BankArea;
+import com.changhong.sei.dms.general.entity.Region;
 import com.changhong.sei.dms.general.service.BankAreaService;
 import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
@@ -63,6 +65,18 @@ public class BankAreaController extends BaseEntityController<BankArea, BankAreaD
         if (Objects.isNull(entity)) {
             return null;
         }
-        return mapper.map(entity, getDtoClass());
+        BankAreaDto bankAreaDto = mapper.map(entity, getDtoClass());
+        if (Objects.nonNull(entity.getBankCity())) {
+            bankAreaDto.setBankCityCode(entity.getBankCity().getCode());
+            if (Objects.nonNull(entity.getBankCity().getRegion())) {
+                bankAreaDto.setBankCityName(entity.getBankCity().getRegion().getName());
+            }
+        }
+        Region region = entity.getRegion();
+        if (Objects.nonNull(region)) {
+            bankAreaDto.setRegionCode(region.getCode());
+            bankAreaDto.setRegionName(region.getName());
+        }
+        return bankAreaDto;
     }
 }

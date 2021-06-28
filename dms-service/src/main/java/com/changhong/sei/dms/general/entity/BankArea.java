@@ -29,15 +29,16 @@ public class BankArea extends BaseAuditableEntity implements Serializable, ICode
     @Column(name = "code")
     private String code;
     /**
-     * 行政区域代码
+     * 行政区域Id
      */
-    @Column(name = "region_code")
-    private String regionCode;
+    @Column(name = "region_id")
+    private String regionId;
     /**
-     * 名称
+     * 行政区域
      */
-    @Column(name = "name")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "region_id", insertable = false, updatable = false)
+    private Region region;
     /**
      * 银行城市Id
      */
@@ -85,21 +86,22 @@ public class BankArea extends BaseAuditableEntity implements Serializable, ICode
         this.code = code;
     }
 
-    public String getRegionCode() {
-        return regionCode;
+    public String getRegionId() {
+        return regionId;
     }
 
-    public void setRegionCode(String regionCode) {
-        this.regionCode = regionCode;
+    public void setRegionId(String regionId) {
+        this.regionId = regionId;
     }
 
-    public String getName() {
-        return name;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRegion(Region region) {
+        this.region = region;
     }
+
 
     public String getBankCityId() {
         return bankCityId;

@@ -71,16 +71,14 @@ public class BankCityController extends BaseEntityController<BankCity, BankCityD
         BankCityDto bankCityDto = mapper.map(entity, getDtoClass());
         if (Objects.nonNull(entity.getBankProvince())) {
             bankCityDto.setBankProvinceCode(entity.getBankProvince().getCode());
+            if (Objects.nonNull(entity.getBankProvince().getRegion())) {
+                bankCityDto.setBankProvinceName(entity.getBankProvince().getRegion().getName());
+            }
         }
         Region region = entity.getRegion();
         if (Objects.nonNull(region)) {
             bankCityDto.setRegionCode(region.getCode());
             bankCityDto.setRegionName(region.getName());
-            Country country = region.getCountry();
-            if (Objects.nonNull(country)) {
-                bankCityDto.setCountryCode(country.getCode());
-                bankCityDto.setCountryName(country.getName());
-            }
         }
         return bankCityDto;
     }
