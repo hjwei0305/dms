@@ -6,9 +6,7 @@ import com.changhong.sei.core.entity.ITenant;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -31,13 +29,14 @@ public class BankProvinces extends BaseAuditableEntity implements Serializable, 
     /**
      * 行政区域代码
      */
-    @Column(name = "region_code")
-    private String regionCode;
+    @Column(name = "region_id")
+    private String regionId;
     /**
-     * 名称
+     * 行政区域
      */
-    @Column(name = "name")
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "region_id", insertable = false, updatable = false)
+    private Region region;
 
     /**
      * 租户代码
@@ -55,20 +54,20 @@ public class BankProvinces extends BaseAuditableEntity implements Serializable, 
         this.code = code;
     }
 
-    public String getRegionCode() {
-        return regionCode;
+    public String getRegionId() {
+        return regionId;
     }
 
-    public void setRegionCode(String regionCode) {
-        this.regionCode = regionCode;
+    public void setRegionId(String regionId) {
+        this.regionId = regionId;
     }
 
-    public String getName() {
-        return name;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
     @Override

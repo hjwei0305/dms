@@ -23,21 +23,36 @@ public class BankProvincesDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 3)
-    @ApiModelProperty(value = "代码")
+    @ApiModelProperty(value = "代码", required = true)
     private String code;
     /**
-     * 行政区域代码
-     */
-    @Size(max = 20)
-    @ApiModelProperty(value = "行政区域代码")
-    private String regionCode;
-    /**
-     * 名称
+     * 行政区域Id
      */
     @NotBlank
-    @Size(max = 20)
-    @ApiModelProperty(value = "名称")
-    private String name;
+    @ApiModelProperty(value = "行政区域Id", required = true)
+    private String regionId;
+    /**
+     * 关联行政区域代码
+     */
+    @ApiModelProperty(value = "关联行政区域代码")
+    private String regionCode;
+    /**
+     * 关联行政区域名称
+     */
+    @ApiModelProperty(value = "关联行政区域名称")
+    private String regionName;
+    /**
+     * 关联国家代码
+     */
+    @ApiModelProperty(value = "关联国家代码")
+    private String countryCode;
+
+    /**
+     * 关联国家名称
+     */
+    @ApiModelProperty(value = "关联国家名称")
+    private String countryName;
+
 
     /**
      * 租户代码
@@ -54,6 +69,14 @@ public class BankProvincesDto extends BaseEntityDto {
         this.code = code;
     }
 
+    public String getRegionId() {
+        return regionId;
+    }
+
+    public void setRegionId(String regionId) {
+        this.regionId = regionId;
+    }
+
     public String getRegionCode() {
         return regionCode;
     }
@@ -62,12 +85,28 @@ public class BankProvincesDto extends BaseEntityDto {
         this.regionCode = regionCode;
     }
 
-    public String getName() {
-        return name;
+    public String getRegionName() {
+        return regionName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     public String getTenantCode() {
