@@ -60,7 +60,7 @@ public class BankProvincesController extends BaseEntityController<BankProvinces,
 
 
     /**
-     * 定义关联Id映射
+     * 自定义实体转换DTO的映射
      */
     @Override
     protected void customConvertToDtoMapper() {
@@ -68,7 +68,13 @@ public class BankProvincesController extends BaseEntityController<BankProvinces,
         PropertyMap<BankProvinces, BankProvincesDto> propertyMap = new PropertyMap<BankProvinces, BankProvincesDto>() {
             @Override
             protected void configure() {
+                //关联Id映射
                 map().setRegionId(source.getRegionId());
+                //国家映射
+                if (Objects.nonNull(source.getRegion()) && Objects.nonNull(source.getRegion().getCountry())) {
+                    map().setCountryCode(source.getRegion().getCountry().getCode());
+                    map().setCountryName(source.getRegion().getCountry().getName());
+                }
             }
         };
         // 添加映射器
