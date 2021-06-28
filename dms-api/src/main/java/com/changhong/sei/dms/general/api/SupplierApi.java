@@ -8,6 +8,7 @@ import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.dms.general.dto.CustomerDto;
 import com.changhong.sei.dms.general.dto.SupplierCorporationDto;
 import com.changhong.sei.dms.general.dto.SupplierDto;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -82,4 +83,13 @@ public interface SupplierApi extends BaseEntityApi<SupplierDto>, FindByPageApi<S
     @ApiOperation(value = "根据代码查询供应商", notes = "根据代码查询供应商")
     ResultData<SupplierDto> findByCode(@RequestParam("code") String code);
 
+    /**
+     * 分页查询供应商主数据
+     *
+     * @param searchParam 查询参数
+     * @return 分页查询结构
+     */
+    @PostMapping(path = "search", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "分页查询供应商主数据", notes = "分页查询供应商主数据，限定ERP公司代码")
+    ResultData<PageResult<SupplierDto>> search(@RequestBody ErpCodeQuickSearchParam searchParam);
 }

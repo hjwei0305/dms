@@ -188,4 +188,15 @@ public class ServiceCustAutoConfig {
     public BankCategoryExcelService bankCategoryExcelService(BankCategoryService service) {
         return new DefaultBankCategoryExcelService(service);
     }
+
+    /**
+     * 税分类导入导出扩展实现
+     *
+     * @return 扩展实现
+     */
+    @Bean("taxTypeExcelService")
+    @ConditionalOnMissingBean(TaxTypeExcelService.class)
+    public TaxTypeExcelService taxTypeExcelService(TaxTypeService service) {
+        return new DefaultTaxTypeExcelService(service);
+    }
 }

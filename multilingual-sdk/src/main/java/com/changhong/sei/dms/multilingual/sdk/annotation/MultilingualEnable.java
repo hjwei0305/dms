@@ -20,11 +20,11 @@ public @interface MultilingualEnable {
     boolean enable() default true;
 
     /**
-     * 业务实体的全类名，默认为返回业务实体的类型全名
+     * 业务实体的全类名(必输)
      *
      * @return 业务实体的全类名
      */
-    String className() default "";
+    String className();
 
     /**
      * 需要多语言翻译的属性名清单

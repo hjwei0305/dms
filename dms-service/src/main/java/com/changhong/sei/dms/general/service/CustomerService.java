@@ -2,17 +2,13 @@ package com.changhong.sei.dms.general.service;
 
 import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseEntityDao;
-import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.dao.CustomerDao;
-import com.changhong.sei.dms.general.dto.CustomerDto;
-import com.changhong.sei.dms.general.dto.search.CustomerQuickSearchParam;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 /**
@@ -48,7 +44,7 @@ public class CustomerService extends BaseEntityService<Customer> {
      * @param searchParam 查询参数
      * @return 分页查询结果
      */
-    public PageResult<Customer> search(CustomerQuickSearchParam searchParam) {
+    public PageResult<Customer> search(ErpCodeQuickSearchParam searchParam) {
         return dao.search(searchParam, ContextUtil.getTenantCode());
     }
 }

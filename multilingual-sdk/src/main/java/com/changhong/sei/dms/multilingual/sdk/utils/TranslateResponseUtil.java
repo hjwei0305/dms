@@ -34,12 +34,13 @@ public class TranslateResponseUtil {
         try {
             resultData = (ResultData<?>) retValue;
         } catch (Exception e) {
-            throw new ServiceException("应用翻译结果到业务实体属性值异常！", e);
+            // 转换失败不进行翻译;
+            return;
         }
         // 获取返回的数据
         List<Object> returnData = new LinkedList<>();
         if (resultData.getData() instanceof List) {
-            returnData.addAll((List) resultData.getData());
+            returnData.addAll((List<?>) resultData.getData());
         } else {
             returnData.add(resultData.getData());
         }

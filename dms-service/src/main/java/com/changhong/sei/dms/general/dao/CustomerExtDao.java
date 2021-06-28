@@ -1,7 +1,7 @@
 package com.changhong.sei.dms.general.dao;
 
 import com.changhong.sei.core.dto.serach.PageResult;
-import com.changhong.sei.dms.general.dto.search.CustomerQuickSearchParam;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.Customer;
 
 /**
@@ -18,5 +18,5 @@ public interface CustomerExtDao {
      * @param tenantCode 租户代码
      * @return 客户主数据
      */
-    PageResult<Customer> search(CustomerQuickSearchParam searchParam, String tenantCode);
+    PageResult<Customer> search(ErpCodeQuickSearchParam searchParam, String tenantCode);
 }

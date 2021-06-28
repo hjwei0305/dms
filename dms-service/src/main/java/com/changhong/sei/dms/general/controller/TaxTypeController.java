@@ -2,8 +2,11 @@ package com.changhong.sei.dms.general.controller;
 
 import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.api.TaxTypeApi;
+import com.changhong.sei.dms.general.dto.TaxCategory;
 import com.changhong.sei.dms.general.dto.TaxTypeDto;
 import com.changhong.sei.dms.general.entity.TaxType;
 import com.changhong.sei.dms.general.service.TaxTypeService;
@@ -52,5 +55,38 @@ public class TaxTypeController extends BaseEntityController<TaxType, TaxTypeDto>
     @Override
     public ResultData<List<TaxTypeDto>> findAllUnfrozen() {
         return ResultData.success(convertToDtos(service.findAllUnfrozen()));
+    }
+
+    /**
+     * 根据税分类获取税类型清单
+     *
+     * @param taxCategory 税分类
+     * @return 税类型清单
+     */
+    @Override
+    public ResultData<List<TaxTypeDto>> findByTaxCategory(TaxCategory taxCategory) {
+        return ResultData.success(convertToDtos(service.findByTaxCategory(taxCategory)));
+    }
+
+    /**
+     * 分页查询业务实体
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<TaxTypeDto>> findByPage(Search search) {
+        return convertToDtoPageResult(service.findByPage(search));
+    }
+
+    /**
+     * 根据税码获取税类型
+     *
+     * @param code 税码
+     * @return 税类型
+     */
+    @Override
+    public ResultData<TaxTypeDto> findByCode(String code){
+        return ResultData.success(convertToDto(service.findByCode(code)));
     }
 }

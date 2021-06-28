@@ -28,7 +28,7 @@ import java.util.Map;
  * @author 王锦光 wangjg
  * @version 2020-03-22 8:00
  */
-@FeignClient(name = "sei-commons-data", path = "translation")
+@FeignClient(name = "dms", path = "translation")
 public interface TranslationApi extends BaseEntityApi<TranslationDto> {
     /**
      * 通过翻译请求获取翻译结果

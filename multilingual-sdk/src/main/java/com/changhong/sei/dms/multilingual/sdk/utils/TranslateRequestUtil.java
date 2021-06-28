@@ -5,7 +5,6 @@ import com.changhong.sei.core.dto.TreeEntity;
 import com.changhong.sei.core.log.LogUtil;
 import com.changhong.sei.dms.multilingual.sdk.client.dto.TransPropertyValue;
 import com.changhong.sei.dms.multilingual.sdk.client.dto.TranslateRequest;
-import com.changhong.sei.exception.ServiceException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -31,21 +30,30 @@ public class TranslateRequestUtil {
         try {
             resultData = (ResultData<?>) retValue;
         } catch (Exception e) {
-            throw new ServiceException("通过翻译请求获取翻译结果异常！", e);
+            // 转换失败不进行翻译;
+            return;
         }
         // 获取返回的数据
         List<Object> returnData = new LinkedList<>();
         if (resultData.getData() instanceof List) {
-            returnData.addAll((List) resultData.getData());
+            List<?> listData = (List<?>) resultData.getData();
+            if (CollectionUtils.isEmpty(listData)) {
+                return;
+            }
+            // 检查实体的类名=注解指定的类名
+            if (!StringUtils.equals(request.getClassName(), listData.get(0).getClass().getName())) {
+                return;
+            }
+            returnData.addAll(listData);
         } else {
+            // 检查实体的类名=注解指定的类名
+            if (!StringUtils.equals(request.getClassName(), resultData.getData().getClass().getName())) {
+                return;
+            }
             returnData.add(resultData.getData());
         }
         if (CollectionUtils.isEmpty(returnData)) {
             return;
-        }
-        // 如果注解没有指定类名，使用返回对象的类型全名
-        if (StringUtils.isBlank(request.getClassName())) {
-            request.setClassName(returnData.get(0).getClass().getName());
         }
         // 循环构造属性值清单
         Set<TransPropertyValue> propertyValues = new LinkedHashSet<>();
@@ -67,9 +75,7 @@ public class TranslateRequestUtil {
             TreeEntity<?> treeNode = (TreeEntity<?>) obj;
             List<?> children = treeNode.getChildren();
             if (CollectionUtils.isNotEmpty(children)) {
-                children.forEach(node -> {
-                    addTransPropertyValues(propertyValues, node, propertyNames);
-                });
+                children.forEach(node -> addTransPropertyValues(propertyValues, node, propertyNames));
             }
             return;
         }

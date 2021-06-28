@@ -11,6 +11,7 @@ import com.tencentcloudapi.common.profile.HttpProfile;
 import com.tencentcloudapi.tmt.v20180321.TmtClient;
 import com.tencentcloudapi.tmt.v20180321.models.TextTranslateBatchRequest;
 import com.tencentcloudapi.tmt.v20180321.models.TextTranslateBatchResponse;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
@@ -95,6 +96,9 @@ public class TencentTransManager {
      * @param to 目标语言
      */
     public void translate(List<TransPropertyResult> needTransResults, String from, String to) {
+        if (CollectionUtils.isEmpty(needTransResults)) {
+            return;
+        }
         List<String> queries = needTransResults.stream().map(TransPropertyResult::getPropertyValue).collect(Collectors.toList());
         Map<String, String> transResult = getTransResult(queries, from, to);
         needTransResults.forEach( r-> r.setTransValue(transResult.get(r.getPropertyValue())));
