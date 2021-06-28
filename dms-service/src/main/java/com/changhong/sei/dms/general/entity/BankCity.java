@@ -29,16 +29,6 @@ public class BankCity extends BaseAuditableEntity implements Serializable, ICode
     @Column(name = "code")
     private String code;
     /**
-     * 行政区域代码
-     */
-    @Column(name = "region_code")
-    private String regionCode;
-    /**
-     * 名称
-     */
-    @Column(name = "name")
-    private String name;
-    /**
      * 银行省区Id
      */
     @Column(name = "bank_province_id")
@@ -49,6 +39,18 @@ public class BankCity extends BaseAuditableEntity implements Serializable, ICode
     @ManyToOne
     @JoinColumn(name = "bank_province_id", insertable = false, updatable = false)
     private BankProvinces bankProvince;
+    /**
+     * 行政区域Id
+     */
+    @Column(name = "region_id")
+    private String regionId;
+    /**
+     * 行政区域
+     */
+    @ManyToOne
+    @JoinColumn(name = "region_id", insertable = false, updatable = false)
+    private Region region;
+
     /**
      * 已冻结
      */
@@ -76,20 +78,20 @@ public class BankCity extends BaseAuditableEntity implements Serializable, ICode
         this.code = code;
     }
 
-    public String getRegionCode() {
-        return regionCode;
+    public String getRegionId() {
+        return regionId;
     }
 
-    public void setRegionCode(String regionCode) {
-        this.regionCode = regionCode;
+    public void setRegionId(String regionId) {
+        this.regionId = regionId;
     }
 
-    public String getName() {
-        return name;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRegion(Region region) {
+        this.region = region;
     }
 
     public String getBankProvinceId() {

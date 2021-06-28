@@ -23,33 +23,46 @@ public class BankCityDto extends BaseEntityDto {
      */
     @NotBlank
     @Size(max = 10)
-    @ApiModelProperty(value = "代码")
+    @ApiModelProperty(value = "代码", required = true)
     private String code;
-    /**
-     * 行政区域代码
-     */
-    @Size(max = 20)
-    @ApiModelProperty(value = "行政区域代码")
-    private String regionCode;
-    /**
-     * 名称
-     */
-    @NotBlank
-    @Size(max = 20)
-    @ApiModelProperty(value = "名称")
-    private String name;
     /**
      * 银行省区Id
      */
     @NotBlank
-    @ApiModelProperty(value = "银行省区Id")
+    @ApiModelProperty(value = "银行省区Id", required = true)
     private String bankProvinceId;
+    /**
+     * 关联省区代码
+     */
+    @ApiModelProperty(value = "关联省区代码")
+    private String bankProvinceCode;
+    /**
+     * 行政区域Id
+     */
+    @NotBlank
+    @ApiModelProperty(value = "行政区域Id", required = true)
+    private String regionId;
+    /**
+     * 关联行政区域代码
+     */
+    @ApiModelProperty(value = "关联行政区域代码")
+    private String regionCode;
+    /**
+     * 关联行政区域名称
+     */
+    @ApiModelProperty(value = "关联行政区域名称")
+    private String regionName;
+    /**
+     * 关联国家代码
+     */
+    @ApiModelProperty(value = "关联国家代码")
+    private String countryCode;
 
     /**
-     * 银行省区
+     * 关联国家名称
      */
-    @ApiModelProperty(value = "银行省区")
-    private BankProvincesDto bankProvince;
+    @ApiModelProperty(value = "关联国家名称")
+    private String countryName;
     /**
      * 已冻结
      */
@@ -83,12 +96,12 @@ public class BankCityDto extends BaseEntityDto {
         this.regionCode = regionCode;
     }
 
-    public String getName() {
-        return name;
+    public String getRegionId() {
+        return regionId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRegionId(String regionId) {
+        this.regionId = regionId;
     }
 
     public String getBankProvinceId() {
@@ -99,12 +112,28 @@ public class BankCityDto extends BaseEntityDto {
         this.bankProvinceId = bankProvinceId;
     }
 
-    public BankProvincesDto getBankProvince() {
-        return bankProvince;
+    public String getRegionName() {
+        return regionName;
     }
 
-    public void setBankProvince(BankProvincesDto bankProvince) {
-        this.bankProvince = bankProvince;
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 
     public Boolean getFrozen() {
@@ -121,6 +150,14 @@ public class BankCityDto extends BaseEntityDto {
 
     public void setRank(Integer rank) {
         this.rank = rank;
+    }
+
+    public String getBankProvinceCode() {
+        return bankProvinceCode;
+    }
+
+    public void setBankProvinceCode(String bankProvinceCode) {
+        this.bankProvinceCode = bankProvinceCode;
     }
 
     public String getTenantCode() {

@@ -10,6 +10,8 @@ import com.changhong.sei.dms.general.dto.BankAreaDto;
 import com.changhong.sei.dms.general.dto.BankCityDto;
 import com.changhong.sei.dms.general.entity.BankArea;
 import com.changhong.sei.dms.general.entity.BankCity;
+import com.changhong.sei.dms.general.entity.Country;
+import com.changhong.sei.dms.general.entity.Region;
 import com.changhong.sei.dms.general.service.BankCityService;
 import io.swagger.annotations.Api;
 import org.modelmapper.ModelMapper;
@@ -66,6 +68,20 @@ public class BankCityController extends BaseEntityController<BankCity, BankCityD
         if (Objects.isNull(entity)) {
             return null;
         }
-        return mapper.map(entity, getDtoClass());
+        BankCityDto bankCityDto = mapper.map(entity, getDtoClass());
+        if (Objects.nonNull(entity.getBankProvince())) {
+            bankCityDto.setBankProvinceCode(entity.getBankProvince().getCode());
+        }
+        Region region = entity.getRegion();
+        if (Objects.nonNull(region)) {
+            bankCityDto.setRegionCode(region.getCode());
+            bankCityDto.setRegionName(region.getName());
+            Country country = region.getCountry();
+            if (Objects.nonNull(country)) {
+                bankCityDto.setCountryCode(country.getCode());
+                bankCityDto.setCountryName(country.getName());
+            }
+        }
+        return bankCityDto;
     }
 }

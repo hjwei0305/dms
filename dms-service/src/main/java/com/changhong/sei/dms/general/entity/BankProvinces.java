@@ -27,7 +27,7 @@ public class BankProvinces extends BaseAuditableEntity implements Serializable, 
     @Column(name = "code")
     private String code;
     /**
-     * 行政区域代码
+     * 行政区域Id
      */
     @Column(name = "region_id")
     private String regionId;
