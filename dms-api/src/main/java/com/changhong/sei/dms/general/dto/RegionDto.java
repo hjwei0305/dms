@@ -112,20 +112,6 @@ public class RegionDto extends BaseEntityDto implements TreeEntity<RegionDto> {
     @ApiModelProperty(value = "租户代码")
     private String tenantCode;
     /**
-     * 商旅城市代码
-     */
-    @Size(max = 10)
-    @ApiModelProperty(value = "商旅城市代码", allowableValues = "@Size(max = 10)")
-    private String travelCityCode;
-
-    /**
-     * 商旅城市名称
-     */
-    @Size(max = 90)
-    @ApiModelProperty(value = "商旅城市名称", allowableValues = "@Size(max = 90)")
-    private String travelCityName;
-
-    /**
      * 子节点列表
      */
     @ApiModelProperty(value = "子节点列表", allowableValues = "list")
@@ -244,22 +230,6 @@ public class RegionDto extends BaseEntityDto implements TreeEntity<RegionDto> {
 
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
-    }
-
-    public String getTravelCityCode() {
-        return travelCityCode;
-    }
-
-    public void setTravelCityCode(String travelCityCode) {
-        this.travelCityCode = travelCityCode;
-    }
-
-    public String getTravelCityName() {
-        return travelCityName;
-    }
-
-    public void setTravelCityName(String travelCityName) {
-        this.travelCityName = travelCityName;
     }
 
     @Override

@@ -93,18 +93,6 @@ public class Region extends BaseAuditableEntity implements Serializable, TreeEnt
     private String pinYin;
 
     /**
-     * 商旅城市代码
-     */
-    @Column(name = "travel_city_code", length = 10)
-    private String travelCityCode;
-
-    /**
-     * 商旅城市名称
-     */
-    @Column(name = "travel_city_name", length = 90)
-    private String travelCityName;
-
-    /**
      * 租户代码
      */
     @Column(name = "tenant_code", length = 10, nullable = false)
@@ -189,22 +177,6 @@ public class Region extends BaseAuditableEntity implements Serializable, TreeEnt
 
     public void setCountry(Country country) {
         this.country = country;
-    }
-
-    public String getTravelCityCode() {
-        return travelCityCode;
-    }
-
-    public void setTravelCityCode(String travelCityCode) {
-        this.travelCityCode = travelCityCode;
-    }
-
-    public String getTravelCityName() {
-        return travelCityName;
-    }
-
-    public void setTravelCityName(String travelCityName) {
-        this.travelCityName = travelCityName;
     }
 
     @Override
