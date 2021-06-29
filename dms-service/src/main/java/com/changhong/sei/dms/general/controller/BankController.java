@@ -4,19 +4,26 @@ import com.changhong.sei.core.controller.BaseEntityController;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
+import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.core.service.Validation;
 import com.changhong.sei.dms.general.api.BankApi;
 import com.changhong.sei.dms.general.dto.BankDto;
 import com.changhong.sei.dms.general.entity.*;
 import com.changhong.sei.dms.general.service.BankService;
 import io.swagger.annotations.Api;
+import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 银行(Bank)控制类
@@ -50,6 +57,22 @@ public class BankController extends BaseEntityController<Bank, BankDto> implemen
     @Override
     public ResultData<PageResult<BankDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
+    }
+
+    /**
+     * 基于主键集合查询集合数据对象
+     *
+     * @param ids 主键集合
+     */
+    public List<BankDto> findByIds(List<String> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
+            return new ArrayList<>();
+        }
+        List<Bank> bankList = service.findByFilter(new SearchFilter("id", ids, SearchFilter.Operator.IN));
+        if (CollectionUtils.isEmpty(bankList)) {
+            return new ArrayList<>();
+        }
+        return bankList.parallelStream().map(this::convertToDto).collect(Collectors.toList());
     }
 
 
