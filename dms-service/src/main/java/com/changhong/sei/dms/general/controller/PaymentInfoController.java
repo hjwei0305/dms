@@ -9,10 +9,7 @@ import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.ResponseData;
 import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.dms.general.api.PaymentInfoApi;
-import com.changhong.sei.dms.general.dto.BankDto;
-import com.changhong.sei.dms.general.dto.PaymentInfoDto;
-import com.changhong.sei.dms.general.dto.PaymentInfoUseScopeEnum;
-import com.changhong.sei.dms.general.dto.ReceiverTypeEnum;
+import com.changhong.sei.dms.general.dto.*;
 import com.changhong.sei.dms.general.entity.PaymentInfo;
 import com.changhong.sei.dms.general.service.BankService;
 import com.changhong.sei.dms.general.service.PaymentInfoService;
@@ -69,6 +66,18 @@ public class PaymentInfoController extends BaseEntityController<PaymentInfo, Pay
     public ResultData<List<PaymentInfoDto>> findByReceiverCode(ReceiverTypeEnum receiverType, PaymentInfoUseScopeEnum useScope, String receiverCode) {
         ResponseData<List<PaymentInfo>> responseData = service.findByReceiverCode(receiverType, useScope, receiverCode);
         return ResultDataUtil.convertFromResponseData(responseData, convertToDtos(responseData.getData()));
+    }
+
+    /**
+     * 通过银行账号获取收款方信息(银行账号右匹配)
+     *
+     * @param bankAccountNumber 银行账号
+     * @param receiverType      收款对象类型:H-员工，K-供应商，D-客户
+     * @return 支付信息
+     */
+    @Override
+    public ResultData<ReceiverInfoDto> findReceiverInfoByBankAccountNumber(String bankAccountNumber, ReceiverTypeEnum receiverType) {
+        return ResultData.success(service.findReceiverInfoByBankAccountNumber(bankAccountNumber, receiverType));
     }
 
     /**
