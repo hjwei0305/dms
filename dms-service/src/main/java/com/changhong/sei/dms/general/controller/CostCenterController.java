@@ -7,6 +7,7 @@ import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.api.CostCenterApi;
 import com.changhong.sei.dms.general.dto.CostCenterDto;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.CostCenter;
 import com.changhong.sei.dms.general.service.CostCenterService;
 import io.swagger.annotations.Api;
@@ -47,5 +48,16 @@ public class CostCenterController extends BaseEntityController<CostCenter, CostC
     @Override
     public ResultData<PageResult<CostCenterDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
+    }
+
+    /**
+     * 分页查询成本中心
+     *
+     * @param searchParam 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<CostCenterDto>> search(ErpCodeQuickSearchParam searchParam) {
+        return convertToDtoPageResult(service.search(searchParam));
     }
 }
