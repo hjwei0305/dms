@@ -18,5 +18,5 @@ public interface CustomerExtDao {
      * @param tenantCode 租户代码
      * @return 客户主数据
      */
-    PageResult<Customer> search(ErpCodeQuickSearchParam searchParam, String tenantCode);
+    PageResult<Customer> search(ErpCodeQuickSearchParam searchParam);
 }

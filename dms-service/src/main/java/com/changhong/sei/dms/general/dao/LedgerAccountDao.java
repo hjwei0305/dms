@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @since 2021-04-16 16:16:20
  */
 @Repository
-public interface LedgerAccountDao extends BaseEntityDao<LedgerAccount> {
+public interface LedgerAccountDao extends BaseEntityDao<LedgerAccount>,LedgerAccountExtDao {
 
 }

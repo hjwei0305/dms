@@ -46,6 +46,6 @@ public class SupplierService extends BaseEntityService<Supplier> {
      * @return 分页查询结果
      */
     public PageResult<Supplier> search(ErpCodeQuickSearchParam searchParam) {
-        return dao.search(searchParam, ContextUtil.getTenantCode());
+        return dao.search(searchParam);
     }
 }

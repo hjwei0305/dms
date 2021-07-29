@@ -11,9 +11,11 @@ import com.changhong.sei.core.service.bo.OperateResult;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.dms.general.api.LedgerAccountApi;
+import com.changhong.sei.dms.general.dto.CostCenterDto;
 import com.changhong.sei.dms.general.dto.InnerOrderDto;
 import com.changhong.sei.dms.general.dto.LedgerAccountCorporationDto;
 import com.changhong.sei.dms.general.dto.LedgerAccountDto;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.LedgerAccount;
 import com.changhong.sei.dms.general.entity.LedgerAccountCorporation;
 import com.changhong.sei.dms.general.service.LedgerAccountCorporationService;
@@ -73,14 +75,14 @@ public class LedgerAccountController extends BaseEntityController<LedgerAccount,
     }
 
     /**
-     * 分页查询业务实体
+     * 快速查询公司的总账科目
      *
      * @param search 查询参数
      * @return 分页查询结果
      */
     @Override
-    public ResultData<PageResult<LedgerAccountDto>> findByPage(Search search) {
-        return convertToDtoPageResult(service.findByPage(search));
+    public ResultData<PageResult<LedgerAccountDto>> search(ErpCodeQuickSearchParam search) {
+        return convertToDtoPageResult(service.search(search));
     }
 
     /**
@@ -198,5 +200,16 @@ public class LedgerAccountController extends BaseEntityController<LedgerAccount,
         LedgerAccountCorporation result = new LedgerAccountCorporation();
         dtoModelMapper.map(dto, result);
         return result;
+    }
+
+    /**
+     * 分页查询业务实体
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<LedgerAccountDto>> findByPage(Search search) {
+        return convertToDtoPageResult(service.findByPage(search));
     }
 }

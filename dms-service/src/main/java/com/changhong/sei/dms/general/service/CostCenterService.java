@@ -35,6 +35,6 @@ public class CostCenterService extends BaseEntityService<CostCenter> {
      * @return 分页查询结果
      */
     public PageResult<CostCenter> search(ErpCodeQuickSearchParam searchParam) {
-        return dao.search(searchParam, ContextUtil.getTenantCode());
+        return dao.search(searchParam);
     }
 }

@@ -40,27 +40,27 @@ public class CustomerDaoImpl extends BaseEntityDaoImpl<Customer>
      * @return 客户主数据
      */
     @Override
-    public PageResult<Customer> search(ErpCodeQuickSearchParam searchParam, String tenantCode) {
+    public PageResult<Customer> search(ErpCodeQuickSearchParam searchParam) {
         String select = "select cc.customer";
         String fromAndWhere = "from CustomerCorporation cc " +
                 "where cc.tenantCode=:tenantCode " +
-                "and cc.erpCorporationCode = :erpCorporationCode ";
+                "and cc.erpCorporationCode = :erpCorporationCode  ";
         Map<String, Object> sqlParams = new HashMap<>();
         String quickSearchValue = searchParam.getQuickSearchValue();
         sqlParams.put("tenantCode", ContextUtil.getTenantCode());
         sqlParams.put("erpCorporationCode", searchParam.getErpCode());
         // 限制关键字：代码，名称
-        if (!StringUtils.isBlank(quickSearchValue)){
+        if (!StringUtils.isBlank(quickSearchValue)) {
             fromAndWhere += "and (cc.customer.code like :quickSearchValue " +
                     "or cc.customer.name like :quickSearchValue) ";
-            sqlParams.put("quickSearchValue", "%"+quickSearchValue+"%");
+            sqlParams.put("quickSearchValue", "%" + quickSearchValue + "%");
         }
-        QuerySql querySql = new QuerySql(select,fromAndWhere);
+        QuerySql querySql = new QuerySql(select, fromAndWhere);
         // 设置排序
         if (CollectionUtils.isEmpty(searchParam.getSortOrders())) {
             String orderBy = "order by cc.customer.code ";
             querySql.setOrderBy(orderBy);
         }
-        return PageResultUtil.getResult(entityManager,querySql,sqlParams,searchParam);
+        return PageResultUtil.getResult(entityManager, querySql, sqlParams, searchParam);
     }
 }

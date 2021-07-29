@@ -5,9 +5,11 @@ import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
+import com.changhong.sei.dms.general.dto.CostCenterDto;
 import com.changhong.sei.dms.general.dto.InnerOrderDto;
 import com.changhong.sei.dms.general.dto.LedgerAccountCorporationDto;
 import com.changhong.sei.dms.general.dto.LedgerAccountDto;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -26,6 +28,16 @@ import java.util.List;
 @FeignClient(name = "dms", path = LedgerAccountApi.PATH)
 public interface LedgerAccountApi extends BaseEntityApi<LedgerAccountDto>, FindByPageApi<LedgerAccountDto> {
     String PATH = "ledgerAccount";
+
+    /**
+     * 快速查询公司的总账科目
+     *
+     * @param search 查询参数
+     * @return 分页查询结果
+     */
+    @PostMapping(path = "search", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "快速查询公司的总账科目", notes = "快速查询公司的总账科目")
+    ResultData<PageResult<LedgerAccountDto>> search(@RequestBody ErpCodeQuickSearchParam search);
 
     /**
      * 获取科目的公司信息

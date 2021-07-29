@@ -1,10 +1,14 @@
 package com.changhong.sei.dms.general.service;
 
+import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseEntityDao;
+import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResult;
 import com.changhong.sei.dms.general.dao.LedgerAccountCorporationDao;
 import com.changhong.sei.dms.general.dao.LedgerAccountDao;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
+import com.changhong.sei.dms.general.entity.CostCenter;
 import com.changhong.sei.dms.general.entity.LedgerAccount;
 import com.changhong.sei.dms.general.entity.LedgerAccountCorporation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +48,14 @@ public class LedgerAccountService extends BaseEntityService<LedgerAccount> {
         return OperateResult.operationSuccess("core_service_00028");
     }
 
+    /**
+     * 分页查询成本中心
+     *
+     * @param searchParam 查询参数
+     * @return 分页查询结果
+     */
+    public PageResult<LedgerAccount> search(ErpCodeQuickSearchParam searchParam) {
+        return dao.search(searchParam);
+    }
 
 }
