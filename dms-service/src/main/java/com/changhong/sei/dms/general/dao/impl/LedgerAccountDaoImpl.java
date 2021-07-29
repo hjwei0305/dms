@@ -47,7 +47,7 @@ public class LedgerAccountDaoImpl extends BaseEntityDaoImpl<LedgerAccount>
         String select = "select cc.ledgerAccount ";
         String fromAndWhere = "from LedgerAccountCorporation cc " +
                 "where cc.tenantCode =:tenantCode  " +
-                "AND cc.frozen = Boolean.FALSE " +
+                "AND cc.frozen = FALSE " +
                 "AND cc.erpCorporationCode = :erpCorporationCode ";
         Map<String, Object> sqlParams = new HashMap<>();
         String quickSearchValue = searchParam.getQuickSearchValue();
