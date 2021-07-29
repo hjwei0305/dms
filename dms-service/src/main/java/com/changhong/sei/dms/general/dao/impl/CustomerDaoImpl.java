@@ -36,7 +36,6 @@ public class CustomerDaoImpl extends BaseEntityDaoImpl<Customer>
      * 分页查询客户主数据
      *
      * @param searchParam 查询参数
-     * @param tenantCode  租户代码
      * @return 客户主数据
      */
     @Override

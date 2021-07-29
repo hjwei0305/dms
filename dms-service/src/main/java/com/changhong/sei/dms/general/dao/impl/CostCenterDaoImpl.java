@@ -6,10 +6,8 @@ import com.changhong.sei.core.dao.impl.PageResultUtil;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.entity.search.QuerySql;
 import com.changhong.sei.dms.general.dao.CostCenterExtDao;
-import com.changhong.sei.dms.general.dao.CustomerExtDao;
 import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.CostCenter;
-import com.changhong.sei.dms.general.entity.Customer;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -38,14 +36,13 @@ public class CostCenterDaoImpl extends BaseEntityDaoImpl<CostCenter>
      * 分页查询成本中心
      *
      * @param searchParam 查询参数
-     * @param tenantCode  租户代码
      * @return 成本中心
      */
     @Override
     public PageResult<CostCenter> search(ErpCodeQuickSearchParam searchParam) {
         String select = "select cc";
         String fromAndWhere = "from CostCenter cc " +
-                "where cc.tenantCode=:tenantCode" +
+                "where cc.tenantCode=:tenantCode " +
                 "and cc.erpCorporationCode = :erpCorporationCode  ";
         Map<String, Object> sqlParams = new HashMap<>();
         String quickSearchValue = searchParam.getQuickSearchValue();
