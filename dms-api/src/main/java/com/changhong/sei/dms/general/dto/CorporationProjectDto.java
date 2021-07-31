@@ -33,28 +33,36 @@ public class CorporationProjectDto extends BaseEntityDto {
     @ApiModelProperty(value = "ERP公司代码", required = true)
     private String erpCorporationCode;
     /**
-     * WBS项目编号
+     * WBS项目Id
      */
     @Size(max = 30)
-    @ApiModelProperty(value = "WBS项目编号", notes = "WBS项目编号与内部订单编号两者必填一个")
+    @ApiModelProperty(value = "WBS项目Id", notes = "WBS项目编号与内部订单编号两者必填一个")
+    private String wbsProjectId;
+    /**
+     * 关联的WBS项目编号
+     */
+    @ApiModelProperty(value = "关联的WBS项目编号")
     private String wbsProjectCode;
     /**
-     * WBS项目名称
+     * 关联的WBS项目名称
      */
-    @Size(max = 50)
-    @ApiModelProperty(value = "WBS项目名称")
+    @ApiModelProperty(value = "关联的WBS项目名称")
     private String wbsProjectName;
     /**
-     * 内部订单编号
+     * 内部订单Id
      */
     @Size(max = 20)
-    @ApiModelProperty(value = "内部订单编号", notes = "WBS项目编号与内部订单编号两者必填一个")
+    @ApiModelProperty(value = "内部订单Id", notes = "WBS项目编号与内部订单编号两者必填一个")
+    private String innerOrderId;
+    /**
+     * 关联的内部订单编号
+     */
+    @ApiModelProperty(value = "关联的内部订单编号")
     private String innerOrderCode;
     /**
-     * 内部订单名称
+     * 关联的内部订单名称
      */
-    @Size(max = 50)
-    @ApiModelProperty(value = "内部订单名称")
+    @ApiModelProperty(value = "关联的内部订单名称")
     private String innerOrderName;
     /**
      * 冻结标识
@@ -82,6 +90,22 @@ public class CorporationProjectDto extends BaseEntityDto {
 
     public void setErpCorporationCode(String erpCorporationCode) {
         this.erpCorporationCode = erpCorporationCode;
+    }
+
+    public String getWbsProjectId() {
+        return wbsProjectId;
+    }
+
+    public void setWbsProjectId(String wbsProjectId) {
+        this.wbsProjectId = wbsProjectId;
+    }
+
+    public String getInnerOrderId() {
+        return innerOrderId;
+    }
+
+    public void setInnerOrderId(String innerOrderId) {
+        this.innerOrderId = innerOrderId;
     }
 
     public String getWbsProjectCode() {

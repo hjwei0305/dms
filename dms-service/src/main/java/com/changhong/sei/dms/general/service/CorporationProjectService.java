@@ -44,11 +44,11 @@ public class CorporationProjectService extends BaseEntityService<CorporationProj
      */
     @Override
     public OperateResultWithData<CorporationProject> save(CorporationProject entity) {
-        if (StringUtils.isNoneBlank(entity.getWbsProjectCode(), entity.getInnerOrderCode())) {
+        if (StringUtils.isNoneBlank(entity.getWbsProjectId(), entity.getInnerOrderId())) {
             //00027 = WBS项目编号与内部订单编号只能存在一个，请检查！
             return OperateResultWithData.operationFailure("00027");
         }
-        if (StringUtils.isAllBlank(entity.getWbsProjectCode(), entity.getInnerOrderCode())) {
+        if (StringUtils.isAllBlank(entity.getWbsProjectId(), entity.getInnerOrderId())) {
             //00028 = WBS项目编号与内部订单编号必须存在一个，请检查！
             return OperateResultWithData.operationFailure("00028", entity.getName());
         }

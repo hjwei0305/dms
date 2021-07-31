@@ -9,12 +9,17 @@ import com.changhong.sei.dms.general.api.CorporationProjectApi;
 import com.changhong.sei.dms.general.dto.CorporationProjectDto;
 import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.CorporationProject;
+import com.changhong.sei.dms.general.entity.InnerOrder;
+import com.changhong.sei.dms.general.entity.WbsProject;
 import com.changhong.sei.dms.general.service.CorporationProjectService;
 import io.swagger.annotations.Api;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Objects;
 
 /**
  * 公司项目(CorporationProject)控制类
@@ -31,6 +36,8 @@ public class CorporationProjectController extends BaseEntityController<Corporati
      */
     @Autowired
     private CorporationProjectService service;
+    @Autowired
+    private ModelMapper mapper;
 
     @Override
     public BaseEntityService<CorporationProject> getService() {
@@ -46,5 +53,30 @@ public class CorporationProjectController extends BaseEntityController<Corporati
     @Override
     public ResultData<PageResult<CorporationProjectDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
+    }
+
+    /**
+     * 将数据实体转换成DTO
+     *
+     * @param entity 业务实体
+     * @return DTO
+     */
+    @Override
+    public CorporationProjectDto convertToDto(CorporationProject entity) {
+        if (Objects.isNull(entity)) {
+            return null;
+        }
+        CorporationProjectDto dto = mapper.map(entity, getDtoClass());
+        WbsProject wbsProject = entity.getWbsProject();
+        if (Objects.nonNull(wbsProject)) {
+            dto.setWbsProjectCode(wbsProject.getCode());
+            dto.setWbsProjectName(wbsProject.getName());
+        }
+        InnerOrder innerOrder = entity.getInnerOrder();
+        if (Objects.nonNull(innerOrder)) {
+            dto.setInnerOrderCode(innerOrder.getCode());
+            dto.setInnerOrderName(innerOrder.getName());
+        }
+        return dto;
     }
 }

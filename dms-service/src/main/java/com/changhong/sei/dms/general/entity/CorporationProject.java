@@ -6,9 +6,7 @@ import com.changhong.sei.core.entity.ITenant;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -34,25 +32,27 @@ public class CorporationProject extends BaseAuditableEntity implements Serializa
     @Column(name = "erp_corporation_code")
     private String erpCorporationCode;
     /**
-     * WBS项目编号
+     * WBS项目Id
      */
-    @Column(name = "wbs_project_code")
-    private String wbsProjectCode;
+    @Column(name = "wbs_project_id")
+    private String wbsProjectId;
     /**
-     * WBS项目名称
+     * WBS项目
      */
-    @Column(name = "wbs_project_name")
-    private String wbsProjectName;
+    @ManyToOne
+    @JoinColumn(name = "wbs_project_id", updatable = false, insertable = false)
+    private WbsProject wbsProject;
     /**
-     * 内部订单编号
+     * 内部订单Id
      */
-    @Column(name = "inner_order_code")
-    private String innerOrderCode;
+    @Column(name = "inner_order_id")
+    private String innerOrderId;
     /**
-     * 内部订单名称
+     * WBS项目
      */
-    @Column(name = "inner_order_name")
-    private String innerOrderName;
+    @ManyToOne
+    @JoinColumn(name = "inner_order_id", updatable = false, insertable = false)
+    private InnerOrder innerOrder;
     /**
      * 冻结标识
      */
@@ -81,36 +81,36 @@ public class CorporationProject extends BaseAuditableEntity implements Serializa
         this.erpCorporationCode = erpCorporationCode;
     }
 
-    public String getWbsProjectCode() {
-        return wbsProjectCode;
+    public String getWbsProjectId() {
+        return wbsProjectId;
     }
 
-    public void setWbsProjectCode(String wbsProjectCode) {
-        this.wbsProjectCode = wbsProjectCode;
+    public void setWbsProjectId(String wbsProjectId) {
+        this.wbsProjectId = wbsProjectId;
     }
 
-    public String getWbsProjectName() {
-        return wbsProjectName;
+    public String getInnerOrderId() {
+        return innerOrderId;
     }
 
-    public void setWbsProjectName(String wbsProjectName) {
-        this.wbsProjectName = wbsProjectName;
+    public void setInnerOrderId(String innerOrderId) {
+        this.innerOrderId = innerOrderId;
     }
 
-    public String getInnerOrderCode() {
-        return innerOrderCode;
+    public WbsProject getWbsProject() {
+        return wbsProject;
     }
 
-    public void setInnerOrderCode(String innerOrderCode) {
-        this.innerOrderCode = innerOrderCode;
+    public void setWbsProject(WbsProject wbsProject) {
+        this.wbsProject = wbsProject;
     }
 
-    public String getInnerOrderName() {
-        return innerOrderName;
+    public InnerOrder getInnerOrder() {
+        return innerOrder;
     }
 
-    public void setInnerOrderName(String innerOrderName) {
-        this.innerOrderName = innerOrderName;
+    public void setInnerOrder(InnerOrder innerOrder) {
+        this.innerOrder = innerOrder;
     }
 
     @Override
