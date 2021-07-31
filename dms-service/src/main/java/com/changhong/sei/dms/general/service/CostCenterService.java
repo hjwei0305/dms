@@ -1,13 +1,11 @@
 package com.changhong.sei.dms.general.service;
 
-import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.dao.CostCenterDao;
 import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.CostCenter;
-import com.changhong.sei.dms.general.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
