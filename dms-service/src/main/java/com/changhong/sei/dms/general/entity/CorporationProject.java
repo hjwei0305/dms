@@ -29,15 +29,10 @@ public class CorporationProject extends BaseAuditableEntity implements Serializa
     @Column(name = "name")
     private String name;
     /**
-     * 公司代码
+     * ERP公司代码
      */
-    @Column(name = "corporation_code")
-    private String corporationCode;
-    /**
-     * 公司名称
-     */
-    @Column(name = "corporation_name")
-    private String corporationName;
+    @Column(name = "erp_corporation_code")
+    private String erpCorporationCode;
     /**
      * WBS项目编号
      */
@@ -78,20 +73,12 @@ public class CorporationProject extends BaseAuditableEntity implements Serializa
         this.name = name;
     }
 
-    public String getCorporationCode() {
-        return corporationCode;
+    public String getErpCorporationCode() {
+        return erpCorporationCode;
     }
 
-    public void setCorporationCode(String corporationCode) {
-        this.corporationCode = corporationCode;
-    }
-
-    public String getCorporationName() {
-        return corporationName;
-    }
-
-    public void setCorporationName(String corporationName) {
-        this.corporationName = corporationName;
+    public void setErpCorporationCode(String erpCorporationCode) {
+        this.erpCorporationCode = erpCorporationCode;
     }
 
     public String getWbsProjectCode() {

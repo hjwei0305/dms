@@ -26,19 +26,12 @@ public class CorporationProjectDto extends BaseEntityDto {
     @ApiModelProperty(value = "名称", required = true)
     private String name;
     /**
-     * 公司代码
+     * ERP公司代码
      */
     @NotBlank
-    @Size(max = 20)
-    @ApiModelProperty(value = "公司代码", required = true)
-    private String corporationCode;
-    /**
-     * 公司名称
-     */
-    @NotBlank
-    @Size(max = 100)
-    @ApiModelProperty(value = "公司名称", required = true)
-    private String corporationName;
+    @Size(max = 10)
+    @ApiModelProperty(value = "ERP公司代码", required = true)
+    private String erpCorporationCode;
     /**
      * WBS项目编号
      */
@@ -83,20 +76,12 @@ public class CorporationProjectDto extends BaseEntityDto {
         this.name = name;
     }
 
-    public String getCorporationCode() {
-        return corporationCode;
+    public String getErpCorporationCode() {
+        return erpCorporationCode;
     }
 
-    public void setCorporationCode(String corporationCode) {
-        this.corporationCode = corporationCode;
-    }
-
-    public String getCorporationName() {
-        return corporationName;
-    }
-
-    public void setCorporationName(String corporationName) {
-        this.corporationName = corporationName;
+    public void setErpCorporationCode(String erpCorporationCode) {
+        this.erpCorporationCode = erpCorporationCode;
     }
 
     public String getWbsProjectCode() {

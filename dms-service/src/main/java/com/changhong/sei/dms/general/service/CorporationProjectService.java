@@ -45,22 +45,22 @@ public class CorporationProjectService extends BaseEntityService<CorporationProj
     @Override
     public OperateResultWithData<CorporationProject> save(CorporationProject entity) {
         if (StringUtils.isNoneBlank(entity.getWbsProjectCode(), entity.getInnerOrderCode())) {
-            //00002 = WBS项目编号与内部订单编号只能存在一个，请检查！
-            return OperateResultWithData.operationFailure("00002", entity.getName());
+            //00027 = WBS项目编号与内部订单编号只能存在一个，请检查！
+            return OperateResultWithData.operationFailure("00027");
         }
         if (StringUtils.isAllBlank(entity.getWbsProjectCode(), entity.getInnerOrderCode())) {
-            //00002 = WBS项目编号与内部订单编号必须存在一个，请检查！
-            return OperateResultWithData.operationFailure("00002", entity.getName());
+            //00028 = WBS项目编号与内部订单编号必须存在一个，请检查！
+            return OperateResultWithData.operationFailure("00028", entity.getName());
         }
         //校验名称重复
         Search search = new Search();
         search.addFilter(new SearchFilter("name", entity.getName()));
-        search.addFilter(new SearchFilter("corporationCode", entity.getCorporationCode()));
+        search.addFilter(new SearchFilter("erpCorporationCode", entity.getErpCorporationCode()));
         search.addFilter(new SearchFilter("id", entity.getId(), SearchFilter.Operator.NE));
         CorporationProject exist = findFirstByFilters(search);
         if (Objects.nonNull(exist)) {
-            //00002 = 【{0}】已存在，请检查！
-            return OperateResultWithData.operationFailure("00002", entity.getName());
+            //00025 = 已存在相同记录，请检查！
+            return OperateResultWithData.operationFailure("00025", entity.getName());
         }
         return super.save(entity);
     }
