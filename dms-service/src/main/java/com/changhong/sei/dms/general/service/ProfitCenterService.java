@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author sei
  * @since 2021-07-30 14:57:52
  */
-@Service
+@Service("profitCenterService")
 public class ProfitCenterService extends BaseEntityService<ProfitCenter> {
     @Autowired
     private ProfitCenterDao dao;
