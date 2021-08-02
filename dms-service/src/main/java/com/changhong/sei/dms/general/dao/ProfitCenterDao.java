@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  * @since 2021-07-30 14:57:52
  */
 @Repository
-public interface ProfitCenterDao extends BaseEntityDao<ProfitCenter> {
+public interface ProfitCenterDao extends BaseEntityDao<ProfitCenter>, ProfitCenterExtDao{
 
 }
