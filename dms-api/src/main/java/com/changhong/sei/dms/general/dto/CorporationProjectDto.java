@@ -35,7 +35,6 @@ public class CorporationProjectDto extends BaseEntityDto {
     /**
      * WBS项目Id
      */
-    @Size(max = 30)
     @ApiModelProperty(value = "WBS项目Id", notes = "WBS项目编号与内部订单编号两者必填一个")
     private String wbsProjectId;
     /**
@@ -51,7 +50,7 @@ public class CorporationProjectDto extends BaseEntityDto {
     /**
      * 内部订单Id
      */
-    @Size(max = 20)
+
     @ApiModelProperty(value = "内部订单Id", notes = "WBS项目编号与内部订单编号两者必填一个")
     private String innerOrderId;
     /**
