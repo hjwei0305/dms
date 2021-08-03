@@ -1,8 +1,10 @@
 package com.changhong.sei.dms.general.service;
 
 import com.changhong.sei.core.dao.BaseEntityDao;
+import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.dao.ProfitCenterDao;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.ProfitCenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author sei
  * @since 2021-07-30 14:57:52
  */
-@Service
+@Service("profitCenterService")
 public class ProfitCenterService extends BaseEntityService<ProfitCenter> {
     @Autowired
     private ProfitCenterDao dao;
@@ -24,4 +26,11 @@ public class ProfitCenterService extends BaseEntityService<ProfitCenter> {
         return dao;
     }
 
+    /**
+     * 分页查询利润中心
+     *
+     * @param searchParam 查询参数
+     * @return 分页查询结果
+     */
+    public PageResult<ProfitCenter> search(ErpCodeQuickSearchParam searchParam) {return dao.search(searchParam);}
 }

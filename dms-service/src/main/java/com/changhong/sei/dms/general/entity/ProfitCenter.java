@@ -1,6 +1,9 @@
 package com.changhong.sei.dms.general.entity;
 
 import com.changhong.sei.core.entity.BaseAuditableEntity;
+import com.changhong.sei.core.entity.ICodeUnique;
+import com.changhong.sei.core.entity.IFrozen;
+import com.changhong.sei.core.entity.ITenant;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -19,7 +22,7 @@ import java.io.Serializable;
 @Table(name = "profit_center")
 @DynamicInsert
 @DynamicUpdate
-public class ProfitCenter extends BaseAuditableEntity implements Serializable {
+public class ProfitCenter extends BaseAuditableEntity implements Serializable, ICodeUnique, ITenant, IFrozen {
     private static final long serialVersionUID = -30529602277856354L;
     /**
      * 代码
@@ -58,10 +61,12 @@ public class ProfitCenter extends BaseAuditableEntity implements Serializable {
     private String tenantCode;
 
 
+    @Override
     public String getCode() {
         return code;
     }
 
+    @Override
     public void setCode(String code) {
         this.code = code;
     }
@@ -98,18 +103,22 @@ public class ProfitCenter extends BaseAuditableEntity implements Serializable {
         this.keyPerson = keyPerson;
     }
 
+    @Override
     public Boolean getFrozen() {
         return frozen;
     }
 
+    @Override
     public void setFrozen(Boolean frozen) {
         this.frozen = frozen;
     }
 
+    @Override
     public String getTenantCode() {
         return tenantCode;
     }
 
+    @Override
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
     }
