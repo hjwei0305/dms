@@ -14,15 +14,13 @@ import com.changhong.sei.dms.general.entity.Customer;
 import com.changhong.sei.dms.general.entity.PaymentInfo;
 import com.changhong.sei.dms.general.entity.Personnel;
 import com.changhong.sei.dms.general.entity.Supplier;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import static com.changhong.sei.dms.general.dto.ReceiverTypeEnum.*;
 
 
 /**
@@ -128,4 +126,19 @@ public class PaymentInfoService extends BaseEntityService<PaymentInfo> {
         return receiverInfo;
     }
 
+
+    /**
+     * 获取指定代码的收款方默认支付信息
+     *
+     * @param receiverType 收款对象类型
+     * @param receiverCode 收款对象代码
+     * @return 支付信息清单
+     */
+    public PaymentInfo findDefaultPaymentInfo(ReceiverTypeEnum receiverType, String receiverCode) {
+        List<PaymentInfo> paymentInfos = dao.findReceiverPaymentInfos(receiverType, receiverCode, ContextUtil.getTenantCode());
+        if (CollectionUtils.isEmpty(paymentInfos)) {
+            return null;
+        }
+        return paymentInfos.get(0);
+    }
 }

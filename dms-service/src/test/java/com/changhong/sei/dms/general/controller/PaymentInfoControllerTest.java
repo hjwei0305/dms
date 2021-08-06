@@ -2,11 +2,13 @@ package com.changhong.sei.dms.general.controller;
 
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.test.BaseUnitTest;
+import com.changhong.sei.core.util.JsonUtils;
 import com.changhong.sei.dms.general.dto.PaymentInfoDto;
 import com.changhong.sei.dms.general.dto.PaymentInfoUseScopeEnum;
 import com.changhong.sei.dms.general.dto.ReceiverTypeEnum;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -26,5 +28,12 @@ public class PaymentInfoControllerTest extends BaseUnitTest {
     public void findByReceiverCode() {
         ResultData<List<PaymentInfoDto>> resultData = controller.findByReceiverCode(ReceiverTypeEnum.K, PaymentInfoUseScopeEnum.CASH, "Q60002");
         Assert.assertTrue(resultData.successful());
+    }
+
+    @Test
+    public void findDefaultPaymentInfo() {
+        ResultData<?> resultData = controller.findDefaultPaymentInfo("K", "0000017777");
+        System.out.println(JsonUtils.toJson(resultData));
+        Assertions.assertTrue(resultData.successful());
     }
 }

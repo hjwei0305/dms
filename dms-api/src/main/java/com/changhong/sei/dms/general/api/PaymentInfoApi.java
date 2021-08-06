@@ -53,4 +53,16 @@ public interface PaymentInfoApi extends BaseEntityApi<PaymentInfoDto>, FindByPag
     @ApiOperation(value = "通过银行账号获取收款方ERP信息(银行账号右匹配)", notes = "通过银行账号获取收款方ERP信息(银行账号右匹配)，收款对象类型:H-员工，K-供应商，D-客户")
     ResultData<ReceiverInfoDto> findReceiverInfoByBankAccountNumber(@RequestParam("bankAccountNumber") String bankAccountNumber,
                                                                     @RequestParam("receiverType") ReceiverTypeEnum receiverType);
+
+    /**
+     * 获取指定代码的收款方默认支付信息
+     *
+     * @param receiverType 收款对象类型
+     * @param receiverCode 收款对象代码
+     * @return 支付信息清单
+     */
+    @GetMapping(path = "findDefaultPaymentInfo")
+    @ApiOperation(value = "获取指定代码的收款方默认支付信息", notes = "通过收款对象类型、收款对象代码获取默认的支付信息")
+    ResultData<PaymentInfoDto> findDefaultPaymentInfo(@RequestParam("receiverType") String receiverType,
+                                                      @RequestParam("receiverCode") String receiverCode);
 }

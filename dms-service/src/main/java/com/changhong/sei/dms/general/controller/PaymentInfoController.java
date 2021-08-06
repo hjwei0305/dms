@@ -35,7 +35,8 @@ import java.util.stream.Collectors;
 @RestController
 @Api(value = "PaymentInfoApi", tags = "支付信息服务")
 @RequestMapping(path = PaymentInfoApi.PATH, produces = MediaType.APPLICATION_JSON_VALUE)
-public class PaymentInfoController extends BaseEntityController<PaymentInfo, PaymentInfoDto> implements PaymentInfoApi {
+public class PaymentInfoController extends BaseEntityController<PaymentInfo, PaymentInfoDto>
+        implements PaymentInfoApi {
     /**
      * 支付信息服务对象
      */
@@ -78,6 +79,19 @@ public class PaymentInfoController extends BaseEntityController<PaymentInfo, Pay
     @Override
     public ResultData<ReceiverInfoDto> findReceiverInfoByBankAccountNumber(String bankAccountNumber, ReceiverTypeEnum receiverType) {
         return ResultData.success(service.findReceiverInfoByBankAccountNumber(bankAccountNumber, receiverType));
+    }
+
+    /**
+     * 获取指定代码的收款方默认支付信息
+     *
+     * @param receiverType 收款对象类型
+     * @param receiverCode 收款对象代码
+     * @return 支付信息清单
+     */
+    @Override
+    public ResultData<PaymentInfoDto> findDefaultPaymentInfo(String receiverType, String receiverCode) {
+        ReceiverTypeEnum typeEnum = EnumUtils.getEnum(ReceiverTypeEnum.class, receiverType);
+        return ResultData.success(convertToDto(service.findDefaultPaymentInfo(typeEnum, receiverCode)));
     }
 
     /**
