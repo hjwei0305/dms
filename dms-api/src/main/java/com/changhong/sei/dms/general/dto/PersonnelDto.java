@@ -14,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * 公司员工(ERP)(Personnel)DTO类
@@ -72,6 +73,11 @@ public class PersonnelDto extends BaseEntityDto {
     @JsonSerialize(using = EnumJsonSerializer.class)
     @ApiModelProperty(value = "在职状态(必需)")
     private WorkingStatusEnum workingStatus;
+    /**
+     * 在职
+     */
+    @ApiModelProperty(value = "在职")
+    private Boolean onJob;
     /**
      * HR组织机构代码
      */
@@ -299,4 +305,7 @@ public class PersonnelDto extends BaseEntityDto {
         this.tenantCode = tenantCode;
     }
 
+    public Boolean getOnJob() {
+        return Objects.equals(WorkingStatusEnum.ON_JOB, workingStatus);
+    }
 }
