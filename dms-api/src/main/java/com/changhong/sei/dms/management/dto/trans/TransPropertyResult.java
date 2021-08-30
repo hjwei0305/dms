@@ -38,7 +38,11 @@ public class TransPropertyResult implements Serializable {
 
     public TransPropertyResult() {
     }
-
+    public TransPropertyResult(String propertyName, String propertyValue) {
+        this.propertyName = propertyName;
+        this.propertyValue = propertyValue;
+        this.transValue = propertyValue;
+    }
     public TransPropertyResult(String propertyName, String propertyValue, String transValue) {
         this.propertyName = propertyName;
         this.propertyValue = propertyValue;

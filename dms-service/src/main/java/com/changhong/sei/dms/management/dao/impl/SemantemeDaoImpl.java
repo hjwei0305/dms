@@ -8,6 +8,7 @@ import com.changhong.sei.dms.management.dao.SemantemeExtDao;
 import com.changhong.sei.dms.management.dto.search.TranslationQuickQueryParam;
 import com.changhong.sei.dms.management.dto.trans.TransPropertyResult;
 import com.changhong.sei.dms.management.entity.Semanteme;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.EntityManager;
@@ -52,7 +53,9 @@ public class SemantemeDaoImpl extends BaseEntityDaoImpl<Semanteme> implements Se
         }
         QuerySql querySql = new QuerySql(select, fromAndWhere);
         // 排序
-        querySql.setOrderBy("order by s.propertyValue");
+        if (CollectionUtils.isEmpty(queryParam.getSortOrders())) {
+            querySql.setOrderBy("order by s.propertyValue");
+        }
         return PageResultUtil.getResult(entityManager, querySql, sqlParams, queryParam);
     }
 }
