@@ -38,7 +38,7 @@ public class SemantemeDaoImpl extends BaseEntityDaoImpl<Semanteme> implements Se
      */
     @Override
     public PageResult<TransPropertyResult> findTranslationsByPage(TranslationQuickQueryParam queryParam) {
-        String select = "select new com.changhong.sei.commondata.dto.trans.TransPropertyResult(t.propertyName, s.propertyValue) ";
+        String select = "select new com.changhong.sei.dms.management.dto.trans.TransPropertyResult(t.propertyName, s.propertyValue) ";
         String fromAndWhere = "from Semanteme s inner join SemantemeType t " +
                 "on s.semantemeTypeId = t.id " +
                 "where t.id=:semantemeTypeId ";
