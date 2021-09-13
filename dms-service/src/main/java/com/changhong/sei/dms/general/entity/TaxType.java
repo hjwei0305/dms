@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 @Table(name = "tax_type")
 @DynamicInsert
 @DynamicUpdate
-public class TaxType extends BaseAuditableEntity implements ICodeUnique, IRank, ITenant{
+public class TaxType extends BaseAuditableEntity implements ICodeUnique, IRank, ITenant {
     private static final long serialVersionUID = -1710768247895818110L;
     /**
      * Id
@@ -73,51 +73,115 @@ public class TaxType extends BaseAuditableEntity implements ICodeUnique, IRank, 
     private String ledgerAccountName;
 
     /**
+     * 转出科目代码
+     */
+    @Column(name = "transfer_account_code", length = 20)
+    private String transferAccountCode;
+
+    /**
+     * 转出科目名称
+     */
+    @Column(name = "transfer_account_name", length = 100)
+    private String transferAccountName;
+
+    /**
      * 租户代码
      */
     @Column(name = "tenant_code", length = 10, nullable = false, unique = true)
     private String tenantCode;
 
     @Override
-    public String getId() { return id; }
+    public String getId() {
+        return id;
+    }
 
     @Override
-    public void setId(String id) { this.id = id; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Override
-    public String getCode() { return code; }
+    public String getCode() {
+        return code;
+    }
 
     @Override
-    public void setCode(String code) { this.code = code; }
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public TaxCategory getTaxCategory() { return taxCategory; }
+    public TaxCategory getTaxCategory() {
+        return taxCategory;
+    }
 
-    public void setTaxCategory(TaxCategory taxCategory) { this.taxCategory = taxCategory; }
+    public void setTaxCategory(TaxCategory taxCategory) {
+        this.taxCategory = taxCategory;
+    }
 
-    public BigDecimal getTaxRate() { return taxRate; }
+    public BigDecimal getTaxRate() {
+        return taxRate;
+    }
 
-    public void setTaxRate(BigDecimal taxRate) { this.taxRate = taxRate; }
-
-    @Override
-    public Integer getRank() { return rank; }
-
-    public void setRank(Integer rank) { this.rank = rank; }
-
-    public String getLedgerAccountCode() { return ledgerAccountCode; }
-
-    public void setLedgerAccountCode(String ledgerAccountCode) { this.ledgerAccountCode = ledgerAccountCode; }
-
-    public String getLedgerAccountName() { return ledgerAccountName; }
-
-    public void setLedgerAccountName(String ledgerAccountName) { this.ledgerAccountName = ledgerAccountName; }
-
-    @Override
-    public String getTenantCode() { return tenantCode; }
+    public void setTaxRate(BigDecimal taxRate) {
+        this.taxRate = taxRate;
+    }
 
     @Override
-    public void setTenantCode(String tenantCode) { this.tenantCode = tenantCode; }
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
+    public String getLedgerAccountCode() {
+        return ledgerAccountCode;
+    }
+
+    public void setLedgerAccountCode(String ledgerAccountCode) {
+        this.ledgerAccountCode = ledgerAccountCode;
+    }
+
+    public String getLedgerAccountName() {
+        return ledgerAccountName;
+    }
+
+    public void setLedgerAccountName(String ledgerAccountName) {
+        this.ledgerAccountName = ledgerAccountName;
+    }
+
+    public String getTransferAccountCode() {
+        return transferAccountCode;
+    }
+
+    public void setTransferAccountCode(String transferAccountCode) {
+        this.transferAccountCode = transferAccountCode;
+    }
+
+    public String getTransferAccountName() {
+        return transferAccountName;
+    }
+
+    public void setTransferAccountName(String transferAccountName) {
+        this.transferAccountName = transferAccountName;
+    }
+
+    @Override
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    @Override
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
 }
