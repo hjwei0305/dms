@@ -5,10 +5,8 @@ import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
-import com.changhong.sei.dms.general.dto.ImprestEmployeeCorporationDto;
-import com.changhong.sei.dms.general.dto.ImprestEmployeeDto;
-import com.changhong.sei.dms.general.dto.LedgerAccountCorporationDto;
-import com.changhong.sei.dms.general.dto.LedgerAccountDto;
+import com.changhong.sei.dms.general.dto.*;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -70,4 +68,12 @@ public interface ImprestEmployeeApi extends BaseEntityApi<ImprestEmployeeDto>, F
     @ApiOperation(value = "分页查询备用金员工的公司信息", notes = "分页查询备用金员工的公司信息")
     ResultData<PageResult<ImprestEmployeeCorporationDto>> findCorporationInfoByPage(@RequestBody Search search);
 
+    /**
+     * 分页查询备用金员工
+     * @param searchParam 查询参数
+     * @return 分页查询结果
+     */
+    @PostMapping(path = "search", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "分页查询备用金员工", notes = "分页查询备用金员工，限定ERP公司代码")
+    ResultData<PageResult<ImprestEmployeeDto>> search(@RequestBody ErpCodeQuickSearchParam searchParam);
 }

@@ -13,6 +13,7 @@ import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.dms.general.api.ImprestEmployeeApi;
 import com.changhong.sei.dms.general.dto.ImprestEmployeeCorporationDto;
 import com.changhong.sei.dms.general.dto.ImprestEmployeeDto;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.ImprestEmployee;
 import com.changhong.sei.dms.general.entity.ImprestEmployeeCorporation;
 import com.changhong.sei.dms.general.service.ImprestEmployeeCorporationService;
@@ -127,6 +128,17 @@ public class ImprestEmployeeController extends BaseEntityController<ImprestEmplo
     @Override
     public ResultData<PageResult<ImprestEmployeeCorporationDto>> findCorporationInfoByPage(Search search) {
         return corporationInfoConvertToDtoPageResult(imprestEmployeeCorporationService.findByPage(search));
+    }
+
+    /**
+     * 分页查询备用金员工
+     *
+     * @param searchParam 查询参数
+     * @return 分页查询结果
+     */
+    @Override
+    public ResultData<PageResult<ImprestEmployeeDto>> search(ErpCodeQuickSearchParam searchParam) {
+        return convertToDtoPageResult(service.search(searchParam));
     }
 
     /**

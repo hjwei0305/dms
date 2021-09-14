@@ -1,9 +1,12 @@
 package com.changhong.sei.dms.general.service;
 
 import com.changhong.sei.core.dao.BaseEntityDao;
+import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.dms.general.dao.ImprestEmployeeDao;
+import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
+import com.changhong.sei.dms.general.entity.Customer;
 import com.changhong.sei.dms.general.entity.HrOrganization;
 import com.changhong.sei.dms.general.entity.ImprestEmployee;
 import org.apache.commons.lang3.StringUtils;
@@ -45,4 +48,13 @@ public class ImprestEmployeeService extends BaseEntityService<ImprestEmployee> {
         return super.save(entity);
     }
 
+    /**
+     * 分页查询备用金员工
+     *
+     * @param searchParam 查询参数
+     * @return 分页查询结果
+     */
+    public PageResult<ImprestEmployee> search(ErpCodeQuickSearchParam searchParam) {
+        return dao.search(searchParam);
+    }
 }
