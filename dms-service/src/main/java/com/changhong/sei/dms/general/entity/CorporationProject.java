@@ -48,7 +48,7 @@ public class CorporationProject extends BaseAuditableEntity implements Serializa
     @Column(name = "inner_order_id")
     private String innerOrderId;
     /**
-     * WBS项目
+     * 内部订单
      */
     @ManyToOne
     @JoinColumn(name = "inner_order_id", updatable = false, insertable = false)
