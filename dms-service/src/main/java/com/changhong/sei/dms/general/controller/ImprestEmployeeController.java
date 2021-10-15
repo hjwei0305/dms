@@ -118,17 +118,17 @@ public class ImprestEmployeeController extends BaseEntityController<ImprestEmplo
         OperateResult result = imprestEmployeeCorporationService.delete(id);
         return ResultDataUtil.convertFromOperateResult(result);
     }
-
-    /**
-     * 分页查询备用金员工的公司信息
-     *
-     * @param search 查询参数
-     * @return 查询结果
-     */
-    @Override
-    public ResultData<PageResult<ImprestEmployeeCorporationDto>> findCorporationInfoByPage(Search search) {
-        return corporationInfoConvertToDtoPageResult(imprestEmployeeCorporationService.findByPage(search));
-    }
+//
+//    /**
+//     * 分页查询备用金员工的公司信息
+//     *
+//     * @param search 查询参数
+//     * @return 查询结果
+//     */
+//    @Override
+//    public ResultData<PageResult<ImprestEmployeeCorporationDto>> findCorporationInfoByPage(Search search) {
+//        return corporationInfoConvertToDtoPageResult(imprestEmployeeCorporationService.findByPage(search));
+//    }
 
     /**
      * 分页查询备用金员工
@@ -139,6 +139,18 @@ public class ImprestEmployeeController extends BaseEntityController<ImprestEmplo
     @Override
     public ResultData<PageResult<ImprestEmployeeDto>> search(ErpCodeQuickSearchParam searchParam) {
         return convertToDtoPageResult(service.search(searchParam));
+    }
+
+    /**
+     * 根据员工编号、ERP公司代码查询备用金员工的公司信息
+     *
+     * @param personnelCode      员工编号
+     * @param erpCorporationCode ERP公司代码
+     * @return 查询结果
+     */
+    @Override
+    public ResultData<ImprestEmployeeCorporationDto> getCorpInfoByPersonnel(String personnelCode, String erpCorporationCode) {
+        return ResultData.success(corporationInfoConvertToDto(imprestEmployeeCorporationService.getCorpInfoByPersonnel(personnelCode, erpCorporationCode)));
     }
 
     /**

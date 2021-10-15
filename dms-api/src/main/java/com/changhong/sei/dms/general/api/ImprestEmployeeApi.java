@@ -56,24 +56,37 @@ public interface ImprestEmployeeApi extends BaseEntityApi<ImprestEmployeeDto>, F
     @DeleteMapping(path = "deleteCorporationInfo/{id}")
     @ApiOperation(value = "删除备用金员工的公司信息", notes = "删除备用金员工的公司信息")
     ResultData<?> deleteCorporationInfo(@PathVariable("id") String id);
-
-
-    /**
-     * 分页查询备用金员工的公司信息
-     *
-     * @param search 查询参数
-     * @return 查询结果
-     */
-    @PostMapping(path = "findCorporationInfoByPage", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "分页查询备用金员工的公司信息", notes = "分页查询备用金员工的公司信息")
-    ResultData<PageResult<ImprestEmployeeCorporationDto>> findCorporationInfoByPage(@RequestBody Search search);
+//
+//
+//    /**
+//     * 分页查询备用金员工的公司信息
+//     *
+//     * @param search 查询参数
+//     * @return 查询结果
+//     */
+//    @PostMapping(path = "findCorporationInfoByPage", consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @ApiOperation(value = "分页查询备用金员工的公司信息", notes = "分页查询备用金员工的公司信息")
+//    ResultData<PageResult<ImprestEmployeeCorporationDto>> findCorporationInfoByPage(@RequestBody Search search);
 
     /**
      * 分页查询备用金员工
+     *
      * @param searchParam 查询参数
      * @return 分页查询结果
      */
     @PostMapping(path = "search", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "分页查询备用金员工", notes = "分页查询备用金员工，限定ERP公司代码")
     ResultData<PageResult<ImprestEmployeeDto>> search(@RequestBody ErpCodeQuickSearchParam searchParam);
+
+    /**
+     * 根据员工编号、ERP公司代码查询备用金员工的公司信息
+     *
+     * @param personnelCode      员工编号
+     * @param erpCorporationCode ERP公司代码
+     * @return 查询结果
+     */
+    @GetMapping(path = "getCorpInfoByPersonnel")
+    @ApiOperation(value = "根据员工编号、ERP公司代码查询备用金员工的公司信息", notes = "根据员工编号、ERP公司代码查询备用金员工的公司信息")
+    ResultData<ImprestEmployeeCorporationDto> getCorpInfoByPersonnel(@RequestParam("personnelCode") String personnelCode,
+                                                                     @RequestParam("erpCorporationCode") String erpCorporationCode);
 }
