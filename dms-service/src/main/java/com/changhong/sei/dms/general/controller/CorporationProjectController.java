@@ -19,6 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -53,6 +54,17 @@ public class CorporationProjectController extends BaseEntityController<Corporati
     @Override
     public ResultData<PageResult<CorporationProjectDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
+    }
+
+    /**
+     * 按ERP公司代码查询项目
+     *
+     * @param erpCorpCode ERP公司代码
+     * @return 项目清单
+     */
+    @Override
+    public ResultData<List<CorporationProjectDto>> findByErpCode(String erpCorpCode) {
+        return ResultData.success(convertToDtos(service.findListByErpCode(erpCorpCode)));
     }
 
     /**

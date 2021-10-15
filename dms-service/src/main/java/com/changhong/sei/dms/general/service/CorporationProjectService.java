@@ -2,6 +2,7 @@ package com.changhong.sei.dms.general.service;
 
 
 import com.changhong.sei.core.dao.BaseEntityDao;
+import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.QuickSearchParam;
 import com.changhong.sei.core.dto.serach.Search;
@@ -9,6 +10,7 @@ import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.dms.general.dao.CorporationProjectDao;
+import com.changhong.sei.dms.general.dto.CorporationProjectDto;
 import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.CorporationProject;
 import com.changhong.sei.dms.general.entity.CostCenter;
@@ -16,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -63,5 +66,15 @@ public class CorporationProjectService extends BaseEntityService<CorporationProj
             return OperateResultWithData.operationFailure("00025", entity.getName());
         }
         return super.save(entity);
+    }
+
+    /**
+     * 按ERP公司代码查询项目
+     *
+     * @param erpCorpCode ERP公司代码
+     * @return 项目清单
+     */
+    public List<CorporationProject> findListByErpCode(String erpCorpCode) {
+        return dao.findListByProperty(CorporationProject.FIELD_ERP_CORP_CODE, erpCorpCode);
     }
 }

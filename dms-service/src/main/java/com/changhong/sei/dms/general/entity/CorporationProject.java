@@ -21,6 +21,7 @@ import java.io.Serializable;
 @DynamicUpdate
 public class CorporationProject extends BaseAuditableEntity implements Serializable, IFrozen, ITenant {
     private static final long serialVersionUID = 625515561127872327L;
+    public static final String FIELD_ERP_CORP_CODE = "erpCorporationCode";
     /**
      * 名称
      */
