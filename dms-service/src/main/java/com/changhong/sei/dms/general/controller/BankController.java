@@ -97,12 +97,14 @@ public class BankController extends BaseEntityController<Bank, BankDto> implemen
             dto.setBankAreaCode(bankArea.getCode());
             if (Objects.nonNull(bankArea.getRegion())) {
                 dto.setBankAreaName(bankArea.getRegion().getName());
+                dto.setRegionAreaCode(bankArea.getRegion().getCode());
             }
             BankCity bankCity = bankArea.getBankCity();
             if (Objects.nonNull(bankCity)) {
                 dto.setBankCityCode(bankCity.getCode());
                 if (Objects.nonNull(bankCity.getRegion())) {
                     dto.setBankCityName(bankCity.getRegion().getName());
+                    dto.setRegionCityCode(bankCity.getRegion().getCode());
                 }
                 BankProvinces bankProvince = bankCity.getBankProvince();
                 if (Objects.nonNull(bankProvince)) {
@@ -110,6 +112,7 @@ public class BankController extends BaseEntityController<Bank, BankDto> implemen
                     Region region = bankProvince.getRegion();
                     if (Objects.nonNull(region)) {
                         dto.setBankProvinceName(region.getName());
+                        dto.setRegionProvinceCode(region.getCode());
                         if (Objects.nonNull(region.getCountry())) {
                             dto.setCountryCode(region.getCountry().getCode());
                             dto.setCountryName(region.getCountry().getName());

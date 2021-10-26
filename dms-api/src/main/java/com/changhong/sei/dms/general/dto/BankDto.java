@@ -94,6 +94,21 @@ public class BankDto extends BaseEntityDto {
     @ApiModelProperty(value = "关联银行地区名称")
     private String bankAreaName;
     /**
+     * 关联银行省区代码(行政)
+     */
+    @ApiModelProperty(value = "关联银行省区代码(行政)")
+    private String regionProvinceCode;
+    /**
+     * 关联银行城市代码(行政)
+     */
+    @ApiModelProperty(value = "关联银行城市代码(行政)")
+    private String regionCityCode;
+    /**
+     * 关联银行地区代码(行政)
+     */
+    @ApiModelProperty(value = "关联银行地区代码(行政)")
+    private String regionAreaCode;
+    /**
      * ERP银行代码
      */
     @ApiModelProperty(value = "ERP银行代码")
@@ -259,4 +274,27 @@ public class BankDto extends BaseEntityDto {
         this.frozen = frozen;
     }
 
+    public String getRegionProvinceCode() {
+        return regionProvinceCode;
+    }
+
+    public void setRegionProvinceCode(String regionProvinceCode) {
+        this.regionProvinceCode = regionProvinceCode;
+    }
+
+    public String getRegionCityCode() {
+        return regionCityCode;
+    }
+
+    public void setRegionCityCode(String regionCityCode) {
+        this.regionCityCode = regionCityCode;
+    }
+
+    public String getRegionAreaCode() {
+        return regionAreaCode;
+    }
+
+    public void setRegionAreaCode(String regionAreaCode) {
+        this.regionAreaCode = regionAreaCode;
+    }
 }
