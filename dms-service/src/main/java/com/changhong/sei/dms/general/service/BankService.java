@@ -1,5 +1,6 @@
 package com.changhong.sei.dms.general.service;
 
+import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.dao.BankDao;
@@ -24,4 +25,12 @@ public class BankService extends BaseEntityService<Bank> {
         return dao;
     }
 
+    /**
+     * 获取一个银行
+     * @param code 代码
+     * @return 银行
+     */
+    public Bank findByCode(String code) {
+        return dao.findFirstByCodeAndTenantCode(code, ContextUtil.getTenantCode());
+    }
 }

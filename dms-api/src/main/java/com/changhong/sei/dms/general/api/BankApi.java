@@ -2,8 +2,11 @@ package com.changhong.sei.dms.general.api;
 
 import com.changhong.sei.core.api.BaseEntityApi;
 import com.changhong.sei.core.api.FindByPageApi;
+import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.dms.general.dto.BankDto;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.validation.Valid;
 
@@ -17,4 +20,13 @@ import javax.validation.Valid;
 @FeignClient(name = "dms", path = BankApi.PATH)
 public interface BankApi extends BaseEntityApi<BankDto>, FindByPageApi<BankDto> {
     String PATH = "bank";
+
+    /**
+     * 获取一个银行
+     * @param code 12为联行号
+     * @return 银行
+     */
+    @GetMapping(path = "findByCode")
+    @ApiOperation(value = "获取一个银行", notes = "通过12为联行号，获取一个银行主数据")
+    ResultData<BankDto> findByCode(String code);
 }
