@@ -71,10 +71,14 @@ public class BankProvincesController extends BaseEntityController<BankProvinces,
             return null;
         }
         BankProvincesDto dto = mapper.map(entity, BankProvincesDto.class);
-        //国家映射
-        if (Objects.nonNull(entity.getRegion()) && Objects.nonNull(entity.getRegion().getCountry())) {
-            dto.setCountryCode(entity.getRegion().getCountry().getCode());
-            dto.setCountryName(entity.getRegion().getCountry().getName());
+        if (Objects.nonNull(entity.getRegion())) {
+            dto.setRegionCode(entity.getRegion().getCode());
+            dto.setRegionName(entity.getRegion().getName());
+            //国家映射
+            if (Objects.nonNull(entity.getRegion().getCountry())) {
+                dto.setCountryCode(entity.getRegion().getCountry().getCode());
+                dto.setCountryName(entity.getRegion().getCountry().getName());
+            }
         }
         return dto;
     }
