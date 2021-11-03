@@ -60,24 +60,22 @@ public class BankProvincesController extends BaseEntityController<BankProvinces,
 
 
     /**
-     * 自定义实体转换DTO的映射
+     * 将实体转换成DTO
+     *
+     * @param entity 业务实体
+     * @return DTO
      */
     @Override
-    protected void customConvertToDtoMapper() {
-        // 创建自定义映射规则
-        PropertyMap<BankProvinces, BankProvincesDto> propertyMap = new PropertyMap<BankProvinces, BankProvincesDto>() {
-            @Override
-            protected void configure() {
-                //关联Id映射
-                map().setRegionId(source.getRegionId());
-                //国家映射
-                if (Objects.nonNull(source.getRegion()) && Objects.nonNull(source.getRegion().getCountry())) {
-                    map().setCountryCode(source.getRegion().getCountry().getCode());
-                    map().setCountryName(source.getRegion().getCountry().getName());
-                }
-            }
-        };
-        // 添加映射器
-        dtoModelMapper.addMappings(propertyMap);
+    public BankProvincesDto convertToDto(BankProvinces entity) {
+        if (Objects.isNull(entity)) {
+            return null;
+        }
+        BankProvincesDto dto = mapper.map(entity, BankProvincesDto.class);
+        //国家映射
+        if (Objects.nonNull(entity.getRegion()) && Objects.nonNull(entity.getRegion().getCountry())) {
+            dto.setCountryCode(entity.getRegion().getCountry().getCode());
+            dto.setCountryName(entity.getRegion().getCountry().getName());
+        }
+        return dto;
     }
 }

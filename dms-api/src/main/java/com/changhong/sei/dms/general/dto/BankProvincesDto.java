@@ -32,25 +32,25 @@ public class BankProvincesDto extends BaseEntityDto {
     @ApiModelProperty(value = "行政区域Id", required = true)
     private String regionId;
     /**
-     * 关联行政区域代码
+     * (关联)行政区域代码
      */
-    @ApiModelProperty(value = "关联行政区域代码")
+    @ApiModelProperty(value = "(关联)行政区域代码")
     private String regionCode;
     /**
-     * 关联行政区域名称
+     * (关联)行政区域名称
      */
-    @ApiModelProperty(value = "关联行政区域名称")
+    @ApiModelProperty(value = "(关联)行政区域名称")
     private String regionName;
     /**
-     * 关联国家代码
+     * (关联)国家代码
      */
-    @ApiModelProperty(value = "关联国家代码")
+    @ApiModelProperty(value = "(关联)国家代码")
     private String countryCode;
 
     /**
-     * 关联国家名称
+     * (关联)国家名称
      */
-    @ApiModelProperty(value = "关联国家名称")
+    @ApiModelProperty(value = "(关联)国家名称")
     private String countryName;
 
 
