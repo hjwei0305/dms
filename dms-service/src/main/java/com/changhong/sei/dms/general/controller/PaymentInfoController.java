@@ -11,8 +11,10 @@ import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.dms.general.api.PaymentInfoApi;
 import com.changhong.sei.dms.general.dto.*;
 import com.changhong.sei.dms.general.entity.PaymentInfo;
+import com.changhong.sei.dms.general.entity.Personnel;
 import com.changhong.sei.dms.general.service.BankService;
 import com.changhong.sei.dms.general.service.PaymentInfoService;
+import com.changhong.sei.dms.general.service.PersonnelService;
 import com.changhong.sei.util.EnumUtils;
 import io.swagger.annotations.Api;
 import org.apache.commons.collections.CollectionUtils;
@@ -47,6 +49,11 @@ public class PaymentInfoController extends BaseEntityController<PaymentInfo, Pay
      */
     @Autowired
     private BankController bankController;
+    /**
+     * 员工服务对象
+     */
+    @Autowired
+    private PersonnelService personnelService;
     @Autowired(required = false)
     private ModelMapper mapper;
 
@@ -161,24 +168,32 @@ public class PaymentInfoController extends BaseEntityController<PaymentInfo, Pay
         if (Objects.isNull(entity)) {
             return null;
         }
-        PaymentInfoDto result = mapper.map(entity, PaymentInfoDto.class);
+        PaymentInfoDto dto = mapper.map(entity, PaymentInfoDto.class);
         if (StringUtils.isNotBlank(entity.getBankId())
                 && !bankMap.isEmpty() && bankMap.containsKey(entity.getBankId())) {
             BankDto bankDto = bankMap.get(entity.getBankId());
-            result.setBankCode(bankDto.getCode());
-            result.setBankName(bankDto.getName());
-            result.setBankCategoryCode(bankDto.getBankCategoryCode());
-            result.setBankCategoryName(bankDto.getBankCategoryName());
-            result.setCountryCode(bankDto.getCountryCode());
-            result.setCountryName(bankDto.getCountryName());
-            result.setBankProvinceCode(bankDto.getBankProvinceCode());
-            result.setBankProvinceName(bankDto.getBankProvinceName());
-            result.setBankCityCode(bankDto.getBankCityCode());
-            result.setBankCityName(bankDto.getBankCityName());
-            result.setBankAreaCode(bankDto.getBankAreaCode());
-            result.setBankAreaName(bankDto.getBankAreaName());
-            result.setErpBankCode(bankDto.getErpBankCode());
+            dto.setBankCode(bankDto.getCode());
+            dto.setBankName(bankDto.getName());
+            dto.setBankCategoryCode(bankDto.getBankCategoryCode());
+            dto.setBankCategoryName(bankDto.getBankCategoryName());
+            dto.setCountryCode(bankDto.getCountryCode());
+            dto.setCountryName(bankDto.getCountryName());
+            dto.setBankProvinceCode(bankDto.getBankProvinceCode());
+            dto.setBankRegionProvinceCode(bankDto.getRegionProvinceCode());
+            dto.setBankProvinceName(bankDto.getBankProvinceName());
+            dto.setBankCityCode(bankDto.getBankCityCode());
+            dto.setBankRegionCityCode(bankDto.getRegionCityCode());
+            dto.setBankCityName(bankDto.getBankCityName());
+            dto.setBankAreaCode(bankDto.getBankAreaCode());
+            dto.setBankAreaName(bankDto.getBankAreaName());
+            dto.setErpBankCode(bankDto.getErpBankCode());
         }
-        return result;
+        if (entity.getReceiverType() == ReceiverTypeEnum.H) {
+            Personnel personnel = personnelService.findOne(entity.getReceiverId());
+            if (Objects.nonNull(personnel)) {
+                dto.setPersonnelIdCard(personnel.getIdCard());
+            }
+        }
+        return dto;
     }
 }

@@ -49,70 +49,85 @@ public class PaymentInfoDto extends BaseEntityDto {
     @Size(max = 100)
     private String receiverName;
     /**
+     * (关联)员工身份证号
+     */
+    @ApiModelProperty(value = "(关联)员工身份证号", notes = "收款对象非员工时为空")
+    private String personnelIdCard;
+    /**
      * 银行Id
      */
     @ApiModelProperty(value = "银行Id", required = true)
     @NotBlank
     private String bankId;
     /**
-     * 关联银行行号
+     * (关联)银行行号
      */
-    @ApiModelProperty(value = "关联银行行号")
+    @ApiModelProperty(value = "(关联)银行行号")
     private String bankCode;
     /**
-     * 关联银行行名
+     * (关联)银行行名
      */
-    @ApiModelProperty(value = "关联银行行名")
+    @ApiModelProperty(value = "(关联)银行行名")
     private String bankName;
     /**
-     * 关联银行行别代码
+     * (关联)银行行别代码
      */
-    @ApiModelProperty(value = "关联银行行别代码")
+    @ApiModelProperty(value = "(关联)银行行别代码")
     private String bankCategoryCode;
     /**
-     * 关联银行行别名称
+     * (关联)银行行别名称
      */
-    @ApiModelProperty(value = "关联银行行别名称")
+    @ApiModelProperty(value = "(关联)银行行别名称")
     private String bankCategoryName;
     /**
-     * 关联银行国家代码
+     * (关联)银行国家代码
      */
-    @ApiModelProperty(value = "关联银行国家代码")
+    @ApiModelProperty(value = "(关联)银行国家代码")
     private String countryCode;
     /**
-     * 关联银行国家名称
+     * (关联)银行国家名称
      */
-    @ApiModelProperty(value = "关联银行国家名称")
+    @ApiModelProperty(value = "(关联)银行国家名称")
     private String countryName;
     /**
-     * 关联银行省区代码
+     * (关联)银行省区代码
      */
-    @ApiModelProperty(value = "关联银行省区代码")
+    @ApiModelProperty(value = "(关联)银行省区代码")
     private String bankProvinceCode;
     /**
-     * 关联银行省区名称
+     * (关联)银行省区行政区域代码
      */
-    @ApiModelProperty(value = "关联银行省区名称")
+    @ApiModelProperty(value = "(关联)银行省区行政区域代码")
+    private String bankRegionProvinceCode;
+    /**
+     * (关联)银行省区名称
+     */
+    @ApiModelProperty(value = "(关联)银行省区名称")
     private String bankProvinceName;
     /**
-     * 关联银行城市代码
+     * (关联)银行城市代码
      */
-    @ApiModelProperty(value = "关联银行城市代码")
+    @ApiModelProperty(value = "(关联)银行城市代码")
     private String bankCityCode;
     /**
-     * 关联银行城市名称
+     * (关联)银行城市行政区域代码
      */
-    @ApiModelProperty(value = "关联银行城市名称")
+    @ApiModelProperty(value = "(关联)银行城市行政区域代码")
+    private String bankRegionCityCode;
+    /**
+     * (关联)银行城市名称
+     */
+    @ApiModelProperty(value = "(关联)银行城市名称")
     private String bankCityName;
     /**
-     * 关联银行地区代码
+     * (关联)银行地区代码
      */
-    @ApiModelProperty(value = "关联银行地区代码")
+    @ApiModelProperty(value = "(关联)银行地区代码")
     private String bankAreaCode;
     /**
-     * 关联银行地区名称
+     * (关联)银行地区名称
      */
-    @ApiModelProperty(value = "关联银行地区名称")
+    @ApiModelProperty(value = "(关联)银行地区名称")
     private String bankAreaName;
     /**
      * ERP银行代码
@@ -187,6 +202,14 @@ public class PaymentInfoDto extends BaseEntityDto {
         this.receiverName = receiverName;
     }
 
+    public String getPersonnelIdCard() {
+        return personnelIdCard;
+    }
+
+    public void setPersonnelIdCard(String personnelIdCard) {
+        this.personnelIdCard = personnelIdCard;
+    }
+
     public String getBankId() {
         return bankId;
     }
@@ -251,6 +274,14 @@ public class PaymentInfoDto extends BaseEntityDto {
         this.bankProvinceCode = bankProvinceCode;
     }
 
+    public String getBankRegionProvinceCode() {
+        return bankRegionProvinceCode;
+    }
+
+    public void setBankRegionProvinceCode(String bankRegionProvinceCode) {
+        this.bankRegionProvinceCode = bankRegionProvinceCode;
+    }
+
     public String getBankProvinceName() {
         return bankProvinceName;
     }
@@ -265,6 +296,14 @@ public class PaymentInfoDto extends BaseEntityDto {
 
     public void setBankCityCode(String bankCityCode) {
         this.bankCityCode = bankCityCode;
+    }
+
+    public String getBankRegionCityCode() {
+        return bankRegionCityCode;
+    }
+
+    public void setBankRegionCityCode(String bankRegionCityCode) {
+        this.bankRegionCityCode = bankRegionCityCode;
     }
 
     public String getBankCityName() {
