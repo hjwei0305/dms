@@ -49,25 +49,80 @@ public class CorpPaymentBankAccountDto extends BaseEntityDto {
     @NotNull
     private String bankId;
     /**
-     * 关联银行行号
+     * (关联)银行行号
      */
-    @ApiModelProperty(value = "关联银行行号")
+    @ApiModelProperty(value = "(关联)银行行号")
     private String bankCode;
     /**
-     * 关联银行行名
+     * (关联)银行行名
      */
-    @ApiModelProperty(value = "关联银行行名")
+    @ApiModelProperty(value = "(关联)银行行名")
     private String bankName;
     /**
-     * 关联银行行别代码
+     * (关联)银行行别代码
      */
-    @ApiModelProperty(value = "关联银行行别代码")
+    @ApiModelProperty(value = "(关联)银行行别代码")
     private String bankCategoryCode;
     /**
-     * 关联银行行别名称
+     * (关联)银行行别名称
      */
-    @ApiModelProperty(value = "关联银行行别名称")
+    @ApiModelProperty(value = "(关联)银行行别名称")
     private String bankCategoryName;
+    /**
+     * (关联)银行国家代码
+     */
+    @ApiModelProperty(value = "(关联)银行国家代码")
+    private String countryCode;
+    /**
+     * (关联)银行国家名称
+     */
+    @ApiModelProperty(value = "(关联)银行国家名称")
+    private String countryName;
+    /**
+     * (关联)银行省区代码
+     */
+    @ApiModelProperty(value = "(关联)银行省区代码")
+    private String bankProvinceCode;
+    /**
+     * (关联)银行省区行政区域代码
+     */
+    @ApiModelProperty(value = "(关联)银行省区行政区域代码")
+    private String bankRegionProvinceCode;
+    /**
+     * (关联)银行省区名称
+     */
+    @ApiModelProperty(value = "(关联)银行省区名称")
+    private String bankProvinceName;
+    /**
+     * (关联)银行城市代码
+     */
+    @ApiModelProperty(value = "(关联)银行城市代码")
+    private String bankCityCode;
+    /**
+     * (关联)银行城市行政区域代码
+     */
+    @ApiModelProperty(value = "(关联)银行城市行政区域代码")
+    private String bankRegionCityCode;
+    /**
+     * (关联)银行城市名称
+     */
+    @ApiModelProperty(value = "(关联)银行城市名称")
+    private String bankCityName;
+    /**
+     * (关联)银行地区代码
+     */
+    @ApiModelProperty(value = "(关联)银行地区代码")
+    private String bankAreaCode;
+    /**
+     * (关联)银行地区名称
+     */
+    @ApiModelProperty(value = "(关联)银行地区名称")
+    private String bankAreaName;
+    /**
+     * ERP银行代码
+     */
+    @ApiModelProperty(value = "ERP银行代码")
+    private String erpBankCode;
     /**
      * 银行户名
      */
@@ -178,6 +233,94 @@ public class CorpPaymentBankAccountDto extends BaseEntityDto {
 
     public void setBankCategoryName(String bankCategoryName) {
         this.bankCategoryName = bankCategoryName;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
+    }
+
+    public String getBankProvinceCode() {
+        return bankProvinceCode;
+    }
+
+    public void setBankProvinceCode(String bankProvinceCode) {
+        this.bankProvinceCode = bankProvinceCode;
+    }
+
+    public String getBankRegionProvinceCode() {
+        return bankRegionProvinceCode;
+    }
+
+    public void setBankRegionProvinceCode(String bankRegionProvinceCode) {
+        this.bankRegionProvinceCode = bankRegionProvinceCode;
+    }
+
+    public String getBankProvinceName() {
+        return bankProvinceName;
+    }
+
+    public void setBankProvinceName(String bankProvinceName) {
+        this.bankProvinceName = bankProvinceName;
+    }
+
+    public String getBankCityCode() {
+        return bankCityCode;
+    }
+
+    public void setBankCityCode(String bankCityCode) {
+        this.bankCityCode = bankCityCode;
+    }
+
+    public String getBankRegionCityCode() {
+        return bankRegionCityCode;
+    }
+
+    public void setBankRegionCityCode(String bankRegionCityCode) {
+        this.bankRegionCityCode = bankRegionCityCode;
+    }
+
+    public String getBankCityName() {
+        return bankCityName;
+    }
+
+    public void setBankCityName(String bankCityName) {
+        this.bankCityName = bankCityName;
+    }
+
+    public String getBankAreaCode() {
+        return bankAreaCode;
+    }
+
+    public void setBankAreaCode(String bankAreaCode) {
+        this.bankAreaCode = bankAreaCode;
+    }
+
+    public String getBankAreaName() {
+        return bankAreaName;
+    }
+
+    public void setBankAreaName(String bankAreaName) {
+        this.bankAreaName = bankAreaName;
+    }
+
+    public String getErpBankCode() {
+        return erpBankCode;
+    }
+
+    public void setErpBankCode(String erpBankCode) {
+        this.erpBankCode = erpBankCode;
     }
 
     public String getBankAccountName() {

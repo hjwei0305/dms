@@ -1,25 +1,29 @@
 package com.changhong.sei.dms.general.controller;
 
 import com.changhong.sei.core.controller.BaseEntityController;
+import com.changhong.sei.core.dto.BaseEntityDto;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.core.service.bo.ResponseData;
 import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.dms.general.api.CorpPaymentBankAccountApi;
+import com.changhong.sei.dms.general.dto.BankDto;
 import com.changhong.sei.dms.general.dto.CorpPaymentBankAccountDto;
-import com.changhong.sei.dms.general.entity.Bank;
-import com.changhong.sei.dms.general.entity.BankCategory;
-import com.changhong.sei.dms.general.entity.CorpPaymentBankAccount;
+import com.changhong.sei.dms.general.dto.PaymentInfoDto;
+import com.changhong.sei.dms.general.dto.ReceiverTypeEnum;
+import com.changhong.sei.dms.general.entity.*;
 import com.changhong.sei.dms.general.service.CorpPaymentBankAccountService;
 import io.swagger.annotations.Api;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 公司的付款银行账号信息(CorpPaymentBankAccount)控制类
@@ -36,6 +40,11 @@ public class CorpPaymentBankAccountController extends BaseEntityController<CorpP
      */
     @Autowired
     private CorpPaymentBankAccountService service;
+    /**
+     * 银行控制类
+     */
+    @Autowired
+    private BankController bankController;
     @Autowired
     private ModelMapper mapper;
 
@@ -110,6 +119,31 @@ public class CorpPaymentBankAccountController extends BaseEntityController<CorpP
 
 
     /**
+     * 将数据实体清单转换成DTO清单
+     *
+     * @param entities 数据实体清单
+     * @return DTO清单
+     */
+    @Override
+    public List<CorpPaymentBankAccountDto> convertToDtos(List<CorpPaymentBankAccount> entities) {
+        if (Objects.isNull(entities)) {
+            return null;
+        }
+        if (CollectionUtils.isEmpty(entities)) {
+            return new ArrayList<>();
+        }
+        Map<String, BankDto> bankMap = new HashMap<>();
+        List<String> bankIdList = entities.parallelStream().map(CorpPaymentBankAccount::getBankId).collect(Collectors.toList());
+        List<BankDto> bankList = bankController.findByIds(bankIdList);
+        if (CollectionUtils.isNotEmpty(bankList)) {
+            bankMap = bankList.parallelStream().collect(Collectors.toMap(BaseEntityDto::getId, i -> i, (v1, v2) -> v2));
+        }
+        Map<String, BankDto> finalBankMap = bankMap;
+        return entities.stream().map(i -> convertToDto(i, finalBankMap)).collect(Collectors.toList());
+    }
+
+
+    /**
      * 将数据实体转换成DTO
      *
      * @param entity 业务实体
@@ -120,20 +154,45 @@ public class CorpPaymentBankAccountController extends BaseEntityController<CorpP
         if (Objects.isNull(entity)) {
             return null;
         }
-        CorpPaymentBankAccountDto dto = mapper.map(entity, getDtoClass());
-        if (Objects.nonNull(entity.getCurrency())) {
-            dto.setCurrencyCode(entity.getCurrency().getCode());
-            dto.setCurrencyName(entity.getCurrency().getName());
+        ResultData<BankDto> bankDtoResult = bankController.findOne(entity.getBankId());
+        Map<String, BankDto> bankMap = new HashMap<>();
+        if (bankDtoResult.getSuccess() && Objects.nonNull(bankDtoResult.getData())) {
+            BankDto bankDto = bankDtoResult.getData();
+            bankMap.put(bankDto.getId(), bankDto);
         }
-        Bank bank = entity.getBank();
-        if (Objects.nonNull(bank)) {
-            dto.setBankCode(bank.getCode());
-            dto.setBankName(bank.getName());
-            BankCategory bankCategory = bank.getBankCategory();
-            if (Objects.nonNull(bankCategory)) {
-                dto.setBankCategoryCode(bankCategory.getCode());
-                dto.setBankCategoryName(bankCategory.getName());
-            }
+        return convertToDto(entity, bankMap);
+    }
+
+
+    /**
+     * 将数据实体转换成DTO(含银行信息)
+     *
+     * @param entity 业务实体
+     * @return DTO
+     */
+    private CorpPaymentBankAccountDto convertToDto(CorpPaymentBankAccount entity, Map<String, BankDto> bankMap) {
+        if (Objects.isNull(entity)) {
+            return null;
+        }
+        CorpPaymentBankAccountDto dto = mapper.map(entity, CorpPaymentBankAccountDto.class);
+        if (StringUtils.isNotBlank(entity.getBankId())
+                && !bankMap.isEmpty() && bankMap.containsKey(entity.getBankId())) {
+            BankDto bankDto = bankMap.get(entity.getBankId());
+            dto.setBankCode(bankDto.getCode());
+            dto.setBankName(bankDto.getName());
+            dto.setBankCategoryCode(bankDto.getBankCategoryCode());
+            dto.setBankCategoryName(bankDto.getBankCategoryName());
+            dto.setCountryCode(bankDto.getCountryCode());
+            dto.setCountryName(bankDto.getCountryName());
+            dto.setBankProvinceCode(bankDto.getBankProvinceCode());
+            dto.setBankRegionProvinceCode(bankDto.getRegionProvinceCode());
+            dto.setBankProvinceName(bankDto.getBankProvinceName());
+            dto.setBankCityCode(bankDto.getBankCityCode());
+            dto.setBankRegionCityCode(bankDto.getRegionCityCode());
+            dto.setBankCityName(bankDto.getBankCityName());
+            dto.setBankAreaCode(bankDto.getBankAreaCode());
+            dto.setBankAreaName(bankDto.getBankAreaName());
+            dto.setErpBankCode(bankDto.getErpBankCode());
         }
         return dto;
     }
