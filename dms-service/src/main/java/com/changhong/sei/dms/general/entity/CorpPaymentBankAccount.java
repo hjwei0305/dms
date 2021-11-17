@@ -41,6 +41,13 @@ public class CorpPaymentBankAccount extends BaseAuditableEntity implements Seria
      */
     @Column(name = "bank_id")
     private String bankId;
+
+    /**
+     * 付款方银行
+     */
+    @ManyToOne
+    @JoinColumn(name = "bank_id", insertable = false, updatable = false)
+    private Bank bank;
     /**
      * 银行户名
      */
@@ -103,6 +110,14 @@ public class CorpPaymentBankAccount extends BaseAuditableEntity implements Seria
 
     public void setBankId(String bankId) {
         this.bankId = bankId;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
     public String getBankAccountName() {
