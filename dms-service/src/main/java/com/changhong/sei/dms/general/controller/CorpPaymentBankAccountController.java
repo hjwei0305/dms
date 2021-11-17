@@ -175,6 +175,10 @@ public class CorpPaymentBankAccountController extends BaseEntityController<CorpP
             return null;
         }
         CorpPaymentBankAccountDto dto = mapper.map(entity, CorpPaymentBankAccountDto.class);
+        if(Objects.nonNull(entity.getCurrency())){
+            dto.setCurrencyCode(entity.getCurrency().getCode());
+            dto.setCurrencyName(entity.getCurrency().getName());
+        }
         if (StringUtils.isNotBlank(entity.getBankId())
                 && !bankMap.isEmpty() && bankMap.containsKey(entity.getBankId())) {
             BankDto bankDto = bankMap.get(entity.getBankId());
