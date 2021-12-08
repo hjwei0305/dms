@@ -3,7 +3,9 @@ package com.changhong.sei.dms.general.service;
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.core.service.bo.OperateResult;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
+import com.changhong.sei.dms.general.dao.ImprestEmployeeCorporationDao;
 import com.changhong.sei.dms.general.dao.ImprestEmployeeDao;
 import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.Customer;
@@ -26,6 +28,8 @@ import java.util.Objects;
 public class ImprestEmployeeService extends BaseEntityService<ImprestEmployee> {
     @Autowired
     private ImprestEmployeeDao dao;
+    @Autowired
+    private ImprestEmployeeCorporationDao imprestEmployeeCorporationDao;
 
     @Override
     protected BaseEntityDao<ImprestEmployee> getDao() {
@@ -48,6 +52,21 @@ public class ImprestEmployeeService extends BaseEntityService<ImprestEmployee> {
         return super.save(entity);
     }
 
+    /**
+     * 删除前检查是否能删除
+     *
+     * @param s 待删除的国家id
+     * @return 操作结果
+     */
+    @Override
+    protected OperateResult preDelete(String s) {
+        OperateResult result = OperateResult.operationSuccess();
+        if (imprestEmployeeCorporationDao.isExistsByProperty("imprestEmployeeId", s)) {
+            //00010 = 该备用金员工已分配到公司，请先移除！
+            result = OperateResult.operationFailure("00010");
+        }
+        return result;
+    }
     /**
      * 分页查询备用金员工
      *
