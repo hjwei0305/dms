@@ -3,14 +3,19 @@ package com.changhong.sei.dms.general.api;
 import com.changhong.sei.core.api.BaseTreeApi;
 import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.dms.general.dto.MobileRegionDto;
 import com.changhong.sei.dms.general.dto.RegionDto;
+import com.changhong.sei.dms.general.dto.search.MobileRegionParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 行政区域(Region)API
@@ -54,4 +59,13 @@ public interface RegionApi extends BaseTreeApi<RegionDto>, FindByPageApi<RegionD
     @ApiOperation(value = "通过省id查询市", notes = "通过省id查询市")
     ResultData<List<RegionDto>> getCityByProvince(@RequestParam("provinceId") String provinceId);
 
+    /**
+     * 移动端查询行政区域
+     *
+     * @param param 查询参数
+     * @return 行政区域清单
+     */
+    @PostMapping(path = "getRegionByInitials")
+    @ApiOperation(value = "根据拼音首字母获取行政区域列表", notes = "根据拼音首字母获取行政区域列表，仅获取国内的")
+    ResultData<Map<String, List<MobileRegionDto>>> getRegionByInitials(@RequestBody MobileRegionParam param);
 }

@@ -5,11 +5,15 @@ import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseTreeService;
+import com.changhong.sei.core.service.bo.ResponseData;
 import com.changhong.sei.dms.general.api.RegionApi;
+import com.changhong.sei.dms.general.dto.MobileRegionDto;
 import com.changhong.sei.dms.general.dto.RegionDto;
+import com.changhong.sei.dms.general.dto.search.MobileRegionParam;
 import com.changhong.sei.dms.general.entity.Region;
 import com.changhong.sei.dms.general.service.RegionService;
 import io.swagger.annotations.Api;
+import org.apache.commons.collections.CollectionUtils;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +21,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 行政区域(Region)控制类
@@ -35,6 +39,8 @@ public class RegionController extends BaseTreeController<Region, RegionDto> impl
      */
     @Autowired
     private RegionService service;
+    @Autowired
+    private ModelMapper mapper;
 
     @Override
     public BaseTreeService<Region> getService() {
@@ -82,6 +88,30 @@ public class RegionController extends BaseTreeController<Region, RegionDto> impl
         return ResultData.success(convertToDtos(service.getCityByProvince(provinceId)));
     }
 
+
+    /**
+     * 查询行政区域
+     *
+     * @param param 查询参数
+     * @return 行政区域清单
+     */
+    @Override
+    public ResultData<Map<String, List<MobileRegionDto>>> getRegionByInitials(MobileRegionParam param) {
+        ResponseData<List<Region>> resultData = service.getRegionByInitials(param);
+        if (resultData.notSuccessful()) {
+            return ResultData.fail(resultData.getMessage());
+        }
+        Map<String, List<MobileRegionDto>> result;
+        if (Objects.isNull(resultData.getData()) || CollectionUtils.isEmpty(resultData.getData())) {
+            result = new HashMap<>();
+        } else {
+            result = resultData.getData().parallelStream().map(i -> mapper.map(i, MobileRegionDto.class))
+                    .sorted(Comparator.comparing(MobileRegionDto::getPinYin))
+                    .collect(Collectors.groupingBy(MobileRegionDto::getInitials, HashMap::new, Collectors.toList()));
+        }
+        return ResultData.success(result);
+    }
+
     /**
      * 分页查询业务实体
      *
@@ -110,8 +140,8 @@ public class RegionController extends BaseTreeController<Region, RegionDto> impl
      * @param entity 业务实体
      * @return DTO
      */
-    static RegionDto custConvertToDto(Region entity){
-        if (Objects.isNull(entity)){
+    static RegionDto custConvertToDto(Region entity) {
+        if (Objects.isNull(entity)) {
             return null;
         }
         ModelMapper custMapper = new ModelMapper();

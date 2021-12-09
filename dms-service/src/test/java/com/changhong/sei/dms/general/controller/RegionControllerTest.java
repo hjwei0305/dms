@@ -1,11 +1,22 @@
 package com.changhong.sei.dms.general.controller;
 
 import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageInfo;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
+import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.test.BaseUnitTest;
 import com.changhong.sei.core.util.JsonUtils;
+import com.changhong.sei.dms.general.dto.MobileRegionDto;
 import com.changhong.sei.dms.general.dto.RegionDto;
+import com.changhong.sei.dms.general.dto.search.MobileRegionParam;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 实现功能：
@@ -24,5 +35,13 @@ public class RegionControllerTest extends BaseUnitTest {
         RegionDto region = JsonUtils.fromJson(json, RegionDto.class);
         ResultData<RegionDto> result = controller.save(region);
         System.out.println(result);
+    }
+
+
+    @Test
+    public void getConverters() {
+        MobileRegionParam param = new MobileRegionParam();
+        ResultData<Map<String, List<MobileRegionDto>>> resultData = controller.getRegionByInitials(param);
+        Assert.assertTrue(resultData.successful());
     }
 }

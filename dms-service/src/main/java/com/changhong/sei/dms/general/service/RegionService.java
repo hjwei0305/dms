@@ -2,12 +2,22 @@ package com.changhong.sei.dms.general.service;
 
 import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseTreeDao;
+import com.changhong.sei.core.dto.ResultData;
+import com.changhong.sei.core.dto.serach.PageInfo;
+import com.changhong.sei.core.dto.serach.PageResult;
+import com.changhong.sei.core.dto.serach.Search;
+import com.changhong.sei.core.dto.serach.SearchFilter;
 import com.changhong.sei.core.service.BaseTreeService;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
+import com.changhong.sei.core.service.bo.ResponseData;
+import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.dms.common.utils.PinYinUtil;
 import com.changhong.sei.dms.general.dao.RegionDao;
+import com.changhong.sei.dms.general.dto.search.MobileRegionParam;
+import com.changhong.sei.dms.general.entity.Country;
 import com.changhong.sei.dms.general.entity.Region;
 import com.changhong.sei.util.IdGenerator;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +36,9 @@ import java.util.*;
 public class RegionService extends BaseTreeService<Region> {
     @Autowired
     private RegionDao dao;
+    @Autowired
+    private CountryService countryService;
+
 
     @Override
     protected BaseTreeDao<Region> getDao() {
@@ -160,5 +173,30 @@ public class RegionService extends BaseTreeService<Region> {
                 dao.save(region);
             }
         });
+    }
+
+
+    /**
+     * 查询行政区域
+     *
+     * @param param 查询参数
+     * @return 行政区域清单
+     */
+    public ResponseData<List<Region>> getRegionByInitials(MobileRegionParam param) {
+        Country country = countryService.findFirstByProperty("toForeign", Boolean.FALSE);
+        if (Objects.isNull(country)) {
+            //00029 = 未获取到非国外的国家，请联系管理员！
+            return ResponseData.operationFailure("00029");
+        }
+        Search search = new Search();
+        search.addFilter(new SearchFilter("countryId", country.getId()));
+        search.addFilter(new SearchFilter("nodeLevel", 1, SearchFilter.Operator.GT));
+        if (StringUtils.isNotBlank(param.getInitials())) {
+            search.addFilter(new SearchFilter("shortName", param.getInitials().toUpperCase(), SearchFilter.Operator.LLK));
+        }
+        if (StringUtils.isNotBlank(param.getNameSearchValue())) {
+            search.addFilter(new SearchFilter("name", param.getNameSearchValue(), SearchFilter.Operator.LK));
+        }
+        return ResponseData.operationSuccessWithData(findByFilters(search));
     }
 }
