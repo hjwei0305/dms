@@ -44,6 +44,7 @@ public class PersonnelVo extends BaseExcelRow implements Serializable {
      * 身份证
      */
     @NotBlank
+    @NotDuplicate
     @ExcelProperty(value = "身份证", order = 4)
     private String idCard;
     /**

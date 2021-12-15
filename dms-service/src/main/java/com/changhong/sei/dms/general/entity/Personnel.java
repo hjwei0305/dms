@@ -23,6 +23,7 @@ import java.util.Date;
 @DynamicUpdate
 public class Personnel extends BaseAuditableEntity implements Serializable, ICodeUnique, ITenant {
     private static final long serialVersionUID = 677012805260200690L;
+    public static final String FIELD_ID_CARD = "idCard";
     /**
      * 员工编号
      */
@@ -39,7 +40,7 @@ public class Personnel extends BaseAuditableEntity implements Serializable, ICod
     @Column(name = "short_name", length = 40)
     private String shortName;
     /**
-     * 身份证
+     * 身份证(唯一)
      */
     @Column(name = "id_card", nullable = false)
     private String idCard;

@@ -2,6 +2,7 @@ package com.changhong.sei.dms.general.dto;
 
 import com.changhong.sei.core.dto.BaseEntityDto;
 import com.changhong.sei.core.dto.serializer.EnumJsonSerializer;
+import com.changhong.sei.core.dto.validation.IdCardCheck;
 import com.changhong.sei.dms.annotation.MasterData;
 import com.changhong.sei.util.DateUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -50,7 +51,7 @@ public class PersonnelDto extends BaseEntityDto {
      * 身份证
      */
     @NotBlank
-    @Size(max = 20)
+    @IdCardCheck
     @ApiModelProperty(value = "身份证(必需，最大长度20)")
     private String idCard;
     /**
