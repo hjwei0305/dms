@@ -107,11 +107,6 @@ public class RegionDto extends BaseEntityDto implements TreeEntity<RegionDto> {
     private String pinYin;
 
     /**
-     * 租户代码
-     */
-    @ApiModelProperty(value = "租户代码")
-    private String tenantCode;
-    /**
      * 子节点列表
      */
     @ApiModelProperty(value = "子节点列表", allowableValues = "list")
@@ -222,14 +217,6 @@ public class RegionDto extends BaseEntityDto implements TreeEntity<RegionDto> {
 
     public void setPinYin(String pinYin) {
         this.pinYin = pinYin;
-    }
-
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
     }
 
     @Override

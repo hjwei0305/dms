@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Table(name = "bank_provinces")
 @DynamicInsert
 @DynamicUpdate
-public class BankProvinces extends BaseAuditableEntity implements Serializable, ICodeUnique, ITenant {
+public class BankProvinces extends BaseAuditableEntity implements Serializable, ICodeUnique {
     private static final long serialVersionUID = -29950594657524757L;
     /**
      * 代码
@@ -37,12 +37,6 @@ public class BankProvinces extends BaseAuditableEntity implements Serializable, 
     @ManyToOne
     @JoinColumn(name = "region_id", insertable = false, updatable = false)
     private Region region;
-
-    /**
-     * 租户代码
-     */
-    @Column(name = "tenant_code")
-    private String tenantCode;
 
     @Override
     public String getCode() {
@@ -68,15 +62,5 @@ public class BankProvinces extends BaseAuditableEntity implements Serializable, 
 
     public void setRegion(Region region) {
         this.region = region;
-    }
-
-    @Override
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    @Override
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
     }
 }

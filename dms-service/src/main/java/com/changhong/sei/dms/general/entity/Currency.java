@@ -23,7 +23,7 @@ import java.io.Serializable;
 @Table(name = "currency")
 @DynamicInsert
 @DynamicUpdate
-public class Currency extends BaseAuditableEntity implements Serializable, IFrozen, ITenant, IRank, ICodeUnique {
+public class Currency extends BaseAuditableEntity implements Serializable, IFrozen, IRank, ICodeUnique {
     private static final long serialVersionUID = 479852629248676708L;
     /**
      * 代码
@@ -36,12 +36,6 @@ public class Currency extends BaseAuditableEntity implements Serializable, IFroz
      */
     @Column(name = "name", length = 100, nullable = false)
     private String name;
-
-    /**
-     * 租户代码
-     */
-    @Column(name = "tenant_code", length = 50)
-    private String tenantCode;
 
     /**
      * 排序
@@ -72,16 +66,6 @@ public class Currency extends BaseAuditableEntity implements Serializable, IFroz
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    @Override
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
     }
 
     @Override

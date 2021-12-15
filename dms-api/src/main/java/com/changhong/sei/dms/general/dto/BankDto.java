@@ -119,16 +119,10 @@ public class BankDto extends BaseEntityDto {
     @ApiModelProperty(value = "排序")
     private Integer rank;
     /**
-     * 租户代码
-     */
-    @ApiModelProperty(value = "租户代码")
-    private String tenantCode;
-    /**
      * 已冻结
      */
     @ApiModelProperty(value = "已冻结")
     private Boolean frozen;
-
 
     public String getCode() {
         return code;
@@ -256,14 +250,6 @@ public class BankDto extends BaseEntityDto {
 
     public void setRank(Integer rank) {
         this.rank = rank;
-    }
-
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
     }
 
     public Boolean getFrozen() {

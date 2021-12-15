@@ -67,12 +67,6 @@ public class BankCityDto extends BaseEntityDto {
      */
     @ApiModelProperty(value = "排序")
     private Integer rank = 0;
-    /**
-     * 租户代码
-     */
-    @ApiModelProperty(value = "租户代码")
-    private String tenantCode;
-
 
     public String getCode() {
         return code;
@@ -146,13 +140,4 @@ public class BankCityDto extends BaseEntityDto {
     public void setBankProvinceName(String bankProvinceName) {
         this.bankProvinceName = bankProvinceName;
     }
-
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-    }
-
 }

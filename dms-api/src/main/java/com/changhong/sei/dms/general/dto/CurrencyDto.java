@@ -49,21 +49,6 @@ public class CurrencyDto extends BaseEntityDto {
     @ApiModelProperty(value = "冻结", required = true)
     private Boolean frozen = Boolean.FALSE;
 
-    /**
-     * 租户代码
-     */
-    @ApiModelProperty(value = "租户代码")
-    private String tenantCode;
-
-
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-    }
-
     public String getCode() {
         return code;
     }

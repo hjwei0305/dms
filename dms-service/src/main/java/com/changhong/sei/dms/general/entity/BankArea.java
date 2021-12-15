@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Table(name = "bank_area")
 @DynamicInsert
 @DynamicUpdate
-public class BankArea extends BaseAuditableEntity implements Serializable, ICodeUnique, IFrozen, IRank, ITenant {
+public class BankArea extends BaseAuditableEntity implements Serializable, ICodeUnique, IFrozen, IRank {
     private static final long serialVersionUID = 997432399095487489L;
     /**
      * 代码
@@ -70,11 +70,6 @@ public class BankArea extends BaseAuditableEntity implements Serializable, ICode
      */
     @Column(name = "rank")
     private Integer rank;
-    /**
-     * 租户代码
-     */
-    @Column(name = "tenant_code")
-    private String tenantCode;
 
     @Override
     public String getCode() {
@@ -153,15 +148,4 @@ public class BankArea extends BaseAuditableEntity implements Serializable, ICode
     public void setRank(Integer rank) {
         this.rank = rank;
     }
-
-    @Override
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    @Override
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-    }
-
 }

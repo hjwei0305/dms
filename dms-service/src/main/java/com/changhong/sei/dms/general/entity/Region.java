@@ -22,7 +22,7 @@ import java.util.List;
 @Table(name = "region")
 @DynamicInsert
 @DynamicUpdate
-public class Region extends BaseAuditableEntity implements Serializable, TreeEntity<Region>, ICodeUnique, ITenant {
+public class Region extends BaseAuditableEntity implements Serializable, TreeEntity<Region>, ICodeUnique {
     private static final long serialVersionUID = -42649044200407426L;
     /**
      * 代码
@@ -91,12 +91,6 @@ public class Region extends BaseAuditableEntity implements Serializable, TreeEnt
      */
     @Column(name = "pin_yin", length = 200)
     private String pinYin;
-
-    /**
-     * 租户代码
-     */
-    @Column(name = "tenant_code", length = 10, nullable = false)
-    private String tenantCode;
 
     /**
      * 子节点列表
@@ -212,16 +206,6 @@ public class Region extends BaseAuditableEntity implements Serializable, TreeEnt
 
     public void setPinYin(String pinYin) {
         this.pinYin = pinYin;
-    }
-
-    @Override
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    @Override
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
     }
 
     @Transient

@@ -53,14 +53,6 @@ public class BankProvincesDto extends BaseEntityDto {
     @ApiModelProperty(value = "(关联)国家名称")
     private String countryName;
 
-
-    /**
-     * 租户代码
-     */
-    @ApiModelProperty(value = "租户代码")
-    private String tenantCode;
-
-
     public String getCode() {
         return code;
     }
@@ -107,13 +99,5 @@ public class BankProvincesDto extends BaseEntityDto {
 
     public void setCountryName(String countryName) {
         this.countryName = countryName;
-    }
-
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
     }
 }
