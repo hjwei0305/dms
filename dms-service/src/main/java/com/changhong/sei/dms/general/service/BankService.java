@@ -31,6 +31,6 @@ public class BankService extends BaseEntityService<Bank> {
      * @return 银行
      */
     public Bank findByCode(String code) {
-        return dao.findFirstByCodeAndTenantCode(code, ContextUtil.getTenantCode());
+        return dao.findFirstByCode(code);
     }
 }

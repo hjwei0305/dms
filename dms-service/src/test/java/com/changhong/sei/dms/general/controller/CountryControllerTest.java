@@ -1,6 +1,10 @@
 package com.changhong.sei.dms.general.controller;
 
+import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.test.BaseUnitTest;
+import com.changhong.sei.core.util.JsonUtils;
+import org.junit.Assert;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -14,26 +18,10 @@ public class CountryControllerTest extends BaseUnitTest {
     @Autowired
     private CountryController controller;
 
-//    @Test
-//    public void importDataExcel() {
-//        MultipartFile file = null;
-//        try {
-//            file = new MockMultipartFile("Country.xlsx", new FileInputStream(new File("/Users/chaoma/Downloads/Country.xlsx")));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        controller.importDataExcel(file);
-//    }
-//
-//    @Test
-//    public void importTemplateData() {
-//        ResultData<Map<String, List<String>>> processResultResultData = controller.importTemplateData();
-//        System.out.println(processResultResultData);
-//    }
-//
-//    @Test
-//    public void exportData() {
-//
-//        controller.exportData(Search.createSearch());
-//    }
+    @Test
+    void findAll() {
+        ResultData<?> resultData = controller.findAll();
+        System.out.println(JsonUtils.toJson(resultData));
+        Assert.assertTrue(resultData.successful());
+    }
 }
