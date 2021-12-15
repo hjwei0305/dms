@@ -3,6 +3,7 @@ package com.changhong.sei.dms.common.controller;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.test.BaseUnitTest;
+import com.changhong.sei.dms.commom.dto.ImportExportStatus;
 import com.changhong.sei.dms.commom.dto.ProcessResult;
 import com.changhong.sei.notify.sdk.manager.NotifyManager;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class ImportExportDataControllerTest extends BaseUnitTest {
 
     @Test
     public void imExStatus() {
-        ResultData<Map<String, ProcessResult>> resultData = controller.imExStatus(SERVICE_NAME);
+        ResultData<ImportExportStatus> resultData = controller.imExStatus(SERVICE_NAME);
         System.out.println(resultData);
 
 //        // 系统消息提醒
@@ -57,7 +58,7 @@ public class ImportExportDataControllerTest extends BaseUnitTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ResultData<Map<String, ProcessResult>> resultData = controller.importDataExcel(SERVICE_NAME, file);
+        ResultData<ImportExportStatus> resultData = controller.importDataExcel(SERVICE_NAME, file);
         System.out.println(resultData);
 
         try {
@@ -69,7 +70,7 @@ public class ImportExportDataControllerTest extends BaseUnitTest {
 
     @Test
     public void exportData() {
-        ResultData<Map<String, ProcessResult>> resultData = controller.exportData(SERVICE_NAME, Search.createSearch());
+        ResultData<ImportExportStatus> resultData = controller.exportData(SERVICE_NAME, Search.createSearch());
         System.out.println(resultData);
 
         try {

@@ -12,6 +12,7 @@ import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.entity.BaseEntity;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.dms.commom.dto.ImportExportStatus;
 import com.changhong.sei.dms.commom.dto.ProcessResult;
 import com.changhong.sei.dms.common.excel.validate.NotDuplicate;
 import com.changhong.sei.edm.dto.UploadResponse;
@@ -139,18 +140,18 @@ public abstract class BaseExcelService<E extends BaseEntity, V extends BaseExcel
      */
     @Override
     @SuppressWarnings("rawtypes")
-    public ResultData<Map<String, ProcessResult>> imExStatus() {
-        Map<String, ProcessResult> data = new HashMap<>();
+    public ResultData<ImportExportStatus> imExStatus() {
+        ImportExportStatus importExportStatus = new ImportExportStatus(Boolean.TRUE);
         String userId = ContextUtil.getUserId();
         ProcessResult<V> importResult = (ProcessResult) redisTemplate.opsForValue().get(getProcessCacheKey(TypeEnum.import_, userId));
         if (Objects.nonNull(importResult)) {
-            data.put("import", importResult);
+            importExportStatus.setImportResult(importResult);
         }
         ProcessResult<V> exportResult = (ProcessResult) redisTemplate.opsForValue().get(getProcessCacheKey(TypeEnum.export_, userId));
         if (Objects.nonNull(exportResult)) {
-            data.put("export", exportResult);
+            importExportStatus.setExportResult(exportResult);
         }
-        return ResultData.success(data);
+        return ResultData.success(importExportStatus);
     }
 
     /**

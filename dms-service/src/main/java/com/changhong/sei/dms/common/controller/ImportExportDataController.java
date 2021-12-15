@@ -3,10 +3,12 @@ package com.changhong.sei.dms.common.controller;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.dms.commom.api.ImportExportDataApi;
-import com.changhong.sei.dms.commom.dto.ProcessResult;
+import com.changhong.sei.dms.commom.dto.ImportExportStatus;
 import com.changhong.sei.dms.common.excel.ExcelDataBuilder;
 import com.changhong.sei.dms.common.excel.IBaseExcelService;
 import io.swagger.annotations.Api;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -22,12 +24,11 @@ import java.util.Map;
  * @author 马超(Vision.Mac)
  * @version 1.0.00  2020-10-13 16:38
  */
-@SuppressWarnings("rawtypes")
 @Controller
 @Api(value = "ImportExportDataApi", tags = "Excel导入导出服务")
 @RequestMapping(path = "excel", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ImportExportDataController implements ImportExportDataApi {
-
+    private static final Logger LOG = LoggerFactory.getLogger(ImportExportDataController.class);
     @Autowired
     private ExcelDataBuilder excelDataBuilder;
 
@@ -43,8 +44,15 @@ public class ImportExportDataController implements ImportExportDataApi {
      */
     @Override
     @ResponseBody
-    public ResultData<Map<String, ProcessResult>> imExStatus(String serviceName) {
-        return getExcelService(serviceName).imExStatus();
+    public ResultData<ImportExportStatus> imExStatus(String serviceName) {
+        IBaseExcelService excelService;
+        try {
+            excelService = getExcelService(serviceName);
+        } catch (Exception e) {
+            LOG.warn(e.getMessage());
+            return ResultData.success(new ImportExportStatus(Boolean.FALSE));
+        }
+        return excelService.imExStatus();
     }
 
     /**
@@ -66,7 +74,7 @@ public class ImportExportDataController implements ImportExportDataApi {
      */
     @Override
     @ResponseBody
-    public ResultData<Map<String, ProcessResult>> importDataExcel(String serviceName, MultipartFile file) {
+    public ResultData<ImportExportStatus> importDataExcel(String serviceName, MultipartFile file) {
         // 提交异步处理
         getExcelService(serviceName).importDataExcel(file);
 
@@ -87,7 +95,7 @@ public class ImportExportDataController implements ImportExportDataApi {
      */
     @Override
     @ResponseBody
-    public ResultData<Map<String, ProcessResult>> exportData(String serviceName, Search search) {
+    public ResultData<ImportExportStatus> exportData(String serviceName, Search search) {
         // 提交异步处理
         getExcelService(serviceName).exportData(search);
 

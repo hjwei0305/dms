@@ -2,7 +2,7 @@ package com.changhong.sei.dms.common.excel;
 
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.Search;
-import com.changhong.sei.dms.commom.dto.ProcessResult;
+import com.changhong.sei.dms.commom.dto.ImportExportStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
@@ -20,8 +20,7 @@ public interface IBaseExcelService {
      *
      * @return 获取导入导出状态
      */
-    @SuppressWarnings("rawtypes")
-    ResultData<Map<String, ProcessResult>> imExStatus();
+    ResultData<ImportExportStatus> imExStatus();
 
     /**
      * 获取excel导入模版数据
