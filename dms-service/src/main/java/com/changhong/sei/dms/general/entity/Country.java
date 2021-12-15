@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Table(name = "country")
 @DynamicInsert
 @DynamicUpdate
-public class Country extends BaseAuditableEntity implements Serializable, ICodeUnique, IRank, ITenant {
+public class Country extends BaseAuditableEntity implements Serializable, ICodeUnique, IRank {
     private static final long serialVersionUID = 180242575737929170L;
     /**
      * 代码
@@ -54,11 +54,6 @@ public class Country extends BaseAuditableEntity implements Serializable, ICodeU
      */
     @Column(name = "rank")
     private Integer rank = 0;
-    /**
-     * 租户代码
-     */
-    @Column(name = "tenant_code")
-    private String tenantCode;
 
     @Override
     public String getCode() {
@@ -110,15 +105,4 @@ public class Country extends BaseAuditableEntity implements Serializable, ICodeU
     public void setRank(Integer rank) {
         this.rank = rank;
     }
-
-    @Override
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    @Override
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-    }
-
 }
