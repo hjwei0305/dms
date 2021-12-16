@@ -38,7 +38,7 @@ public class BankService extends BaseEntityService<Bank> {
     @Override
     public PageResult<Bank> findByPage(Search searchConfig) {
         Collection<String> quickSearchProperties = searchConfig.getQuickSearchProperties();
-        if (CollectionUtils.isNotEmpty(quickSearchProperties) && quickSearchProperties.contains("regionName")) {
+        if (CollectionUtils.isNotEmpty(quickSearchProperties) && quickSearchProperties.contains("bankAreaName")) {
             quickSearchProperties.remove("bankAreaName");
             quickSearchProperties.add("bankArea.name");
         }
