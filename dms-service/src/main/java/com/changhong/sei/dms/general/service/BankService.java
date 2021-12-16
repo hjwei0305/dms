@@ -40,7 +40,7 @@ public class BankService extends BaseEntityService<Bank> {
         Collection<String> quickSearchProperties = searchConfig.getQuickSearchProperties();
         if (CollectionUtils.isNotEmpty(quickSearchProperties) && quickSearchProperties.contains("bankAreaName")) {
             quickSearchProperties.remove("bankAreaName");
-            quickSearchProperties.add("bankArea.name");
+            quickSearchProperties.add("bankArea.region.name");
         }
         return getDao().findByPage(searchConfig);
     }
