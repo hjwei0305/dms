@@ -34,12 +34,12 @@ public class BankCityDto extends BaseEntityDto {
     /**
      * 关联银行省区代码
      */
-    @ApiModelProperty(value = "关联银行省区代码")
+    @ApiModelProperty(value = "(关联)银行省区代码")
     private String bankProvinceCode;
     /**
      * 关联银行省区名称
      */
-    @ApiModelProperty(value = "关联银行省区名称")
+    @ApiModelProperty(value = "(关联)银行省区名称")
     private String bankProvinceName;
     /**
      * 行政区域Id
@@ -50,12 +50,12 @@ public class BankCityDto extends BaseEntityDto {
     /**
      * 关联行政区域代码
      */
-    @ApiModelProperty(value = "关联行政区域代码")
+    @ApiModelProperty(value = "(关联)行政区域代码")
     private String regionCode;
     /**
      * 关联行政区域名称
      */
-    @ApiModelProperty(value = "关联行政区域名称")
+    @ApiModelProperty(value = "(关联)行政区域名称")
     private String regionName;
     /**
      * 已冻结
