@@ -41,6 +41,7 @@ public class RegionControllerTest extends BaseUnitTest {
     @Test
     public void getConverters() {
         MobileRegionParam param = new MobileRegionParam();
+        param.setNameSearchValue("上海");
         ResultData<Map<String, List<MobileRegionDto>>> resultData = controller.getRegionByInitials(param);
         Assert.assertTrue(resultData.successful());
     }
