@@ -43,7 +43,6 @@ public class ProfitCenterDto extends BaseEntityDto {
     /**
      * 利润中心组
      */
-    @NotBlank
     @Size(max = 10)
     @ApiModelProperty(value = "利润中心组")
     private String profitGroup;

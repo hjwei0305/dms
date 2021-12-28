@@ -188,15 +188,6 @@ public class RegionService extends BaseTreeService<Region> {
             //00029 = 未获取到非国外的国家，请联系管理员！
             return ResponseData.operationFailure("00029");
         }
-        Search search = new Search();
-        search.addFilter(new SearchFilter("countryId", country.getId()));
-        search.addFilter(new SearchFilter("nodeLevel", 1, SearchFilter.Operator.GT));
-        if (StringUtils.isNotBlank(param.getInitials())) {
-            search.addFilter(new SearchFilter("shortName", param.getInitials().toUpperCase(), SearchFilter.Operator.LLK));
-        }
-        if (StringUtils.isNotBlank(param.getNameSearchValue())) {
-            search.addFilter(new SearchFilter("name", param.getNameSearchValue(), SearchFilter.Operator.LK));
-        }
-        return ResponseData.operationSuccessWithData(findByFilters(search));
+        return ResponseData.operationSuccessWithData(dao.getRegionByInitials(param, country.getId()));
     }
 }

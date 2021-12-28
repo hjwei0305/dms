@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @since 2020-08-17 14:02:48
  */
 @Repository
-public interface RegionDao extends BaseTreeDao<Region> {
+public interface RegionDao extends BaseTreeDao<Region>, RegionExtDao {
     /**
      * 通过国家id查询行政区域树
      *
