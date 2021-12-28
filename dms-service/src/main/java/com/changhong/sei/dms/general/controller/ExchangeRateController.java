@@ -5,6 +5,8 @@ import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.core.service.bo.ResponseData;
+import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.dms.general.api.ExchangeRateApi;
 import com.changhong.sei.dms.general.dto.ExchangeRateDto;
 import com.changhong.sei.dms.general.entity.ExchangeRate;
@@ -45,5 +47,17 @@ public class ExchangeRateController extends BaseEntityController<ExchangeRate, E
     @Override
     public ResultData<PageResult<ExchangeRateDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
+    }
+
+    /**
+     * 根据币种获取当前有效的汇率
+     *
+     * @param fromCurrency 来源币种
+     * @param toCurrency   目标币种
+     */
+    @Override
+    public ResultData<ExchangeRateDto> getValidExchangeRate(String fromCurrency, String toCurrency) {
+        ResponseData<ExchangeRate> responseData = service.getValidExchangeRate(fromCurrency, toCurrency);
+        return ResultDataUtil.convertFromResponseData(responseData, convertToDto(responseData.getData()));
     }
 }
