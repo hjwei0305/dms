@@ -5,6 +5,7 @@ import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.dao.ProfitCenterDao;
 import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
+import com.changhong.sei.dms.general.entity.Customer;
 import com.changhong.sei.dms.general.entity.ProfitCenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,16 @@ public class ProfitCenterService extends BaseEntityService<ProfitCenter> {
     @Override
     protected BaseEntityDao<ProfitCenter> getDao() {
         return dao;
+    }
+
+    /**
+     * 根据代码查询
+     *
+     * @param code 代码
+     * @return 利润中心
+     */
+    public ProfitCenter findByCode(String code) {
+        return findByProperty("code", code);
     }
 
     /**

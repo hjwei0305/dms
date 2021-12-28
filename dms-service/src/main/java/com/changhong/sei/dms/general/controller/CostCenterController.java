@@ -51,6 +51,17 @@ public class CostCenterController extends BaseEntityController<CostCenter, CostC
     }
 
     /**
+     * 根据代码查询成本中心
+     *
+     * @param code 代码
+     * @return 成本中心
+     */
+    @Override
+    public ResultData<CostCenterDto> findByCode(String code) {
+        return ResultData.success(convertToDto(service.findByCode(code)));
+    }
+
+    /**
      * 分页查询成本中心
      *
      * @param searchParam 查询参数

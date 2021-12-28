@@ -5,12 +5,15 @@ import com.changhong.sei.core.api.FindByPageApi;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.dms.general.dto.CostCenterDto;
+import com.changhong.sei.dms.general.dto.ProfitCenterDto;
 import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -24,6 +27,15 @@ import javax.validation.Valid;
 @FeignClient(name = "dms", path = CostCenterApi.PATH)
 public interface CostCenterApi extends BaseEntityApi<CostCenterDto>, FindByPageApi<CostCenterDto> {
     String PATH = "costCenter";
+
+    /**
+     * 根据代码查询成本中心
+     * @param code 代码
+     * @return 成本中心
+     */
+    @GetMapping(path = "findByCode")
+    @ApiOperation(value = "根据代码查询成本中心", notes = "根据代码查询成本中心，当前租户")
+    ResultData<CostCenterDto> findByCode(@RequestParam("code") String code);
 
     /**
      * 分页查询成本中心

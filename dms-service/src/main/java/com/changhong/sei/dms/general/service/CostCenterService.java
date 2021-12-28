@@ -6,6 +6,7 @@ import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.dao.CostCenterDao;
 import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.CostCenter;
+import com.changhong.sei.dms.general.entity.ProfitCenter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,16 @@ public class CostCenterService extends BaseEntityService<CostCenter> {
     @Override
     protected BaseEntityDao<CostCenter> getDao() {
         return dao;
+    }
+
+    /**
+     * 根据代码查询
+     *
+     * @param code 代码
+     * @return 成本中心
+     */
+    public CostCenter findByCode(String code) {
+        return findByProperty("code", code);
     }
 
     /**

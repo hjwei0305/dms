@@ -49,6 +49,17 @@ public class ProfitCenterController extends BaseEntityController<ProfitCenter, P
     }
 
     /**
+     * 根据代码查询利润中心
+     *
+     * @param code 代码
+     * @return 利润中心
+     */
+    @Override
+    public ResultData<ProfitCenterDto> findByCode(String code) {
+        return ResultData.success(convertToDto(service.findByCode(code)));
+    }
+
+    /**
      * 分页查询利润中心
      *
      * @param searchParam 查询参数

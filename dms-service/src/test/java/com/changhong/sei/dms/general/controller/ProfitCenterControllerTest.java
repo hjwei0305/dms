@@ -36,4 +36,11 @@ class ProfitCenterControllerTest extends BaseUnit5Test {
         System.out.println(JsonUtils.toJson(resultData));
         Assertions.assertTrue(resultData.successful());
     }
+
+    @Test
+    void findByCode() {
+        ResultData<?> resultData = controller.findByCode("test1");
+        System.out.println(JsonUtils.toJson(resultData));
+        Assertions.assertTrue(resultData.successful());
+    }
 }
