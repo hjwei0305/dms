@@ -7,6 +7,7 @@ import com.changhong.sei.dms.general.dto.PaymentInfoUseScopeEnum;
 import com.changhong.sei.dms.general.dto.ReceiverTypeEnum;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -49,6 +50,12 @@ public class PaymentInfo extends BaseAuditableEntity implements Serializable, IT
      */
     @Column(name = "bank_id")
     private String bankId;
+    /**
+     * 银行
+     */
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "bank_id", insertable = false, updatable = false)
+    private Bank bank;
     /**
      * 银行户名
      */
@@ -119,6 +126,14 @@ public class PaymentInfo extends BaseAuditableEntity implements Serializable, IT
 
     public void setBankId(String bankId) {
         this.bankId = bankId;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
     public String getBankAccountName() {
