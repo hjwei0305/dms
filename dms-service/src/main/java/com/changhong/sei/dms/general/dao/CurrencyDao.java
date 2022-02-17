@@ -12,5 +12,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CurrencyDao extends BaseEntityDao<Currency> {
-
+    /**
+     * 获取一个币种
+     * @param code 代码
+     * @return 币种
+     */
+    Currency findFirstByCode(String code);
 }

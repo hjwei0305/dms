@@ -24,4 +24,13 @@ public class CurrencyService extends BaseEntityService<Currency> {
         return dao;
     }
 
+    /**
+     * 获取一个币种
+     *
+     * @param code 币种代码
+     * @return 币种
+     */
+    public Currency findByCode(String code) {
+        return dao.findFirstByCode(code);
+    }
 }

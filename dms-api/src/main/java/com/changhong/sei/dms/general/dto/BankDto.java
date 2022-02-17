@@ -33,6 +33,13 @@ public class BankDto extends BaseEntityDto {
     @Size(max = 120)
     private String name;
     /**
+     * 备注行名
+     */
+    @ApiModelProperty(value = "备注行名", required = true)
+    @NotBlank
+    @Size(max = 120)
+    private String remarkName;
+    /**
      * 银行行别Id
      */
     @ApiModelProperty(value = "银行行别Id", required = true)
@@ -282,5 +289,13 @@ public class BankDto extends BaseEntityDto {
 
     public void setRegionAreaCode(String regionAreaCode) {
         this.regionAreaCode = regionAreaCode;
+    }
+
+    public String getRemarkName() {
+        return remarkName;
+    }
+
+    public void setRemarkName(String remarkName) {
+        this.remarkName = remarkName;
     }
 }
