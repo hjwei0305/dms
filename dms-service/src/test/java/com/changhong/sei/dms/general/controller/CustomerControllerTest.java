@@ -29,4 +29,11 @@ class CustomerControllerTest extends BaseUnit5Test {
         System.out.println(JsonUtils.toJson(resultData));
         Assertions.assertTrue(resultData.successful());
     }
+
+    @Test
+    void findByName() {
+        ResultData<?> resultData = controller.findByName("四川虹信软件股份有限公司");
+        System.out.println(JsonUtils.toJson(resultData));
+        Assertions.assertTrue(resultData.successful());
+    }
 }

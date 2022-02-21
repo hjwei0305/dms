@@ -8,6 +8,7 @@ import com.changhong.sei.dms.general.dto.CurrencyDto;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -27,5 +28,5 @@ public interface CurrencyApi extends BaseEntityApi<CurrencyDto>, FindByPageApi<C
      */
     @GetMapping(path = "findByCode")
     @ApiOperation(value = "获取一个币种", notes = "通过币种代码，获取一个币种主数据")
-    ResultData<CurrencyDto> findByCode(String code);
+    ResultData<CurrencyDto> findByCode(@RequestParam("code") String code);
 }
