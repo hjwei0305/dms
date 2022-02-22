@@ -35,8 +35,7 @@ public class BankDto extends BaseEntityDto {
     /**
      * 备注行名
      */
-    @ApiModelProperty(value = "备注行名", required = true)
-    @NotBlank
+    @ApiModelProperty(value = "备注行名")
     @Size(max = 120)
     private String remarkName;
     /**
