@@ -50,7 +50,7 @@ public class CostCenterVo extends BaseExcelRow implements Serializable {
      */
     @NotBlank
     @ExcelProperty(value = "货币代码", order = 5)
-    private String currency;
+    private String currencyCode;
     /**
      * 起始日期
      */
@@ -125,12 +125,12 @@ public class CostCenterVo extends BaseExcelRow implements Serializable {
         this.categoryCode = categoryCode;
     }
 
-    public String getCurrency() {
-        return currency;
+    public String getCurrencyCode() {
+        return currencyCode;
     }
 
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setCurrencyCode(String currencyCode) {
+        this.currencyCode = currencyCode;
     }
 
     public Date getStartDate() {
