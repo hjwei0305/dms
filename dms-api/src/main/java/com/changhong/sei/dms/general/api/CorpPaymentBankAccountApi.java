@@ -81,4 +81,14 @@ public interface CorpPaymentBankAccountApi extends BaseEntityApi<CorpPaymentBank
     @PostMapping(path = "setAsDefault/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "设置默认，同一公司下同一币种仅一条默认，替换原有默认数据", notes = "设置默认，同一公司下同一币种仅一条默认，替换原有默认数据")
     ResultData<?> setAsDefault(@PathVariable("id") String id);
+
+    /**
+     * 根据银行账号获取付款银行账号信息
+     *
+     * @param bankAccountNumber 银行账号
+     * @return 付款方信息
+     */
+    @GetMapping(path = "findByBankAccountNumber")
+    @ApiOperation(value = "根据银行账号获取付款银行账号信息", notes = "根据银行账号获取付款银行账号信息(当前租户下账号唯一)")
+    ResultData<CorpPaymentBankAccountDto> findByBankAccountNumber(@RequestParam("bankAccountNumber") String bankAccountNumber);
 }

@@ -117,6 +117,17 @@ public class CorpPaymentBankAccountController extends BaseEntityController<CorpP
         return ResultDataUtil.convertFromResponseData(responseData, null);
     }
 
+    /**
+     * 根据银行账号获取付款银行账号信息
+     *
+     * @param bankAccountNumber 银行账号
+     * @return 付款方信息
+     */
+    @Override
+    public ResultData<CorpPaymentBankAccountDto> findByBankAccountNumber(String bankAccountNumber) {
+        return ResultData.success(convertToDto(service.findByBankAccountNumber(bankAccountNumber)));
+    }
+
 
     /**
      * 将数据实体清单转换成DTO清单

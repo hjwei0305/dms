@@ -1,5 +1,6 @@
 package com.changhong.sei.dms.general.service;
 
+import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.Search;
@@ -137,5 +138,15 @@ public class CorpPaymentBankAccountService extends BaseEntityService<CorpPayment
         }
         paymentBankAccount.setDefaultTag(Boolean.TRUE);
         return super.save(paymentBankAccount);
+    }
+
+    /**
+     * 根据银行账号获取付款银行账号信息
+     *
+     * @param bankAccountNumber 银行账号
+     * @return 付款方信息
+     */
+    public CorpPaymentBankAccount findByBankAccountNumber(String bankAccountNumber) {
+        return dao.findByBankAccountNumber(bankAccountNumber, ContextUtil.getTenantCode());
     }
 }
