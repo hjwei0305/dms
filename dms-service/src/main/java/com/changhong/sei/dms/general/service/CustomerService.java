@@ -10,6 +10,8 @@ import com.changhong.sei.dms.general.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * 客户(Customer)业务逻辑实现类
@@ -46,5 +48,15 @@ public class CustomerService extends BaseEntityService<Customer> {
      */
     public PageResult<Customer> search(ErpCodeQuickSearchParam searchParam) {
         return dao.search(searchParam);
+    }
+
+    /**
+     * 根据名称查询客户主数据
+     *
+     * @param name 名称
+     * @return 客户主数据集合
+     */
+    public List<Customer> findByName(String name) {
+        return findListByProperty("name", name);
     }
 }

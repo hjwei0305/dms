@@ -11,24 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
  * 实现功能:
  *
  * @author 王锦光 wangjg
- * @version 2021-10-26 15:52
+ * @version 2021-06-09 15:07
  */
-class BankControllerTest extends BaseUnit5Test {
+class SupplierControllerTest extends BaseUnit5Test {
     @Autowired
-    private BankController controller;
-
-    @Test
-    void findByCode() {
-        String code = "103461049831";
-        ResultData<?> resultData = controller.findByCode(code);
-        System.out.println(JsonUtils.toJson(resultData));
-        Assertions.assertTrue(resultData.successful());
-    }
+    private SupplierController controller;
 
     @Test
     void findByName() {
-        String name = "招商银行股份有限公司长沙马王堆路支行";
-        ResultData<?> resultData = controller.findByName(name);
+        ResultData<?> resultData = controller.findByName("骏轩科技");
         System.out.println(JsonUtils.toJson(resultData));
         Assertions.assertTrue(resultData.successful());
     }

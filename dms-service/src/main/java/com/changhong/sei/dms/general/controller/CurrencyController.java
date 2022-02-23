@@ -68,4 +68,15 @@ public class CurrencyController extends BaseEntityController<Currency, CurrencyD
     public ResultData<PageResult<CurrencyDto>> findByPage(Search search) {
         return convertToDtoPageResult(service.findByPage(search));
     }
+
+    /**
+     * 获取一个币种
+     *
+     * @param code 币种代码
+     * @return 币种
+     */
+    @Override
+    public ResultData<CurrencyDto> findByCode(String code) {
+        return ResultData.success(convertToDto(service.findByCode(code)));
+    }
 }

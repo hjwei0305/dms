@@ -14,8 +14,15 @@ import org.springframework.stereotype.Repository;
 public interface BankDao extends BaseEntityDao<Bank> {
     /**
      * 获取一个银行
-     * @param code 代码
+     * @param code 联行号
      * @return 银行
      */
     Bank findFirstByCode(String code);
+
+    /**
+     * 获取一个银行
+     * @param name 行名
+     * @return 银行
+     */
+    Bank findFirstByName(String name);
 }

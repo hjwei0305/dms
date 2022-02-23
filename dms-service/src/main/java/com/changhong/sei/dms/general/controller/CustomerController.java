@@ -150,6 +150,17 @@ public class CustomerController extends BaseEntityController<Customer, CustomerD
     }
 
     /**
+     * 根据名称查询客户主数据
+     *
+     * @param name 名称
+     * @return 客户主数据集合
+     */
+    @Override
+    public ResultData<List<CustomerDto>> findByName(String name) {
+        return ResultData.success(convertToDtos(service.findByName(name)));
+    }
+
+    /**
      * 将客户的公司信息清单转换成DTO清单
      *
      * @param entities 数据实体清单

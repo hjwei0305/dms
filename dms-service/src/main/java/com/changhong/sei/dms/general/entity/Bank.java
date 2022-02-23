@@ -34,6 +34,11 @@ public class Bank extends BaseAuditableEntity implements Serializable, ICodeUniq
     @Column(name = "name")
     private String name;
     /**
+     * 备注行名
+     */
+    @Column(name = "remark_name")
+    private String remarkName;
+    /**
      * 银行行别Id
      */
     @Column(name = "bank_category_id")
@@ -148,4 +153,11 @@ public class Bank extends BaseAuditableEntity implements Serializable, ICodeUniq
         this.frozen = frozen;
     }
 
+    public String getRemarkName() {
+        return remarkName;
+    }
+
+    public void setRemarkName(String remarkName) {
+        this.remarkName = remarkName;
+    }
 }

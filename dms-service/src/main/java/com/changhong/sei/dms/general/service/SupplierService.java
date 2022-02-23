@@ -1,15 +1,15 @@
 package com.changhong.sei.dms.general.service;
 
-import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.service.BaseEntityService;
 import com.changhong.sei.dms.general.dao.SupplierDao;
 import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
-import com.changhong.sei.dms.general.entity.Customer;
 import com.changhong.sei.dms.general.entity.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -27,7 +27,6 @@ public class SupplierService extends BaseEntityService<Supplier> {
     protected BaseEntityDao<Supplier> getDao() {
         return dao;
     }
-
 
     /**
      * 根据代码查询供应商
@@ -47,5 +46,15 @@ public class SupplierService extends BaseEntityService<Supplier> {
      */
     public PageResult<Supplier> search(ErpCodeQuickSearchParam searchParam) {
         return dao.search(searchParam);
+    }
+
+    /**
+     * 根据名称查询客户主数据
+     *
+     * @param name 名称
+     * @return 客户主数据集合
+     */
+    public List<Supplier> findByName(String name) {
+        return findListByProperty("name", name);
     }
 }

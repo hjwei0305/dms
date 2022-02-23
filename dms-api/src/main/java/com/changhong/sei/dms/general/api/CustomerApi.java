@@ -69,7 +69,6 @@ public interface CustomerApi extends BaseEntityApi<CustomerDto>, FindByPageApi<C
     @ApiOperation(value = "分页查询客户的公司信息", notes = "分页查询客户的公司信息")
     ResultData<PageResult<CustomerCorporationDto>> findCorporationInfoByPage(@RequestBody Search search);
 
-
     /**
      * 根据代码查询客户
      *
@@ -88,4 +87,13 @@ public interface CustomerApi extends BaseEntityApi<CustomerDto>, FindByPageApi<C
     @PostMapping(path = "search", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "分页查询客户主数据", notes = "分页查询客户主数据，限定ERP公司代码")
     ResultData<PageResult<CustomerDto>> search(@RequestBody ErpCodeQuickSearchParam searchParam);
+
+    /**
+     * 根据名称查询客户主数据
+     * @param name 名称
+     * @return 客户主数据集合
+     */
+    @PostMapping(path = "findByName", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "根据名称查询客户主数据", notes = "根据名称查询客户主数据")
+    ResultData<List<CustomerDto>> findByName(@RequestParam("name") String name);
 }

@@ -211,4 +211,15 @@ public class SupplierController extends BaseEntityController<Supplier, SupplierD
         mapper.map(dto, result);
         return result;
     }
+
+    /**
+     * 根据名称查询供应商主数据
+     *
+     * @param name 名称
+     * @return 供应商主数据集合
+     */
+    @Override
+    public ResultData<List<SupplierDto>> findByName(String name) {
+        return ResultData.success(convertToDtos(service.findByName(name)));
+    }
 }

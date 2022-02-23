@@ -128,11 +128,22 @@ public class BankController extends BaseEntityController<Bank, BankDto> implemen
     /**
      * 获取一个银行
      *
-     * @param code 12为联行号
+     * @param code 12位联行号
      * @return 银行
      */
     @Override
     public ResultData<BankDto> findByCode(String code) {
         return ResultData.success(convertToDto(service.findByCode(code)));
+    }
+
+    /**
+     * 获取一个银行
+     *
+     * @param name 行名
+     * @return 银行
+     */
+    @Override
+    public ResultData<BankDto> findByName(String name) {
+        return ResultData.success(convertToDto(service.findByName(name)));
     }
 }

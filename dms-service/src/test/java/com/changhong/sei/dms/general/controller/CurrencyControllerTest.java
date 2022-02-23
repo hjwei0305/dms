@@ -8,27 +8,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * 实现功能:
- *
- * @author 王锦光 wangjg
- * @version 2021-10-26 15:52
+ * @desc：
+ * @author：zhaohz
+ * @date：2022/2/17 17:17
  */
-class BankControllerTest extends BaseUnit5Test {
+public class CurrencyControllerTest extends BaseUnit5Test {
+
     @Autowired
-    private BankController controller;
+    private CurrencyController controller;
 
     @Test
     void findByCode() {
-        String code = "103461049831";
+        String code = "CNY";
         ResultData<?> resultData = controller.findByCode(code);
-        System.out.println(JsonUtils.toJson(resultData));
-        Assertions.assertTrue(resultData.successful());
-    }
-
-    @Test
-    void findByName() {
-        String name = "招商银行股份有限公司长沙马王堆路支行";
-        ResultData<?> resultData = controller.findByName(name);
         System.out.println(JsonUtils.toJson(resultData));
         Assertions.assertTrue(resultData.successful());
     }

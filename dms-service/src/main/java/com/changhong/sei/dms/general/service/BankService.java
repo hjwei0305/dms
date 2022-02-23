@@ -49,10 +49,20 @@ public class BankService extends BaseEntityService<Bank> {
     /**
      * 获取一个银行
      *
-     * @param code 代码
+     * @param code 联行号
      * @return 银行
      */
     public Bank findByCode(String code) {
         return dao.findFirstByCode(code);
+    }
+
+    /**
+     * 获取一个银行
+     *
+     * @param name 行名
+     * @return 银行
+     */
+    public Bank findByName(String name) {
+        return dao.findFirstByName(name);
     }
 }
