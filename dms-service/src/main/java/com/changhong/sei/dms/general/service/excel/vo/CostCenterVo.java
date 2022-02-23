@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -53,7 +54,7 @@ public class CostCenterVo extends BaseExcelRow implements Serializable {
     /**
      * 起始日期
      */
-    @NotBlank
+    @NotNull
     @DateTimeFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     @JsonFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     @ExcelProperty(value = "起始日期", order = 6)
@@ -61,7 +62,7 @@ public class CostCenterVo extends BaseExcelRow implements Serializable {
     /**
      * 截止日期
      */
-    @NotBlank
+    @NotNull
     @DateTimeFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     @JsonFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     @ExcelProperty(value = "截止日期", order = 7)
