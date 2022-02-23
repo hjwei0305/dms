@@ -57,7 +57,7 @@ public class CostCenterVo extends BaseExcelRow implements Serializable {
     @NotNull
     @DateTimeFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     @JsonFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
-    @ExcelProperty(value = "起始日期", order = 6)
+    @ExcelProperty(value = "起始日期(yyyy-MM-dd)", order = 6)
     private Date startDate;
     /**
      * 截止日期
@@ -65,7 +65,7 @@ public class CostCenterVo extends BaseExcelRow implements Serializable {
     @NotNull
     @DateTimeFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
     @JsonFormat(pattern = DateUtils.DEFAULT_DATE_FORMAT)
-    @ExcelProperty(value = "截止日期", order = 7)
+    @ExcelProperty(value = "截止日期(yyyy-MM-dd)", order = 7)
     private Date endDate;
     /**
      * 业务范围
