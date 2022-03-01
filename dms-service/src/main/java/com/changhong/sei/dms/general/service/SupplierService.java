@@ -3,6 +3,9 @@ package com.changhong.sei.dms.general.service;
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.dto.serach.PageResult;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.core.service.bo.OperateResult;
+import com.changhong.sei.dms.general.dao.CustomerCorporationDao;
+import com.changhong.sei.dms.general.dao.SupplierCorporationDao;
 import com.changhong.sei.dms.general.dao.SupplierDao;
 import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
 import com.changhong.sei.dms.general.entity.Supplier;
@@ -22,11 +25,30 @@ import java.util.List;
 public class SupplierService extends BaseEntityService<Supplier> {
     @Autowired
     private SupplierDao dao;
+    @Autowired
+    private SupplierCorporationDao supplierCorporationDao;
 
     @Override
     protected BaseEntityDao<Supplier> getDao() {
         return dao;
     }
+
+
+    /**
+     * 删除数据保存数据之前额外操作回调方法 子类根据需要覆写添加逻辑即可
+     *
+     * @param id 待删除数据对象主键
+     */
+    @Override
+    protected OperateResult preDelete(String id) {
+        boolean exists = supplierCorporationDao.isExistsByProperty("supplierId", id);
+        if (exists) {
+            //00033 = 该数据已分配公司，请先移除公司！
+            return OperateResult.operationFailure("00033");
+        }
+        return OperateResult.operationSuccess("core_service_00028");
+    }
+
 
     /**
      * 根据代码查询供应商

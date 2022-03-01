@@ -1,10 +1,14 @@
 package com.changhong.sei.dms.general.service;
 
+import com.changhong.sei.core.context.ContextUtil;
 import com.changhong.sei.core.dao.BaseEntityDao;
 import com.changhong.sei.core.dto.ResultData;
 import com.changhong.sei.core.dto.serach.Search;
 import com.changhong.sei.core.dto.serach.SearchFilter;
+import com.changhong.sei.core.entity.ITenant;
 import com.changhong.sei.core.service.BaseEntityService;
+import com.changhong.sei.core.service.Validation;
+import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.core.service.bo.ResponseData;
 import com.changhong.sei.dms.general.dao.CorpPaymentBankAccountDao;
 import com.changhong.sei.dms.general.dto.CorpPaymentBankAccountDto;
@@ -36,6 +40,19 @@ public class CorpPaymentBankAccountService extends BaseEntityService<CorpPayment
         return dao;
     }
 
+
+    /**
+     * 数据保存操作
+     */
+    @Override
+    public OperateResultWithData<CorpPaymentBankAccount> save(CorpPaymentBankAccount entity) {
+        CorpPaymentBankAccount exist = findByProperty("bankAccountNumber", entity.getBankAccountNumber());
+        if (Objects.nonNull(exist) && Objects.equals(entity.getId(), exist.getId())) {
+            //00032 = 该银行账号已存在，请检查！
+            return OperateResultWithData.operationFailure("00032");
+        }
+        return super.save(entity);
+    }
 
     /**
      * 根据公司代码查询付款银行账号信息
