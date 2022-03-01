@@ -26,4 +26,12 @@ public class CorpPaymentBankAccountControllerTest extends BaseUnitTest {
         System.out.println(JsonUtils.toJson(resultData));
         Assertions.assertTrue(resultData.successful());
     }
+
+    @Test
+    public void findByBankAccountNumber() {
+        String accountNumber = "999990000000000";
+        ResultData<CorpPaymentBankAccountDto> resultData = controller.findByBankAccountNumber(accountNumber);
+        System.out.println(JsonUtils.toJson(resultData));
+        Assertions.assertTrue(resultData.successful());
+    }
 }
