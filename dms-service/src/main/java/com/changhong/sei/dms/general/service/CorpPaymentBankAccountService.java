@@ -47,7 +47,7 @@ public class CorpPaymentBankAccountService extends BaseEntityService<CorpPayment
     @Override
     public OperateResultWithData<CorpPaymentBankAccount> save(CorpPaymentBankAccount entity) {
         CorpPaymentBankAccount exist = findByProperty("bankAccountNumber", entity.getBankAccountNumber());
-        if (Objects.nonNull(exist) && Objects.equals(entity.getId(), exist.getId())) {
+        if (Objects.nonNull(exist) && !Objects.equals(entity.getId(), exist.getId())) {
             //00032 = 该银行账号已存在，请检查！
             return OperateResultWithData.operationFailure("00032");
         }
