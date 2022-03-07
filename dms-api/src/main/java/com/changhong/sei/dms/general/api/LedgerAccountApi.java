@@ -80,4 +80,12 @@ public interface LedgerAccountApi extends BaseEntityApi<LedgerAccountDto>, FindB
     @ApiOperation(value = "分页查询科目的公司信息", notes = "分页查询科目的公司信息")
     ResultData<PageResult<LedgerAccountCorporationDto>> findCorporationInfoByPage(@RequestBody Search search);
 
+    /**
+     * 根据代码查询总账科目
+     * @param code 代码
+     * @return 总账科目
+     */
+    @GetMapping(path = "findByCode")
+    @ApiOperation(value = "根据代码查询总账科目", notes = "根据代码查询总账科目，当前租户")
+    ResultData<LedgerAccountDto> findByCode(@RequestParam("code") String code);
 }

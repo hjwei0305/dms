@@ -11,8 +11,6 @@ import com.changhong.sei.core.service.bo.OperateResult;
 import com.changhong.sei.core.service.bo.OperateResultWithData;
 import com.changhong.sei.core.utils.ResultDataUtil;
 import com.changhong.sei.dms.general.api.LedgerAccountApi;
-import com.changhong.sei.dms.general.dto.CostCenterDto;
-import com.changhong.sei.dms.general.dto.InnerOrderDto;
 import com.changhong.sei.dms.general.dto.LedgerAccountCorporationDto;
 import com.changhong.sei.dms.general.dto.LedgerAccountDto;
 import com.changhong.sei.dms.general.dto.search.ErpCodeQuickSearchParam;
@@ -140,6 +138,17 @@ public class LedgerAccountController extends BaseEntityController<LedgerAccount,
     @Override
     public ResultData<PageResult<LedgerAccountCorporationDto>> findCorporationInfoByPage(Search search) {
         return corporationInfoConvertToDtoPageResult(ledgerAccountCorporationService.findByPage(search));
+    }
+
+    /**
+     * 根据代码查询总账科目
+     *
+     * @param code 代码
+     * @return 总账科目
+     */
+    @Override
+    public ResultData<LedgerAccountDto> findByCode(String code) {
+        return ResultData.success(convertToDto(service.findByCode(code)));
     }
 
     /**

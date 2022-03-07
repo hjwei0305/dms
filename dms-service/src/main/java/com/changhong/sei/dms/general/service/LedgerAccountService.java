@@ -49,7 +49,7 @@ public class LedgerAccountService extends BaseEntityService<LedgerAccount> {
     }
 
     /**
-     * 分页查询成本中心
+     * 分页查询总帐科目
      *
      * @param searchParam 查询参数
      * @return 分页查询结果
@@ -58,4 +58,13 @@ public class LedgerAccountService extends BaseEntityService<LedgerAccount> {
         return dao.search(searchParam);
     }
 
+    /**
+     * 根据代码查询
+     *
+     * @param code 代码
+     * @return 总帐科目
+     */
+    public LedgerAccount findByCode(String code) {
+        return findByProperty("code", code);
+    }
 }
