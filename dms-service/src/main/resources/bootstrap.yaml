@@ -16,9 +16,6 @@ sei: # 应用全局配置
       #tenant-code: RCSIT
       #account: admin
       locale: zh_CN
-  http:
-    filter:
-      enable: false
 
 spring:
   application:
